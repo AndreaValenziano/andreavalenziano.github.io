@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Ecologia e Sostenibilità</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #e8f5e9 0%, #e3f2fd 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .card {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #4caf50 0%, #2196f3 100%);
+            color: white;
+            padding: 30px;
+        }
+
+        .header h1 {
+            font-size: 28px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .header-info {
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: white;
+            border-radius: 10px;
+            transition: width 0.3s ease;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .question {
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 30px;
+        }
+
+        .answer-box {
+            background: #e3f2fd;
+            border-left: 4px solid #2196f3;
+            padding: 20px;
+            border-radius: 0 10px 10px 0;
+            margin-bottom: 30px;
+            display: none;
+        }
+
+        .answer-box.show {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .answer-title {
+            font-weight: bold;
+            color: #1976d2;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+
+        .answer-text {
+            color: #555;
+            line-height: 1.6;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 15px;
+        }
+
+        button {
+            flex: 1;
+            padding: 16px;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .btn-show {
+            background: linear-gradient(135deg, #2196f3 0%, #9c27b0 100%);
+            color: white;
+        }
+
+        .btn-correct {
+            background: linear-gradient(135deg, #4caf50 0%, #66bb6a 100%);
+            color: white;
+        }
+
+        .btn-wrong {
+            background: linear-gradient(135deg, #f44336 0%, #ef5350 100%);
+            color: white;
+        }
+
+        .btn-end {
+            background: rgba(255,255,255,0.2);
+            color: white;
+            border: 1px solid rgba(255,255,255,0.3);
+            padding: 10px 20px;
+            font-size: 14px;
+        }
+
+        .stats {
+            text-align: center;
+            margin-top: 20px;
+            color: #666;
+            font-size: 14px;
+        }
+
+        /* Report styles */
+        .report-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .report-score {
+            background: linear-gradient(135deg, #c8e6c9 0%, #bbdefb 100%);
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+        }
+
+        .report-score .percentage {
+            font-size: 48px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .report-score .subtitle {
+            font-size: 18px;
+            color: #666;
+        }
+
+        .result-item {
+            border-left: 4px solid;
+            padding: 15px;
+            border-radius: 0 10px 10px 0;
+            margin-bottom: 15px;
+        }
+
+        .result-item.correct {
+            background: #e8f5e9;
+            border-color: #4caf50;
+        }
+
+        .result-item.wrong {
+            background: #ffebee;
+            border-color: #f44336;
+        }
+
+        .result-question {
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 8px;
+        }
+
+        .result-answer {
+            color: #666;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .btn-restart {
+            background: linear-gradient(135deg, #4caf50 0%, #2196f3 100%);
+            color: white;
+            width: 100%;
+        }
+
+        .icon {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Quiz View -->
+        <div id="quizView" class="card">
+            <div class="header">
+                <h1>
+                    <span class="icon">🔀</span>
+                    Quiz Ecologia
+                    <button class="btn-end" onclick="endSession()" style="margin-left: auto;">Termina Sessione</button>
+                </h1>
+                <div class="header-info">
+                    <span id="questionCounter">Domanda 1 di 50</span>
+                    <span id="answeredCounter">0 risposte date</span>
+                </div>
+                <div class="progress-bar">
+                    <div id="progressFill" class="progress-fill" style="width: 0%"></div>
+                </div>
+            </div>
+
+            <div class="content">
+                <div id="questionText" class="question"></div>
+
+                <div id="answerBox" class="answer-box">
+                    <div class="answer-title">👁️ Risposta:</div>
+                    <div id="answerText" class="answer-text"></div>
+                </div>
+
+                <div class="buttons">
+                    <button id="showBtn" class="btn-show" onclick="showAnswer()">
+                        <span class="icon">👁️</span>
+                        Mostra Risposta
+                    </button>
+                    <button id="correctBtn" class="btn-correct hidden" onclick="markAnswer(true)">
+                        <span class="icon">✓</span>
+                        Ho Risposto Bene
+                    </button>
+                    <button id="wrongBtn" class="btn-wrong hidden" onclick="markAnswer(false)">
+                        <span class="icon">✗</span>
+                        Non Sapevo
+                    </button>
+                </div>
+
+                <div id="stats" class="stats"></div>
+            </div>
+        </div>
+
+        <!-- Report View -->
+        <div id="reportView" class="card hidden">
+            <div class="header">
+                <h1>
+                    <span class="icon">📊</span>
+                    Report della Sessione
+                </h1>
+            </div>
+
+            <div class="content">
+                <div class="report-score">
+                    <div class="percentage" id="reportPercentage">0%</div>
+                    <div class="subtitle" id="reportSubtitle">0 corrette su 0 domande</div>
+                </div>
+
+                <div id="reportResults"></div>
+
+                <button class="btn-restart" onclick="startNewSession()">
+                    <span class="icon">🔄</span>
+                    Nuova Sessione
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const questions = [
+            { q: "Ecologia", a: "Disciplina scientifica che studia i rapporti tra gli organismi e il mondo esterno (Ernst Haeckel, 1866). L'unità di studio principale è l'ecosistema." },
+            { q: "Parassitismo", a: "Interazione in cui un simbionte (parassita) utilizza l'ospite come risorsa e habitat, riducendone spesso la fitness ma senza necessariamente ucciderlo." },
+            { q: "Ipotesi della regina rossa", a: "Teoria di Van Valen (1973) secondo cui le specie devono evolversi continuamente solo per mantenere il proprio stato rispetto alle altre specie con cui coevolvono." },
+            { q: "Fosforo", a: "Elemento del ciclo sedimentario, spesso fattore limitante negli ecosistemi marini. Torna in superficie tramite l'upwelling (risalita di acque profonde)." },
+            { q: "Piramide di età", a: "Rappresentazione grafica della struttura di una popolazione divisa per classi d'età (pre-riproduttivi, riproduttivi, post-riproduttivi). La forma indica se la popolazione è in crescita rapida, lenta o negativa." },
+            { q: "Boom e crollo demografico", a: "Boom: esplosione numerica dovuta a condizioni favorevoli. Crollo: riduzione drastica causata da eventi di disturbo o superamento della capacità portante." },
+            { q: "Altra altezza presente nell'indice di diversità oltre alla ricchezza di specie", a: "Abbondanza relativa (equipartizione degli individui tra le specie)." },
+            { q: "Produttività primaria", a: "Velocità con cui l'energia radiante è trasformata in sostanza organica. Si distingue in lorda (PPL - totale trasformato) e netta (PPN - quella che resta dopo la respirazione dell'autotrofo)." },
+            { q: "Produttività secondaria", a: "Produzione o assimilazione di biomassa da parte degli organismi eterotrofi (consumatori)." },
+            { q: "Efficienza ecologica di fotosintesi", a: "Mediamente bassa, circa 1-2%, poiché molta radiazione viene riflessa, non captata dalla clorofilla o dissipata come calore." },
+            { q: "Fotosintesi clorofilliana", a: "Processo mediante il quale i foto-autotrofi trasformano l'energia solare in energia chimica (glucosio) utilizzando acqua, anidride carbonica e sali minerali, rilasciando ossigeno." },
+            { q: "Azoto", a: "Elemento essenziale per proteine e DNA. Il ciclo include fissazione (biologica o industriale), nitrificazione, denitrificazione e ammonificazione." },
+            { q: "Funzioni di stabilità", a: "Capacità di un ecosistema di mantenere o ripristinare il proprio equilibrio attraverso meccanismi di resilienza e resistenza ai disturbi." },
+            { q: "Beni e servizi ecosistemici", a: "Benefici che l'umanità ottiene dagli ecosistemi: supporto (ciclo nutrienti), approvvigionamento (cibo, acqua), regolazione (clima) e culturali." },
+            { q: "Crescita logistica di popolazione", a: "Crescita demografica che rallenta all'avvicinarsi della capacità portante (K), seguendo una curva sigmoide." },
+            { q: "Catene alimentari", a: "Sequenze di organismi in cui ciascuno si nutre del precedente, trasferendo energia e materia attraverso i livelli trofici (produttori → consumatori → decompositori)." },
+            { q: "Successioni", a: "Cambiamento della comunità nel tempo. Primaria: inizia su substrati mai colonizzati. Secondaria: avviene dopo un disturbo. Tende verso uno stadio maturo detto climax." },
+            { q: "Equazione impatto ambientale", a: "I = P × A × T (Impatto = Popolazione × Affluenza/Consumi × Tecnologia)." },
+            { q: "Effetto serra", a: "Fenomeno naturale che mantiene la temperatura terrestre adatta alla vita, intensificato dall'uso di combustibili fossili e deforestazione." },
+            { q: "Combustibili fossili", a: "Carbonio 'bloccato' per ere geologiche (carbone, petrolio, gas naturale) la cui combustione rilascia CO2 e intensifica l'effetto serra." },
+            { q: "Predazione ed effetti ecologici", a: "Un organismo (predatore) consuma un altro (preda). Ha effetti di regolazione sulla densità delle popolazioni e favorisce il mantenimento della diversità evitando che una specie diventi dominante (effetto cascata)." },
+            { q: "Ecosistema", a: "Sistema aperto composto da componenti biotiche (viventi) e abiotiche (non viventi) che interagiscono scambiando materia ed energia. Può essere acquatico o terrestre." },
+            { q: "Bioaccumulo e biomagnificazione", a: "Bioaccumulo: assorbimento di sostanze tossiche dall'ambiente. Biomagnificazione: aumento della loro concentrazione lungo i livelli della catena alimentare." },
+            { q: "Mutualismo con esempi", a: "Interazione vantaggiosa per entrambe le specie. Esempi: licheni, coralli e zooxantelle, batteri Rhizobium e leguminose." },
+            { q: "Crescita maltussiana, sigmoide e logistica", a: "Maltussiana: crescita esponenziale senza limiti. Logistica/Sigmoide: rallenta all'avvicinarsi della capacità portante (K), formando una curva a S." },
+            { q: "Eutrofizzazione", a: "Eccessivo arricchimento di nutrienti (N e P) nelle acque, che causa fioriture algali e successiva anossia (mancanza di ossigeno)." },
+            { q: "Upwelling", a: "Risalita di acque profonde ricche di nutrienti (come fosforo) verso la superficie, importante per la produttività degli ecosistemi marini." },
+            { q: "Suolo", a: "Substrato complesso derivante dall'alterazione delle rocce e dall'apporto di sostanza organica (humus)." },
+            { q: "Consumo idrico negli alimenti", a: "Include l'acqua virtuale necessaria per produrre alimenti. Esempio: circa 15.000 litri per 1 kg di carne bovina." },
+            { q: "Caratteristiche esseri viventi", a: "Possiedono DNA/RNA, costituiti da cellule, metabolismo (usano materia ed energia), reagiscono agli stimoli (omeostasi), hanno un ciclo vitale e si adattano all'ambiente." },
+            { q: "Biodiversità", a: "Varietà delle forme di vita a livello genetico, di specie e di ecosistema. Si misura con ricchezza (numero di specie) e abbondanza relativa, spesso tramite l'indice di Shannon-Wiener." },
+            { q: "Predazione", a: "Un organismo (predatore) consuma un altro (preda). Regola le popolazioni e mantiene la diversità." },
+            { q: "Carbonio", a: "Circola principalmente come CO2; viene fissato dalla fotosintesi e rilasciato dalla respirazione e decomposizione. I combustibili fossili rappresentano carbonio bloccato." },
+            { q: "Sostenibilità", a: "Capacità di soddisfare i bisogni della generazione presente senza compromettere quelli delle future (Rapporto Brundtland, 1987). Si basa sul mantenimento del capitale naturale." },
+            { q: "Competizione", a: "Interazione negativa tra individui che utilizzano le stesse risorse limitate. Può essere intraspecifica o interspecifica." },
+            { q: "Capacità portante", a: "Numero massimo di individui di una popolazione (K) che un ecosistema può sostenere in base alle risorse disponibili." },
+            { q: "Clima", a: "Insieme delle condizioni atmosferiche medie di una regione in un lungo periodo. Influenza la distribuzione degli ecosistemi e della biodiversità." },
+            { q: "Efficienza", a: "Rapporto tra energia/materia utilizzata e quella disponibile. Include efficienza ecologica di fotosintesi (1-2%) ed efficienza trofica (circa 10%)." },
+            { q: "Ossigeno", a: "Prodotto dalla fotosintesi clorofilliana, essenziale per la respirazione degli organismi aerobi." },
+            { q: "Decompositori", a: "Batteri e funghi che trasformano la materia organica morta in sali minerali inorganici (mineralizzazione), chiudendo il ciclo della materia." },
+            { q: "Ecosistema acquatico e terrestre", a: "Ecosistema: sistema aperto con componenti biotiche e abiotiche. Acquatico: fiumi, laghi, oceani. Terrestre: foreste, praterie, deserti." },
+            { q: "Legge di Liebig e Shelford", a: "Liebig: la crescita è limitata dal nutriente più scarso. Shelford: ogni organismo ha un intervallo di tolleranza per i fattori ambientali." },
+            { q: "Efficienza trofica", a: "Energia che passa da un livello trofico al successivo; mediamente è del 10% (Regola del 10% di Lindeman)." },
+            { q: "Evapotraspirazione", a: "Processo combinato di evaporazione dell'acqua dal suolo e traspirazione dalle piante, importante nel ciclo dell'acqua." },
+            { q: "Sistemi urbani", a: "Sistemi aperti, semi-artificiali, dipendenti da enormi ingressi di energia e materia, produttori di grandi quantità di rifiuti e calore (metabolismo urbano)." },
+            { q: "Gradienti latitudinali", a: "Variazione della biodiversità e delle caratteristiche degli ecosistemi in relazione alla latitudine (maggiore biodiversità ai tropici)." },
+            { q: "Gaia ipotesi", a: "Teoria di Lovelock (1979): l'intera biosfera è in grado di autoregolarsi attraverso flussi di energia e cicli di materia mediati dagli esseri viventi." },
+            { q: "Buco dell'ozono e perché si è verificato", a: "Assottigliamento dello strato di ozono stratosferico (che scherma i raggi UV) causato dai CFC (clorofluorocarburi)." },
+            { q: "Strategie vitali", a: "r-strateghe: piccole dimensioni, prole numerosa, habitat instabili. k-strateghe: grandi dimensioni, pochi figli curati, habitat stabili e competitivi." }
+        ];
+
+        let sessionQuestions = [];
+        let currentIndex = 0;
+        let results = [];
+
+        function shuffleArray(array) {
+            const shuffled = [...array];
+            for (let i = shuffled.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+            }
+            return shuffled;
+        }
+
+        function startNewSession() {
+            sessionQuestions = shuffleArray(questions);
+            currentIndex = 0;
+            results = [];
+            
+            document.getElementById('quizView').classList.remove('hidden');
+            document.getElementById('reportView').classList.add('hidden');
+            
+            displayQuestion();
+        }
+
+        function displayQuestion() {
+            const current = sessionQuestions[currentIndex];
+            
+            document.getElementById('questionText').textContent = current.q;
+            document.getElementById('answerText').textContent = current.a;
+            document.getElementById('answerBox').classList.remove('show');
+            
+            document.getElementById('showBtn').classList.remove('hidden');
+            document.getElementById('correctBtn').classList.add('hidden');
+            document.getElementById('wrongBtn').classList.add('hidden');
+            
+            updateProgress();
+        }
+
+        function updateProgress() {
+            const progress = (currentIndex / sessionQuestions.length) * 100;
+            document.getElementById('progressFill').style.width = progress + '%';
+            document.getElementById('questionCounter').textContent = `Domanda ${currentIndex + 1} di ${sessionQuestions.length}`;
+            document.getElementById('answeredCounter').textContent = `${results.length} risposte date`;
+            
+            if (results.length > 0) {
+                const correct = results.filter(r => r.correct).length;
+                document.getElementById('stats').textContent = `Risposte corrette finora: ${correct}/${results.length}`;
+            } else {
+                document.getElementById('stats').textContent = '';
+            }
+        }
+
+        function showAnswer() {
+            document.getElementById('answerBox').classList.add('show');
+            document.getElementById('showBtn').classList.add('hidden');
+            document.getElementById('correctBtn').classList.remove('hidden');
+            document.getElementById('wrongBtn').classList.remove('hidden');
+        }
+
+        function markAnswer(correct) {
+            const current = sessionQuestions[currentIndex];
+            results.push({
+                question: current.q,
+                answer: current.a,
+                correct: correct
+            });
+
+            if (currentIndex < sessionQuestions.length - 1) {
+                currentIndex++;
+                displayQuestion();
+            } else {
+                showReport();
+            }
+        }
+
+        function endSession() {
+            if (results.length === 0) {
+                if (confirm('Non hai ancora risposto a nessuna domanda. Vuoi davvero terminare?')) {
+                    showReport();
+                }
+            } else {
+                showReport();
+            }
+        }
+
+        function showReport() {
+            document.getElementById('quizView').classList.add('hidden');
+            document.getElementById('reportView').classList.remove('hidden');
+
+            const correctCount = results.filter(r => r.correct).length;
+            const totalCount = results.length;
+            const percentage = totalCount > 0 ? Math.round((correctCount / totalCount) * 100) : 0;
+
+            document.getElementById('reportPercentage').textContent = percentage + '%';
+            document.getElementById('reportSubtitle').textContent = `${correctCount} corrette su ${totalCount} domande`;
+
+            const resultsHTML = results.map(result => `
+                <div class="result-item ${result.correct ? 'correct' : 'wrong'}">
+                    <div class="result-question">${result.correct ? '✓' : '✗'} ${result.question}</div>
+                    <div class="result-answer">${result.answer}</div>
+                </div>
+            `).join('');
+
+            document.getElementById('reportResults').innerHTML = resultsHTML;
+        }
+
+        // Inizializza al caricamento della pagina
+        window.onload = function() {
+            startNewSession();
+        };
+    </script>
+</body>
+</html>
