@@ -1,0 +1,975 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quiz di Grammatica Italiana — Vol. 3</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Georgia', serif; background: #f0eef5; color: #1e1a2e; min-height: 100vh; }
+
+  header {
+    background: linear-gradient(135deg, #2d1b69, #5b3fa0);
+    color: white; padding: 28px 24px; text-align: center;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.3);
+  }
+  header h1 { font-size: 1.9rem; letter-spacing: 1px; margin-bottom: 6px; }
+  header p { font-size: 0.95rem; opacity: 0.85; font-style: italic; }
+  .header-nav { margin-top: 14px; font-size: 0.82rem; opacity: 0.8; }
+  .header-nav a { color: #c8b8f5; text-decoration: none; border-bottom: 1px dashed rgba(200,184,245,0.5); margin: 0 8px; }
+  .header-nav a:hover { opacity: 0.85; }
+
+  #progress-bar-container { background: #d4d0e8; height: 8px; }
+  #progress-bar {
+    height: 100%; background: linear-gradient(90deg, #5b3fa0, #9b7fdb);
+    width: 0%; transition: width 0.4s ease;
+  }
+
+  #quiz-container { max-width: 780px; margin: 36px auto; padding: 0 16px 60px; }
+
+  #question-counter {
+    font-size: 0.85rem; color: #6b6080; text-align: right;
+    margin-bottom: 10px; font-style: italic;
+  }
+
+  .card {
+    background: white; border-radius: 12px; padding: 32px 36px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    border-top: 4px solid #5b3fa0; animation: fadeIn 0.35s ease;
+  }
+  @keyframes fadeIn { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:translateY(0); } }
+
+  .source-tag {
+    display: inline-block; font-size: 0.72rem; background: #f0ecff; color: #5b3fa0;
+    border: 1px solid #c5b3f0; border-radius: 20px; padding: 3px 10px;
+    margin-bottom: 14px; font-family: sans-serif;
+  }
+
+  .question-text {
+    font-size: 1.13rem; line-height: 1.65; color: #1e1a2e;
+    margin-bottom: 24px; font-weight: bold;
+  }
+
+  .options { display: flex; flex-direction: column; gap: 11px; }
+
+  .option-btn {
+    display: flex; align-items: flex-start; gap: 12px;
+    background: #faf9fd; border: 2px solid #ddd8ee; border-radius: 9px;
+    padding: 13px 16px; cursor: pointer; font-size: 1rem;
+    font-family: 'Georgia', serif; color: #1e1a2e; text-align: left;
+    transition: border-color 0.2s, background 0.2s; line-height: 1.5;
+  }
+  .option-btn:hover:not(:disabled) { border-color: #5b3fa0; background: #f0ecff; }
+  .option-btn .letter {
+    display: inline-flex; align-items: center; justify-content: center;
+    min-width: 28px; height: 28px; border-radius: 50%; background: #ddd8ee;
+    color: #4a3d6e; font-size: 0.85rem; font-weight: bold; font-family: sans-serif;
+    flex-shrink: 0; margin-top: 1px; transition: background 0.2s, color 0.2s;
+  }
+  .option-btn.correct { border-color: #2e7d32; background: #e8f5e9; }
+  .option-btn.correct .letter { background: #2e7d32; color: white; }
+  .option-btn.wrong { border-color: #c0392b; background: #fdf0ef; }
+  .option-btn.wrong .letter { background: #c0392b; color: white; }
+  .option-btn:disabled { cursor: default; }
+
+  #feedback {
+    margin-top: 18px; padding: 12px 16px; border-radius: 8px;
+    font-size: 0.93rem; line-height: 1.55; display: none; font-family: sans-serif;
+  }
+  #feedback.correct-fb { background: #e8f5e9; color: #1b5e20; border-left: 4px solid #2e7d32; }
+  #feedback.wrong-fb   { background: #fdf0ef; color: #922b21; border-left: 4px solid #c0392b; }
+
+  #next-btn {
+    display: none; margin-top: 22px;
+    background: linear-gradient(135deg, #2d1b69, #5b3fa0);
+    color: white; border: none; border-radius: 8px; padding: 12px 30px;
+    font-size: 1rem; cursor: pointer; font-family: 'Georgia', serif;
+    letter-spacing: 0.5px; float: right; transition: opacity 0.2s;
+  }
+  #next-btn:hover { opacity: 0.88; }
+  .clearfix::after { content: ''; display: table; clear: both; }
+
+  #results-container {
+    display: none; max-width: 780px; margin: 36px auto; padding: 0 16px 60px;
+    animation: fadeIn 0.5s ease;
+  }
+  .results-card {
+    background: white; border-radius: 14px; padding: 40px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.12); text-align: center;
+    border-top: 6px solid #5b3fa0;
+  }
+  .results-card h2 { font-size: 1.7rem; color: #2d1b69; margin-bottom: 8px; }
+  .score-circle {
+    width: 130px; height: 130px; border-radius: 50%; margin: 28px auto;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    font-family: sans-serif;
+  }
+  .score-circle .score-num { font-size: 2.5rem; font-weight: bold; color: white; line-height: 1; }
+  .score-circle .score-den { font-size: 1rem; color: rgba(255,255,255,0.85); }
+  .vote-label { font-size: 1.4rem; font-weight: bold; margin-bottom: 6px; }
+  .vote-comment { font-size: 1rem; color: #5a5070; margin-bottom: 28px; font-style: italic; }
+
+  .stats-row { display: flex; justify-content: center; gap: 32px; margin: 0 0 20px; font-family: sans-serif; }
+  .stat-box { text-align: center; }
+  .stat-box .stat-val { font-size: 1.5rem; font-weight: bold; }
+  .stat-box .stat-lab { font-size: 0.8rem; color: #7a7090; }
+  .stat-correct .stat-val { color: #2e7d32; }
+  .stat-wrong   .stat-val { color: #c0392b; }
+  .stat-pct     .stat-val { color: #2d1b69; }
+
+  .results-breakdown { border-top: 1px solid #ddd8ee; padding-top: 28px; text-align: left; margin-top: 10px; }
+  .results-breakdown h3 { font-size: 1.1rem; margin-bottom: 16px; color: #2d1b69; }
+  .result-item {
+    display: flex; align-items: flex-start; gap: 10px;
+    padding: 10px 0; border-bottom: 1px solid #f0eef8; font-size: 0.92rem;
+  }
+  .result-item .ri-num { font-weight: bold; color: #7a7090; min-width: 28px; font-family: sans-serif; }
+  .result-item .ri-q { flex: 1; line-height: 1.45; }
+  .result-item .ri-icon { font-size: 1.1rem; flex-shrink: 0; }
+  .result-item .ri-answer {
+    font-size: 0.85rem; color: #3a6e3a; margin-top: 3px;
+    display: block; font-style: italic; font-family: sans-serif;
+  }
+  .result-item .ri-answer.ri-wrong-answer { color: #c0392b; }
+
+  #retry-btn {
+    margin-top: 28px; background: linear-gradient(135deg, #2d1b69, #5b3fa0);
+    color: white; border: none; border-radius: 8px; padding: 13px 36px;
+    font-size: 1rem; cursor: pointer; font-family: 'Georgia', serif;
+    letter-spacing: 0.5px; transition: opacity 0.2s;
+  }
+  #retry-btn:hover { opacity: 0.88; }
+
+  .quiz-link-btn {
+    display: inline-block; margin: 8px 6px 0;
+    background: white; color: #5b3fa0; border: 2px solid #5b3fa0;
+    border-radius: 8px; padding: 9px 22px; font-size: 0.9rem;
+    cursor: pointer; font-family: 'Georgia', serif; text-decoration: none;
+    transition: background 0.2s, color 0.2s;
+  }
+  .quiz-link-btn:hover { background: #5b3fa0; color: white; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Quiz di Grammatica Italiana — Vol. 3</h1>
+  <p>Storia della grammatica e italiano contemporaneo &mdash; 50 domande</p>
+  <div class="header-nav">
+    <a href="Quiz_Grammatica.html">← Quiz 1</a> &bull;
+    <a href="Quiz_Grammatica_2.html">← Quiz 2</a>
+  </div>
+</header>
+<div id="progress-bar-container"><div id="progress-bar"></div></div>
+
+<div id="quiz-container">
+  <div id="question-counter"></div>
+  <div class="card" id="question-card">
+    <span class="source-tag" id="source-tag"></span>
+    <p class="question-text" id="question-text"></p>
+    <div class="options" id="options"></div>
+    <div id="feedback"></div>
+    <div class="clearfix"><button id="next-btn">Prossima domanda &rarr;</button></div>
+  </div>
+</div>
+
+<div id="results-container">
+  <div class="results-card">
+    <h2>Risultati — Quiz Vol. 3</h2>
+    <div class="score-circle" id="score-circle">
+      <span class="score-num" id="score-num"></span>
+      <span class="score-den">/50</span>
+    </div>
+    <div class="stats-row">
+      <div class="stat-box stat-correct"><div class="stat-val" id="stat-correct"></div><div class="stat-lab">Corrette</div></div>
+      <div class="stat-box stat-wrong"><div class="stat-val" id="stat-wrong"></div><div class="stat-lab">Errate</div></div>
+      <div class="stat-box stat-pct"><div class="stat-val" id="stat-pct"></div><div class="stat-lab">Percentuale</div></div>
+    </div>
+    <p class="vote-label" id="vote-label"></p>
+    <p class="vote-comment" id="vote-comment"></p>
+    <button id="retry-btn">&#8635; Rifai il quiz</button><br>
+    <a href="Quiz_Grammatica.html" class="quiz-link-btn">← Quiz 1</a>
+    <a href="Quiz_Grammatica_2.html" class="quiz-link-btn">← Quiz 2</a>
+    <div class="results-breakdown">
+      <h3>Riepilogo domanda per domanda</h3>
+      <div id="breakdown-list"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+const questions = [
+
+  /* ===== FORNARA — Breve storia della grammatica italiana ===== */
+
+  {
+    source: "Breve Storia della Grammatica (Fornara)",
+    q: "Quale famosa opera teorica sul volgare compose Dante all'inizio del '300, scritta in latino per i dotti, ma rimasta pressoché sconosciuta fino al Cinquecento?",
+    opts: [
+      "Il Convivio",
+      "Il De vulgari eloquentia",
+      "La Vita Nuova",
+      "Le Epistole"
+    ],
+    correct: 1,
+    explanation: "Il De vulgari eloquentia fu scritto in latino (perché rivolto ai dotti) all'inizio del '300, ma non ebbe grande influenza, rimanendo sconosciuto fino al '500. Dante fu il primo teorico del volgare. L'opera fu data alle stampe da Trissino nel 1529."
+  },
+  {
+    source: "Breve Storia della Grammatica (Fornara)",
+    q: "Fino a una buona parte del '400, quale era l'atteggiamento dei dotti verso il volgare?",
+    opts: [
+      "Lo consideravano pari al latino e lo usavano per tutte le loro opere",
+      "Lo consideravano inferiore al latino e scrivevano le loro opere in latino",
+      "Lo promuovevano attivamente come lingua letteraria superiore",
+      "Lo ritenevano più nobile del latino per la poesia"
+    ],
+    correct: 1,
+    explanation: "Fino a una buona parte del '400, i dotti consideravano il volgare inferiore al latino e scrivevano le loro opere in latino. La composizione in volgare era ritenuta quasi un 'divertimento' poetico. Solo dalla prima metà del '500 la nuova lingua venne accettata quasi all'unanimità dai dotti."
+  },
+  {
+    source: "Breve Storia della Grammatica (Fornara)",
+    q: "Qual era il rapporto di Petrarca con il volgare?",
+    opts: [
+      "Promosse attivamente il volgare come unica lingua letteraria degna",
+      "Scriveva abitualmente in latino; compose il Canzoniere in volgare quasi 'per gioco' poetico; la sua scelta per il latino screditò il volgare agli occhi dei dotti",
+      "Considerava il volgare superiore al latino per la poesia amorosa",
+      "Scrisse esclusivamente in volgare per raggiungere un pubblico più ampio"
+    ],
+    correct: 1,
+    explanation: "Petrarca era solito scrivere in latino, seguendo i modelli di Cicerone e Virgilio; compose il Canzoniere in volgare quasi 'per gioco' poetico (alcune postille del poeta sono in latino; in latino è il titolo originale: Rerum vulgarium fragmenta). La scelta di affidare i messaggi più importanti al latino ebbe quasi un effetto di screditamento del volgare agli occhi dei dotti."
+  },
+  {
+    source: "Breve Storia della Grammatica (Fornara)",
+    q: "Cosa fu il 'Certame coronario' organizzato da Alberti nel 1441?",
+    opts: [
+      "Un concorso per la migliore grammatica latina",
+      "Una gara poetica in volgare, finalizzata a dimostrare le potenzialità e la dignità letteraria della nuova lingua",
+      "Un concorso per la miglior traduzione di testi latini classici",
+      "Un'assemblea di grammatici per stabilire le regole del volgare fiorentino"
+    ],
+    correct: 1,
+    explanation: "Nel 1441 Alberti ideò il Certame coronario, una gara poetica in volgare. Alberti cercò di promuovere l'uso della nuova lingua; è definito iniziatore dell'Umanesimo volgare, movimento sviluppatosi nella seconda metà del '400 alla corte dei Medici."
+  },
+  {
+    source: "Breve Storia della Grammatica (Fornara)",
+    q: "Nella 'Questione della lingua' del Cinquecento, chi rappresentava la posizione della 'lingua cortigiana' (un italiano comune delle corti, non legato a nessuna regione)?",
+    opts: [
+      "Pietro Bembo",
+      "Niccolò Machiavelli",
+      "Baldassarre Castiglione",
+      "Giovan Giorgio Trissino"
+    ],
+    correct: 2,
+    explanation: "Baldassarre Castiglione fu il principale esponente della posizione della 'lingua cortigiana', proposta nel Cortegiano (1528). Questa posizione era contrapposta a quella arcaizzante di Bembo (fiorentino trecentesco) e a quella fiorentinista di Machiavelli (fiorentino contemporaneo)."
+  },
+  {
+    source: "Breve Storia della Grammatica (Fornara)",
+    q: "Perché la teoria di Biondo Flavio sulle origini del volgare risultava utile a Pietro Bembo?",
+    opts: [
+      "Perché giustificava l'uso del fiorentino contemporaneo come modello letterario",
+      "Perché, affermando che il latino si era corrotto nell'italiano, implicava che il volgare avesse una propria grammaticalità derivante dal latino classico",
+      "Perché dimostrava la superiorità del toscano rispetto agli altri dialetti italiani",
+      "Perché spiegava perché il latino e l'italiano fossero lingue completamente diverse"
+    ],
+    correct: 1,
+    explanation: "La posizione di Biondo Flavio aveva come necessaria conseguenza l'ammissione della grammaticalità del volgare, perché derivante dal latino classico. Questa posizione riscosse maggior successo nel '500 ed era accreditata anche da Bembo, che basava le sue teorie sul fiorentino trecentesco come erede diretto del latino classico."
+  },
+  {
+    source: "Breve Storia della Grammatica (Fornara)",
+    q: "Di quale problema si occupavano principalmente Biondo Flavio e Leonardo Bruni nel dibattito del 1435 a Firenze?",
+    opts: [
+      "Stabilire le regole per il volgare fiorentino",
+      "Individuare i migliori autori da prendere come modello letterario",
+      "Stabilire quali fossero state le cause del crollo della romanità (la questione linguistica era un aspetto secondario del dibattito)",
+      "Decidere se scrivere grammatiche in latino o in volgare"
+    ],
+    correct: 2,
+    explanation: "I due intellettuali erano preoccupati di stabilire quali fossero state le cause del crollo della romanità, e si confrontarono anche su questioni di argomento linguistico — ma non per un concreto interesse riguardo al volgare. Il dibattito influì però in modo decisivo sulla realizzazione della prima grammatica del volgare."
+  },
+  {
+    source: "Breve Storia della Grammatica (Fornara)",
+    q: "Cosa distingue una grammatica 'normativa' da una 'descrittiva'?",
+    opts: [
+      "Le normative descrivono solo i testi antichi; le descrittive si occupano della lingua moderna",
+      "Le normative presentano un modello di lingua indicando comportamenti da seguire e da evitare; le descrittive descrivono strutture e caratteristiche senza giudicare la correttezza",
+      "Le normative sono scritte da linguisti; le descrittive da insegnanti",
+      "Le normative si occupano di sintassi; le descrittive di morfologia"
+    ],
+    correct: 1,
+    explanation: "Le grammatiche normative intendono presentare un modello di lingua segnalando i comportamenti linguistici da seguire e quelli da evitare (ritenuti scorretti o poco eleganti). Le descrittive si limitano a descrivere le strutture e le caratteristiche di una lingua senza giudizi sulla loro correttezza. I due piani spesso coesistono nella stessa opera."
+  },
+  {
+    source: "Breve Storia della Grammatica (Fornara)",
+    q: "La Grammatica di Gerhard Rohlfs (1966-69; ed. or. 1949-54) è organizzata in 3 volumi. A quali temi sono dedicati?",
+    opts: [
+      "Grammatica storica, grammatica normativa e grammatica descrittiva",
+      "Fonetica, Morfologia e Sintassi e formazione delle parole",
+      "Ortografia, Morfologia e Sintassi",
+      "Dialetti settentrionali, centrali e meridionali"
+    ],
+    correct: 1,
+    explanation: "La Grammatica di Rohlfs è in 3 volumi dedicati rispettivamente a Fonetica, Morfologia e Sintassi e formazione delle parole. Non affronta i problemi discussi solo dal punto di vista generale ma prende in esame anche questioni minute (es. il paragrafo 920 tratta dell'avverbio di tempo 'domani')."
+  },
+  {
+    source: "Breve Storia della Grammatica (Fornara)",
+    q: "Quale tratto distintivo della Grammatica di Rohlfs la distingue dalle grammatiche puramente letterarie?",
+    opts: [
+      "Si concentra esclusivamente sull'italiano contemporaneo parlato",
+      "Affianca all'analisi dell'evoluzione dell'italiano quella dei dialetti parlati sulla penisola (Nord e Sud, non solo il toscano)",
+      "Tratta solo la morfologia, ignorando fonetica e sintassi",
+      "È la prima grammatica a usare metodi statistici per l'analisi dell'italiano"
+    ],
+    correct: 1,
+    explanation: "Rohlfs affianca all'analisi dell'evoluzione dell'italiano quella dei dialetti parlati sulla penisola; non si limita alla descrizione dell'evoluzione della lingua letteraria (il toscano), ma coinvolge anche i dialetti di Nord e Sud. Si nota anche la numerazione dei paragrafi progressiva (non ricomincia ad ogni volume) e l'assoluta ricchezza e puntualità nelle osservazioni."
+  },
+  {
+    source: "Breve Storia della Grammatica (Fornara)",
+    q: "Come si differenzia la Grammatica di Pavao Tekavčić (1972) rispetto a quella di Rohlfs?",
+    opts: [
+      "È più ampia e include più esempi dialettali di Rohlfs",
+      "Ha un'impostazione più teorica, concentrandosi sull'italiano letterario e dando uno spazio marginale ai dialetti",
+      "È la prima grammatica a includere una sezione sull'italiano contemporaneo",
+      "Si concentra esclusivamente sulla sintassi dell'italiano colloquiale"
+    ],
+    correct: 1,
+    explanation: "La Grammatica di Tekavčić (1972) ha un'impostazione più teorica, concentrandosi sull'italiano letterario e dando uno spazio marginale ai dialetti — contrariamente a Rohlfs che li trattava ampiamente."
+  },
+  {
+    source: "Breve Storia della Grammatica (Fornara)",
+    q: "La Grammatica di Castellani (2000) — di cui fu completato solo il primo volume — tratta tra l'altro di:",
+    opts: [
+      "L'analisi della morfologia e fonologia dell'italiano contemporaneo",
+      "La formazione dell'italiano, l'influsso degli elementi germanici e galloromanzi, le varietà toscane diverse dal fiorentino, e la formazione della prima lingua poetica italiana",
+      "Una descrizione completa della sintassi italiana dal Medioevo a oggi",
+      "Un'analisi dei dialetti italiani nel periodo moderno"
+    ],
+    correct: 1,
+    explanation: "La Grammatica di Castellani (2000) è rimasta incompiuta: lo studioso, scomparso nel 2004, ha portato a termine solo il primo volume intitolato Introduzione. Tratta, fra l'altro, della formazione dell'italiano, dell'influsso germanico e galloromanzo, delle varietà toscane diverse dal fiorentino nel Medioevo e della formazione della prima lingua poetica italiana."
+  },
+  {
+    source: "Breve Storia della Grammatica (Fornara)",
+    q: "Cosa è la 'Fabbrica dell'italiano' dell'Accademia della Crusca?",
+    opts: [
+      "La casa editrice ufficiale dell'Accademia della Crusca",
+      "Un'iniziativa sul sito della Crusca in cui è possibile consultare le banche dati relative a oltre duemila dizionari e quasi quattrocento grammatiche possedute dall'Accademia",
+      "Un laboratorio per la produzione di nuovi vocabolari dell'italiano",
+      "Un programma televisivo per la promozione dell'uso corretto dell'italiano"
+    ],
+    correct: 1,
+    explanation: "La 'Fabbrica dell'italiano' è un'iniziativa sul sito dell'Accademia della Crusca in cui è possibile consultare le banche dati relative agli oltre duemila dizionari e quasi quattrocento grammatiche possedute dall'Accademia. Il sito è tra quelli più affidabili tra le risorse online sulla grammatica italiana."
+  },
+  {
+    source: "Breve Storia della Grammatica (Fornara)",
+    q: "Il IV volume della Storia dell'Italiano Scritto (Antonelli, Motolese, Tomasin, 2018) si distingue perché:",
+    opts: [
+      "È un profilo strettamente cronologico delle opere grammaticali",
+      "Adotta un'impostazione non meramente cronologica: il grosso della trattazione predilige un approccio per contenuti grammaticali",
+      "Copre solo il periodo dall'Unità d'Italia a oggi",
+      "È stato il primo testo a sostituire il manuale di Trabalza come opera di riferimento"
+    ],
+    correct: 1,
+    explanation: "Il IV volume non si tratta di un profilo storico delle opere grammaticali nel senso stretto, perché adotta un'impostazione che non è meramente cronologica (l'impostazione cronologica prevale in alcuni capitoli, ma il grosso della trattazione predilige un approccio per contenuti grammaticali). La materia viene presentata con attenzione a questioni teoriche e approfondimenti su temi puntuali."
+  },
+  {
+    source: "Breve Storia della Grammatica (Fornara)",
+    q: "Come è stata valutata la Grammatica Ragionata di Francesco Soave (1771) dalla critica?",
+    opts: [
+      "Trabalza la considerava un capolavoro della grammatica settecentesca",
+      "Trabalza la condannava come opera di scarso valore, ma recenti studi hanno dimostrato che è un'opera pregevole",
+      "È considerata unanimemente la prima grammatica descrittiva dell'italiano",
+      "Fu ignorata dai contemporanei e riscoperta solo nel Novecento"
+    ],
+    correct: 1,
+    explanation: "Trabalza condannava la Grammatica Ragionata di Soave (1771) come opera di scarso valore — ma i più recenti studi hanno dimostrato che questa è un'opera pregevole. Trabalza inoltre dimostra di basare le sue conclusioni su edizioni successive non ben identificabili, il che evidenzia le sue debolezze metodologiche."
+  },
+  {
+    source: "Breve Storia della Grammatica (Fornara)",
+    q: "In cosa si distingue la 'linea classificatoria' dalla 'linea maestra Fortunio-Bembo' nella grammaticografia cinquecentesca?",
+    opts: [
+      "La linea classificatoria accetta le Tre Corone come modelli e segue Bembo",
+      "La linea classificatoria è caratterizzata da una maggiore adesione alle grammatiche latine, con tendenza a suddividere le categorie grammaticali; usa terminologia tecnica vicina ai grammatici latini; pochi riferimenti agli autori",
+      "La linea classificatoria si concentra esclusivamente sulla sintassi del volgare",
+      "La linea classificatoria rifiuta tutta la tradizione grammaticale in favore del fiorentino parlato"
+    ],
+    correct: 1,
+    explanation: "La linea classificatoria (inaugurata da Trissino, 1529) si esprime attraverso una maggiore adesione alle grammatiche latine, con la tendenza a suddividere le categorie oggetto della trattazione; Trissino deve adottare termini vicini a quelli dei grammatici latini; pochissimi riferimenti agli autori e alla letteratura, in favore dell'elenco di forme e del commento breve."
+  },
+  {
+    source: "Breve Storia della Grammatica (Fornara)",
+    q: "La Grammatica volgar dell'Atheneo di Marco Antonio Ateneo Carlino (1533, Napoli) contiene:",
+    opts: [
+      "Una trattazione completa di tutte le parti del discorso con estese citazioni",
+      "Solo il 'Ragionamento primo' sul nome, ed è scritta in forma dialogica",
+      "La prima descrizione della sintassi italiana nel Cinquecento",
+      "Un confronto sistematico tra la grammatica italiana e quella spagnola"
+    ],
+    correct: 1,
+    explanation: "La Grammatica volgar dell'Atheneo di Carlino (1533, Napoli) contiene solo il Ragionamento primo, sul nome, ed è scritta in forma dialogica. È un'opera molto breve rispetto alle ambizioni della grammaticografia cinquecentesca."
+  },
+  {
+    source: "Breve Storia della Grammatica (Fornara)",
+    q: "Quale grammatico del Cinquecento dichiarò esplicitamente nella sua opera di essere condizionato dalle posizioni di Bembo?",
+    opts: [
+      "Rinaldo Corso",
+      "Lodovico Dolce",
+      "Girolamo Ruscelli (Commentarii della Lingua Italiana, 1581, Venezia)",
+      "Giovan Giorgio Trissino"
+    ],
+    correct: 2,
+    explanation: "Girolamo Ruscelli, nell'opera Commentarii della Lingua Italiana (1581, Venezia), dichiara esplicitamente di essere condizionato proprio da Bembo. L'opera appartiene alla linea maestra Fortunio-Bembo."
+  },
+  {
+    source: "Breve Storia della Grammatica (Fornara)",
+    q: "In quale senso la Grammatichetta Vaticana descrive una 'lingua viva' piuttosto che una lingua letteraria?",
+    opts: [
+      "Contiene solo regole per il fiorentino parlato, senza alcun riferimento a testi scritti",
+      "Descrive la lingua viva di Firenze senza citare alcun autore letterario; non è legata alla lingua degli autori del passato ma a un modello di lingua viva",
+      "Rifiuta esplicitamente il modello delle Tre Corone",
+      "Si concentra sui dialetti toscani più che su qualsiasi standard letterario"
+    ],
+    correct: 1,
+    explanation: "Nella Grammatichetta Vaticana non è presente una sola citazione d'autore: Alberti descrive un modello non di lingua letteraria ma di lingua viva, non legata a quella degli autori del passato. Questo la distingue radicalmente dalle grammatiche successive di Fortunio e Bembo, basate sulle Tre Corone."
+  },
+  {
+    source: "Breve Storia della Grammatica (Fornara)",
+    q: "Quando fu pubblicata per la prima volta la Grammatichetta Vaticana?",
+    opts: [
+      "Nel 1516, lo stesso anno delle Regole di Fortunio",
+      "Nel 1525, insieme alle Prose di Bembo",
+      "Solo all'inizio del '900, con una trascrizione in appendice alla Storia della grammatica di Trabalza",
+      "Nel 1612, lo stesso anno del primo Vocabolario della Crusca"
+    ],
+    correct: 2,
+    explanation: "La Grammatichetta Vaticana fu pubblicata per la prima volta solo all'inizio del '900, con una trascrizione in appendice della Storia della grammatica di Trabalza (1908). Per lungo tempo ne venne discussa la paternità, certa solo agli inizi degli anni '60."
+  },
+  {
+    source: "Breve Storia della Grammatica (Fornara)",
+    q: "Come tratta Alberti la categoria dell'aggettivo nella Grammatichetta Vaticana?",
+    opts: [
+      "Considera l'aggettivo una parte del discorso completamente autonoma",
+      "Usa il termine 'nome aggettivo' trattando nomi e aggettivi come categorie separate",
+      "Parla indistintamente di 'nomi' per identificare sia i sostantivi sia gli aggettivi, seguendo la tradizione latina",
+      "Ignora completamente la categoria dell'aggettivo"
+    ],
+    correct: 2,
+    explanation: "Alberti parla indistintamente di 'nomi' per identificare sia i sostantivi sia gli aggettivi. La tradizione latina considerava l'aggettivo una sottoclasse del nome, non conferendogli l'autonomia di parte del discorso a sé stante."
+  },
+  {
+    source: "Breve Storia della Grammatica (Fornara)",
+    q: "Le 'Regole osservanze et avvertenze' di Paolo Del Rosso (1545) sono storicamente rilevanti perché:",
+    opts: [
+      "Furono la prima grammatica stampata a Venezia",
+      "Furono la prima grammatica scritta da un toscano ma stampata fuori dalla Toscana (a Napoli)",
+      "Furono la prima grammatica interamente dedicata all'ortografia del volgare",
+      "Furono la prima grammatica a usare esclusivamente esempi in volgare"
+    ],
+    correct: 1,
+    explanation: "Le Regole osservanze et avvertenze... di Paolo Del Rosso (1545) sono la prima grammatica scritta da un toscano stampata però a Napoli. L'opera appartiene alla linea fiorentina ma è caratteristica il fatto di essere pubblicata al di fuori della Toscana."
+  },
+  {
+    source: "Breve Storia della Grammatica (Fornara)",
+    q: "Nel Cinquecento, come si dividevano i grammatici riguardo al numero di coniugazioni verbali?",
+    opts: [
+      "Alcuni ne individuavano 3 basandosi sull'infinito; altri 5 basandosi sul presente",
+      "Alcuni ne individuavano 2, basandosi sulla 3ª persona dell'indicativo presente (Fortunio, Gabriele, Dolce); altri 4, basandosi sull'infinito (Bembo)",
+      "Tutti concordavano su 3 coniugazioni, seguendo il modello di Donato",
+      "Alcuni ne individuavano 6; altri solo 1"
+    ],
+    correct: 1,
+    explanation: "Nel Cinquecento ci sono 2 vie principali: alcuni individuano 2 coniugazioni sulla base della 3ª persona dell'indicativo presente (sulla scia di Fortunio, Gabriele e Dolce); altri ne individuano 4 sulla base dell'infinito (sulla scia di Bembo). Si distinguono anche Trissino con 3 coniugazioni e Giambullari con 5."
+  },
+  {
+    source: "Breve Storia della Grammatica (Fornara)",
+    q: "Quale raccolta di esercizi Fornara indica come utile complemento allo studio teorico della grammatica italiana?",
+    opts: [
+      "Il GRADIT di De Mauro",
+      "Il Lauta (2011)",
+      "La Grande Grammatica di Renzi",
+      "La Grammaticografia di Bonomi"
+    ],
+    correct: 1,
+    explanation: "Fornara indica che il ricorso a una raccolta di esercizi come il Lauta (2011) può costituire un efficace completamento dello studio più teorico della grammatica italiana."
+  },
+  {
+    source: "Breve Storia della Grammatica (Fornara)",
+    q: "La Grammatichetta di Trissino (1529) fu pubblicata nello stesso anno di quale altra opera significativa, curata da Trissino stesso?",
+    opts: [
+      "La prima edizione del Vocabolario della Crusca",
+      "La pubblicazione del De vulgari eloquentia di Dante, dato alle stampe da Trissino stesso",
+      "La prima grammatica italiana stampata in Francia",
+      "La pubblicazione delle Prose di Bembo a Venezia"
+    ],
+    correct: 1,
+    explanation: "La Grammatichetta di Trissino è incentrata sulla morfologia e rispecchia la posizione del De vulgari eloquentia di Dante, dato alla stampa da Trissino nello stesso anno della Grammatichetta. Trissino sosteneva che Petrarca non avesse scritto in toscano, ma in italiano, posizione legata alla riscoperta del DVE."
+  },
+  {
+    source: "Breve Storia della Grammatica (Fornara)",
+    q: "Quale grammatico cinquecentesco, lavorando nella linea classificatoria, cercò di mitigare l'esasperato metodo classificatorio del suo predecessore, insistendo sulla necessità di essere semplici e chiari?",
+    opts: [
+      "Girolamo Ruscelli",
+      "Matteo di San Martino",
+      "Libero Gaetano Tizzone da Pofi (La Grammatica Volgare, 1539, Napoli)",
+      "Marco Antonio Ateneo Carlino"
+    ],
+    correct: 2,
+    explanation: "Libero Gaetano Tizzone da Pofi (La Grammatica Volgare, 1539, Napoli) mitiga l'esasperato metodo classificatorio adottato dal suo predecessore, insistendo sulla necessità di essere semplici e chiari sia sul piano grammaticale sia su quello terminologico; ricorre in misura maggiore ai modelli trecenteschi e a numerosi esempi d'autore."
+  },
+  {
+    source: "Breve Storia della Grammatica (Fornara)",
+    q: "Perché gli intellettuali fiorentini sentirono meno degli extra-toscani la necessità di creare una teoria della lingua (linea fiorentina)?",
+    opts: [
+      "Perché erano già convinti della superiorità del latino sul volgare",
+      "Perché non avvertivano la necessità di creare una teoria per una lingua che già naturalmente padroneggiavano",
+      "Perché si opponevano attivamente sia a Bembo sia a Trissino",
+      "Perché erano i primi ad aver stabilito lo standard per la grammatica italiana"
+    ],
+    correct: 1,
+    explanation: "Gli intellettuali fiorentini non avvertirono nella stessa misura degli extra-toscani (Venezia, Roma, Napoli, Ancona) la necessità di creare una teoria di una lingua che già naturalmente padroneggiavano. La prima grammatica ad essere stampata a Firenze è quella di Giambullari (1552), molto tarda rispetto alle pubblicazioni veneziane."
+  },
+  {
+    source: "Breve Storia della Grammatica (Fornara)",
+    q: "Come si chiama il concetto secondo cui esistono modelli di stile e di lingua assoluti che è indispensabile imitare per raggiungere l'immortalità letteraria (alla base della teoria di Bembo)?",
+    opts: [
+      "Principio di originalità",
+      "Principio di imitazione",
+      "Principio di autonomia linguistica",
+      "Principio di purismo"
+    ],
+    correct: 1,
+    explanation: "Il Principio di imitazione è alla base della teoria di Bembo: esistono modelli di stile e di lingua assoluti ed è indispensabile imitarli per raggiungere l'immortalità letteraria. Petrarca stesso aveva applicato questo principio al latino, imitando Cicerone per la prosa e Virgilio per la poesia."
+  },
+  {
+    source: "Breve Storia della Grammatica (Fornara)",
+    q: "Quante parti del discorso individua Trissino nella sua Grammatichetta (1529) e con quale approccio?",
+    opts: [
+      "4 parti, come Fortunio",
+      "7 parti, come Alberti",
+      "8 parti (Ar, N, V, Pt, Pn, Pp, Av, C), con maggiore adesione alle grammatiche latine",
+      "5 parti, come Giambullari"
+    ],
+    correct: 2,
+    explanation: "Trissino individua 8 parti del discorso (Ar, N, V, Pt, Pn, Pp, Av, C), con la tendenza a suddividere le categorie in modo sistematico. Questo è caratteristico della linea classificatoria: si esprime attraverso una maggiore adesione alle grammatiche latine."
+  },
+
+  /* ===== LORENZETTI — L'italiano contemporaneo ===== */
+
+  {
+    source: "L'Italiano Contemporaneo (Lorenzetti)",
+    q: "Come definisce Lorenzetti la 'lingua standard' italiana?",
+    opts: [
+      "La varietà parlata esclusivamente dai fiorentini colti",
+      "La varietà che è: la norma, statisticamente più usata, sociolinguisticamente la meno marcata (neutrale), sovraregionale, codificata da grammatiche, usata da parlanti di strati superiori in tutti i contesti",
+      "La varietà che appare esclusivamente nei testi scritti formali",
+      "La varietà stabilita dall'Accademia della Crusca tramite il suo vocabolario"
+    ],
+    correct: 1,
+    explanation: "Il concetto di lingua standard implica che sia: la varietà di riferimento (la norma), la varietà normale statisticamente (più usata), normale sociolinguisticamente (meno marcata, più neutra), sovraregionale (non di una sola area specifica), codificata da grammatiche, usata da parlanti di strati superiori in tutti gli scritti e in ogni contesto."
+  },
+  {
+    source: "L'Italiano Contemporaneo (Lorenzetti)",
+    q: "Perché Lorenzetti afferma che l'italiano standard ha una 'bassa vitalità' come varietà nativa?",
+    opts: [
+      "Perché i parlanti italiani preferiscono il dialetto in tutti i contesti",
+      "Perché lo standard ha tratti di forte regresso: distinzioni fonetiche (come tra è aperta ed é chiusa) imposte fuori dalla Toscana, categorie grammaticali che si marginalizzano nel parlato (come il congiuntivo)",
+      "Perché lo standard è rifiutato dalle generazioni più giovani",
+      "Perché solo le varietà regionali sono sopravvissute nell'uso contemporaneo"
+    ],
+    correct: 1,
+    explanation: "Lo standard ha tratti di forte regresso e crisi: per i suoni, distinzioni mai imposte fuori dalla Toscana, come tra e ed o aperte e chiuse; per la grammatica, categorie che si marginalizzano (come il congiuntivo nel parlato) o distinzioni evanescenti. Guardando al futuro, si nota una bassa vitalità dello standard come varietà nativa."
+  },
+  {
+    source: "L'Italiano Contemporaneo (Lorenzetti)",
+    q: "Il 'lessico di alta disponibilità' secondo Lorenzetti comprende circa quanti lessemi e come si caratterizza?",
+    opts: [
+      "Circa 7.000 lessemi di uso quotidiano frequente",
+      "Circa 2.300 lessemi che indicano cose che vediamo o facciamo quotidianamente ma raramente discutiamo (es. forchetta) — più spesso pensati che usati",
+      "Circa 100.000 lessemi del vocabolario tecnico-scientifico",
+      "Circa 45.000 lessemi del vocabolario comune"
+    ],
+    correct: 1,
+    explanation: "Il lessico di alta disponibilità ha circa 2.300 lessemi che possiamo non usare quasi mai anche se indicano qualcosa che vediamo o facciamo quotidianamente. Per esempio 'forchetta', che solitamente usiamo solo quando l'abbiamo davanti. Perciò sono più spesso pensati che usati."
+  },
+  {
+    source: "L'Italiano Contemporaneo (Lorenzetti)",
+    q: "Quanti lessemi contiene il GRADIT di De Mauro?",
+    opts: [
+      "Circa 100.000",
+      "Circa 200.000",
+      "Circa 260.000",
+      "Circa 400.000"
+    ],
+    correct: 2,
+    explanation: "Il GRADIT di De Mauro contiene 260.000 lessemi. È il più ampio vocabolario italiano disponibile. Di questi, il 50% ha struttura morfologica (derivati e composti); i derivati complessivi sono 93.000 con 17.000 formati da prefissi e 60.000 con suffissi."
+  },
+  {
+    source: "L'Italiano Contemporaneo (Lorenzetti)",
+    q: "Cosa comprende il 'vocabolario comune' nell'analisi lessicale di Lorenzetti?",
+    opts: [
+      "Il vocabolario di base di circa 7.000 parole usate quotidianamente",
+      "Circa 45.000 lessemi non relativi a particolari settori tecnici o a specifiche aree geografiche, comprensibili a tutti coloro con un'istruzione medio-alta",
+      "Il vocabolario condiviso tra due o più dialetti italiani",
+      "I 2.000 lessemi del lessico fondamentale"
+    ],
+    correct: 1,
+    explanation: "Il vocabolario comune comprende circa 45.000 lessemi che contengono lessemi non relativi a particolari settori tecnici o non specifici di un'area geografica, ma comprensibili a tutti coloro con un'istruzione medio-alta. Insieme al VdB forma il vocabolario corrente."
+  },
+  {
+    source: "L'Italiano Contemporaneo (Lorenzetti)",
+    q: "Cosa distingue i 'forestierismi' (prestiti non adattati) dai 'vocaboli adattati' nel lessico italiano?",
+    opts: [
+      "I forestierismi vengono dalle lingue romanze; i vocaboli adattati dalle lingue germaniche",
+      "I forestierismi rimangono estranei al genere italiano (es. hard-disk); i vocaboli adattati si adattano alla forma della lingua ricevente (es. bistecca da beefsteak)",
+      "I forestierismi sono sempre usati nei registri formali; i vocaboli adattati in quelli informali",
+      "I forestierismi sono recenti; i vocaboli adattati sono antichi"
+    ],
+    correct: 1,
+    explanation: "Dobbiamo distinguere tra forestierismi (che rimangono estranei al genere italiano, come hard-disk) e vocaboli adattati (che si adattano alla forma della lingua ricevente, es. bistecca da beefsteak). Oggi i forestierismi stanno diventando più frequenti grazie alla conoscenza di un panorama più ampio di testi in lingua dei parlanti."
+  },
+  {
+    source: "L'Italiano Contemporaneo (Lorenzetti)",
+    q: "Cos'è un 'calco' (calque) in italiano?",
+    opts: [
+      "Una parola presa in prestito senza modifiche da un'altra lingua",
+      "Una traduzione in italiano degli elementi di una parola straniera (es. tedesco Hinterland → italiano retroterra)",
+      "Un termine tecnico che ha acquisito un significato specializzato",
+      "Una parola che compare solo nell'italiano formale scritto"
+    ],
+    correct: 1,
+    explanation: "Nel caso del tedesco Hinterland è stato effettuato un processo chiamato calco: tradotte con parole italiane gli elementi dell'originale → retroterra. Il calco è dunque una traduzione degli elementi di una parola o espressione straniera con materiale linguistico della lingua ricevente."
+  },
+  {
+    source: "L'Italiano Contemporaneo (Lorenzetti)",
+    q: "Come si caratterizza il 'lessico settoriale' tecnico-scientifico secondo Lorenzetti?",
+    opts: [
+      "Comprende circa 7.000 parole usate quotidianamente da tutti gli italiani",
+      "Comprende parole usate solo dagli specialisti del settore; supera le 100.000 unità; riflette il progresso tecnologico e si modifica più facilmente degli altri strati lessicali",
+      "È il lessico usato esclusivamente in contesti letterari e artistici",
+      "Corrisponde al vocabolario di base (VdB)"
+    ],
+    correct: 1,
+    explanation: "Il lessico settoriale tecnico-scientifico comprende le parole delle scienze usate solo dagli specialisti del settore. Approssimativamente vanno oltre le 100.000 unità. Come il lessico di alta disponibilità, riflettono rapidamente il progresso e quindi si modificano più facilmente."
+  },
+  {
+    source: "L'Italiano Contemporaneo (Lorenzetti)",
+    q: "Cosa sono i 'gerghi' (jargons) secondo Lorenzetti?",
+    opts: [
+      "Varietà regionali dell'italiano con tratti fonetici distinti dallo standard",
+      "Varietà linguistiche parassite che prendono in prestito grammatica e sintassi dalle lingue ospitanti ma creano la propria base lessicale trasformando le parole correnti",
+      "Varietà tecniche usate esclusivamente in contesti scritti formali",
+      "Forme arcaiche dell'italiano sopravvissute in comunità isolate"
+    ],
+    correct: 1,
+    explanation: "I gerghi sono varietà linguistiche parassite che prendono in prestito grammatica e sintassi dalle lingue ospitanti. A livello lessicale sono varietà a sé che creano le proprie parole trasformando le correnti. Nei gerghi a base italiana sono rare le modifiche di forma (fascio=fascista), mentre sono frequenti quelle di significato (erba=marijuana)."
+  },
+  {
+    source: "L'Italiano Contemporaneo (Lorenzetti)",
+    q: "Qual è la situazione dell'italiano all'estero secondo Lorenzetti?",
+    opts: [
+      "Si è affermato come lingua etnica in molti paesi di emigrazione",
+      "I movimenti migratori portarono circa 26 milioni di italiani all'estero; l'italiano all'estero non si è mai affermato come lingua etnica; va visto come relitto dell'emigrazione e quindi non in crescita ma in estinzione",
+      "È diventato la seconda lingua più parlata in Sud America",
+      "Ha creato nuove varietà creole a base italiana in America Latina"
+    ],
+    correct: 1,
+    explanation: "I movimenti migratori iniziati nell'800 e proseguiti fino agli anni 70' hanno portato all'estero 26 milioni di italiani. L'italiano all'estero non si è mai affermato come lingua etnica. L'italiano all'estero va visto come relitto dell'emigrazione e quindi non in crescita ma in estinzione."
+  },
+  {
+    source: "L'Italiano Contemporaneo (Lorenzetti)",
+    q: "Qual era la situazione dell'italiano su Internet secondo i dati citati da Lorenzetti (2001)?",
+    opts: [
+      "L'italiano era tra le prime 3 lingue più usate su Internet",
+      "Circa 17 milioni di parlanti italiani usavano Internet (3,6% degli utenti globali); le pagine redatte in italiano erano circa l'1,5% del totale (contro il 70% dell'inglese)",
+      "L'uso dell'italiano su Internet cresceva rapidamente e si prevedeva superasse il francese",
+      "L'italiano era la lingua dominante su Internet nei paesi europei"
+    ],
+    correct: 1,
+    explanation: "L'uso dell'italiano su Internet è stimato a circa 17 milioni di parlanti, pari al 3,6% di utenti globali (nel 2001). Per le pagine redatte in italiano, secondo alcune stime difficili, abbiamo l'1,5% delle totali, rispetto al 70 dell'inglese e al 5 del tedesco. Su internet ci sono però più italiani che italiano."
+  },
+  {
+    source: "L'Italiano Contemporaneo (Lorenzetti)",
+    q: "Cosa caratterizza l'italiano regionale secondo Lorenzetti?",
+    opts: [
+      "È uno standard nazionale uniforme usato in tutti i contesti ufficiali",
+      "È una varietà di italiano molto influenzata dal dialetto, che si distingue da standard e altri regionali per elementi locali; ha estensione geografica variabile a seconda dei livelli considerati",
+      "È una varietà usata esclusivamente nell'Italia meridionale",
+      "È una varietà usata solo nella comunicazione orale molto informale"
+    ],
+    correct: 1,
+    explanation: "L'italiano regionale è una varietà di italiano molto influenzata dal dialetto, che si distingue da standard e altri regionali per elementi locali. La regionalità ha estensione diversa secondo i livelli che si considerano: abbiamo notato come pronunce prive di tratti regionali siano rare, quindi nella pronuncia anche il neostandard coincide di fatto col regionale."
+  },
+  {
+    source: "L'Italiano Contemporaneo (Lorenzetti)",
+    q: "Quale delle seguenti NON è una condizione che definisce la 'lingua standard' secondo Lorenzetti?",
+    opts: [
+      "Sovraregionale (non di una sola area specifica)",
+      "Codificata da grammatiche",
+      "Usata da parlanti di strati superiori in tutti gli scritti e in ogni contesto",
+      "Nata spontaneamente nell'uso popolare senza alcuna codificazione formale"
+    ],
+    correct: 3,
+    explanation: "La lingua standard deve essere codificata da grammatiche — l'opposto di una varietà nata spontaneamente senza codificazione. Le condizioni della standard sono: essere la varietà di riferimento (la norma), statisticamente più usata, sociolinguisticamente la meno marcata, sovraregionale, codificata da grammatiche, usata da parlanti di strati superiori in tutti i contesti."
+  },
+  {
+    source: "L'Italiano Contemporaneo (Lorenzetti)",
+    q: "Cosa accade quando l'italiano viene a contatto con i dialetti nell'uso quotidiano secondo Lorenzetti?",
+    opts: [
+      "L'italiano elimina gradualmente tutte le forme dialettali",
+      "I dialetti scompaiono, completamente sostituiti dall'italiano",
+      "L'italiano accetta pronunce, forme e costrutti banditi per secoli da grammatiche e vocabolari del buon uso perché dialettali e del parlato (non dello scritto)",
+      "Emerge uno standard nazionale unificato che combina elementi da tutti i dialetti"
+    ],
+    correct: 2,
+    explanation: "Ovviamente le due lingue non sono isolate, ma l'italiano si modella al contatto con i dialetti. La necessità di esprimere concetti quotidiani piega l'italiano — lingua nata secondo una normalizzazione grammaticale durata secoli — accettando sempre più pronunce, forme e costrutti banditi per secoli da grammatiche e vocabolari del buon uso perché dialettali e del parlato."
+  },
+  {
+    source: "L'Italiano Contemporaneo (Lorenzetti)",
+    q: "Grazie a quale fenomeno l'italiano divenne una vera lingua nazionale parlata, non più solo scritta e formale?",
+    opts: [
+      "L'Unità d'Italia nel 1861 e l'istruzione pubblica obbligatoria",
+      "La radio, il cinema e la televisione, che dagli anni Cinquanta portarono a parlare in famiglia in italiano anche con coniugi e anziani",
+      "La diffusione dei Promessi Sposi di Manzoni nelle scuole",
+      "La diaspora italiana che diffuse una forma unificata di italiano nel mondo"
+    ],
+    correct: 1,
+    explanation: "Il contatto dell'italiano con la massa avviene grazie alla radio, al cinema e alla televisione. Negli anni Cinquanta inizia così un cambiamento che portava a parlare in famiglia con coniugi e anziani in dialetto e con i figli in italiano. Da qui possiamo considerare l'italiano lingua nazionale, non solo dello Stato ma della maggior parte dei cittadini."
+  },
+  {
+    source: "L'Italiano Contemporaneo (Lorenzetti)",
+    q: "Cosa studia la 'variazione diastratica' di una lingua?",
+    opts: [
+      "La variazione della lingua nel tempo",
+      "La variazione geografica della lingua",
+      "La variazione della lingua in base alla classe sociale e al livello d'istruzione del parlante",
+      "La variazione della lingua in base al canale di comunicazione (scritto vs parlato)"
+    ],
+    correct: 2,
+    explanation: "La variazione diastratica (sociale) riguarda le forme ineducate, ovvero le varietà linguistiche legate alla condizione sociale del parlante e al suo livello d'istruzione. Si distingue dalla variazione diatopica (geografica), dalla diafasica (stilistica, legata al contesto d'uso) e dalla diamesica (legata al canale scritto/parlato)."
+  },
+  {
+    source: "L'Italiano Contemporaneo (Lorenzetti)",
+    q: "Come si distinguono i 'lessemi ereditari' dai 'latinismi' nella storia del lessico italiano?",
+    opts: [
+      "I lessemi ereditari derivano dal latino parlato di tutte le epoche, modificandosi nel tempo; i latinismi sono di tradizione indiretta, introdotti da colti attraverso lo scritto di scienza, diritto e religione",
+      "I lessemi ereditari sono parole antiche non più in uso; i latinismi sono termini tecnici moderni",
+      "I lessemi ereditari sono del lessico fondamentale; i latinismi del lessico tecnico",
+      "I lessemi ereditari conservano la forma latina originale; i latinismi sono stati modificati"
+    ],
+    correct: 0,
+    explanation: "I lessemi ereditari derivano dal latino parlato di tutte le epoche; queste parole sono passate di generazioni modificando forma e significato ma rimanendo nell'uso. I latinismi sono di tradizione indiretta: il latino continuò a vivere nello scritto di scienza, diritto e religione; i più istruiti trasportavano questi termini nel loro italiano scritto. Così sono entrati migliaia di latinismi come 'applicare', 'biblioteca', 'cultura'."
+  },
+  {
+    source: "L'Italiano Contemporaneo (Lorenzetti)",
+    q: "Cosa sono i 'cultismi' nel lessico italiano?",
+    opts: [
+      "Parole usate esclusivamente nel linguaggio religioso",
+      "Latinismi di tradizione indiretta che hanno modificato la fonologia italiana rendendo accettabili combinazioni sonore semplificate nell'evoluzione popolare (es. glacem→ghiaccio, ma glaciale mantiene la L)",
+      "Parole derivate dalla cultura popolare dialettale",
+      "Prestiti dal greco inseriti direttamente senza passare dal latino"
+    ],
+    correct: 1,
+    explanation: "I cultismi (lessemi ereditari di tradizione indiretta) hanno modificato la fonologia dell'italiano, rendendo accettabili combinazioni sonore che nell'evoluzione popolare si erano semplificate: es. le parole con cons+L sono diventate cons+I (glacem→ghiaccio). L'aggettivo di ghiaccio è glaciale, che mantiene la L — cultismo che mescolando tradizione popolare e indiretta crea i cosiddetti allotropi (es. discus → desco e in via colta disco)."
+  },
+  {
+    source: "L'Italiano Contemporaneo (Lorenzetti)",
+    q: "Come si forma il 'futuro romanzo' (es. italiano 'loderò') rispetto al futuro sintetico latino?",
+    opts: [
+      "Da infinito + imperfetto del verbo habere",
+      "Da infinito + presente del verbo habere (es. laudar(e) *ao > lodar-ò > loderò)",
+      "Da infinito + perfetto del verbo habere",
+      "Da una desinenza sintetica direttamente ereditata dal latino"
+    ],
+    correct: 1,
+    explanation: "Il futuro romanzo è analitico, costituito da una perifrasi: infinito + presente del verbo habēre. Es.: laudar(e) *ao > lodar ò > loderò. Il futuro latino era di tipo sintetico (laudabo). Questa perifrasi è un'innovazione del latino volgare."
+  },
+
+  /* ===== MORGANA — Breve storia della lingua italiana ===== */
+
+  {
+    source: "Breve Storia della Lingua Italiana (Morgana)",
+    q: "Qual è la rilevanza della 'Scuola Siciliana' (anni 1230-40, corte di Federico II) per la storia della lingua italiana?",
+    opts: [
+      "Stabilì il fiorentino come prima lingua letteraria italiana",
+      "Fu la prima scuola letteraria organizzata a produrre lirica in volgare italiano, dando vita alla prima tradizione poetica italiana",
+      "Compose i primi testi grammaticali in volgare italiano",
+      "Tradusse i classici latini in volgare per la prima volta"
+    ],
+    correct: 1,
+    explanation: "La Scuola Siciliana (anni 1230-40, alla corte di Federico II) è la prima scuola letteraria organizzata che produsse lirica in volgare italiano. Tuttavia, per ragioni storiche, i testi della Scuola Siciliana ci sono pervenuti in trascrizioni toscane, il che ha contribuito al prestigio del toscano come varietà letteraria."
+  },
+  {
+    source: "Breve Storia della Lingua Italiana (Morgana)",
+    q: "Qual è il significato del Convivio per la storia dell'italiano?",
+    opts: [
+      "È la prima grammatica del volgare italiano",
+      "Contiene la definizione dantesca del volgare come 'il sole nuovo' destinato a prendere il posto del latino e a diffondere la cultura anche tra i ceti meno elevati",
+      "Stabilisce le regole del dialetto fiorentino",
+      "È il primo testo scritto interamente in volgare da un autore di rilievo"
+    ],
+    correct: 1,
+    explanation: "Dante nel Convivio definisce la Commedia con la metafora de 'il sole nuovo' destinato a prendere il posto del latino, e a configurarsi come uno strumento di diffusione della cultura anche tra i ceti meno elevati. Dante fu il primo teorico del volgare."
+  },
+  {
+    source: "Breve Storia della Lingua Italiana (Morgana)",
+    q: "Quale fu la conseguenza della scelta di Petrarca di affidare i suoi messaggi più importanti al latino, agli occhi dei dotti del '400?",
+    opts: [
+      "Promosse l'uso del volgare come lingua letteraria dignitosa",
+      "Ebbe quasi un effetto di screditamento del volgare agli occhi dei dotti, restii a considerarlo dal punto di vista letterario",
+      "Stabilì definitivamente il latino come unica lingua della scienza",
+      "Incentivò i grammatici a codificare le regole del volgare"
+    ],
+    correct: 1,
+    explanation: "La scelta di Petrarca di affidare i suoi messaggi più importanti al latino (seguendo i modelli di grandi autori latini come Cicerone e Virgilio) ebbe quasi un effetto di screditamento del volgare agli occhi dei dotti, restii a considerarlo dal punto di vista letterario, mentre esso continuava a diffondersi nell'uso pratico."
+  },
+  {
+    source: "Breve Storia della Lingua Italiana (Morgana)",
+    q: "Come si è formato il condizionale romanzo (es. italiano 'loderei'), tempo verbale assente in latino?",
+    opts: [
+      "Da infinito + presente del verbo habere",
+      "Da infinito + imperfetto del verbo habere",
+      "Da infinito + perfetto del verbo habere (es. laudar(e) *hēbui > laudar(e) *ēi > lodarei > loderei)",
+      "Da una desinenza sintetica di origine germanica"
+    ],
+    correct: 2,
+    explanation: "Il condizionale in latino non esisteva. Il condizionale romanzo nasce da una perifrasi del latino volgare composta da infinito + perfetto del verbo habēre: laudar(e) *hēbui > laudar(e) *ēi > lodarei > loderei. È un'innovazione romanza fondamentale."
+  },
+  {
+    source: "Breve Storia della Lingua Italiana (Morgana)",
+    q: "Secondo Morgana, come cambiò l'ordine delle parole nel passaggio dal latino all'italiano?",
+    opts: [
+      "Dall'ordine VSO (Verbo Soggetto Oggetto) all'ordine SVO",
+      "Dall'ordine SOV (Soggetto Oggetto Verbo) all'ordine SVO (Soggetto Verbo Oggetto)",
+      "Dall'ordine SVO all'ordine SOV",
+      "Dall'ordine OVS all'ordine SVO"
+    ],
+    correct: 1,
+    explanation: "Nella sintassi, si passa dall'ordine SOV (Soggetto Oggetto Verbo) tipico del latino all'ordine SVO (Soggetto Verbo Oggetto) dell'italiano. Questo cambiamento è probabile conseguenza dell'indebolimento dei morfemi posti nella parte terminale della parola (le desinenze latine che indicavano la funzione grammaticale)."
+  }
+
+];
+
+let current = 0;
+let score = 0;
+let answers = [];
+
+function init() {
+  current = 0; score = 0; answers = [];
+  document.getElementById('quiz-container').style.display = '';
+  document.getElementById('results-container').style.display = 'none';
+  showQuestion();
+}
+
+function showQuestion() {
+  const q = questions[current];
+  document.getElementById('progress-bar').style.width = ((current / questions.length) * 100) + '%';
+  document.getElementById('question-counter').textContent = 'Domanda ' + (current + 1) + ' di ' + questions.length;
+  document.getElementById('source-tag').textContent = q.source;
+  document.getElementById('question-text').textContent = q.q;
+
+  const optContainer = document.getElementById('options');
+  optContainer.innerHTML = '';
+  const letters = ['A', 'B', 'C', 'D'];
+
+  q.opts.forEach(function(opt, i) {
+    const btn = document.createElement('button');
+    btn.className = 'option-btn';
+    btn.innerHTML = '<span class="letter">' + letters[i] + '</span><span>' + opt + '</span>';
+    btn.onclick = function() { selectOption(i); };
+    optContainer.appendChild(btn);
+  });
+
+  const fb = document.getElementById('feedback');
+  fb.style.display = 'none'; fb.className = ''; fb.textContent = '';
+  const nextBtn = document.getElementById('next-btn');
+  nextBtn.style.display = 'none';
+  nextBtn.textContent = current === questions.length - 1 ? 'Vedi i risultati →' : 'Prossima domanda →';
+}
+
+function selectOption(selected) {
+  const q = questions[current];
+  const btns = document.querySelectorAll('.option-btn');
+  btns.forEach(function(b) { b.disabled = true; });
+
+  const isCorrect = selected === q.correct;
+  if (isCorrect) score++;
+  answers.push({ qIdx: current, selected: selected, correct: q.correct, isCorrect: isCorrect });
+
+  btns[selected].classList.add(isCorrect ? 'correct' : 'wrong');
+  if (!isCorrect) btns[q.correct].classList.add('correct');
+
+  const fb = document.getElementById('feedback');
+  fb.style.display = 'block';
+  if (isCorrect) {
+    fb.className = 'correct-fb';
+    fb.textContent = '✓ Corretto! ' + q.explanation;
+  } else {
+    fb.className = 'wrong-fb';
+    fb.textContent = '✗ Risposta errata. ' + q.explanation;
+  }
+  document.getElementById('next-btn').style.display = 'block';
+}
+
+document.getElementById('next-btn').addEventListener('click', function() {
+  current++;
+  if (current >= questions.length) showResults();
+  else showQuestion();
+});
+
+document.getElementById('retry-btn').addEventListener('click', init);
+
+function showResults() {
+  document.getElementById('progress-bar').style.width = '100%';
+  document.getElementById('quiz-container').style.display = 'none';
+  document.getElementById('results-container').style.display = 'block';
+
+  const pct = Math.round((score / questions.length) * 100);
+  const wrong = questions.length - score;
+
+  document.getElementById('score-num').textContent = score;
+  document.getElementById('stat-correct').textContent = score;
+  document.getElementById('stat-wrong').textContent = wrong;
+  document.getElementById('stat-pct').textContent = pct + '%';
+
+  const circle = document.getElementById('score-circle');
+  if (pct >= 85) circle.style.background = 'linear-gradient(135deg, #2ecc71, #27ae60)';
+  else if (pct >= 65) circle.style.background = 'linear-gradient(135deg, #f39c12, #e67e22)';
+  else circle.style.background = 'linear-gradient(135deg, #e74c3c, #c0392b)';
+
+  var voteLabel, voteComment;
+  if (pct >= 90) { voteLabel = '🏆 Eccellente!'; voteComment = 'Preparazione ottima — sei pronto per l\'esame!'; }
+  else if (pct >= 80) { voteLabel = '⭐ Molto Bene!'; voteComment = 'Preparazione solida, qualche piccola lacuna da rivedere.'; }
+  else if (pct >= 65) { voteLabel = '👍 Bene'; voteComment = 'Buona base, ripassate le domande errate.'; }
+  else if (pct >= 50) { voteLabel = '📚 Sufficiente'; voteComment = 'Ancora un po\' di studio ti servirà per essere sicuro.'; }
+  else { voteLabel = '⚠️ Insufficiente'; voteComment = 'Rivedi il materiale con attenzione prima dell\'esame.'; }
+
+  document.getElementById('vote-label').textContent = voteLabel;
+  document.getElementById('vote-comment').textContent = voteComment;
+
+  const list = document.getElementById('breakdown-list');
+  list.innerHTML = '';
+  const letters = ['A', 'B', 'C', 'D'];
+
+  answers.forEach(function(a, i) {
+    const q = questions[a.qIdx];
+    const item = document.createElement('div');
+    item.className = 'result-item';
+    const icon = a.isCorrect ? '✅' : '❌';
+    var answerHTML;
+    if (a.isCorrect) {
+      answerHTML = '<span class="ri-answer">Risposta: ' + letters[a.correct] + '. ' + q.opts[a.correct] + '</span>';
+    } else {
+      answerHTML = '<span class="ri-answer ri-wrong-answer">Tua risposta: ' + letters[a.selected] + '. ' + q.opts[a.selected] + '<br>Risposta corretta: ' + letters[a.correct] + '. ' + q.opts[a.correct] + '</span>';
+    }
+    item.innerHTML =
+      '<span class="ri-num">' + (i+1) + '.</span>' +
+      '<div class="ri-q">' + q.q + answerHTML + '</div>' +
+      '<span class="ri-icon">' + icon + '</span>';
+    list.appendChild(item);
+  });
+
+  document.getElementById('results-container').scrollIntoView({ behavior: 'smooth' });
+}
+
+init();
+</script>
+</body>
+</html>
