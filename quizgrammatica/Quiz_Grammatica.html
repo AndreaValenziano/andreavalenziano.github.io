@@ -267,6 +267,35 @@
     transition: opacity 0.2s;
   }
   #retry-btn:hover { opacity: 0.88; }
+
+  .header-nav {
+    margin-top: 14px;
+    font-size: 0.82rem;
+    opacity: 0.85;
+  }
+  .header-nav a {
+    color: #cfe3c7;
+    text-decoration: none;
+    border-bottom: 1px dashed rgba(207,227,199,0.5);
+    margin: 0 8px;
+  }
+  .header-nav a:hover { opacity: 0.85; }
+
+  .quiz-link-btn {
+    display: inline-block;
+    margin: 14px 6px 0;
+    background: white;
+    color: #4a6741;
+    border: 2px solid #4a6741;
+    border-radius: 8px;
+    padding: 10px 26px;
+    font-size: 0.95rem;
+    cursor: pointer;
+    font-family: 'Georgia', serif;
+    text-decoration: none;
+    transition: background 0.2s, color 0.2s;
+  }
+  .quiz-link-btn:hover { background: #4a6741; color: white; }
 </style>
 </head>
 <body>
@@ -274,6 +303,7 @@
 <header>
   <h1>Quiz di Grammatica Italiana</h1>
   <p>Storia della lingua e della grammatica &mdash; 31 domande</p>
+  <div class="header-nav"><a href="Quiz_Grammatica_2.html">Quiz 2 &rarr;</a> &bull; <a href="Quiz_Grammatica_3.html">Quiz 3 &rarr;</a></div>
 </header>
 <div id="progress-bar-container"><div id="progress-bar"></div></div>
 
@@ -314,6 +344,9 @@
     <p class="vote-label" id="vote-label"></p>
     <p class="vote-comment" id="vote-comment"></p>
     <button id="retry-btn">&#8635; Rifai il quiz</button>
+    <br>
+    <a href="Quiz_Grammatica_2.html" class="quiz-link-btn">Quiz 2 &rarr;</a>
+    <a href="Quiz_Grammatica_3.html" class="quiz-link-btn">Quiz 3 &rarr;</a>
     <div class="results-breakdown">
       <h3>Riepilogo domanda per domanda</h3>
       <div id="breakdown-list"></div>
@@ -327,10 +360,10 @@ const questions = [
     source: "Breve Storia della Grammatica (Fornara)",
     q: "Cosa caratterizza le grammatiche diacroniche (storiche)?",
     opts: [
-      "Descrivono lo stato di una lingua in un determinato periodo storico",
-      "Analizzano l'evoluzione della lingua nel corso del tempo",
-      "Presentano solo le regole normative della lingua",
-      "Si occupano esclusivamente della sintassi"
+      "Descrivono lo stato di una lingua in un preciso momento storico, fotografandone il sistema senza interesse per l'evoluzione: è in realtà la definizione di grammatica sincronica",
+      "Analizzano l'evoluzione della lingua nel corso del tempo, studiandone le trasformazioni fonetiche, morfologiche e sintattiche attraverso le regole di mutamento linguistico",
+      "Si limitano a prescrivere le regole del buon uso, indicando ciò che è corretto e ciò che va evitato, senza alcuna attenzione alla dimensione storica",
+      "Si occupano esclusivamente dell'ordine delle parole e della struttura del periodo, cioè della sola sintassi, tralasciando fonetica e morfologia"
     ],
     correct: 1,
     explanation: "Le grammatiche diacroniche analizzano l'evoluzione della lingua nel corso del tempo, studiando aspetti fonetici, morfologici e sintattici attraverso le regole di trasformazione linguistica."
@@ -339,10 +372,10 @@ const questions = [
     source: "Breve Storia della Grammatica (Fornara)",
     q: "Chi è considerato il primo teorico del volgare e a quale opera è legata questa definizione?",
     opts: [
-      "Petrarca, grazie al Canzoniere",
-      "Boccaccio, grazie al Decameron",
-      "Dante, grazie al De vulgari eloquentia",
-      "Bembo, grazie alle Prose della Volgar Lingua"
+      "Petrarca, che con il Canzoniere fissò il modello della lingua poetica e per questo sarebbe il primo a teorizzare il volgare illustre",
+      "Boccaccio, che con il Decameron diede al volgare dignità di prosa e ne avrebbe perciò gettato le basi teoriche",
+      "Dante, grazie al De vulgari eloquentia, trattato in latino composto all'inizio del '300 e dedicato alla ricerca del volgare illustre",
+      "Bembo, che con le Prose della Volgar Lingua avrebbe per primo elaborato una teoria organica del volgare letterario"
     ],
     correct: 2,
     explanation: "Dante fu il primo teorico del volgare, al quale dedicò il trattato De vulgari eloquentia, composto all'inizio del '300 e scritto in latino perché rivolto ai dotti."
@@ -351,10 +384,10 @@ const questions = [
     source: "Breve Storia della Grammatica (Fornara)",
     q: "La Grammatichetta Vaticana di Leon Battista Alberti è considerata:",
     opts: [
-      "La prima grammatica del latino classico a stampa",
-      "La prima grammatica di una lingua volgare a livello europeo",
-      "La prima grammatica dell'italiano stampata a Firenze",
-      "La prima grammatica normativa dell'italiano moderno"
+      "La prima grammatica del latino classico data alle stampe, pensata per insegnare la lingua dei classici agli umanisti",
+      "La prima grammatica di una lingua volgare a livello europeo, rimasta però poco nota perché tramandata da un unico codice manoscritto vaticano e mai stampata",
+      "La prima grammatica dell'italiano stampata a Firenze, espressione dell'ambiente colto mediceo",
+      "La prima grammatica normativa dell'italiano moderno, divenuta modello per le grammatiche scolastiche successive"
     ],
     correct: 1,
     explanation: "La Grammatichetta Vaticana è la prima grammatica di una lingua volgare a livello europeo; fu poco conosciuta poiché non venne pubblicata e ci è tramandata tramite l'unico codice manoscritto conservato presso la Biblioteca Vaticana."
@@ -363,10 +396,10 @@ const questions = [
     source: "Breve Storia della Grammatica (Fornara)",
     q: "Su quale base Alberti individua il numero di coniugazioni nella Grammatichetta Vaticana, e quante ne individua?",
     opts: [
-      "3 coniugazioni, sulla base dell'infinito",
-      "4 coniugazioni, sulla base della 2ª persona dell'indicativo presente",
-      "2 coniugazioni, sulla base della 3ª persona dell'indicativo presente",
-      "5 coniugazioni, sulla base del participio passato"
+      "3 coniugazioni, individuate sulla base della desinenza dell'infinito, secondo il modello dei grammatici latini Donato, Diomede e Carisio",
+      "4 coniugazioni, riconosciute sulla base della 2ª persona dell'indicativo presente, riprendendo lo schema di Prisciano",
+      "2 coniugazioni, individuate sulla base della 3ª persona dell'indicativo presente, scelta originale rispetto alla tradizione latina che oscillava tra 3 e 4 coniugazioni",
+      "5 coniugazioni, basate sulla forma del participio passato, per tenere conto della maggiore varietà del volgare"
     ],
     correct: 2,
     explanation: "Alberti individua 2 coniugazioni, sulla base della 3ª persona dell'indicativo presente. La tradizione latina non forniva un modello unico: Donato, Diomede e Carisio riconoscevano 3 coniugazioni; Prisciano 4."
@@ -375,10 +408,10 @@ const questions = [
     source: "Breve Storia della Grammatica (Fornara)",
     q: "Qual è la prima grammatica dell'italiano a stampa?",
     opts: [
-      "Le Prose della Volgar Lingua di Pietro Bembo (1525)",
-      "La Grammatichetta di Trissino (1529, Vicenza)",
-      "Le Regole grammaticali della Volgar Lingua di Fortunio (1516)",
-      "La Grammatica di Giambullari (1552, Firenze)"
+      "Le Prose della Volgar Lingua di Pietro Bembo (1525), considerate per la loro fama la prima vera grammatica a stampa del volgare",
+      "La Grammatichetta di Trissino (1529, Vicenza), prima a essere data alle stampe con un nuovo sistema ortografico",
+      "Le Regole grammaticali della Volgar Lingua di Fortunio (1516), primo testo grammaticale dell'italiano a stampa e grande successo editoriale",
+      "La Grammatica di Giambullari (1552, Firenze), prima grammatica stampata nella città del fiorentino"
     ],
     correct: 2,
     explanation: "Le Regole grammaticali della Volgar Lingua di Fortunio (1516) sono la prima grammatica dell'italiano a stampa. L'opera fu un grande successo editoriale."
@@ -387,10 +420,10 @@ const questions = [
     source: "Breve Storia della Grammatica (Fornara)",
     q: "Chi è il massimo teorico del classicismo volgare nel Cinquecento?",
     opts: [
-      "Dante Alighieri",
-      "Leon Battista Alberti",
-      "Pietro Bembo",
-      "Giovan Giorgio Trissino"
+      "Dante Alighieri, primo teorico del volgare e perciò massimo riferimento anche del classicismo cinquecentesco",
+      "Leon Battista Alberti, iniziatore dell'Umanesimo volgare e promotore del toscano negli ambienti dotti",
+      "Pietro Bembo, autore della 'teoria dell'imitazione' che indicava in Boccaccio e Petrarca i modelli di prosa e poesia",
+      "Giovan Giorgio Trissino, teorico della 'lingua italiana' e fautore di una riforma ortografica"
     ],
     correct: 2,
     explanation: "Pietro Bembo fu il massimo teorico del classicismo volgare. Aveva elaborato la 'teoria dell'imitazione': per il volgare i modelli erano Boccaccio (prosa) e Petrarca (poesia)."
@@ -399,10 +432,10 @@ const questions = [
     source: "Breve Storia della Grammatica (Fornara)",
     q: "Quando e dove fu stampata la prima edizione del Vocabolario dell'Accademia della Crusca?",
     opts: [
-      "1591, a Firenze",
-      "1612, a Venezia",
-      "1643, a Firenze",
-      "1688, a Roma"
+      "Nel 1591 a Firenze, città sede dell'Accademia, contestualmente alla sua fondazione",
+      "Nel 1612 a Venezia, città dalla fiorente attività tipografica, secondo criteri fortemente influenzati da Leonardo Salviati",
+      "Nel 1643 a Firenze, in concomitanza con la grammatica di Buommattei",
+      "Nel 1688 a Roma, sotto il patrocinio della Chiesa"
     ],
     correct: 1,
     explanation: "La prima edizione del Vocabolario dell'Accademia della Crusca fu stampata a Venezia nel 1612. I criteri di compilazione erano fortemente influenzati dalle idee di Leonardo Salviati."
@@ -411,10 +444,10 @@ const questions = [
     source: "Breve Storia della Grammatica (Fornara)",
     q: "La nascita della grammatica italiana è legata all'affermazione di:",
     opts: [
-      "I tre grandi Trecentisti: Dante, Petrarca e Boccaccio",
-      "I grandi grammatici latini come Prisciano e Donato",
-      "Gli umanisti fiorentini guidati da Alberti",
-      "L'Accademia della Crusca e i suoi vocabolari"
+      "I tre grandi Trecentisti — Dante, Petrarca e Boccaccio — che diedero dignità letteraria al volgare, creando l'esigenza di fissarne le regole",
+      "I grandi grammatici latini come Prisciano e Donato, i cui modelli furono semplicemente trasferiti al volgare",
+      "Gli umanisti fiorentini guidati da Alberti, che per primi codificarono la lingua parlata in Toscana",
+      "L'Accademia della Crusca e i suoi vocabolari, che fissarono per la prima volta la norma del fiorentino"
     ],
     correct: 0,
     explanation: "La nascita della grammatica è legata all'affermazione dei 3 grandi Trecentisti: Dante, Petrarca e Boccaccio, i quali fecero acquisire dignità letteraria al volgare, creando l'esigenza di fissarne le regole."
@@ -423,10 +456,10 @@ const questions = [
     source: "Breve Storia della Grammatica (Fornara)",
     q: "Qual è il principale manuale di storia della grammatica italiana, pur non essendo adeguato alla ricerca moderna?",
     opts: [
-      "Grammaticographie di Teresa Poggi Salani (1988)",
-      "Grammaticografia di Ilaria Bonomi (1998)",
-      "Storia della Grammatica Italiana di Ciro Trabalza (1908)",
-      "I Percorsi Grammaticali di Giuseppe Patota (1993)"
+      "La Grammaticografia di Teresa Poggi Salani (1988), considerata il punto di riferimento metodologico moderno",
+      "La Grammaticografia di Ilaria Bonomi (1998), sintesi aggiornata della tradizione grammaticale italiana",
+      "La Storia della Grammatica Italiana di Ciro Trabalza (1908), unico manuale che copre dal '400 all'800 ma ormai superato sul piano metodologico",
+      "I Percorsi Grammaticali di Giuseppe Patota (1993), divenuto manuale di riferimento per la didattica universitaria"
     ],
     correct: 2,
     explanation: "La Storia della Grammatica Italiana di Ciro Trabalza (1908) è l'unico manuale tutt'oggi disponibile che tratta la storia della grammatica in Italia dal '400 alla seconda metà dell'800, ma non è più adeguato alla ricerca moderna soprattutto dal punto di vista metodologico."
@@ -435,10 +468,10 @@ const questions = [
     source: "Breve Storia della Grammatica (Fornara)",
     q: "Quale grammatica del Cinquecento inaugura la 'linea classificatoria'?",
     opts: [
-      "Le Regole grammaticali della Volgar Lingua di Fortunio (1516)",
-      "Le Prose della Volgar Lingua di Bembo",
-      "La Grammatichetta di Giovan Giorgio Trissino (1529, Vicenza)",
-      "I Fondamenti del Parlar Thoscano di Rinaldo Corso (1549)"
+      "Le Regole grammaticali della Volgar Lingua di Fortunio (1516), che per prime classificarono le parti del discorso del volgare",
+      "Le Prose della Volgar Lingua di Bembo, che fondarono la classificazione su base letteraria trecentesca",
+      "La Grammatichetta di Giovan Giorgio Trissino (1529, Vicenza), il cui autore negava il primato del toscano sostenendo che Petrarca scrivesse in 'italiano'",
+      "I Fondamenti del Parlar Thoscano di Rinaldo Corso (1549), prima sistemazione classificatoria del fiorentino vivo"
     ],
     correct: 2,
     explanation: "La Grammatichetta di Giovan Giorgio Trissino (1529, Vicenza) inaugura la linea classificatoria. Trissino non vedeva nelle Tre Corone e nel modello del '300 i modelli linguistici da seguire, sostenendo che Petrarca non avesse scritto in toscano, ma in italiano."
@@ -447,10 +480,10 @@ const questions = [
     source: "Breve Storia della Grammatica (Fornara)",
     q: "Quale grammatica cinquecentesca fu la prima ad essere stampata a Firenze?",
     opts: [
-      "Le Regole di Fortunio (1516)",
-      "Le Prose della Volgar Lingua di Bembo (1525)",
-      "La Grammatica di Pierfrancesco Giambullari (1552)",
-      "Le Osservazioni di Lodovico Dolce (1550, Venezia)"
+      "Le Regole di Fortunio (1516), prima grammatica a stampa ma pubblicata fuori Firenze",
+      "Le Prose della Volgar Lingua di Bembo (1525), stampate nella patria stessa del fiorentino",
+      "La Grammatica di Pierfrancesco Giambullari (1552), prima a essere stampata a Firenze, dove gli intellettuali non sentivano il bisogno di teorizzare una lingua che già padroneggiavano",
+      "Le Osservazioni di Lodovico Dolce (1550, Venezia), prima grammatica fiorentina d'impianto normativo"
     ],
     correct: 2,
     explanation: "La Grammatica di Pierfrancesco Giambullari (1552) è la prima grammatica ad essere stampata a Firenze. Gli intellettuali fiorentini non avvertivano la necessità di creare una teoria per una lingua che già naturalmente padroneggiavano."
@@ -459,10 +492,10 @@ const questions = [
     source: "Breve Storia della Grammatica (Fornara)",
     q: "Quale fu la più importante e influente grammatica di tutto il Seicento?",
     opts: [
-      "Il Trattato della lingua di Pergamini (1613, Venezia)",
-      "Le Osservazioni di Cinonio (Marcantonio Mambelli)",
-      "La Grammatica di Benedetto Buommattei",
-      "Gli Avvertimenti Grammaticali di Pietro Sforza Pallavicino (1661)"
+      "Il Trattato della lingua di Pergamini (1613, Venezia), opera di riferimento della grammaticografia secentesca",
+      "Le Osservazioni di Cinonio (Marcantonio Mambelli), celebri soprattutto per l'analisi delle particelle",
+      "La Grammatica di Benedetto Buommattei, di 'secolare fortuna', edita in forma definitiva come Della lingua toscana (1643, Firenze)",
+      "Gli Avvertimenti Grammaticali di Pietro Sforza Pallavicino (1661), summa della riflessione linguistica gesuitica"
     ],
     correct: 2,
     explanation: "La Grammatica di Benedetto Buommattei fu la più importante e influente grammatica di tutto il '600, 'destinata a conoscere una secolare fortuna'. L'edizione definitiva uscì col titolo Della lingua toscana nel 1643 a Firenze."
@@ -471,10 +504,10 @@ const questions = [
     source: "Breve Storia della Grammatica (Fornara)",
     q: "Secondo Biondo Flavio, come si originò l'italiano?",
     opts: [
-      "Il volgare si sviluppò autonomamente, parallelamente al latino",
-      "Il latino si corruppe e si contaminò a causa delle invasioni barbariche",
-      "Nell'antica Roma esistevano già due livelli linguistici distinti: alto e basso",
-      "Il volgare derivò direttamente dal greco antico attraverso l'italiano meridionale"
+      "Il volgare si sarebbe sviluppato autonomamente, parallelamente al latino, come lingua del popolo da sempre distinta",
+      "Il latino diffuso nell'antica Roma si corruppe e si contaminò a causa delle invasioni barbariche, dando origine all'italiano: tesi di gran successo nel '500, accolta anche da Bembo",
+      "Nell'antica Roma esistevano già due livelli linguistici distinti, uno alto e uno basso, e dal secondo sarebbe derivato l'italiano",
+      "Il volgare derivò direttamente dal greco antico, penetrato attraverso l'italiano meridionale"
     ],
     correct: 1,
     explanation: "Secondo Biondo Flavio, la lingua diffusa nell'antica Roma (il latino) si corruppe e si contaminò a causa delle invasioni barbariche, dando origine all'italiano. Questa posizione riscosse maggior successo nel '500 e fu accreditata anche da Pietro Bembo."
@@ -483,10 +516,10 @@ const questions = [
     source: "Breve Storia della Grammatica (Fornara)",
     q: "Leon Battista Alberti è definito 'iniziatore' di quale movimento?",
     opts: [
-      "Il Purismo linguistico del Seicento",
-      "L'Umanesimo volgare",
-      "Il classicismo cinquecentesco di Bembo",
-      "La grammaticografia dell'Ottocento"
+      "Il Purismo linguistico del Seicento, sorto in difesa della purezza del toscano",
+      "L'Umanesimo volgare, movimento fiorito nella seconda metà del '400 alla corte dei Medici, che rilanciò il toscano anche tra i dotti",
+      "Il classicismo cinquecentesco poi teorizzato da Bembo, di cui sarebbe il diretto precursore",
+      "La grammaticografia dell'Ottocento, con il suo approccio storico allo studio della lingua"
     ],
     correct: 1,
     explanation: "Alberti è definito iniziatore dell'Umanesimo volgare (movimento sviluppatosi appieno nella seconda metà del '400 alla corte dei Medici). Egli cercò di promuovere l'uso della nuova lingua, portando al rilancio del toscano anche negli ambienti più dotti."
@@ -495,10 +528,10 @@ const questions = [
     source: "Breve Storia della Grammatica (Fornara)",
     q: "Quale fu il primo vocabolario monolingue del volgare italiano a stampa?",
     opts: [
-      "Il Vocabolario della Crusca (1612, Venezia)",
-      "Le Tre Fontane di Niccolò Liburnio (Venezia, 1526)",
-      "Le Prose della Volgar Lingua di Bembo (1525)",
-      "Il Vocabolario di Acarisio (1543, Cento)"
+      "Il Vocabolario della Crusca (1612, Venezia), primo grande repertorio monolingue del volgare",
+      "Le Tre Fontane di Niccolò Liburnio (Venezia, 1526), legate alle teorie di Bembo e modellate sugli autori delle Tre Corone",
+      "Le Prose della Volgar Lingua di Bembo (1525), che includevano un primo repertorio lessicale del volgare",
+      "Il Vocabolario di Alberto Acarisio (1543, Cento), spesso indicato come primo dizionario monolingue dell'italiano"
     ],
     correct: 1,
     explanation: "Il primo vocabolario monolingue del volgare italiano a stampa è Le Tre Fontane di Niccolò Liburnio (Venezia, 1526), inserito in un quadro legato alle teorie di Bembo e che prendeva a modello gli autori delle Tre Corone."
@@ -507,10 +540,10 @@ const questions = [
     source: "Breve Storia della Grammatica (Fornara)",
     q: "La Grande Grammatica di Consultazione di Renzi (1988-95) si distingue perché:",
     opts: [
-      "È un'opera strettamente normativa, rivolta alle scuole elementari",
-      "La trattazione parte dalla frase per passare alle singole parti del discorso, con impostazione basata su criteri linguistici",
-      "Tratta solo la morfologia dell'italiano contemporaneo",
-      "È stata scritta da un solo autore con approfondita conoscenza del latino"
+      "È un'opera strettamente normativa, rivolta alla scuola elementare, che prescrive le regole del buon uso",
+      "Frutto di un lavoro di équipe su criteri linguistici e non normativi, la trattazione parte dalla frase per arrivare alle parti del discorso, in ordine inverso rispetto alla tradizione",
+      "Tratta esclusivamente la morfologia dell'italiano contemporaneo, tralasciando la sintassi",
+      "È stata scritta da un solo autore di formazione classica, con forte impronta latineggiante"
     ],
     correct: 1,
     explanation: "La Grande Grammatica di Consultazione di Renzi è frutto di un lavoro di équipe (34 collaboratori), con impostazione basata su criteri linguistici lontani da quelli normativi. La trattazione parte dalla frase per poi passare alle singole parti del discorso — percorso inverso rispetto a quello tradizionale."
@@ -519,10 +552,10 @@ const questions = [
     source: "Breve Storia della Lingua Italiana (Morgana)",
     q: "Secondo Morgana, la storia della lingua italiana è divisa in quanti periodi principali?",
     opts: [
-      "2 periodi",
-      "3 periodi",
-      "4 periodi",
-      "5 periodi"
+      "2 periodi: dalle origini all'Unità d'Italia, e dall'Unità a oggi",
+      "3 periodi: dalla frammentazione medievale al primato del fiorentino (IX-XIV sec.); unificazione, norma ed espansione (XV sec.-1861); da lingua letteraria a lingua d'uso nazionale (1861-oggi)",
+      "4 periodi, scanditi dalle origini, dal Rinascimento, dall'Unità e dal secondo dopoguerra",
+      "5 periodi, uno per ciascun secolo decisivo dalla nascita del volgare a oggi"
     ],
     correct: 1,
     explanation: "Morgana divide la storia della lingua italiana in 3 periodi: 1° dalla frammentazione linguistica medievale al primato del fiorentino (IX-XIV sec.); 2° unificazione, norma ed espansione (XV sec.–1861); 3° da lingua della letteratura a lingua d'uso nazionale (1861–oggi)."
@@ -531,10 +564,10 @@ const questions = [
     source: "Breve Storia della Lingua Italiana (Morgana)",
     q: "Quale latino è all'origine dell'italiano?",
     opts: [
-      "Il latino classico di Cicerone e Virgilio",
-      "Il latino parlato, cioè il volgare",
-      "Il latino medievale della Chiesa",
-      "Il latino arcaico dei primi scrittori romani"
+      "Il latino classico di Cicerone e Virgilio, lingua letteraria codificata dei grandi autori",
+      "Il latino parlato, cioè il volgare, dal quale nascono tutte le lingue romanze (italiano, francese, provenzale, spagnolo, portoghese)",
+      "Il latino medievale della Chiesa, lingua della liturgia e della cultura ecclesiastica",
+      "Il latino arcaico dei primi scrittori romani, anteriore all'età classica"
     ],
     correct: 1,
     explanation: "L'italiano è una continuazione del latino: non il latino di Cicerone, bensì il latino parlato, cioè il volgare. Da questo latino parlato nascono le lingue romanze: italiano, francese, provenzale, spagnolo, portoghese ecc."
@@ -543,10 +576,10 @@ const questions = [
     source: "Breve Storia della Lingua Italiana (Morgana)",
     q: "Quante vocali aveva il sistema vocalico latino e quante ne ha quello italiano?",
     opts: [
-      "Latino 8, italiano 5",
-      "Latino 10, italiano 7",
-      "Latino 12, italiano 6",
-      "Latino 6, italiano 5"
+      "Il latino aveva 8 vocali e l'italiano 5, con la semplice perdita di tre timbri",
+      "Il latino aveva 10 vocali (5 lunghe e 5 brevi) e l'italiano ne ha 7: si passa dalla distinzione quantitativa a quella qualitativa (aperte/chiuse)",
+      "Il latino aveva 12 vocali e l'italiano 6, per effetto della riduzione dei dittonghi",
+      "Il latino aveva 6 vocali e l'italiano 5, con un sistema rimasto quasi identico"
     ],
     correct: 1,
     explanation: "Il sistema vocalico latino aveva 10 vocali (5 lunghe e 5 brevi). In italiano le vocali sono 7. Si passa così dal sistema vocalico latino a quello 'italico', con la perdita della distinzione quantitativa e l'introduzione della distinzione qualitativa (vocali aperte/chiuse)."
@@ -555,10 +588,10 @@ const questions = [
     source: "Breve Storia della Lingua Italiana (Morgana)",
     q: "Come si è formato il futuro romanzo (es. italiano 'loderò')?",
     opts: [
-      "Da infinito + imperfetto del verbo habere",
-      "Da infinito + presente del verbo habere",
-      "Da infinito + perfetto del verbo habere",
-      "Da una desinenza sintetica ereditata direttamente dal latino"
+      "Da infinito + imperfetto del verbo habēre, che avrebbe dato piuttosto un valore di futuro nel passato",
+      "Da infinito + presente del verbo habēre (laudar(e) *ao > lodarò > loderò): perifrasi analitica che sostituisce il futuro sintetico latino",
+      "Da infinito + perfetto del verbo habēre, all'origine però del condizionale e non del futuro",
+      "Da una desinenza sintetica ereditata direttamente dal futuro latino (laudabo)"
     ],
     correct: 1,
     explanation: "Il futuro romanzo è analitico, costituito da una perifrasi: infinito + presente del verbo habēre. Es.: laudar(e) *ao > lodar ò > loderò. Il futuro latino era di tipo sintetico (laudabo, timebo)."
@@ -567,10 +600,10 @@ const questions = [
     source: "Breve Storia della Lingua Italiana (Morgana)",
     q: "Come si è formato il condizionale romanzo (es. italiano 'loderei')?",
     opts: [
-      "Da infinito + presente del verbo habere",
-      "Da infinito + imperfetto del verbo habere",
-      "Da infinito + perfetto del verbo habere",
-      "Da una desinenza sintetica di origine germanica"
+      "Da infinito + presente del verbo habēre, perifrasi che però genera il futuro e non il condizionale",
+      "Da infinito + imperfetto del verbo habēre, secondo alcune ricostruzioni alternative",
+      "Da infinito + perfetto del verbo habēre (laudar(e) *hēbui > lodarei > loderei): il latino classico non possedeva il condizionale",
+      "Da una desinenza sintetica di origine germanica, introdotta dopo le invasioni barbariche"
     ],
     correct: 2,
     explanation: "Il condizionale in latino non esisteva. Il condizionale romanzo nasce da una perifrasi del latino volgare composta da infinito + perfetto del verbo habēre: laudar(e) *hēbui > laudar(e) *ēi > lodarei > loderei."
@@ -579,10 +612,10 @@ const questions = [
     source: "Breve Storia della Lingua Italiana (Morgana)",
     q: "Quale cambiamento nell'ordine delle parole avvenne nel passaggio dal latino all'italiano?",
     opts: [
-      "Dall'ordine VSO all'ordine SVO",
-      "Dall'ordine SOV all'ordine SVO",
-      "Dall'ordine SVO all'ordine SOV",
-      "Dall'ordine OVS all'ordine SVO"
+      "Dall'ordine VSO (Verbo-Soggetto-Oggetto) all'ordine SVO",
+      "Dall'ordine SOV (Soggetto-Oggetto-Verbo), tipico del latino, all'ordine SVO (Soggetto-Verbo-Oggetto), per l'indebolimento dei morfemi finali di parola",
+      "Dall'ordine SVO del latino all'ordine SOV dell'italiano, con posposizione del verbo",
+      "Dall'ordine OVS all'ordine SVO, con anticipazione dell'oggetto"
     ],
     correct: 1,
     explanation: "Nella sintassi, si passa dall'ordine SOV (Soggetto Oggetto Verbo) all'ordine SVO (Soggetto Verbo Oggetto), probabile conseguenza dell'indebolimento dei morfemi posti nella parte terminale della parola."
@@ -591,10 +624,10 @@ const questions = [
     source: "Breve Storia della Lingua Italiana (Morgana)",
     q: "Quale fenomeno fonetico tipicamente fiorentino indica la pronuncia aspirata delle consonanti occlusive sorde (p, t, k) in posizione intervocalica?",
     opts: [
-      "Il dittongo spontaneo",
-      "L'anafonesi",
-      "La gorgia",
-      "Il betacismo"
+      "Il dittongo spontaneo, cioè lo sdoppiamento delle vocali toniche in sillaba aperta",
+      "L'anafonesi, cioè la chiusura di e ed o toniche davanti a nasale o palatale",
+      "La gorgia, pronuncia aspirata delle occlusive sorde p, t, k in posizione intervocalica (es. la hasa, amiho), documentata solo dal Cinquecento e priva di tradizione ortografica",
+      "Il betacismo, cioè la confusione tra i suoni b e v"
     ],
     correct: 2,
     explanation: "La gorgia è la pronuncia aspirata delle consonanti occlusive sorde (p, t, k) in posizione intervocalica: es. la hasa, amiho (fenomeno documentato solo dal Cinquecento e privo di tradizione ortografica)."
@@ -603,10 +636,10 @@ const questions = [
     source: "Breve Storia della Lingua Italiana (Morgana)",
     q: "Quale testo è considerato dagli studi attuali il più antico in volgare?",
     opts: [
-      "Il Placito Capuano (960)",
-      "I Placiti Cassinesi (960-963)",
-      "L'Iscrizione della Catacomba di Commodilla",
-      "L'Indovinello Veronese (VIII-IX secolo)"
+      "Il Placito Capuano del 960, prima attestazione giuridica del volgare",
+      "I Placiti Cassinesi (960-963), tradizionalmente indicati come primo documento del volgare italiano",
+      "L'Iscrizione della Catacomba di Commodilla ('Non dicere ille secrita a bboce'), oggi ritenuta il testo più antico in volgare",
+      "L'Indovinello Veronese (VIII-IX sec.), spesso citato come primo testo in volgare ma di lingua ancora ibrida tra latino e volgare"
     ],
     correct: 2,
     explanation: "Negli studi attuali l'Iscrizione della Catacomba di Commodilla viene considerata il testo più antico in volgare: 'Non dicere ille secrita a bboce', cioè 'non dire le (orazioni) segrete ad alta voce'."
@@ -615,10 +648,10 @@ const questions = [
     source: "Breve Storia della Lingua Italiana (Morgana)",
     q: "Cosa sono i Placiti Cassinesi?",
     opts: [
-      "Quattro codici di legge scritti in volgare nell'XI secolo",
-      "Quattro formule di giuramento in volgare (960-963), conservate nell'archivio di Montecassino",
-      "Le prime liriche in volgare del XII secolo",
-      "I primi documenti commerciali scritti in volgare a Napoli"
+      "Quattro codici di legge redatti in volgare nell'XI secolo per i tribunali campani",
+      "Quattro formule di giuramento in volgare (960-963), conservate nell'archivio di Montecassino e provenienti da Capua, Sessa Aurunca e Teano",
+      "Le prime liriche in volgare del XII secolo, di ambiente monastico cassinese",
+      "I primi documenti commerciali in volgare redatti a Napoli per i traffici mercantili"
     ],
     correct: 1,
     explanation: "I Placiti Cassinesi sono quattro formule di giuramento in volgare, conservate nell'archivio dell'abbazia di Montecassino, provenienti da tre località della Campania settentrionale (Capua, Sessa Aurunca, Teano), redatte tra il marzo 960 e l'ottobre 963."
@@ -627,10 +660,10 @@ const questions = [
     source: "Breve Storia della Lingua Italiana (Morgana)",
     q: "Quale tratto fonetico del fiorentino indica il passaggio di alcune vocali in dittongo in sillaba tonica aperta (es. PĔDE(M) > piede)?",
     opts: [
-      "L'anafonesi",
-      "Il dittongo spontaneo",
-      "La gorgia",
-      "Il passaggio di ar protonico a er"
+      "L'anafonesi, cioè la chiusura di e ed o toniche in presenza di particolari consonanti",
+      "Il dittongo spontaneo: Ĕ tonica in sillaba aperta diventa ie (PĔDE(M) > piede) e Ŏ tonica in sillaba aperta diventa uo (BŎNU(M) > buono)",
+      "La gorgia, cioè l'aspirazione delle occlusive sorde in posizione intervocalica",
+      "Il passaggio di ar protonico a er, altro fenomeno tipico del fiorentino"
     ],
     correct: 1,
     explanation: "Il dittongo spontaneo è il fenomeno per cui Ĕ tonica in sillaba aperta diventa ie (PĔDE(M) > piede) e Ŏ tonica in sillaba aperta diventa uò (BŎNU(M) > buono, ma ŎCTO > otto)."
@@ -639,10 +672,10 @@ const questions = [
     source: "L'Italiano Contemporaneo (Lorenzetti)",
     q: "Quante lingue sono riconosciute ufficialmente in Italia dalla legge 482 del 1999?",
     opts: [
-      "Circa 8",
-      "Circa 15",
-      "Circa 20",
-      "Circa 25"
+      "Circa 8 lingue, limitate alle principali minoranze di confine",
+      "Circa 15 lingue, tra cui l'italiano (lingua nazionale con 55 milioni di parlanti), il croato del Molise, il mòcheno e il cimbrico",
+      "Circa 20 lingue, comprese le maggiori varietà dialettali regionali",
+      "Circa 25 lingue, includendo tutti i dialetti storici della penisola"
     ],
     correct: 1,
     explanation: "Le lingue riconosciute ufficialmente dalla legge 482 del '99 nei confini italiani sono circa 15, tra cui l'italiano (lingua nazionale e ufficiale con 55 milioni di parlanti), il croato del Molise, il mòcheno e il cimbrico del Trentino e del Veneto."
@@ -652,9 +685,9 @@ const questions = [
     q: "La Svizzera è l'unico Stato estero (oltre al Vaticano e San Marino) in cui l'italiano è lingua ufficiale. Quanti tipi di italiano coesistono in Svizzera?",
     opts: [
       "2 tipi: quello della Svizzera italiana e quello degli emigrati",
-      "3 tipi: svizzero, elvetico e lingua franca",
-      "4 tipi: quello della Svizzera italiana, elvetico nei cantoni tedeschi e francesi, degli emigrati e usato come lingua franca",
-      "Un solo tipo standardizzato usato in tutto il paese"
+      "3 tipi: lo svizzero italiano, l'elvetico e l'italiano come lingua franca",
+      "4 tipi: quello della Svizzera italiana, l'elvetico nei cantoni tedeschi e francesi, quello degli emigrati e quello usato come lingua franca tra parlanti di lingue diverse",
+      "Un solo tipo standardizzato, uniforme in tutto il paese"
     ],
     correct: 2,
     explanation: "In Svizzera coesistono 4 tipi di italiano: quello della Svizzera italiana, quello elvetico nei cantoni tedeschi e francesi, quello degli emigrati e quello usato come lingua franca (strumento di comunicazione tra persone di differente lingua madre)."
@@ -663,10 +696,10 @@ const questions = [
     source: "L'Italiano Contemporaneo (Lorenzetti)",
     q: "Cos'è l'italiano neostandard?",
     opts: [
-      "La novità maggiore degli ultimi cento anni, una varietà esclusivamente scritta",
-      "La novità maggiore degli ultimi quaranta anni, varietà scritta e parlata che integra fenomeni tipici del parlato",
+      "La novità maggiore degli ultimi cento anni, una varietà esclusivamente scritta e formale",
+      "La novità maggiore degli ultimi quarant'anni: una varietà scritta e parlata, in buona parte coincidente con lo standard ma che integra fenomeni del parlato prima ripudiati",
       "Una varietà regionale del Nord Italia diffusasi grazie alla televisione",
-      "Il nome alternativo dell'italiano burocratico formale"
+      "Il nome alternativo dell'italiano burocratico e formale degli uffici"
     ],
     correct: 1,
     explanation: "L'italiano neostandard è la novità maggiore degli ultimi quaranta anni di storia linguistica italiana. Si tratta di una varietà scritta e parlata, coincidente in buona parte con lo standard, ma con l'integrazione di fenomeni ripudiati da quest'ultimo, prevalentemente tipici del parlato."
@@ -675,10 +708,10 @@ const questions = [
     source: "L'Italiano Contemporaneo (Lorenzetti)",
     q: "Quanti e quali sono i principali assi di variazione linguistica dell'italiano?",
     opts: [
-      "2: diatopica (geografica) e diastratica (sociale)",
-      "3: diatopica, diastratica e diafasica (stilistica)",
-      "4: diatopica, diastratica, diafasica e diamesica (scritto/parlato)",
-      "5: diatopica, diastratica, diafasica, diamesica e diacronica"
+      "2 assi: diatopico (geografico) e diastratico (sociale)",
+      "3 assi: diatopico, diastratico e diafasico (stilistico)",
+      "4 assi: diatopico (geografico), diastratico (sociale), diafasico (stilistico) e diamesico (tra scritto e parlato)",
+      "5 assi: diatopico, diastratico, diafasico, diamesico e diacronico (storico)"
     ],
     correct: 2,
     explanation: "I principali assi di variazione linguistica sono 4: geografico o diatopico (forme dialettali), sociale o diastratico (forme inedicate), stilistico o diafasico (forme stilisticamente inadatte), e la variazione diamesica, ovvero tra espressione scritta e parlata."
@@ -687,10 +720,10 @@ const questions = [
     source: "L'Italiano Contemporaneo (Lorenzetti)",
     q: "Il vocabolario di base (VdB) dell'italiano comprende circa quante parole usate quotidianamente?",
     opts: [
-      "Circa 3.000",
-      "Circa 5.000",
-      "Circa 7.000",
-      "Circa 10.000"
+      "Circa 3.000 parole, coincidenti con il solo lessico fondamentale",
+      "Circa 5.000 parole, comprese le voci di alto uso",
+      "Circa 7.000 lessemi d'uso quotidiano, divisi in lessico fondamentale (~2.000, il 90% di qualsiasi testo), di alto uso e di alta disponibilità",
+      "Circa 10.000 parole, includendo anche il lessico tecnico-specialistico"
     ],
     correct: 2,
     explanation: "Il vocabolario di base comprende circa 7.000 lessemi usati quotidianamente, divisi in lessico fondamentale (circa 2.000 lessemi che costituiscono il 90% di qualunque testo italiano), di alto uso (2/3k) e di alta disponibilità (2.3k)."
@@ -699,10 +732,10 @@ const questions = [
     source: "L'Italiano Contemporaneo (Lorenzetti)",
     q: "Quando si può datare il riconoscimento dell'italiano come vera lingua nazionale, non più solo scritta e formale?",
     opts: [
-      "Subito dopo l'Unità d'Italia nel 1861",
-      "Dalla seconda metà del Novecento, grazie alla radio e alla televisione",
-      "Dal Rinascimento, grazie alle grammatiche di Bembo",
-      "Dal Settecento, con le riforme illuministe dell'istruzione"
+      "Subito dopo l'Unità d'Italia (1861), quando l'italiano divenne lingua ufficiale dello Stato",
+      "Dalla seconda metà del Novecento (anni Cinquanta): anche grazie a radio e TV le famiglie iniziarono a parlare italiano con i figli, e da lingua dello Stato divenne lingua della maggior parte dei cittadini",
+      "Dal Rinascimento, grazie alla codificazione operata dalle grammatiche di Bembo",
+      "Dal Settecento, con le riforme dell'istruzione di ispirazione illuminista"
     ],
     correct: 1,
     explanation: "Negli anni Cinquanta inizia un cambiamento che portava a parlare in famiglia con coniugi e anziani in dialetto e con i figli in italiano. Da qui si può considerare l'italiano lingua nazionale, quindi non solo dello Stato ma della maggior parte dei cittadini."
