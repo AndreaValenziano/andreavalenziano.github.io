@@ -1,0 +1,907 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quiz di Grammatica Italiana — Vol. 2</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Georgia', serif;
+    background: #f5f0e8;
+    color: #2c2416;
+    min-height: 100vh;
+  }
+
+  header {
+    background: linear-gradient(135deg, #3d2b1f, #7a4f2e);
+    color: white;
+    padding: 28px 24px;
+    text-align: center;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.3);
+  }
+  header h1 { font-size: 1.9rem; letter-spacing: 1px; margin-bottom: 6px; }
+  header p { font-size: 0.95rem; opacity: 0.85; font-style: italic; }
+  .header-nav {
+    margin-top: 14px;
+    font-size: 0.82rem;
+    opacity: 0.8;
+  }
+  .header-nav a {
+    color: #f5d9b8;
+    text-decoration: none;
+    border-bottom: 1px dashed rgba(245,217,184,0.5);
+  }
+  .header-nav a:hover { opacity: 0.85; }
+
+  #progress-bar-container {
+    background: #d4c9b0;
+    height: 8px;
+  }
+  #progress-bar {
+    height: 100%;
+    background: linear-gradient(90deg, #7a4f2e, #c0845a);
+    width: 0%;
+    transition: width 0.4s ease;
+  }
+
+  #quiz-container {
+    max-width: 780px;
+    margin: 36px auto;
+    padding: 0 16px 60px;
+  }
+
+  #question-counter {
+    font-size: 0.85rem;
+    color: #7a6d58;
+    text-align: right;
+    margin-bottom: 10px;
+    font-style: italic;
+  }
+
+  .card {
+    background: white;
+    border-radius: 12px;
+    padding: 32px 36px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    border-top: 4px solid #7a4f2e;
+    animation: fadeIn 0.35s ease;
+  }
+  @keyframes fadeIn { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:translateY(0); } }
+
+  .source-tag {
+    display: inline-block;
+    font-size: 0.72rem;
+    background: #fdf0e6;
+    color: #7a4f2e;
+    border: 1px solid #d4a57a;
+    border-radius: 20px;
+    padding: 3px 10px;
+    margin-bottom: 14px;
+    font-family: sans-serif;
+  }
+
+  .question-text {
+    font-size: 1.13rem;
+    line-height: 1.65;
+    color: #2c2416;
+    margin-bottom: 24px;
+    font-weight: bold;
+  }
+
+  .options {
+    display: flex;
+    flex-direction: column;
+    gap: 11px;
+  }
+
+  .option-btn {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    background: #faf8f4;
+    border: 2px solid #e0d8cc;
+    border-radius: 9px;
+    padding: 13px 16px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-family: 'Georgia', serif;
+    color: #2c2416;
+    text-align: left;
+    transition: border-color 0.2s, background 0.2s;
+    line-height: 1.5;
+  }
+  .option-btn:hover:not(:disabled) {
+    border-color: #7a4f2e;
+    background: #fdf0e6;
+  }
+  .option-btn .letter {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: #e0d8cc;
+    color: #5a4e3d;
+    font-size: 0.85rem;
+    font-weight: bold;
+    font-family: sans-serif;
+    flex-shrink: 0;
+    margin-top: 1px;
+    transition: background 0.2s, color 0.2s;
+  }
+  .option-btn.correct {
+    border-color: #4a6741;
+    background: #edf4ea;
+  }
+  .option-btn.correct .letter {
+    background: #4a6741;
+    color: white;
+  }
+  .option-btn.wrong {
+    border-color: #c0392b;
+    background: #fdf0ef;
+  }
+  .option-btn.wrong .letter {
+    background: #c0392b;
+    color: white;
+  }
+  .option-btn:disabled { cursor: default; }
+
+  #feedback {
+    margin-top: 18px;
+    padding: 12px 16px;
+    border-radius: 8px;
+    font-size: 0.93rem;
+    line-height: 1.55;
+    display: none;
+    font-family: sans-serif;
+  }
+  #feedback.correct-fb { background: #edf4ea; color: #2d6a2d; border-left: 4px solid #4a6741; }
+  #feedback.wrong-fb   { background: #fdf0ef; color: #922b21; border-left: 4px solid #c0392b; }
+
+  #next-btn {
+    display: none;
+    margin-top: 22px;
+    background: linear-gradient(135deg, #3d2b1f, #7a4f2e);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 12px 30px;
+    font-size: 1rem;
+    cursor: pointer;
+    font-family: 'Georgia', serif;
+    letter-spacing: 0.5px;
+    float: right;
+    transition: opacity 0.2s;
+  }
+  #next-btn:hover { opacity: 0.88; }
+  .clearfix::after { content: ''; display: table; clear: both; }
+
+  /* Results */
+  #results-container {
+    display: none;
+    max-width: 780px;
+    margin: 36px auto;
+    padding: 0 16px 60px;
+    animation: fadeIn 0.5s ease;
+  }
+  .results-card {
+    background: white;
+    border-radius: 14px;
+    padding: 40px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.12);
+    text-align: center;
+    border-top: 6px solid #7a4f2e;
+  }
+  .results-card h2 { font-size: 1.7rem; color: #3d2b1f; margin-bottom: 8px; }
+  .score-circle {
+    width: 130px;
+    height: 130px;
+    border-radius: 50%;
+    margin: 28px auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-family: sans-serif;
+  }
+  .score-circle .score-num { font-size: 2.5rem; font-weight: bold; color: white; line-height: 1; }
+  .score-circle .score-den { font-size: 1rem; color: rgba(255,255,255,0.85); }
+  .vote-label {
+    font-size: 1.4rem;
+    font-weight: bold;
+    margin-bottom: 6px;
+  }
+  .vote-comment { font-size: 1rem; color: #6b5f50; margin-bottom: 28px; font-style: italic; }
+
+  .stats-row {
+    display: flex;
+    justify-content: center;
+    gap: 32px;
+    margin: 0 0 20px;
+    font-family: sans-serif;
+  }
+  .stat-box { text-align: center; }
+  .stat-box .stat-val { font-size: 1.5rem; font-weight: bold; }
+  .stat-box .stat-lab { font-size: 0.8rem; color: #7a6d58; }
+  .stat-correct .stat-val { color: #4a6741; }
+  .stat-wrong   .stat-val { color: #c0392b; }
+  .stat-pct     .stat-val { color: #3d2b1f; }
+
+  .results-breakdown {
+    border-top: 1px solid #e0d8cc;
+    padding-top: 28px;
+    text-align: left;
+    margin-top: 10px;
+  }
+  .results-breakdown h3 { font-size: 1.1rem; margin-bottom: 16px; color: #3d2b1f; }
+  .result-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 10px 0;
+    border-bottom: 1px solid #f0ebe2;
+    font-size: 0.92rem;
+  }
+  .result-item .ri-num {
+    font-weight: bold;
+    color: #7a6d58;
+    min-width: 28px;
+    font-family: sans-serif;
+  }
+  .result-item .ri-q { flex: 1; line-height: 1.45; }
+  .result-item .ri-icon { font-size: 1.1rem; flex-shrink: 0; }
+  .result-item .ri-answer {
+    font-size: 0.85rem;
+    color: #5a6741;
+    margin-top: 3px;
+    display: block;
+    font-style: italic;
+    font-family: sans-serif;
+  }
+  .result-item .ri-answer.ri-wrong-answer { color: #c0392b; }
+
+  #retry-btn {
+    margin-top: 28px;
+    background: linear-gradient(135deg, #3d2b1f, #7a4f2e);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 13px 36px;
+    font-size: 1rem;
+    cursor: pointer;
+    font-family: 'Georgia', serif;
+    letter-spacing: 0.5px;
+    transition: opacity 0.2s;
+  }
+  #retry-btn:hover { opacity: 0.88; }
+
+  .quiz-link-btn {
+    display: inline-block;
+    margin-top: 16px;
+    background: white;
+    color: #7a4f2e;
+    border: 2px solid #7a4f2e;
+    border-radius: 8px;
+    padding: 10px 26px;
+    font-size: 0.95rem;
+    cursor: pointer;
+    font-family: 'Georgia', serif;
+    text-decoration: none;
+    transition: background 0.2s, color 0.2s;
+  }
+  .quiz-link-btn:hover { background: #7a4f2e; color: white; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Quiz di Grammatica Italiana — Vol. 2</h1>
+  <p>Storia della grammatica e italiano contemporaneo &mdash; 31 nuove domande</p>
+  <div class="header-nav">← <a href="Quiz_Grammatica.html">Torna al Quiz 1</a></div>
+</header>
+<div id="progress-bar-container"><div id="progress-bar"></div></div>
+
+<div id="quiz-container">
+  <div id="question-counter"></div>
+  <div class="card" id="question-card">
+    <span class="source-tag" id="source-tag"></span>
+    <p class="question-text" id="question-text"></p>
+    <div class="options" id="options"></div>
+    <div id="feedback"></div>
+    <div class="clearfix">
+      <button id="next-btn">Prossima domanda &rarr;</button>
+    </div>
+  </div>
+</div>
+
+<div id="results-container">
+  <div class="results-card">
+    <h2>Risultati — Quiz Vol. 2</h2>
+    <div class="score-circle" id="score-circle">
+      <span class="score-num" id="score-num"></span>
+      <span class="score-den">/31</span>
+    </div>
+    <div class="stats-row">
+      <div class="stat-box stat-correct">
+        <div class="stat-val" id="stat-correct"></div>
+        <div class="stat-lab">Corrette</div>
+      </div>
+      <div class="stat-box stat-wrong">
+        <div class="stat-val" id="stat-wrong"></div>
+        <div class="stat-lab">Errate</div>
+      </div>
+      <div class="stat-box stat-pct">
+        <div class="stat-val" id="stat-pct"></div>
+        <div class="stat-lab">Percentuale</div>
+      </div>
+    </div>
+    <p class="vote-label" id="vote-label"></p>
+    <p class="vote-comment" id="vote-comment"></p>
+    <button id="retry-btn">&#8635; Rifai il quiz</button>
+    <br>
+    <a href="Quiz_Grammatica.html" class="quiz-link-btn">← Vai al Quiz 1</a>
+    <div class="results-breakdown">
+      <h3>Riepilogo domanda per domanda</h3>
+      <div id="breakdown-list"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+const questions = [
+
+  /* ========== FORNARA — Breve storia della grammatica italiana ========== */
+
+  {
+    source: "Breve Storia della Grammatica (Fornara)",
+    q: "Quante e quali parti del discorso individua Alberti nella Grammatichetta Vaticana?",
+    opts: [
+      "5 parti: Nome, Verbo, Avverbio, Preposizione e Congiunzione, riprendendo lo schema ridotto di alcune grammatiche latine tardive",
+      "6 parti: Nome, Pronome, Verbo, Preposizione, Avverbio e Congiunzione, lo stesso numero riconosciuto da Donato adattato al volgare",
+      "7 parti: Nome, Pronome, Verbo, Participio, Avverbio, Interiezione, Congiunzione (l'Articolo, pur presente, non è classificato come parte autonoma)",
+      "8 parti: le stesse 7 di Prisciano più l'Articolo, riconosciuto per la prima volta come parte del discorso tipica del volgare"
+    ],
+    correct: 2,
+    explanation: "Alberti individua 7 parti del discorso: Nome, Pronome, Verbo, Participio, Avverbio, Interiezione, Congiunzione. L'articolo è presente nella trattazione ma non viene mai discusso come parte del discorso a sé stante, perché è elemento proprio del volgare assente nel latino."
+  },
+  {
+    source: "Breve Storia della Grammatica (Fornara)",
+    q: "Nella Grammatichetta Vaticana, Alberti prescrive quale forma per la 1ª persona dell'indicativo perfetto?",
+    opts: [
+      "La forma in -a (es. amai), prescritta da Alberti come la forma letteraria di tradizione trecentesca attestata in Petrarca e Boccaccio",
+      "La forma in -o (es. amò/amao), forma propria della lingua parlata a Firenze nel '400, senza menzione della forma letteraria in -a",
+      "Entrambe le forme in -a e in -o, ritenute da Alberti equivalenti e liberamente intercambiabili nello scritto e nel parlato",
+      "La forma in -i (es. amii), derivazione diretta dal perfetto del latino parlato, documentata nelle scritture pratiche fiorentine"
+    ],
+    correct: 1,
+    explanation: "Alberti prescrive la forma in -o (forma propria della lingua parlata a Firenze) e non menziona la forma in -a (forma letteraria). Questo è un esempio del suo approccio basato sulla lingua viva fiorentina, non su quella letteraria."
+  },
+  {
+    source: "Breve Storia della Grammatica (Fornara)",
+    q: "Nella Grammatichetta Vaticana, quali pronomi soggetto Alberti ammette per la 3ª persona, diversamente dalla tradizione letteraria?",
+    opts: [
+      "esso/essa, pronomi già presenti nella tradizione grammaticale latina come forme neutre, ritenuti da Alberti più nobili e autorevoli",
+      "lui/lei, uso della lingua viva di Firenze nel '400, contrariamente alla tradizione letteraria che preferiva egli/ella",
+      "egli/ella, le forme canoniche del toscano letterario trecentesco prescelte da Petrarca e Boccaccio come modelli da imitare",
+      "costui/costei, forme ammesse da Alberti in funzione di soggetto perché attestate nelle scritture d'ufficio fiorentine del '400"
+    ],
+    correct: 1,
+    explanation: "Alberti ammette solo le forme lui/lei e non egli/ella: ciò rispecchia l'uso della lingua viva di Firenze nel '400. La Grammatichetta non cita autori e descrive una lingua viva, non la lingua letteraria degli autori del passato."
+  },
+  {
+    source: "Breve Storia della Grammatica (Fornara)",
+    q: "Il condizionale nella Grammatichetta Vaticana riceve il termine tecnico di:",
+    opts: [
+      "Optativo, riprendendo la denominazione del modo latino del desiderio usata da Prisciano nelle Institutiones Grammaticae",
+      "Subienctivo, perché Alberti, a differenza di quanto sostenuto, non distingueva nettamente il condizionale dal congiuntivo",
+      "Assertativo o assertivo, termine coniato da Alberti per distinguerlo nettamente dal congiuntivo (optativo e subienctivo)",
+      "Imperativo condizionato, denominazione che Alberti conia per indicare la dipendenza semantica da una condizione espressa"
+    ],
+    correct: 2,
+    explanation: "Alberti è uno dei pochi grammatici delle origini a distinguere nettamente il condizionale dal congiuntivo: assegna al primo il termine di assertativo/assertivo e al secondo quello di optativo e subienctivo. Il condizionale è proprio del volgare, assente nel latino."
+  },
+  {
+    source: "Breve Storia della Grammatica (Fornara)",
+    q: "Qual è la fonte principale del 2° libro delle Regole di Fortunio (dedicato all'ortografia)?",
+    opts: [
+      "Le Institutiones Grammaticae di Prisciano, grammatico latino del VI sec., da cui Fortunio trae lo schema classificatorio delle consonanti",
+      "La De Orthographia di Giovanni Tortelli, sulla base della quale classifica l'ortografia del volgare evidenziando le differenze con il latino",
+      "Il De vulgari eloquentia di Dante, da cui Fortunio ricava i criteri per distinguere le varietà del volgare italiano nella scrittura",
+      "L'Ars grammatica di Donato, il più autorevole grammatico tardolatino, usato come modello per la trattazione delle vocali e consonanti"
+    ],
+    correct: 1,
+    explanation: "Il 2° libro delle Regole di Fortunio ha come fonte principale il De Orthographia di Giovanni Tortelli. Il libro si apre con regole generali sull'ortografia del volgare e dedica attenzione particolare alla geminazione (raddoppiamento) delle consonanti."
+  },
+  {
+    source: "Breve Storia della Grammatica (Fornara)",
+    q: "Qual è il metodo di Fortunio nelle Regole grammaticali della Volgar Lingua?",
+    opts: [
+      "Partire dalle regole latine di Prisciano e adattarle sistematicamente al volgare per analogia morfologica, senza ricorrere ai testi letterari",
+      "Individuare le regole → tornare ai testi per verificarle di nuovo e spiegarne le eventuali eccezioni tramite copiose citazioni d'autore",
+      "Descrivere il fiorentino parlato contemporaneo senza citare autori letterari, seguendo il modello della Grammatichetta Vaticana di Alberti",
+      "Formulare regole teoriche di derivazione logica, indipendentemente dalle attestazioni concrete nei testi delle Tre Corone"
+    ],
+    correct: 1,
+    explanation: "Il metodo di Fortunio è: individuazione delle regole → ritorno ai testi per verificarle di nuovo e spiegarne le eventuali eccezioni. Ciò crea un problema: l'attenzione filologica porta inevitabilmente a copiose eccezioni che mettono in dubbio la validità delle regole stesse."
+  },
+  {
+    source: "Breve Storia della Grammatica (Fornara)",
+    q: "A quante parti del discorso riduce il volgare il 1° libro delle Regole di Fortunio?",
+    opts: [
+      "8 parti, riprendendo interamente lo schema di Donato: nome, pronome, verbo, avverbio, participio, congiunzione, preposizione, interiezione",
+      "7 parti, come nella Grammatichetta di Alberti, con il participio e l'interiezione come categorie autonome separate dal nome e dal verbo",
+      "4 parti: nomi (con aggettivi), pronomi (con articoli), verbi e avverbi (con alcune congiunzioni) — nell'ordine di Donato",
+      "5 parti: nome, verbo, articolo, preposizione e congiunzione — fusione tra lo schema di Donato e quello della Grammatichetta Vaticana"
+    ],
+    correct: 2,
+    explanation: "Fortunio riduce a 4 le parti del discorso: nomi (che includono anche gli aggettivi), pronomi (con all'interno anche gli articoli), verbi e avverbi (con alcune congiunzioni). La trattazione segue l'ordine di Donato."
+  },
+  {
+    source: "Breve Storia della Grammatica (Fornara)",
+    q: "Quale fu la posizione di Biondo Flavio nel dibattito linguistico iniziato a Firenze nel 1435?",
+    opts: [
+      "Già nell'antica Roma esistevano due livelli linguistici ben distinti: uno alto per i dotti che usavano il latino classico, uno basso per il popolo",
+      "Il latino si corruppe e si contaminò a causa delle invasioni barbariche del IV-V sec., dando così origine al volgare italiano",
+      "Il volgare derivò dalla mescolanza del latino con i dialetti greci dell'Italia meridionale, ancora parlati in età imperiale romana",
+      "Il volgare si sviluppò autonomamente e parallelamente al latino sin dall'epoca arcaica, come varietà già distinta nell'uso quotidiano"
+    ],
+    correct: 1,
+    explanation: "Secondo Biondo Flavio, la lingua diffusa nell'antica Roma (il latino) si corruppe e contaminò a causa delle invasioni barbariche, dando origine all'italiano. Questa posizione aveva come conseguenza l'ammissione della grammaticalità del volgare, derivante dal latino classico."
+  },
+  {
+    source: "Breve Storia della Grammatica (Fornara)",
+    q: "Il dibattito tra Biondo Flavio e Leonardo Bruni influì in modo decisivo su quale evento?",
+    opts: [
+      "La fondazione dell'Accademia della Crusca nel 1582-83, che prese spunto dal dibattito per elaborare il modello linguistico fiorentino",
+      "La pubblicazione delle Prose della volgar lingua di Bembo nel 1525, che rispose alle tesi di Biondo Flavio sulla corruzione del latino",
+      "La realizzazione della prima grammatica del volgare (Grammatichetta Vaticana) da parte di Leon Battista Alberti a Firenze",
+      "La pubblicazione del primo vocabolario monolingue del volgare, Le Tre Fontane di Niccolò Liburnio (Venezia, 1526)"
+    ],
+    correct: 2,
+    explanation: "Il dibattito tra Biondo Flavio e Leonardo Bruni (avviato nel 1435 a Firenze) influì in modo decisivo sulla realizzazione della prima grammatica del volgare: Leon Battista Alberti, tramite il suo intervento, cercò di promuovere l'uso della nuova lingua, creando la Grammatichetta Vaticana."
+  },
+  {
+    source: "Breve Storia della Grammatica (Fornara)",
+    q: "Cosa caratterizza la struttura delle Prose della Volgar Lingua di Pietro Bembo?",
+    opts: [
+      "È un trattato grammaticale con elenco ordinato di regole divise in capitoli dedicati a morfologia, sintassi, ortografia e lessico del volgare",
+      "È scritta sotto forma di dialogo (ambientato nel 1502) tra quattro personaggi, di cui Carlo Bembo è portavoce delle idee dell'autore",
+      "È strutturata come un commento grammaticale sistematico ai testi delle Tre Corone, con ogni regola illustrata da citazioni analizzate",
+      "È divisa in 5 libri dedicati rispettivamente a fonetica, morfologia, sintassi, lessico e metrica, come le grammatiche latine di Prisciano"
+    ],
+    correct: 1,
+    explanation: "Le Prose sono scritte sotto forma di dialogo ambientato nel 1502 tra: Giuliano de' Medici (= Umanesimo volgare), Federico Fregoso (= molte tesi storiche discusse), Ercole Strozzi (= difensore del latino) e Carlo Bembo, fratello dell'autore (= portavoce delle sue idee)."
+  },
+  {
+    source: "Breve Storia della Grammatica (Fornara)",
+    q: "Il terzo libro delle Prose della Volgar Lingua di Bembo è dedicato a:",
+    opts: [
+      "La storia del volgare dalle origini latine al Trecento, con analisi della derivazione dell'italiano dal latino corrotto dalle invasioni barbariche",
+      "La difesa teorica del modello petrarchesco contro le critiche della posizione cortigiana sostenuta da Castiglione nel Cortegiano (1528)",
+      "La grammatica: un vero trattato grammaticale 'mascherato' dalla forma dialogica, con regole emergenti dal dibattito tra i personaggi",
+      "Il lessico e la metrica del volgare trecentesco, con analisi dettagliata delle rime di Petrarca come supremo modello di lingua poetica"
+    ],
+    correct: 2,
+    explanation: "Il terzo libro delle Prose è dedicato alla grammatica: si tratta di un vero e proprio trattato grammaticale 'mascherato' dalla forma dialogica. Non è un elenco ordinato di regole, ma le regole si delineano attraverso il dibattito tra i protagonisti con frequente ricorso a citazioni testuali."
+  },
+  {
+    source: "Breve Storia della Grammatica (Fornara)",
+    q: "Cosa si intende per 'linea maestra Fortunio-Bembo' nella grammaticografia cinquecentesca?",
+    opts: [
+      "La linea che privilegiava il fiorentino parlato contemporaneo come modello, in quanto lingua viva dei circoli letterari della Firenze medicea",
+      "La linea più seguita del Cinquecento, che prendeva come modello le Tre Corone (Dante, Petrarca, Boccaccio) per la norma grammaticale",
+      "La linea che proponeva una lingua italiana sovraterritoriale, non legata al solo fiorentino, sulla scia della riscoperta del De vulgari eloquentia",
+      "La linea basata esclusivamente sul modello delle grammatiche latine di Prisciano e Donato, adattato sistematicamente al volgare toscano"
+    ],
+    correct: 1,
+    explanation: "La 'linea maestra Fortunio-Bembo' fu inaugurata dalle grammatiche di Fortunio e Bembo, che prendevano come modello le Tre Corone (Dante, Petrarca, Boccaccio). Fu la linea più seguita nel Cinquecento."
+  },
+  {
+    source: "Breve Storia della Grammatica (Fornara)",
+    q: "I Fondamenti del Parlar Thoscano di Rinaldo Corso (1549, Venezia) si distinguono per:",
+    opts: [
+      "Essere la prima grammatica del Cinquecento scritta interamente in forma dialogica, sulla scia del modello delle Prose della volgar lingua di Bembo",
+      "Essere il primo testo a mostrare un vero e proprio interesse per la sintassi, a lungo trascurata dalla maggior parte dei grammatici del Cinquecento",
+      "Adottare esclusivamente il modello di Trissino contro Bembo, sostenendo che il volgare fosse una lingua italiana sovraterritoriale",
+      "Essere la prima grammatica stampata al di fuori di Venezia, Roma e Firenze, inaugurando la tradizione grammaticografica dell'Italia meridionale"
+    ],
+    correct: 1,
+    explanation: "Rinaldo Corso è il primo autore a mostrare interesse per la sintassi, a lungo trascurata dalla maggior parte dei grammatici. La sua grammatica è estesa e completa, con impianto complesso e sistematico e ampio ricorso alle citazioni degli autori."
+  },
+  {
+    source: "Breve Storia della Grammatica (Fornara)",
+    q: "Le Osservazioni nella Volgar Lingua di Lodovico Dolce (1550, Venezia) sono organizzate in quanti libri e come?",
+    opts: [
+      "2 libri: parti del discorso e ortografia, con attenzione sistematica alle differenze tra il volgare e il latino classico",
+      "3 libri: morfologia, sintassi e figure retoriche, con ampio ricorso a citazioni delle Tre Corone e degli autori non toscani",
+      "4 libri: parti del discorso, ortografia, interpunzione e metrica; grammatica estesa, ben organizzata e di facile consultazione",
+      "5 libri: morfologia, ortografia, sintassi, lessico e metrica — il progetto più ambizioso della grammaticografia cinquecentesca"
+    ],
+    correct: 2,
+    explanation: "Le Osservazioni di Dolce sono organizzate in 4 libri: 1. parti del discorso, 2. ortografia, 3. interpunzione, 4. metrica. È una delle grammatiche più importanti del '500; particolare attenzione allo scopo didattico; la materia è ben organizzata e di facile consultazione."
+  },
+  {
+    source: "Breve Storia della Grammatica (Fornara)",
+    q: "Cosa rende la Grammatica di Pierfrancesco Giambullari (1552, Firenze) storicamente rilevante?",
+    opts: [
+      "È la prima grammatica del Cinquecento a includere una sezione sistematica sulla sintassi del volgare, prima ancora di Rinaldo Corso",
+      "È la prima grammatica ad essere stampata a Firenze, nonostante la lingua fiorentina fosse al centro di tutte le dispute grammaticali del secolo",
+      "È la prima grammatica a opporsi esplicitamente alle teorie arcaizzanti di Bembo, proponendo il fiorentino parlato come unico modello",
+      "È la prima grammatica scritta da un Fiorentino per i parlanti nativi del fiorentino come strumento di codifica della propria lingua madre"
+    ],
+    correct: 1,
+    explanation: "La Grammatica di Pierfrancesco Giambullari (1552) è la prima grammatica ad essere stampata a Firenze. Gli intellettuali fiorentini non avvertivano la necessità di creare una teoria per una lingua che già naturalmente padroneggiavano."
+  },
+  {
+    source: "Breve Storia della Grammatica (Fornara)",
+    q: "A chi era rivolta la Grammatica di Giambullari (1552) e quale struttura aveva l'opera?",
+    opts: [
+      "Ai dotti specialisti e grammatici, struttura enciclopedica con ampia sezione antologica e ricca documentazione bibliografica delle fonti",
+      "Ai giovani e ai forestieri (non ai fiorentini), con divisione ordinata in regole e quadri riassuntivi, più libri sulla sintassi e le figure retoriche",
+      "Agli studenti universitari di retorica, struttura in forma di dialogo socratico con exempla tratti esclusivamente dai classici toscani medievali",
+      "Agli stampatori veneziani, incentrata su ortografia e punteggiatura per normare la lingua della produzione libraria del tempo"
+    ],
+    correct: 1,
+    explanation: "L'intento di Giambullari era rivolgersi ai giovani e ai forestieri, non ai fiorentini — finalità didattica. Dopo i due libri sulle parti del discorso, ve ne sono 4 sulla sintassi e 2 sulle figure retoriche; numerose innovazioni terminologiche."
+  },
+  {
+    source: "Breve Storia della Grammatica (Fornara)",
+    q: "Quale opera è l'unico manuale disponibile sulla storia della grammatica italiana dal '400 all'800, pur non più adeguato?",
+    opts: [
+      "I Percorsi Grammaticali di Giuseppe Patota (1993), incentrato sull'evoluzione della norma grammaticale attraverso i testi concreti",
+      "La Grammaticographie di Teresa Poggi Salani (1988), con breve excursus sulle principali grammatiche dall'italiano dal '400 al '900",
+      "La Storia della Grammatica Italiana di Ciro Trabalza (1908), dal '400 alla seconda metà dell'800, non adeguato alla ricerca moderna",
+      "La Grammaticografia di Ilaria Bonomi (1998), sintetico profilo storico che presta attenzione anche alla didattica dell'italiano"
+    ],
+    correct: 2,
+    explanation: "La Storia della Grammatica Italiana di Ciro Trabalza (1908) è l'unico manuale disponibile. Non è adeguato alla ricerca moderna: presenta giudizi poco obiettivi e una metodologia segnata dall'egemonia di Benedetto Croce."
+  },
+  {
+    source: "Breve Storia della Grammatica (Fornara)",
+    q: "La Grammaticografia di Ilaria Bonomi (1998) si distingue per quale caratteristica?",
+    opts: [
+      "È il primo profilo storico che copre sistematicamente dalla Grammatichetta di Alberti fino all'italiano contemporaneo in modo aggiornato",
+      "Fornisce un sintetico profilo storico della grammaticografia italiana e presta attenzione anche ai problemi di istruzione e didattica dell'italiano",
+      "È la prima grammatica descrittiva dell'italiano del Novecento, con analisi di tutte le varietà regionali e sociali della penisola",
+      "Offre la prima trattazione sistematica della sintassi nella tradizione grammaticale italiana, dalla Grammatichetta Vaticana ai giorni nostri"
+    ],
+    correct: 1,
+    explanation: "La Grammaticografia di Bonomi (1998) è un sintetico e puntuale profilo storico; non si limita alla produzione grammaticale dei vari secoli, ma presta attenzione anche ai problemi relativi all'istruzione e alla didattica dell'italiano. È corredato da sezione antologica e bibliografia essenziale."
+  },
+  {
+    source: "Breve Storia della Grammatica (Fornara)",
+    q: "I Percorsi Grammaticali di Giuseppe Patota (1993) si definiscono come:",
+    opts: [
+      "Una storia tradizionale delle grammatiche, ovvero un catalogo cronologico commentato delle opere grammaticali più importanti dal '400 a oggi",
+      "Una 'storia dei percorsi grammaticali e non storia delle grammatiche', volta a ricostruire l'evoluzione della norma attraverso testi concreti",
+      "Una raccolta antologica delle principali grammatiche italiane dal '400 al '900, con trascrizioni integrali dei passi più significativi",
+      "Un'analisi sociolinguistica dell'evoluzione della norma nel parlato italiano, basata su corpus di registrazioni audio del XX secolo"
+    ],
+    correct: 1,
+    explanation: "Patota definisce l'opera come 'storia dei percorsi grammaticali e non storia delle grammatiche': il suo intento è ricostruire l'evoluzione della norma grammaticale attraverso i testi concreti. I singoli testi in esame sono le realizzazioni concrete nelle quali si manifestano gli atteggiamenti prevalenti nei periodi storici discussi."
+  },
+  {
+    source: "Breve Storia della Grammatica (Fornara)",
+    q: "La Grande Grammatica di Consultazione di Renzi (1988-95; 2001) adotta quale approccio metodologico?",
+    opts: [
+      "Impostazione strettamente normativa, che segnala le forme da evitare e indica la variante corretta, rivolta agli specialisti del settore",
+      "Impostazione basata su criteri linguistici lontani da quelli normativi; la trattazione parte dalla frase per passare poi alle parti del discorso",
+      "Impostazione diacronica, che analizza l'evoluzione dell'italiano dal Trecento a oggi attraverso testi letterari e non letterari selezionati",
+      "Impostazione scolastica, con esercizi graduati e progressivi rivolti a studenti delle scuole medie e superiori con difficoltà nella grammatica"
+    ],
+    correct: 1,
+    explanation: "La Grande Grammatica di Renzi è frutto di un lavoro di équipe (34 collaboratori); impostazione basata su criteri linguistici lontani da quelli normativi. Vengono considerate con interesse anche forme scorrette (es. 'a me mi piace'). La trattazione parte dalla frase — percorso inverso rispetto a quello tradizionale."
+  },
+  {
+    source: "Breve Storia della Grammatica (Fornara)",
+    q: "La Grammatica di Serianni e Castelvecchi (1988, poi 2012) è caratterizzata da:",
+    opts: [
+      "Un approccio strettamente normativo che elenca le forme da evitare senza però spiegarne le ragioni storiche o linguistiche ai lettori",
+      "Un tentativo di conciliare aspetto descrittivo e normativo, analizzando anche alternative dei registri meno formali e più colloquiali",
+      "Un'impostazione puramente storica che analizza l'evoluzione grammaticale dal Duecento all'italiano contemporaneo per ogni categoria",
+      "Una struttura innovativa che parte dalla sintassi della frase per poi passare alle singole parti del discorso, come la Grande Grammatica di Renzi"
+    ],
+    correct: 1,
+    explanation: "La Grammatica di Serianni e Castelvecchi tenta di conciliare l'aspetto descrittivo con quello normativo. Pur non rinunciando a indicare le forme più corrette e letterarie, analizza anche le varie possibilità e alternative che derivano dall'uso di altri registri linguistici, meno formali e più colloquiali."
+  },
+
+  /* ========== LORENZETTI — L'italiano contemporaneo ========== */
+
+  {
+    source: "L'Italiano Contemporaneo (Lorenzetti)",
+    q: "Cosa si intende per 'lessema' in Lorenzetti?",
+    opts: [
+      "Ogni singola occorrenza di una parola in un testo, inclusi i morfemi grammaticali privi di significato lessicale autonomo",
+      "L'unità di lessico considerata in astratto, di cui le parole (forme) sono le variabili concrete nelle quali si manifesta nell'uso",
+      "L'unità minima dell'espressione morfologica, il segmento fonologico minimo con significato in cui si analizzano le parole",
+      "Una parola che appartiene esclusivamente al lessico fondamentale, presente nel vocabolario di base di qualunque testo"
+    ],
+    correct: 1,
+    explanation: "Il lessema è l'unità di lessico considerata in astratto. La parola (o forma) è ciascuna delle variabili di un lessema. Ogni volta che viene usato un lessema o una forma si parlerà di occorrenza (es. il e lo sono due occorrenze dello stesso lessema ma non della stessa forma)."
+  },
+  {
+    source: "L'Italiano Contemporaneo (Lorenzetti)",
+    q: "Quanti lessemi compongono il 'lessico fondamentale', che costituisce circa il 90% di qualunque testo italiano?",
+    opts: [
+      "Circa 1.000 lessemi, principalmente verbi ausiliari e pronomi ad altissima frequenza, che garantiscono la comprensibilità di base",
+      "Circa 2.000 lessemi, tra cui articoli, preposizioni, congiunzioni, verbi, sostantivi e aggettivi di altissima frequenza",
+      "Circa 5.000 lessemi, che coprono il 90% dei testi scritti formali come manuali scolastici e documenti burocratici",
+      "Circa 7.000 lessemi, corrispondenti all'intero vocabolario di base suddiviso in fondamentale, alto uso e alta disponibilità"
+    ],
+    correct: 1,
+    explanation: "Al lessico fondamentale appartengono circa 2.000 lessemi che costituiscono il 90% di qualunque testo italiano. Si tratta specialmente di lessemi funzionali (articoli, preposizioni, congiunzioni, avverbi) e verbi, sostantivi e aggettivi di alta frequenza."
+  },
+  {
+    source: "L'Italiano Contemporaneo (Lorenzetti)",
+    q: "Cosa sono gli 'allomorfi' (o varianti) nella morfologia italiana?",
+    opts: [
+      "Parole di origine straniera adattate alla fonologia italiana, che mantengono la radice originale ma acquisiscono desinenze del sistema italiano",
+      "Suffissi con significato lessicale autonomo, usati per creare parole derivate con nuovi significati a partire da una base esistente",
+      "Morfi diversi che esprimono lo stesso morfema (es. -o, -a, -e sono allomorfi del morfema singolare nelle tre classi nominali dell'italiano)",
+      "Categorie grammaticali del latino classico assenti nell'italiano contemporaneo, come il caso ablativo, il dativo e il vocativo"
+    ],
+    correct: 2,
+    explanation: "Gli allomorfi (o varianti) sono morfi diversi che esprimono lo stesso morfema. Ad esempio: -o, -a ed -e sono allomorfi del morfema singolare. Lo stesso morfema può essere espresso da morfi diversi; la scelta dipende dal contesto morfologico o fonologico."
+  },
+  {
+    source: "L'Italiano Contemporaneo (Lorenzetti)",
+    q: "Cosa sono le 'polirematiche' nel lessico italiano?",
+    opts: [
+      "Parole tecniche usate solo nel discorso scientifico specializzato, in cui assumono un'accezione precisa per ridurre l'ambiguità semantica",
+      "Unità lessicali formate da gruppi di parole il cui significato è imprevedibile dalla somma dei componenti (es. 'a denti stretti' = malvolentieri)",
+      "Varianti regionali di parole standard dell'italiano, diffuse in specifiche aree geografiche con sfumature semantiche caratteristiche",
+      "Parole prese in prestito da altre lingue senza adattamento fonetico o morfologico, dette anche forestierismi non adattati al sistema italiano"
+    ],
+    correct: 1,
+    explanation: "Le polirematiche (locuzioni o lessemi complessi) sono unità lessicali formate da gruppi di parole il cui significato è imprevedibile dai componenti. Es. 'a denti stretti' = malvolentieri. Diversamente dalle collocazioni (pioggia torrenziale), in cui il significato è prevedibile."
+  },
+  {
+    source: "L'Italiano Contemporaneo (Lorenzetti)",
+    q: "Qual è la percentuale approssimativa del VdB italiano composta da formazioni italiane (lessemi formati in italiano)?",
+    opts: [
+      "Circa il 15%, una percentuale analoga a quella dei latinismi di tradizione indiretta introdotti dagli scrittori colti nei secoli XV-XVIII",
+      "Circa il 25%, paragonabile alla somma dei prestiti dal greco e dal francese che costituiscono la parte più antica del lessico italiano",
+      "Circa il 35%: lessemi formati in italiano a partire da basi già presenti nella lingua, sia ereditarie sia prestiti stranieri adattati",
+      "Circa il 50%, compresi tutti i composti e derivati formatisi nell'italiano letterario del Cinque e Seicento attraverso il processo di imitazione"
+    ],
+    correct: 2,
+    explanation: "Il 35% del VdB italiano è composto da formazioni italiane: lessemi formati in italiano a partire da altri già presenti nella lingua. Questi lessemi di base, detti 'basi', possono essere ereditari o anche prestiti stranieri."
+  },
+  {
+    source: "L'Italiano Contemporaneo (Lorenzetti)",
+    q: "Cosa si intende per 'europeizzazione lessicale' dell'italiano?",
+    opts: [
+      "Il fenomeno per cui l'italiano è minacciato nella struttura grammaticale dall'inglese, che impone calchi sintattici come il progressivo -ing",
+      "La condivisione storica di materiale linguistico greco-latino tra le lingue europee, non per dominio di una lingua sull'altra ma per tradizione culturale",
+      "Il processo di standardizzazione dell'italiano promosso dalle istituzioni europee attraverso la diffusione di documenti ufficiali multilingui",
+      "L'importazione di anglicismi nell'italiano contemporaneo attraverso i media digitali e l'industria della comunicazione globale"
+    ],
+    correct: 1,
+    explanation: "L'europeizzazione lessicale è la condivisione di materiale linguistico per motivi storici. Si fonda su basi classiche greco-latine e riguarda settori legati alla cultura intellettuale. Non avviene per imposizione di una lingua sull'altra ma per condivisione di materiale linguistico per motivi storici."
+  },
+  {
+    source: "L'Italiano Contemporaneo (Lorenzetti)",
+    q: "Cosa distingue l'italiano neostandard dall'italiano popolare, secondo Lorenzetti?",
+    opts: [
+      "L'italiano neostandard è usato solo per iscritto nei registri informali; quello popolare è caratteristico del solo parlato spontaneo e dialettale",
+      "Il neostandard è selezionabile in determinate situazioni come registro medio; l'italiano popolare è il massimo italiano raggiungibile da chi ha basso livello d'istruzione",
+      "Il neostandard appartiene geograficamente al Centro-Nord della penisola; l'italiano popolare è caratteristico del Sud e delle isole",
+      "Non c'è differenza sostanziale tra i due: entrambi indicano varietà non standard caratterizzate da tratti non ammessi dalla norma"
+    ],
+    correct: 1,
+    explanation: "La distinzione è delicata: il neostandard è selezionabile in determinate situazioni (registro del parlato medio); l'italiano popolare è invece il massimo italiano raggiungibile dal parlante di basso livello d'istruzione. Il neostandard ha uno status sociolinguistico superiore."
+  },
+  {
+    source: "L'Italiano Contemporaneo (Lorenzetti)",
+    q: "Cosa si intende per 'ortoepia' secondo Lorenzetti?",
+    opts: [
+      "La norma ortografica che regola la corretta scrittura dell'italiano standard nelle situazioni comunicative più formali e ufficiali",
+      "La pronuncia corretta dell'italiano standard, non acquisita nativamente da nessun parlante, appresa tramite esercizi specifici da doppiatori, attori e speaker",
+      "La tradizione di pronuncia regionale che caratterizza l'italiano parlato nelle diverse aree geografiche della penisola",
+      "Lo studio comparativo dei sistemi fonologici delle lingue romanze, con particolare attenzione ai dialetti settentrionali italiani"
+    ],
+    correct: 1,
+    explanation: "L'ortoepia è la pronuncia corretta, appresa tramite esercizi specifici da doppiatori, attori e speaker. Essendosi l'italiano diffuso come lingua scritta, nessuno ha mai acquisito nativamente la pronuncia fiorentina. Oggi però anche la radio e il cinema hanno rinunciato ad addestrare gli addetti a una pronuncia corretta."
+  },
+  {
+    source: "L'Italiano Contemporaneo (Lorenzetti)",
+    q: "Qual è l'indice di diversità linguistica dell'Italia (considerando i 33 dialetti parlati)?",
+    opts: [
+      "Circa 0,20 — un valore basso che riflette la relativa uniformità linguistica della penisola dopo secoli di norma grammaticale condivisa",
+      "Circa 0,40 — un valore medio europeo paragonabile a quello della Francia e della Germania con le loro minoranze linguistiche riconosciute",
+      "Circa 0,59 — uno dei più alti d'Europa, secondo solo al Belgio con 0,65: misura la probabilità che due cittadini parlino lingue madri diverse",
+      "Circa 0,80 — il più alto d'Europa, che colloca l'Italia come il paese linguisticamente più diversificato del continente"
+    ],
+    correct: 2,
+    explanation: "L'indice di diversità linguistica misura la probabilità che due cittadini presi a caso nello stesso stato parlino lingue materne diverse. In Italia con i 33 dialetti otteniamo 0,59, uno dei più alti d'Europa, secondo solo al Belgio con 0,65."
+  },
+  {
+    source: "L'Italiano Contemporaneo (Lorenzetti)",
+    q: "Secondo Lorenzetti, qual è la principale motivazione per cui gli stranieri studiano l'italiano?",
+    opts: [
+      "Le esigenze lavorative e professionali, legate all'espansione delle imprese italiane nei mercati internazionali e alla necessità di comunicare",
+      "L'arricchimento culturale, seguito poi da esigenze di studio, esigenze lavorative, turismo e motivazioni affettive come l'origine italiana",
+      "Il turismo in Italia e l'interesse per la cucina e la moda italiane, diffuse a livello globale come simboli del cosiddetto made in Italy",
+      "L'accesso ai contenuti digitali in lingua italiana: social media, serie televisive, musica e cinema prodotti in Italia"
+    ],
+    correct: 1,
+    explanation: "La principale motivazione per lo studio dell'italiano all'estero è l'arricchimento culturale, seguita da esigenze di studio, lavorative, turismo e motivazioni affettive. Il numero di studenti cresce (da circa 1.200.000 nell'81 a circa 1.500.000)."
+  },
+  {
+    source: "L'Italiano Contemporaneo (Lorenzetti)",
+    q: "In morfologia, cosa distingue i lessemi 'morfologicamente complessi' (derivati e composti) dai lessemi 'semplici'?",
+    opts: [
+      "I complessi sono parole straniere adattate morfologicamente all'italiano; i semplici sono parole latine ereditate attraverso la tradizione orale",
+      "I complessi hanno sempre significato interamente deducibile dalla somma dei morfemi; i semplici hanno significato lessicale opaco e non analizzabile",
+      "I complessi sono dotati di struttura morfologica interna (base + affissi, o due basi unite); i semplici hanno solo morfi flessivi senza struttura derivazionale",
+      "I complessi appartengono al lessico tecnico-scientifico e ai registri formali; i semplici costituiscono l'intero vocabolario di base quotidiano"
+    ],
+    correct: 2,
+    explanation: "I derivati e i composti costituiscono la classe dei lessemi dotati di struttura (morfologicamente complessi), mentre quelli con solo morfi flessivi sono i semplici. Nel GRADIT di De Mauro, su 260.000 lessemi, quelli con struttura morfologica sono il 50%: tre quarti sono derivati e i restanti composti."
+  }
+
+]
+
+let current = 0;
+let score = 0;
+let answers = [];
+let shuffledOpts = [];
+let shuffledCorrect = 0;
+const LETTERS = ['A', 'B', 'C', 'D'];
+
+function shuffleArray(arr) {
+  const a = arr.slice();
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    const tmp = a[i]; a[i] = a[j]; a[j] = tmp;
+  }
+  return a;
+}
+
+function init() {
+  current = 0;
+  score = 0;
+  answers = [];
+  document.getElementById('quiz-container').style.display = '';
+  document.getElementById('results-container').style.display = 'none';
+  showQuestion();
+}
+
+function showQuestion() {
+  const q = questions[current];
+
+  document.getElementById('progress-bar').style.width = ((current / questions.length) * 100) + '%';
+  document.getElementById('question-counter').textContent = 'Domanda ' + (current + 1) + ' di ' + questions.length;
+  document.getElementById('source-tag').textContent = q.source;
+  document.getElementById('question-text').textContent = q.q;
+
+  const optContainer = document.getElementById('options');
+  optContainer.innerHTML = '';
+
+  const indices = shuffleArray([0, 1, 2, 3]);
+  shuffledOpts = indices.map(function(i) { return { text: q.opts[i], orig: i }; });
+  shuffledCorrect = shuffledOpts.findIndex(function(o) { return o.orig === q.correct; });
+
+  shuffledOpts.forEach(function(opt, i) {
+    const btn = document.createElement('button');
+    btn.className = 'option-btn';
+    btn.innerHTML = '<span class="letter">' + LETTERS[i] + '</span><span>' + opt.text + '</span>';
+    btn.onclick = function() { selectOption(i); };
+    optContainer.appendChild(btn);
+  });
+
+  const fb = document.getElementById('feedback');
+  fb.style.display = 'none';
+  fb.className = '';
+  fb.textContent = '';
+
+  const nextBtn = document.getElementById('next-btn');
+  nextBtn.style.display = 'none';
+  nextBtn.textContent = current === questions.length - 1 ? 'Vedi i risultati →' : 'Prossima domanda →';
+}
+
+function selectOption(selected) {
+  const q = questions[current];
+  const btns = document.querySelectorAll('.option-btn');
+
+  btns.forEach(function(b) { b.disabled = true; });
+
+  const isCorrect = selected === shuffledCorrect;
+  if (isCorrect) score++;
+  answers.push({
+    qIdx: current,
+    isCorrect: isCorrect,
+    selectedLetter: LETTERS[selected],
+    correctLetter: LETTERS[shuffledCorrect],
+    selectedText: shuffledOpts[selected].text,
+    correctText: shuffledOpts[shuffledCorrect].text
+  });
+
+  btns[selected].classList.add(isCorrect ? 'correct' : 'wrong');
+  if (!isCorrect) btns[shuffledCorrect].classList.add('correct');
+
+  const fb = document.getElementById('feedback');
+  fb.style.display = 'block';
+  if (isCorrect) {
+    fb.className = 'correct-fb';
+    fb.textContent = '✓ Corretto! ' + q.explanation;
+  } else {
+    fb.className = 'wrong-fb';
+    fb.textContent = '✗ Risposta errata. ' + q.explanation;
+  }
+
+  document.getElementById('next-btn').style.display = 'block';
+}
+
+document.getElementById('next-btn').addEventListener('click', function() {
+  current++;
+  if (current >= questions.length) {
+    showResults();
+  } else {
+    showQuestion();
+  }
+});
+
+document.getElementById('retry-btn').addEventListener('click', init);
+
+function showResults() {
+  document.getElementById('progress-bar').style.width = '100%';
+  document.getElementById('quiz-container').style.display = 'none';
+  document.getElementById('results-container').style.display = 'block';
+
+  const pct = Math.round((score / questions.length) * 100);
+  const wrong = questions.length - score;
+
+  document.getElementById('score-num').textContent = score;
+  document.getElementById('stat-correct').textContent = score;
+  document.getElementById('stat-wrong').textContent = wrong;
+  document.getElementById('stat-pct').textContent = pct + '%';
+
+  const circle = document.getElementById('score-circle');
+  if (pct >= 85) circle.style.background = 'linear-gradient(135deg, #2ecc71, #27ae60)';
+  else if (pct >= 65) circle.style.background = 'linear-gradient(135deg, #f39c12, #e67e22)';
+  else circle.style.background = 'linear-gradient(135deg, #e74c3c, #c0392b)';
+
+  var voteLabel, voteComment;
+  if (pct >= 90) { voteLabel = '🏆 Eccellente!'; voteComment = 'Preparazione ottima — sei pronto per l\'esame!'; }
+  else if (pct >= 80) { voteLabel = '⭐ Molto Bene!'; voteComment = 'Preparazione solida, qualche piccola lacuna da rivedere.'; }
+  else if (pct >= 65) { voteLabel = '👍 Bene'; voteComment = 'Buona base, ma ripassate le domande errate.'; }
+  else if (pct >= 50) { voteLabel = '📚 Sufficiente'; voteComment = 'Ancora un po\' di studio ti servirà per essere sicuro.'; }
+  else { voteLabel = '⚠️ Insufficiente'; voteComment = 'Rivedi il materiale con attenzione prima dell\'esame.'; }
+
+  document.getElementById('vote-label').textContent = voteLabel;
+  document.getElementById('vote-comment').textContent = voteComment;
+
+  const list = document.getElementById('breakdown-list');
+  list.innerHTML = '';
+
+  answers.forEach(function(a, i) {
+    const q = questions[a.qIdx];
+    const item = document.createElement('div');
+    item.className = 'result-item';
+    const icon = a.isCorrect ? '✅' : '❌';
+    var answerHTML;
+    if (a.isCorrect) {
+      answerHTML = '<span class="ri-answer">Risposta: ' + a.correctLetter + '. ' + a.correctText + '</span>';
+    } else {
+      answerHTML = '<span class="ri-answer ri-wrong-answer">Tua risposta: ' + a.selectedLetter + '. ' + a.selectedText + '<br>Risposta corretta: ' + a.correctLetter + '. ' + a.correctText + '</span>';
+    }
+    item.innerHTML =
+      '<span class="ri-num">' + (i+1) + '.</span>' +
+      '<div class="ri-q">' + q.q + answerHTML + '</div>' +
+      '<span class="ri-icon">' + icon + '</span>';
+    list.appendChild(item);
+  });
+
+  document.getElementById('results-container').scrollIntoView({ behavior: 'smooth' });
+}
+
+init();
+</script>
+
+</body>
+</html>

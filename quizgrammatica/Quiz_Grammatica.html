@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quiz di Grammatica Italiana</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Georgia', serif;
+    background: #f5f0e8;
+    color: #2c2416;
+    min-height: 100vh;
+  }
+
+  header {
+    background: linear-gradient(135deg, #2c3e50, #4a6741);
+    color: white;
+    padding: 28px 24px;
+    text-align: center;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.3);
+  }
+  header h1 { font-size: 1.9rem; letter-spacing: 1px; margin-bottom: 6px; }
+  header p { font-size: 0.95rem; opacity: 0.85; font-style: italic; }
+
+  #progress-bar-container {
+    background: #d4c9b0;
+    height: 8px;
+  }
+  #progress-bar {
+    height: 100%;
+    background: linear-gradient(90deg, #4a6741, #7aad6d);
+    width: 0%;
+    transition: width 0.4s ease;
+  }
+
+  #quiz-container {
+    max-width: 780px;
+    margin: 36px auto;
+    padding: 0 16px 60px;
+  }
+
+  #question-counter {
+    font-size: 0.85rem;
+    color: #7a6d58;
+    text-align: right;
+    margin-bottom: 10px;
+    font-style: italic;
+  }
+
+  .card {
+    background: white;
+    border-radius: 12px;
+    padding: 32px 36px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    border-top: 4px solid #4a6741;
+    animation: fadeIn 0.35s ease;
+  }
+  @keyframes fadeIn { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:translateY(0); } }
+
+  .source-tag {
+    display: inline-block;
+    font-size: 0.72rem;
+    background: #edf4ea;
+    color: #4a6741;
+    border: 1px solid #b5d4b0;
+    border-radius: 20px;
+    padding: 3px 10px;
+    margin-bottom: 14px;
+    font-family: sans-serif;
+  }
+
+  .question-text {
+    font-size: 1.13rem;
+    line-height: 1.65;
+    color: #2c2416;
+    margin-bottom: 24px;
+    font-weight: bold;
+  }
+
+  .options {
+    display: flex;
+    flex-direction: column;
+    gap: 11px;
+  }
+
+  .option-btn {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    background: #faf8f4;
+    border: 2px solid #e0d8cc;
+    border-radius: 9px;
+    padding: 13px 16px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-family: 'Georgia', serif;
+    color: #2c2416;
+    text-align: left;
+    transition: border-color 0.2s, background 0.2s;
+    line-height: 1.5;
+  }
+  .option-btn:hover:not(:disabled) {
+    border-color: #4a6741;
+    background: #edf4ea;
+  }
+  .option-btn .letter {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: #e0d8cc;
+    color: #5a4e3d;
+    font-size: 0.85rem;
+    font-weight: bold;
+    font-family: sans-serif;
+    flex-shrink: 0;
+    margin-top: 1px;
+    transition: background 0.2s, color 0.2s;
+  }
+  .option-btn.correct {
+    border-color: #4a6741;
+    background: #edf4ea;
+  }
+  .option-btn.correct .letter {
+    background: #4a6741;
+    color: white;
+  }
+  .option-btn.wrong {
+    border-color: #c0392b;
+    background: #fdf0ef;
+  }
+  .option-btn.wrong .letter {
+    background: #c0392b;
+    color: white;
+  }
+  .option-btn:disabled { cursor: default; }
+
+  #feedback {
+    margin-top: 18px;
+    padding: 12px 16px;
+    border-radius: 8px;
+    font-size: 0.93rem;
+    line-height: 1.55;
+    display: none;
+    font-family: sans-serif;
+  }
+  #feedback.correct-fb { background: #edf4ea; color: #2d6a2d; border-left: 4px solid #4a6741; }
+  #feedback.wrong-fb   { background: #fdf0ef; color: #922b21; border-left: 4px solid #c0392b; }
+
+  #next-btn {
+    display: none;
+    margin-top: 22px;
+    background: linear-gradient(135deg, #2c3e50, #4a6741);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 12px 30px;
+    font-size: 1rem;
+    cursor: pointer;
+    font-family: 'Georgia', serif;
+    letter-spacing: 0.5px;
+    float: right;
+    transition: opacity 0.2s;
+  }
+  #next-btn:hover { opacity: 0.88; }
+  .clearfix::after { content: ''; display: table; clear: both; }
+
+  /* Results */
+  #results-container {
+    display: none;
+    max-width: 780px;
+    margin: 36px auto;
+    padding: 0 16px 60px;
+    animation: fadeIn 0.5s ease;
+  }
+  .results-card {
+    background: white;
+    border-radius: 14px;
+    padding: 40px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.12);
+    text-align: center;
+    border-top: 6px solid #4a6741;
+  }
+  .results-card h2 { font-size: 1.7rem; color: #2c3e50; margin-bottom: 8px; }
+  .score-circle {
+    width: 130px;
+    height: 130px;
+    border-radius: 50%;
+    margin: 28px auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-family: sans-serif;
+  }
+  .score-circle .score-num { font-size: 2.5rem; font-weight: bold; color: white; line-height: 1; }
+  .score-circle .score-den { font-size: 1rem; color: rgba(255,255,255,0.85); }
+  .vote-label {
+    font-size: 1.4rem;
+    font-weight: bold;
+    margin-bottom: 6px;
+  }
+  .vote-comment { font-size: 1rem; color: #6b5f50; margin-bottom: 28px; font-style: italic; }
+
+  .stats-row {
+    display: flex;
+    justify-content: center;
+    gap: 32px;
+    margin: 0 0 20px;
+    font-family: sans-serif;
+  }
+  .stat-box { text-align: center; }
+  .stat-box .stat-val { font-size: 1.5rem; font-weight: bold; }
+  .stat-box .stat-lab { font-size: 0.8rem; color: #7a6d58; }
+  .stat-correct .stat-val { color: #4a6741; }
+  .stat-wrong   .stat-val { color: #c0392b; }
+  .stat-pct     .stat-val { color: #2c3e50; }
+
+  .results-breakdown {
+    border-top: 1px solid #e0d8cc;
+    padding-top: 28px;
+    text-align: left;
+    margin-top: 10px;
+  }
+  .results-breakdown h3 { font-size: 1.1rem; margin-bottom: 16px; color: #2c3e50; }
+  .result-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 10px 0;
+    border-bottom: 1px solid #f0ebe2;
+    font-size: 0.92rem;
+  }
+  .result-item .ri-num {
+    font-weight: bold;
+    color: #7a6d58;
+    min-width: 28px;
+    font-family: sans-serif;
+  }
+  .result-item .ri-q { flex: 1; line-height: 1.45; }
+  .result-item .ri-icon { font-size: 1.1rem; flex-shrink: 0; }
+  .result-item .ri-answer {
+    font-size: 0.85rem;
+    color: #5a6741;
+    margin-top: 3px;
+    display: block;
+    font-style: italic;
+    font-family: sans-serif;
+  }
+  .result-item .ri-answer.ri-wrong-answer { color: #c0392b; }
+
+  #retry-btn {
+    margin-top: 28px;
+    background: linear-gradient(135deg, #2c3e50, #4a6741);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 13px 36px;
+    font-size: 1rem;
+    cursor: pointer;
+    font-family: 'Georgia', serif;
+    letter-spacing: 0.5px;
+    transition: opacity 0.2s;
+  }
+  #retry-btn:hover { opacity: 0.88; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Quiz di Grammatica Italiana</h1>
+  <p>Storia della lingua e della grammatica &mdash; 31 domande</p>
+</header>
+<div id="progress-bar-container"><div id="progress-bar"></div></div>
+
+<div id="quiz-container">
+  <div id="question-counter"></div>
+  <div class="card" id="question-card">
+    <span class="source-tag" id="source-tag"></span>
+    <p class="question-text" id="question-text"></p>
+    <div class="options" id="options"></div>
+    <div id="feedback"></div>
+    <div class="clearfix">
+      <button id="next-btn">Prossima domanda &rarr;</button>
+    </div>
+  </div>
+</div>
+
+<div id="results-container">
+  <div class="results-card">
+    <h2>Risultati del Quiz</h2>
+    <div class="score-circle" id="score-circle">
+      <span class="score-num" id="score-num"></span>
+      <span class="score-den">/31</span>
+    </div>
+    <div class="stats-row">
+      <div class="stat-box stat-correct">
+        <div class="stat-val" id="stat-correct"></div>
+        <div class="stat-lab">Corrette</div>
+      </div>
+      <div class="stat-box stat-wrong">
+        <div class="stat-val" id="stat-wrong"></div>
+        <div class="stat-lab">Errate</div>
+      </div>
+      <div class="stat-box stat-pct">
+        <div class="stat-val" id="stat-pct"></div>
+        <div class="stat-lab">Percentuale</div>
+      </div>
+    </div>
+    <p class="vote-label" id="vote-label"></p>
+    <p class="vote-comment" id="vote-comment"></p>
+    <button id="retry-btn">&#8635; Rifai il quiz</button>
+    <div class="results-breakdown">
+      <h3>Riepilogo domanda per domanda</h3>
+      <div id="breakdown-list"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+const questions = [
+  {
+    source: "Breve Storia della Grammatica (Fornara)",
+    q: "Cosa caratterizza le grammatiche diacroniche (storiche)?",
+    opts: [
+      "Descrivono lo stato di una lingua in un determinato periodo storico",
+      "Analizzano l'evoluzione della lingua nel corso del tempo",
+      "Presentano solo le regole normative della lingua",
+      "Si occupano esclusivamente della sintassi"
+    ],
+    correct: 1,
+    explanation: "Le grammatiche diacroniche analizzano l'evoluzione della lingua nel corso del tempo, studiando aspetti fonetici, morfologici e sintattici attraverso le regole di trasformazione linguistica."
+  },
+  {
+    source: "Breve Storia della Grammatica (Fornara)",
+    q: "Chi è considerato il primo teorico del volgare e a quale opera è legata questa definizione?",
+    opts: [
+      "Petrarca, grazie al Canzoniere",
+      "Boccaccio, grazie al Decameron",
+      "Dante, grazie al De vulgari eloquentia",
+      "Bembo, grazie alle Prose della Volgar Lingua"
+    ],
+    correct: 2,
+    explanation: "Dante fu il primo teorico del volgare, al quale dedicò il trattato De vulgari eloquentia, composto all'inizio del '300 e scritto in latino perché rivolto ai dotti."
+  },
+  {
+    source: "Breve Storia della Grammatica (Fornara)",
+    q: "La Grammatichetta Vaticana di Leon Battista Alberti è considerata:",
+    opts: [
+      "La prima grammatica del latino classico a stampa",
+      "La prima grammatica di una lingua volgare a livello europeo",
+      "La prima grammatica dell'italiano stampata a Firenze",
+      "La prima grammatica normativa dell'italiano moderno"
+    ],
+    correct: 1,
+    explanation: "La Grammatichetta Vaticana è la prima grammatica di una lingua volgare a livello europeo; fu poco conosciuta poiché non venne pubblicata e ci è tramandata tramite l'unico codice manoscritto conservato presso la Biblioteca Vaticana."
+  },
+  {
+    source: "Breve Storia della Grammatica (Fornara)",
+    q: "Su quale base Alberti individua il numero di coniugazioni nella Grammatichetta Vaticana, e quante ne individua?",
+    opts: [
+      "3 coniugazioni, sulla base dell'infinito",
+      "4 coniugazioni, sulla base della 2ª persona dell'indicativo presente",
+      "2 coniugazioni, sulla base della 3ª persona dell'indicativo presente",
+      "5 coniugazioni, sulla base del participio passato"
+    ],
+    correct: 2,
+    explanation: "Alberti individua 2 coniugazioni, sulla base della 3ª persona dell'indicativo presente. La tradizione latina non forniva un modello unico: Donato, Diomede e Carisio riconoscevano 3 coniugazioni; Prisciano 4."
+  },
+  {
+    source: "Breve Storia della Grammatica (Fornara)",
+    q: "Qual è la prima grammatica dell'italiano a stampa?",
+    opts: [
+      "Le Prose della Volgar Lingua di Pietro Bembo (1525)",
+      "La Grammatichetta di Trissino (1529, Vicenza)",
+      "Le Regole grammaticali della Volgar Lingua di Fortunio (1516)",
+      "La Grammatica di Giambullari (1552, Firenze)"
+    ],
+    correct: 2,
+    explanation: "Le Regole grammaticali della Volgar Lingua di Fortunio (1516) sono la prima grammatica dell'italiano a stampa. L'opera fu un grande successo editoriale."
+  },
+  {
+    source: "Breve Storia della Grammatica (Fornara)",
+    q: "Chi è il massimo teorico del classicismo volgare nel Cinquecento?",
+    opts: [
+      "Dante Alighieri",
+      "Leon Battista Alberti",
+      "Pietro Bembo",
+      "Giovan Giorgio Trissino"
+    ],
+    correct: 2,
+    explanation: "Pietro Bembo fu il massimo teorico del classicismo volgare. Aveva elaborato la 'teoria dell'imitazione': per il volgare i modelli erano Boccaccio (prosa) e Petrarca (poesia)."
+  },
+  {
+    source: "Breve Storia della Grammatica (Fornara)",
+    q: "Quando e dove fu stampata la prima edizione del Vocabolario dell'Accademia della Crusca?",
+    opts: [
+      "1591, a Firenze",
+      "1612, a Venezia",
+      "1643, a Firenze",
+      "1688, a Roma"
+    ],
+    correct: 1,
+    explanation: "La prima edizione del Vocabolario dell'Accademia della Crusca fu stampata a Venezia nel 1612. I criteri di compilazione erano fortemente influenzati dalle idee di Leonardo Salviati."
+  },
+  {
+    source: "Breve Storia della Grammatica (Fornara)",
+    q: "La nascita della grammatica italiana è legata all'affermazione di:",
+    opts: [
+      "I tre grandi Trecentisti: Dante, Petrarca e Boccaccio",
+      "I grandi grammatici latini come Prisciano e Donato",
+      "Gli umanisti fiorentini guidati da Alberti",
+      "L'Accademia della Crusca e i suoi vocabolari"
+    ],
+    correct: 0,
+    explanation: "La nascita della grammatica è legata all'affermazione dei 3 grandi Trecentisti: Dante, Petrarca e Boccaccio, i quali fecero acquisire dignità letteraria al volgare, creando l'esigenza di fissarne le regole."
+  },
+  {
+    source: "Breve Storia della Grammatica (Fornara)",
+    q: "Qual è il principale manuale di storia della grammatica italiana, pur non essendo adeguato alla ricerca moderna?",
+    opts: [
+      "Grammaticographie di Teresa Poggi Salani (1988)",
+      "Grammaticografia di Ilaria Bonomi (1998)",
+      "Storia della Grammatica Italiana di Ciro Trabalza (1908)",
+      "I Percorsi Grammaticali di Giuseppe Patota (1993)"
+    ],
+    correct: 2,
+    explanation: "La Storia della Grammatica Italiana di Ciro Trabalza (1908) è l'unico manuale tutt'oggi disponibile che tratta la storia della grammatica in Italia dal '400 alla seconda metà dell'800, ma non è più adeguato alla ricerca moderna soprattutto dal punto di vista metodologico."
+  },
+  {
+    source: "Breve Storia della Grammatica (Fornara)",
+    q: "Quale grammatica del Cinquecento inaugura la 'linea classificatoria'?",
+    opts: [
+      "Le Regole grammaticali della Volgar Lingua di Fortunio (1516)",
+      "Le Prose della Volgar Lingua di Bembo",
+      "La Grammatichetta di Giovan Giorgio Trissino (1529, Vicenza)",
+      "I Fondamenti del Parlar Thoscano di Rinaldo Corso (1549)"
+    ],
+    correct: 2,
+    explanation: "La Grammatichetta di Giovan Giorgio Trissino (1529, Vicenza) inaugura la linea classificatoria. Trissino non vedeva nelle Tre Corone e nel modello del '300 i modelli linguistici da seguire, sostenendo che Petrarca non avesse scritto in toscano, ma in italiano."
+  },
+  {
+    source: "Breve Storia della Grammatica (Fornara)",
+    q: "Quale grammatica cinquecentesca fu la prima ad essere stampata a Firenze?",
+    opts: [
+      "Le Regole di Fortunio (1516)",
+      "Le Prose della Volgar Lingua di Bembo (1525)",
+      "La Grammatica di Pierfrancesco Giambullari (1552)",
+      "Le Osservazioni di Lodovico Dolce (1550, Venezia)"
+    ],
+    correct: 2,
+    explanation: "La Grammatica di Pierfrancesco Giambullari (1552) è la prima grammatica ad essere stampata a Firenze. Gli intellettuali fiorentini non avvertivano la necessità di creare una teoria per una lingua che già naturalmente padroneggiavano."
+  },
+  {
+    source: "Breve Storia della Grammatica (Fornara)",
+    q: "Quale fu la più importante e influente grammatica di tutto il Seicento?",
+    opts: [
+      "Il Trattato della lingua di Pergamini (1613, Venezia)",
+      "Le Osservazioni di Cinonio (Marcantonio Mambelli)",
+      "La Grammatica di Benedetto Buommattei",
+      "Gli Avvertimenti Grammaticali di Pietro Sforza Pallavicino (1661)"
+    ],
+    correct: 2,
+    explanation: "La Grammatica di Benedetto Buommattei fu la più importante e influente grammatica di tutto il '600, 'destinata a conoscere una secolare fortuna'. L'edizione definitiva uscì col titolo Della lingua toscana nel 1643 a Firenze."
+  },
+  {
+    source: "Breve Storia della Grammatica (Fornara)",
+    q: "Secondo Biondo Flavio, come si originò l'italiano?",
+    opts: [
+      "Il volgare si sviluppò autonomamente, parallelamente al latino",
+      "Il latino si corruppe e si contaminò a causa delle invasioni barbariche",
+      "Nell'antica Roma esistevano già due livelli linguistici distinti: alto e basso",
+      "Il volgare derivò direttamente dal greco antico attraverso l'italiano meridionale"
+    ],
+    correct: 1,
+    explanation: "Secondo Biondo Flavio, la lingua diffusa nell'antica Roma (il latino) si corruppe e si contaminò a causa delle invasioni barbariche, dando origine all'italiano. Questa posizione riscosse maggior successo nel '500 e fu accreditata anche da Pietro Bembo."
+  },
+  {
+    source: "Breve Storia della Grammatica (Fornara)",
+    q: "Leon Battista Alberti è definito 'iniziatore' di quale movimento?",
+    opts: [
+      "Il Purismo linguistico del Seicento",
+      "L'Umanesimo volgare",
+      "Il classicismo cinquecentesco di Bembo",
+      "La grammaticografia dell'Ottocento"
+    ],
+    correct: 1,
+    explanation: "Alberti è definito iniziatore dell'Umanesimo volgare (movimento sviluppatosi appieno nella seconda metà del '400 alla corte dei Medici). Egli cercò di promuovere l'uso della nuova lingua, portando al rilancio del toscano anche negli ambienti più dotti."
+  },
+  {
+    source: "Breve Storia della Grammatica (Fornara)",
+    q: "Quale fu il primo vocabolario monolingue del volgare italiano a stampa?",
+    opts: [
+      "Il Vocabolario della Crusca (1612, Venezia)",
+      "Le Tre Fontane di Niccolò Liburnio (Venezia, 1526)",
+      "Le Prose della Volgar Lingua di Bembo (1525)",
+      "Il Vocabolario di Acarisio (1543, Cento)"
+    ],
+    correct: 1,
+    explanation: "Il primo vocabolario monolingue del volgare italiano a stampa è Le Tre Fontane di Niccolò Liburnio (Venezia, 1526), inserito in un quadro legato alle teorie di Bembo e che prendeva a modello gli autori delle Tre Corone."
+  },
+  {
+    source: "Breve Storia della Grammatica (Fornara)",
+    q: "La Grande Grammatica di Consultazione di Renzi (1988-95) si distingue perché:",
+    opts: [
+      "È un'opera strettamente normativa, rivolta alle scuole elementari",
+      "La trattazione parte dalla frase per passare alle singole parti del discorso, con impostazione basata su criteri linguistici",
+      "Tratta solo la morfologia dell'italiano contemporaneo",
+      "È stata scritta da un solo autore con approfondita conoscenza del latino"
+    ],
+    correct: 1,
+    explanation: "La Grande Grammatica di Consultazione di Renzi è frutto di un lavoro di équipe (34 collaboratori), con impostazione basata su criteri linguistici lontani da quelli normativi. La trattazione parte dalla frase per poi passare alle singole parti del discorso — percorso inverso rispetto a quello tradizionale."
+  },
+  {
+    source: "Breve Storia della Lingua Italiana (Morgana)",
+    q: "Secondo Morgana, la storia della lingua italiana è divisa in quanti periodi principali?",
+    opts: [
+      "2 periodi",
+      "3 periodi",
+      "4 periodi",
+      "5 periodi"
+    ],
+    correct: 1,
+    explanation: "Morgana divide la storia della lingua italiana in 3 periodi: 1° dalla frammentazione linguistica medievale al primato del fiorentino (IX-XIV sec.); 2° unificazione, norma ed espansione (XV sec.–1861); 3° da lingua della letteratura a lingua d'uso nazionale (1861–oggi)."
+  },
+  {
+    source: "Breve Storia della Lingua Italiana (Morgana)",
+    q: "Quale latino è all'origine dell'italiano?",
+    opts: [
+      "Il latino classico di Cicerone e Virgilio",
+      "Il latino parlato, cioè il volgare",
+      "Il latino medievale della Chiesa",
+      "Il latino arcaico dei primi scrittori romani"
+    ],
+    correct: 1,
+    explanation: "L'italiano è una continuazione del latino: non il latino di Cicerone, bensì il latino parlato, cioè il volgare. Da questo latino parlato nascono le lingue romanze: italiano, francese, provenzale, spagnolo, portoghese ecc."
+  },
+  {
+    source: "Breve Storia della Lingua Italiana (Morgana)",
+    q: "Quante vocali aveva il sistema vocalico latino e quante ne ha quello italiano?",
+    opts: [
+      "Latino 8, italiano 5",
+      "Latino 10, italiano 7",
+      "Latino 12, italiano 6",
+      "Latino 6, italiano 5"
+    ],
+    correct: 1,
+    explanation: "Il sistema vocalico latino aveva 10 vocali (5 lunghe e 5 brevi). In italiano le vocali sono 7. Si passa così dal sistema vocalico latino a quello 'italico', con la perdita della distinzione quantitativa e l'introduzione della distinzione qualitativa (vocali aperte/chiuse)."
+  },
+  {
+    source: "Breve Storia della Lingua Italiana (Morgana)",
+    q: "Come si è formato il futuro romanzo (es. italiano 'loderò')?",
+    opts: [
+      "Da infinito + imperfetto del verbo habere",
+      "Da infinito + presente del verbo habere",
+      "Da infinito + perfetto del verbo habere",
+      "Da una desinenza sintetica ereditata direttamente dal latino"
+    ],
+    correct: 1,
+    explanation: "Il futuro romanzo è analitico, costituito da una perifrasi: infinito + presente del verbo habēre. Es.: laudar(e) *ao > lodar ò > loderò. Il futuro latino era di tipo sintetico (laudabo, timebo)."
+  },
+  {
+    source: "Breve Storia della Lingua Italiana (Morgana)",
+    q: "Come si è formato il condizionale romanzo (es. italiano 'loderei')?",
+    opts: [
+      "Da infinito + presente del verbo habere",
+      "Da infinito + imperfetto del verbo habere",
+      "Da infinito + perfetto del verbo habere",
+      "Da una desinenza sintetica di origine germanica"
+    ],
+    correct: 2,
+    explanation: "Il condizionale in latino non esisteva. Il condizionale romanzo nasce da una perifrasi del latino volgare composta da infinito + perfetto del verbo habēre: laudar(e) *hēbui > laudar(e) *ēi > lodarei > loderei."
+  },
+  {
+    source: "Breve Storia della Lingua Italiana (Morgana)",
+    q: "Quale cambiamento nell'ordine delle parole avvenne nel passaggio dal latino all'italiano?",
+    opts: [
+      "Dall'ordine VSO all'ordine SVO",
+      "Dall'ordine SOV all'ordine SVO",
+      "Dall'ordine SVO all'ordine SOV",
+      "Dall'ordine OVS all'ordine SVO"
+    ],
+    correct: 1,
+    explanation: "Nella sintassi, si passa dall'ordine SOV (Soggetto Oggetto Verbo) all'ordine SVO (Soggetto Verbo Oggetto), probabile conseguenza dell'indebolimento dei morfemi posti nella parte terminale della parola."
+  },
+  {
+    source: "Breve Storia della Lingua Italiana (Morgana)",
+    q: "Quale fenomeno fonetico tipicamente fiorentino indica la pronuncia aspirata delle consonanti occlusive sorde (p, t, k) in posizione intervocalica?",
+    opts: [
+      "Il dittongo spontaneo",
+      "L'anafonesi",
+      "La gorgia",
+      "Il betacismo"
+    ],
+    correct: 2,
+    explanation: "La gorgia è la pronuncia aspirata delle consonanti occlusive sorde (p, t, k) in posizione intervocalica: es. la hasa, amiho (fenomeno documentato solo dal Cinquecento e privo di tradizione ortografica)."
+  },
+  {
+    source: "Breve Storia della Lingua Italiana (Morgana)",
+    q: "Quale testo è considerato dagli studi attuali il più antico in volgare?",
+    opts: [
+      "Il Placito Capuano (960)",
+      "I Placiti Cassinesi (960-963)",
+      "L'Iscrizione della Catacomba di Commodilla",
+      "L'Indovinello Veronese (VIII-IX secolo)"
+    ],
+    correct: 2,
+    explanation: "Negli studi attuali l'Iscrizione della Catacomba di Commodilla viene considerata il testo più antico in volgare: 'Non dicere ille secrita a bboce', cioè 'non dire le (orazioni) segrete ad alta voce'."
+  },
+  {
+    source: "Breve Storia della Lingua Italiana (Morgana)",
+    q: "Cosa sono i Placiti Cassinesi?",
+    opts: [
+      "Quattro codici di legge scritti in volgare nell'XI secolo",
+      "Quattro formule di giuramento in volgare (960-963), conservate nell'archivio di Montecassino",
+      "Le prime liriche in volgare del XII secolo",
+      "I primi documenti commerciali scritti in volgare a Napoli"
+    ],
+    correct: 1,
+    explanation: "I Placiti Cassinesi sono quattro formule di giuramento in volgare, conservate nell'archivio dell'abbazia di Montecassino, provenienti da tre località della Campania settentrionale (Capua, Sessa Aurunca, Teano), redatte tra il marzo 960 e l'ottobre 963."
+  },
+  {
+    source: "Breve Storia della Lingua Italiana (Morgana)",
+    q: "Quale tratto fonetico del fiorentino indica il passaggio di alcune vocali in dittongo in sillaba tonica aperta (es. PĔDE(M) > piede)?",
+    opts: [
+      "L'anafonesi",
+      "Il dittongo spontaneo",
+      "La gorgia",
+      "Il passaggio di ar protonico a er"
+    ],
+    correct: 1,
+    explanation: "Il dittongo spontaneo è il fenomeno per cui Ĕ tonica in sillaba aperta diventa ie (PĔDE(M) > piede) e Ŏ tonica in sillaba aperta diventa uò (BŎNU(M) > buono, ma ŎCTO > otto)."
+  },
+  {
+    source: "L'Italiano Contemporaneo (Lorenzetti)",
+    q: "Quante lingue sono riconosciute ufficialmente in Italia dalla legge 482 del 1999?",
+    opts: [
+      "Circa 8",
+      "Circa 15",
+      "Circa 20",
+      "Circa 25"
+    ],
+    correct: 1,
+    explanation: "Le lingue riconosciute ufficialmente dalla legge 482 del '99 nei confini italiani sono circa 15, tra cui l'italiano (lingua nazionale e ufficiale con 55 milioni di parlanti), il croato del Molise, il mòcheno e il cimbrico del Trentino e del Veneto."
+  },
+  {
+    source: "L'Italiano Contemporaneo (Lorenzetti)",
+    q: "La Svizzera è l'unico Stato estero (oltre al Vaticano e San Marino) in cui l'italiano è lingua ufficiale. Quanti tipi di italiano coesistono in Svizzera?",
+    opts: [
+      "2 tipi: quello della Svizzera italiana e quello degli emigrati",
+      "3 tipi: svizzero, elvetico e lingua franca",
+      "4 tipi: quello della Svizzera italiana, elvetico nei cantoni tedeschi e francesi, degli emigrati e usato come lingua franca",
+      "Un solo tipo standardizzato usato in tutto il paese"
+    ],
+    correct: 2,
+    explanation: "In Svizzera coesistono 4 tipi di italiano: quello della Svizzera italiana, quello elvetico nei cantoni tedeschi e francesi, quello degli emigrati e quello usato come lingua franca (strumento di comunicazione tra persone di differente lingua madre)."
+  },
+  {
+    source: "L'Italiano Contemporaneo (Lorenzetti)",
+    q: "Cos'è l'italiano neostandard?",
+    opts: [
+      "La novità maggiore degli ultimi cento anni, una varietà esclusivamente scritta",
+      "La novità maggiore degli ultimi quaranta anni, varietà scritta e parlata che integra fenomeni tipici del parlato",
+      "Una varietà regionale del Nord Italia diffusasi grazie alla televisione",
+      "Il nome alternativo dell'italiano burocratico formale"
+    ],
+    correct: 1,
+    explanation: "L'italiano neostandard è la novità maggiore degli ultimi quaranta anni di storia linguistica italiana. Si tratta di una varietà scritta e parlata, coincidente in buona parte con lo standard, ma con l'integrazione di fenomeni ripudiati da quest'ultimo, prevalentemente tipici del parlato."
+  },
+  {
+    source: "L'Italiano Contemporaneo (Lorenzetti)",
+    q: "Quanti e quali sono i principali assi di variazione linguistica dell'italiano?",
+    opts: [
+      "2: diatopica (geografica) e diastratica (sociale)",
+      "3: diatopica, diastratica e diafasica (stilistica)",
+      "4: diatopica, diastratica, diafasica e diamesica (scritto/parlato)",
+      "5: diatopica, diastratica, diafasica, diamesica e diacronica"
+    ],
+    correct: 2,
+    explanation: "I principali assi di variazione linguistica sono 4: geografico o diatopico (forme dialettali), sociale o diastratico (forme inedicate), stilistico o diafasico (forme stilisticamente inadatte), e la variazione diamesica, ovvero tra espressione scritta e parlata."
+  },
+  {
+    source: "L'Italiano Contemporaneo (Lorenzetti)",
+    q: "Il vocabolario di base (VdB) dell'italiano comprende circa quante parole usate quotidianamente?",
+    opts: [
+      "Circa 3.000",
+      "Circa 5.000",
+      "Circa 7.000",
+      "Circa 10.000"
+    ],
+    correct: 2,
+    explanation: "Il vocabolario di base comprende circa 7.000 lessemi usati quotidianamente, divisi in lessico fondamentale (circa 2.000 lessemi che costituiscono il 90% di qualunque testo italiano), di alto uso (2/3k) e di alta disponibilità (2.3k)."
+  },
+  {
+    source: "L'Italiano Contemporaneo (Lorenzetti)",
+    q: "Quando si può datare il riconoscimento dell'italiano come vera lingua nazionale, non più solo scritta e formale?",
+    opts: [
+      "Subito dopo l'Unità d'Italia nel 1861",
+      "Dalla seconda metà del Novecento, grazie alla radio e alla televisione",
+      "Dal Rinascimento, grazie alle grammatiche di Bembo",
+      "Dal Settecento, con le riforme illuministe dell'istruzione"
+    ],
+    correct: 1,
+    explanation: "Negli anni Cinquanta inizia un cambiamento che portava a parlare in famiglia con coniugi e anziani in dialetto e con i figli in italiano. Da qui si può considerare l'italiano lingua nazionale, quindi non solo dello Stato ma della maggior parte dei cittadini."
+  }
+];
+
+let current = 0;
+let score = 0;
+let answers = [];
+let shuffledOpts = [];
+let shuffledCorrect = 0;
+const LETTERS = ['A', 'B', 'C', 'D'];
+
+function shuffleArray(arr) {
+  const a = arr.slice();
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    const tmp = a[i]; a[i] = a[j]; a[j] = tmp;
+  }
+  return a;
+}
+
+function init() {
+  current = 0;
+  score = 0;
+  answers = [];
+  document.getElementById('quiz-container').style.display = '';
+  document.getElementById('results-container').style.display = 'none';
+  showQuestion();
+}
+
+function showQuestion() {
+  const q = questions[current];
+
+  document.getElementById('progress-bar').style.width = ((current / questions.length) * 100) + '%';
+  document.getElementById('question-counter').textContent = 'Domanda ' + (current + 1) + ' di ' + questions.length;
+  document.getElementById('source-tag').textContent = q.source;
+  document.getElementById('question-text').textContent = q.q;
+
+  const optContainer = document.getElementById('options');
+  optContainer.innerHTML = '';
+
+  const indices = shuffleArray([0, 1, 2, 3]);
+  shuffledOpts = indices.map(function(i) { return { text: q.opts[i], orig: i }; });
+  shuffledCorrect = shuffledOpts.findIndex(function(o) { return o.orig === q.correct; });
+
+  shuffledOpts.forEach(function(opt, i) {
+    const btn = document.createElement('button');
+    btn.className = 'option-btn';
+    btn.innerHTML = '<span class="letter">' + LETTERS[i] + '</span><span>' + opt.text + '</span>';
+    btn.onclick = function() { selectOption(i); };
+    optContainer.appendChild(btn);
+  });
+
+  const fb = document.getElementById('feedback');
+  fb.style.display = 'none';
+  fb.className = '';
+  fb.textContent = '';
+
+  const nextBtn = document.getElementById('next-btn');
+  nextBtn.style.display = 'none';
+  nextBtn.textContent = current === questions.length - 1 ? 'Vedi i risultati →' : 'Prossima domanda →';
+}
+
+function selectOption(selected) {
+  const q = questions[current];
+  const btns = document.querySelectorAll('.option-btn');
+
+  btns.forEach(function(b) { b.disabled = true; });
+
+  const isCorrect = selected === shuffledCorrect;
+  if (isCorrect) score++;
+  answers.push({
+    qIdx: current,
+    isCorrect: isCorrect,
+    selectedLetter: LETTERS[selected],
+    correctLetter: LETTERS[shuffledCorrect],
+    selectedText: shuffledOpts[selected].text,
+    correctText: shuffledOpts[shuffledCorrect].text
+  });
+
+  btns[selected].classList.add(isCorrect ? 'correct' : 'wrong');
+  if (!isCorrect) btns[shuffledCorrect].classList.add('correct');
+
+  const fb = document.getElementById('feedback');
+  fb.style.display = 'block';
+  if (isCorrect) {
+    fb.className = 'correct-fb';
+    fb.textContent = '✓ Corretto! ' + q.explanation;
+  } else {
+    fb.className = 'wrong-fb';
+    fb.textContent = '✗ Risposta errata. ' + q.explanation;
+  }
+
+  document.getElementById('next-btn').style.display = 'block';
+}
+
+document.getElementById('next-btn').addEventListener('click', function() {
+  current++;
+  if (current >= questions.length) {
+    showResults();
+  } else {
+    showQuestion();
+  }
+});
+
+document.getElementById('retry-btn').addEventListener('click', init);
+
+function showResults() {
+  document.getElementById('progress-bar').style.width = '100%';
+  document.getElementById('quiz-container').style.display = 'none';
+  document.getElementById('results-container').style.display = 'block';
+
+  const pct = Math.round((score / questions.length) * 100);
+  const wrong = questions.length - score;
+
+  document.getElementById('score-num').textContent = score;
+  document.getElementById('stat-correct').textContent = score;
+  document.getElementById('stat-wrong').textContent = wrong;
+  document.getElementById('stat-pct').textContent = pct + '%';
+
+  const circle = document.getElementById('score-circle');
+  if (pct >= 85) circle.style.background = 'linear-gradient(135deg, #2ecc71, #27ae60)';
+  else if (pct >= 65) circle.style.background = 'linear-gradient(135deg, #f39c12, #e67e22)';
+  else circle.style.background = 'linear-gradient(135deg, #e74c3c, #c0392b)';
+
+  var voteLabel, voteComment;
+  if (pct >= 90) { voteLabel = '🏆 Eccellente!'; voteComment = 'Ottima preparazione — sei pronto per l\'esame!'; }
+  else if (pct >= 80) { voteLabel = '⭐ Molto Bene!'; voteComment = 'Preparazione solida, qualche piccola lacuna da rivedere.'; }
+  else if (pct >= 65) { voteLabel = '👍 Bene'; voteComment = 'Buona base, ma ripassate le domande errate.'; }
+  else if (pct >= 50) { voteLabel = '📚 Sufficiente'; voteComment = 'Ancora un po\' di studio ti servirà per essere sicuro.'; }
+  else { voteLabel = '⚠️ Insufficiente'; voteComment = 'Rivedi il materiale con attenzione prima dell\'esame.'; }
+
+  document.getElementById('vote-label').textContent = voteLabel;
+  document.getElementById('vote-comment').textContent = voteComment;
+
+  const list = document.getElementById('breakdown-list');
+  list.innerHTML = '';
+
+  answers.forEach(function(a, i) {
+    const q = questions[a.qIdx];
+    const item = document.createElement('div');
+    item.className = 'result-item';
+    const icon = a.isCorrect ? '✅' : '❌';
+    var answerHTML;
+    if (a.isCorrect) {
+      answerHTML = '<span class="ri-answer">Risposta: ' + a.correctLetter + '. ' + a.correctText + '</span>';
+    } else {
+      answerHTML = '<span class="ri-answer ri-wrong-answer">Tua risposta: ' + a.selectedLetter + '. ' + a.selectedText + '<br>Risposta corretta: ' + a.correctLetter + '. ' + a.correctText + '</span>';
+    }
+    item.innerHTML =
+      '<span class="ri-num">' + (i+1) + '.</span>' +
+      '<div class="ri-q">' + q.q + answerHTML + '</div>' +
+      '<span class="ri-icon">' + icon + '</span>';
+    list.appendChild(item);
+  });
+
+  document.getElementById('results-container').scrollIntoView({ behavior: 'smooth' });
+}
+
+init();
+</script>
+</body>
+</html>
