@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quiz — Breve storia della lingua italiana (Morgana)</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Georgia', serif;
+    background: #f4eeec;
+    color: #2b1c1a;
+    min-height: 100vh;
+  }
+
+  header {
+    background: linear-gradient(135deg, #4a1f25, #8c3b40);
+    color: white;
+    padding: 28px 24px;
+    text-align: center;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.3);
+  }
+  header h1 { font-size: 1.8rem; letter-spacing: 0.5px; margin-bottom: 6px; }
+  header p { font-size: 0.95rem; opacity: 0.85; font-style: italic; }
+
+  #progress-bar-container { background: #dac6c4; height: 8px; }
+  #progress-bar {
+    height: 100%;
+    background: linear-gradient(90deg, #8c3b40, #c97a7e);
+    width: 0%;
+    transition: width 0.4s ease;
+  }
+
+  #quiz-container { max-width: 780px; margin: 36px auto; padding: 0 16px 60px; }
+
+  #question-counter {
+    font-size: 0.85rem; color: #7a5d5a; text-align: right;
+    margin-bottom: 10px; font-style: italic;
+  }
+
+  .card {
+    background: white; border-radius: 12px; padding: 32px 36px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    border-top: 4px solid #8c3b40; animation: fadeIn 0.35s ease;
+  }
+  @keyframes fadeIn { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:translateY(0); } }
+
+  .source-tag {
+    display: inline-block; font-size: 0.72rem;
+    background: #f3e4e3; color: #8c3b40;
+    border: 1px solid #ddb6b8; border-radius: 20px;
+    padding: 3px 10px; margin-bottom: 14px; font-family: sans-serif;
+  }
+
+  .question-text {
+    font-size: 1.13rem; line-height: 1.65; color: #2b1c1a;
+    margin-bottom: 24px; font-weight: bold;
+  }
+
+  .options { display: flex; flex-direction: column; gap: 11px; }
+
+  .option-btn {
+    display: flex; align-items: flex-start; gap: 12px;
+    background: #faf6f5; border: 2px solid #e4d5d3; border-radius: 9px;
+    padding: 13px 16px; cursor: pointer; font-size: 1rem;
+    font-family: 'Georgia', serif; color: #2b1c1a; text-align: left;
+    transition: border-color 0.2s, background 0.2s; line-height: 1.5;
+  }
+  .option-btn:hover:not(:disabled) { border-color: #8c3b40; background: #f3e4e3; }
+  .option-btn .letter {
+    display: inline-flex; align-items: center; justify-content: center;
+    min-width: 28px; height: 28px; border-radius: 50%;
+    background: #e4d5d3; color: #5a3a38; font-size: 0.85rem; font-weight: bold;
+    font-family: sans-serif; flex-shrink: 0; margin-top: 1px;
+    transition: background 0.2s, color 0.2s;
+  }
+  .option-btn.correct { border-color: #8c3b40; background: #f3e4e3; }
+  .option-btn.correct .letter { background: #8c3b40; color: white; }
+  .option-btn.wrong { border-color: #c0392b; background: #fdf0ef; }
+  .option-btn.wrong .letter { background: #c0392b; color: white; }
+  .option-btn:disabled { cursor: default; }
+
+  #feedback {
+    margin-top: 18px; padding: 12px 16px; border-radius: 8px;
+    font-size: 0.93rem; line-height: 1.55; display: none; font-family: sans-serif;
+  }
+  #feedback.correct-fb { background: #f3e4e3; color: #6b2a2f; border-left: 4px solid #8c3b40; }
+  #feedback.wrong-fb   { background: #fdf0ef; color: #922b21; border-left: 4px solid #c0392b; }
+
+  #next-btn {
+    display: none; margin-top: 22px;
+    background: linear-gradient(135deg, #4a1f25, #8c3b40);
+    color: white; border: none; border-radius: 8px; padding: 12px 30px;
+    font-size: 1rem; cursor: pointer; font-family: 'Georgia', serif;
+    letter-spacing: 0.5px; float: right; transition: opacity 0.2s;
+  }
+  #next-btn:hover { opacity: 0.88; }
+  .clearfix::after { content: ''; display: table; clear: both; }
+
+  #results-container {
+    display: none; max-width: 780px; margin: 36px auto;
+    padding: 0 16px 60px; animation: fadeIn 0.5s ease;
+  }
+  .results-card {
+    background: white; border-radius: 14px; padding: 40px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.12); text-align: center;
+    border-top: 6px solid #8c3b40;
+  }
+  .results-card h2 { font-size: 1.7rem; color: #4a1f25; margin-bottom: 8px; }
+  .score-circle {
+    width: 130px; height: 130px; border-radius: 50%; margin: 28px auto;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    font-family: sans-serif;
+  }
+  .score-circle .score-num { font-size: 2.5rem; font-weight: bold; color: white; line-height: 1; }
+  .score-circle .score-den { font-size: 1rem; color: rgba(255,255,255,0.85); }
+  .vote-label { font-size: 1.4rem; font-weight: bold; margin-bottom: 6px; }
+  .vote-comment { font-size: 1rem; color: #7a5d5a; margin-bottom: 28px; font-style: italic; }
+
+  .stats-row { display: flex; justify-content: center; gap: 32px; margin: 0 0 20px; font-family: sans-serif; }
+  .stat-box { text-align: center; }
+  .stat-box .stat-val { font-size: 1.5rem; font-weight: bold; }
+  .stat-box .stat-lab { font-size: 0.8rem; color: #7a5d5a; }
+  .stat-correct .stat-val { color: #8c3b40; }
+  .stat-wrong   .stat-val { color: #c0392b; }
+  .stat-pct     .stat-val { color: #4a1f25; }
+
+  .results-breakdown { border-top: 1px solid #e4d5d3; padding-top: 28px; text-align: left; margin-top: 10px; }
+  .results-breakdown h3 { font-size: 1.1rem; margin-bottom: 16px; color: #4a1f25; }
+  .result-item {
+    display: flex; align-items: flex-start; gap: 10px; padding: 10px 0;
+    border-bottom: 1px solid #f4eeec; font-size: 0.92rem;
+  }
+  .result-item .ri-num { font-weight: bold; color: #7a5d5a; min-width: 28px; font-family: sans-serif; }
+  .result-item .ri-q { flex: 1; line-height: 1.45; }
+  .result-item .ri-icon { font-size: 1.1rem; flex-shrink: 0; }
+  .result-item .ri-answer {
+    font-size: 0.85rem; color: #8c3b40; margin-top: 3px; display: block;
+    font-style: italic; font-family: sans-serif;
+  }
+  .result-item .ri-answer.ri-wrong-answer { color: #c0392b; }
+
+  #retry-btn {
+    margin-top: 28px; background: linear-gradient(135deg, #4a1f25, #8c3b40);
+    color: white; border: none; border-radius: 8px; padding: 13px 36px;
+    font-size: 1rem; cursor: pointer; font-family: 'Georgia', serif;
+    letter-spacing: 0.5px; transition: opacity 0.2s;
+  }
+  #retry-btn:hover { opacity: 0.88; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Breve storia della lingua italiana (Morgana)</h1>
+  <p>Dal latino ai volgari, le Tre Corone, Bembo, la Crusca, Manzoni &mdash; 31 domande</p>
+</header>
+<div id="progress-bar-container"><div id="progress-bar"></div></div>
+
+<div id="quiz-container">
+  <div id="question-counter"></div>
+  <div class="card" id="question-card">
+    <span class="source-tag" id="source-tag"></span>
+    <p class="question-text" id="question-text"></p>
+    <div class="options" id="options"></div>
+    <div id="feedback"></div>
+    <div class="clearfix">
+      <button id="next-btn">Prossima domanda &rarr;</button>
+    </div>
+  </div>
+</div>
+
+<div id="results-container">
+  <div class="results-card">
+    <h2>Risultati del Quiz</h2>
+    <div class="score-circle" id="score-circle">
+      <span class="score-num" id="score-num"></span>
+      <span class="score-den">/31</span>
+    </div>
+    <div class="stats-row">
+      <div class="stat-box stat-correct">
+        <div class="stat-val" id="stat-correct"></div>
+        <div class="stat-lab">Corrette</div>
+      </div>
+      <div class="stat-box stat-wrong">
+        <div class="stat-val" id="stat-wrong"></div>
+        <div class="stat-lab">Errate</div>
+      </div>
+      <div class="stat-box stat-pct">
+        <div class="stat-val" id="stat-pct"></div>
+        <div class="stat-lab">Percentuale</div>
+      </div>
+    </div>
+    <p class="vote-label" id="vote-label"></p>
+    <p class="vote-comment" id="vote-comment"></p>
+    <button id="retry-btn">&#8635; Rifai il quiz</button>
+    <div class="results-breakdown">
+      <h3>Riepilogo domanda per domanda</h3>
+      <div id="breakdown-list"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+const questions = [
+  {
+    source: "Introduzione",
+    q: "Qual è la differenza tra storia linguistica interna ed esterna?",
+    opts: [
+      "L'interna studia i fattori storico-culturali (mass media, istruzione), l'esterna l'evoluzione delle strutture della lingua",
+      "L'interna studia l'evoluzione delle strutture linguistiche (grafia, fonetica, morfologia, sintassi, lessico); l'esterna i fattori storico-culturali che influenzano lo sviluppo della lingua",
+      "L'interna riguarda l'italiano, l'esterna le lingue straniere che lo hanno influenzato",
+      "L'interna si occupa della lingua scritta, l'esterna esclusivamente del parlato"
+    ],
+    correct: 1,
+    explanation: "La storia linguistica interna studia l'evoluzione delle strutture (grafia, fonetica, morfologia, sintassi, lessico) dal latino parlato all'italiano; quella esterna i fattori storico-culturali che influenzano la lingua (es. mass media e istruzione elementare)."
+  },
+  {
+    source: "Introduzione",
+    q: "In quanti periodi Morgana divide la storia della lingua italiana?",
+    opts: [
+      "2 periodi, separati dall'Unità d'Italia del 1861",
+      "3 periodi: dalla frammentazione medievale al primato del fiorentino (IX-X sec.–1375); unificazione, norma ed espansione (XV sec.–1861); da lingua letteraria a lingua d'uso nazionale (1861–oggi)",
+      "4 periodi, scanditi da Dante, Bembo, Manzoni e l'avvento dei mass media",
+      "5 periodi, uno per ciascun secolo dal Trecento a oggi"
+    ],
+    correct: 1,
+    explanation: "Morgana individua 3 periodi: dalla frammentazione linguistica medievale al primato del fiorentino (IX-X sec.–1375, morte di Boccaccio); unificazione, norma ed espansione (XV sec.–1861); da lingua della letteratura a lingua d'uso nazionale (1861–oggi)."
+  },
+  {
+    source: "1. Latino e volgari nel Medioevo",
+    q: "Da quale latino deriva l'italiano?",
+    opts: [
+      "Dal latino classico di Cicerone e Virgilio, lingua letteraria codificata",
+      "Dal latino parlato (il volgare), dal quale nascono tutte le lingue romanze",
+      "Dal latino tardo e cristiano di Sant'Agostino e Girolamo",
+      "Dal latino arcaico di Ennio, Plauto e Catone"
+    ],
+    correct: 1,
+    explanation: "L'italiano è una continuazione non del latino di Cicerone, ma del latino parlato, cioè il volgare ('del popolo'). Da questo latino parlato nascono le lingue romanze: italiano, francese, provenzale, spagnolo, portoghese, catalano, rumeno, ecc."
+  },
+  {
+    source: "1. Latino e volgari nel Medioevo",
+    q: "Quante vocali aveva il sistema latino e quante l'italiano, e cosa cambia nel passaggio?",
+    opts: [
+      "Latino 7, italiano 5: si perde la distinzione di timbro tra aperte e chiuse",
+      "Latino 10 (5 lunghe e 5 brevi), italiano 7: si perde la distinzione quantitativa e resta attiva quella qualitativa (vocali aperte/chiuse)",
+      "Latino 5, italiano 10: il sistema si arricchisce con i dittonghi romanzi",
+      "Latino 12, italiano 7: scompaiono le vocali nasali del latino"
+    ],
+    correct: 1,
+    explanation: "Il latino aveva 10 vocali (5 lunghe e 5 brevi), l'italiano ne ha 7. Venuta meno la distinzione di quantità, resta attiva quella, prima accessoria, tra aperte e chiuse: il timbro diventa l'unico tratto distintivo in coppie omografe (pèsca/pésca, còlto/cólto)."
+  },
+  {
+    source: "1. Latino e volgari nel Medioevo",
+    q: "Come si è formato il futuro romanzo (es. 'loderò')?",
+    opts: [
+      "Dal futuro sintetico latino (laudabo, timebo), conservato senza modifiche",
+      "Da una perifrasi analitica infinito + presente del verbo habēre (laudare *ao > lodarò > loderò), che ridiventa poi sintetica",
+      "Da infinito + perfetto di habēre, perifrasi che dà però origine al condizionale",
+      "Da infinito + imperfetto di habēre, all'origine del tipo dialettale amarìa"
+    ],
+    correct: 1,
+    explanation: "Il futuro latino era sintetico (laudabo). Il futuro romanzo nasce da una perifrasi analitica del latino volgare (scribere habeo > infinito + presente di habēre): laudar(e) *ao > lodarò > loderò, tornando così di tipo sintetico."
+  },
+  {
+    source: "1. Latino e volgari nel Medioevo",
+    q: "Da quale perifrasi nasce il condizionale italiano in -ei (es. 'loderei')?",
+    opts: [
+      "Da infinito + presente di habēre, la stessa perifrasi che origina il futuro",
+      "Da infinito + perfetto del verbo habēre (laudare *hĕbui > lodarei > loderei); il condizionale non esisteva in latino",
+      "Da infinito + imperfetto di habēre, da cui deriva invece il tipo meridionale e settentrionale amarìa",
+      "Da una desinenza sintetica ereditata dal congiuntivo latino"
+    ],
+    correct: 1,
+    explanation: "Il condizionale non esisteva in latino: nasce da una perifrasi del latino volgare con infinito + perfetto di habēre (laudar(e) *hĕbui > *ĕi > lodarei > loderei). Il tipo amarìa/cantarìa, di molti dialetti, deriva invece da infinito + imperfetto di habēre."
+  },
+  {
+    source: "1. Latino e volgari nel Medioevo",
+    q: "Quale mutamento nell'ordine delle parole avviene nel passaggio dal latino all'italiano?",
+    opts: [
+      "Dall'ordine SVO all'ordine SOV, con posposizione del verbo",
+      "Dall'ordine SOV (Soggetto-Oggetto-Verbo) all'ordine SVO (Soggetto-Verbo-Oggetto), probabile conseguenza dell'indebolimento dei morfemi finali di parola",
+      "Dall'ordine VSO all'ordine SVO",
+      "Da un ordine completamente libero a un rigido ordine VSO"
+    ],
+    correct: 1,
+    explanation: "Nella sintassi si passa dall'ordine SOV all'ordine SVO, probabile conseguenza dell'indebolimento dei morfemi posti in fine di parola. Il latino, teoricamente, ammetteva sei combinazioni, pur preferendo nello scritto il verbo in posizione finale."
+  },
+  {
+    source: "1. Latino e volgari nel Medioevo",
+    q: "Cosa si intende per 'sostrato' e come si comportarono i Germani rispetto al latino?",
+    opts: [
+      "Il sostrato è la lingua dei conquistatori; i Germani imposero la propria lingua, come avevano fatto i Romani",
+      "Il sostrato è la lingua preesistente in un'area prima dell'arrivo del latino; i Germani invece adottarono la lingua dei conquistati, immettendovi elementi propri (superstrato)",
+      "Il sostrato è il latino cristiano della Chiesa; i Germani lo rifiutarono completamente",
+      "Il sostrato sono i prestiti moderni; i popoli germanici non ebbero alcun influsso sulla lingua"
+    ],
+    correct: 1,
+    explanation: "Il sostrato è la lingua diffusa in un'area prima che subentri un'altra lingua, che ne resta influenzata. A differenza dei Romani che imponevano il latino, i Germani adottarono la lingua dei conquistati immettendovi elementi della propria (superstrato)."
+  },
+  {
+    source: "1. Fiorentino e italiano",
+    q: "Che cos'è il 'dittongo spontaneo', tratto che l'italiano eredita dal fiorentino trecentesco?",
+    opts: [
+      "Il passaggio di ar protonico a er (MARGARITA > margherita)",
+      "Lo sviluppo di Ĕ tonica in sillaba aperta in iè (PĔDE > piede) e di Ŏ tonica in sillaba aperta in uò (BŎNU > buono, ma ŎCTO > otto)",
+      "La chiusura di e ed o toniche davanti a nasale o palatale (anafonesi)",
+      "L'aspirazione delle occlusive sorde intervocaliche (gorgia)"
+    ],
+    correct: 1,
+    explanation: "Il dittongo spontaneo è lo sviluppo di Ĕ tonica in sillaba aperta in iè (PĔDE>piede, ma LĔCTU>letto) e di Ŏ tonica in sillaba aperta in uò (BŎNU>buono, ma ŎCTO>otto). È uno dei tratti fonetici che l'italiano prende dal fiorentino del Trecento."
+  },
+  {
+    source: "1. Fiorentino e italiano",
+    q: "In che cosa consiste l'anafonesi fiorentina?",
+    opts: [
+      "Nella riduzione del dittongo uò a ò (novo, omo), tipica della fase tarda del fiorentino",
+      "Nel passaggio di é (da Ĭ, Ē) tonica a i davanti a laterale/nasale palatale (FAMĬLIA>famiglia) e a i/u davanti a nasale + occlusiva velare (LĬNGUA>lingua, FŬNGU>fungo)",
+      "Nel passaggio di e protonica a i (di Roma, ti amo)",
+      "Nell'adozione della desinenza -iamo per la prima persona plurale"
+    ],
+    correct: 1,
+    explanation: "L'anafonesi è il passaggio di é (da Ĭ, Ē) tonica a i davanti a laterale palatale (famiglia) o nasale palatale (gramigna), e di é a i e di ó a u davanti a nasale + occlusiva velare (lingua, fungo)."
+  },
+  {
+    source: "1. Fiorentino e italiano",
+    q: "Qual è l'origine della desinenza -iamo della 1ª persona plurale dell'indicativo presente?",
+    opts: [
+      "Deriva direttamente dalle desinenze latine -amo, -emo, -imo",
+      "È analogica sulla 1ª persona plurale del congiuntivo presente latino (-EAMUS: TIMEAMUS) e soppianta le desinenze -amo, -emo, -imo (parlamo>parliamo)",
+      "È un prestito dal francese -ons",
+      "Deriva dal condizionale meridionale in -ia"
+    ],
+    correct: 1,
+    explanation: "La desinenza -iamo è analogica sulla 1ª persona plurale del congiuntivo presente latino (-EAMUS: TIMEAMUS, SENTIAMUS) e soppianta le antiche desinenze -amo, -emo, -imo (parlamo, tememo, sentimo > parliamo, temiamo, sentiamo). È un tratto morfologico fiorentino."
+  },
+  {
+    source: "1. Fiorentino e italiano",
+    q: "Che cos'è la 'gorgia', fenomeno fonetico tipicamente fiorentino?",
+    opts: [
+      "La riduzione del dittongo uò a ò (novo, omo)",
+      "La pronuncia aspirata delle occlusive sorde p, t, k in posizione intervocalica (la hasa, amiho), documentata solo dal Cinquecento e priva di tradizione ortografica",
+      "Il dittongamento di Ĕ e Ŏ toniche in sillaba aperta",
+      "Il passaggio di e protonica a i in protonia sintattica"
+    ],
+    correct: 1,
+    explanation: "La gorgia è la pronuncia aspirata delle consonanti occlusive sorde (p, t, k) in posizione intervocalica (la hasa, amiho). È documentata solo dal Cinquecento e non ha una tradizione ortografica; è tipicamente fiorentina ma non entra nello standard."
+  },
+  {
+    source: "1. Prime testimonianze",
+    q: "Quale testo è oggi considerato il più antico in volgare italiano?",
+    opts: [
+      "I Placiti Cassinesi (960-963), prima riproduzione consapevole del volgare",
+      "L'Iscrizione della Catacomba di Commodilla ('Non dicere ille secrita a bboce'), scrittura volgare 'esposta'",
+      "L'Indovinello Veronese (VIII-IX sec.), per alcuni però solo latino intriso di volgarismi",
+      "I Giuramenti di Strasburgo (842), primo documento in lingua romanza"
+    ],
+    correct: 1,
+    explanation: "Negli studi attuali il testo più antico in volgare è l'Iscrizione della Catacomba di Commodilla ('Non dicere ille secrita a bboce'): vi compaiono 'ille' con funzione di articolo e 'a bboce' con betacismo (v>b) e raddoppiamento fonosintattico. L'Indovinello veronese è invece dubbio."
+  },
+  {
+    source: "1. Prime testimonianze",
+    q: "Che cos'è l'Appendix Probi e perché è importante per la storia linguistica?",
+    opts: [
+      "Un poema in volgare del III secolo dedicato all'imperatore Probo",
+      "Un elenco (fine III sec.) redatto da un maestro che affianca forme 'giuste' e 'sbagliate' (speclum/specchio): negli 'errori' si manifestano gli sviluppi futuri della lingua",
+      "Il primo vocabolario latino-volgare, compilato a Montecassino",
+      "Una raccolta di graffiti pompeiani anteriori al 79 d.C."
+    ],
+    correct: 1,
+    explanation: "L'Appendix Probi è un elenco di 227 parole, redatto da un maestro di scuola, che affianca forme corrette e forme considerate errate (speclum/specchio, oricla/orecchia). Quegli 'errori' sono forme intermedie tra latino e italiano: quando l'errore si generalizza, diventa norma."
+  },
+  {
+    source: "1. Prime testimonianze",
+    q: "Cosa sono i Placiti Cassinesi (960-963)?",
+    opts: [
+      "Quattro componimenti poetici in volgare di area campana",
+      "Quattro formule di giuramento in volgare, conservate nell'archivio di Montecassino, provenienti da Capua, Sessa Aurunca e Teano, inserite in atti scritti in latino",
+      "I primi documenti commerciali toscani, risalenti al XII secolo",
+      "Il verbale del Placito Capuano, redatto interamente in volgare"
+    ],
+    correct: 1,
+    explanation: "I Placiti Cassinesi sono quattro formule di giuramento in volgare (marzo 960 – ottobre 963), conservate nell'archivio dell'abbazia di Montecassino e provenienti da tre località della Campania settentrionale (Capua, Sessa Aurunca, Teano). Le formule sono inserite in atti scritti in latino: distinzione cosciente tra i due codici."
+  },
+  {
+    source: "1. La poesia delle origini",
+    q: "Perché la lirica della Scuola siciliana ci è giunta in veste linguistica toscana?",
+    opts: [
+      "Perché i poeti siciliani componevano direttamente in fiorentino",
+      "Perché fu trasmessa da codici copiati da copisti toscani, che eliminarono i tratti siciliani (es. il vocalismo a 3 vocali i, a, u); la si ricostruisce analizzando le rime",
+      "Perché Dante la tradusse in toscano nel De vulgari eloquentia",
+      "Perché il siciliano dell'epoca non possedeva una forma scritta"
+    ],
+    correct: 1,
+    explanation: "Il corpus della poesia delle origini ci è giunto da codici scritti da copisti toscani (es. il Vaticano Latino 3793) che toscanizzarono i testi, eliminando tratti come il vocalismo siciliano a 3 vocali (i, a, u). La lingua siciliana si ricostruisce dall'analisi delle rime, che tornano perfette restituendo quel vocalismo."
+  },
+  {
+    source: "1. Dante e il volgare",
+    q: "Che cos'è il De vulgari eloquentia di Dante?",
+    opts: [
+      "Un trattato in volgare sulla grammatica fiorentina, completato in due libri",
+      "Un trattato in latino (1304-05 ca.), rimasto incompiuto, sulla ricerca di un volgare 'illustre' sovraregionale; fu riscoperto e tradotto da Trissino nel 1529",
+      "Un poema allegorico in latino sulle origini del volgare italiano",
+      "Il commento in volgare a tre canzoni dottrinali, poi confluito nel Convivio"
+    ],
+    correct: 1,
+    explanation: "Il De vulgari eloquentia è un trattato in latino (1304-05 ca.), incompiuto (il I libro e due terzi del II), prima riflessione organica sulla lingua, dedicata alla ricerca di un volgare 'illustre'. Rimase sconosciuto fino alla riscoperta e traduzione di Gian Giorgio Trissino (1529)."
+  },
+  {
+    source: "1. Dante e il volgare",
+    q: "Nel De vulgari eloquentia, quale giudizio dà Dante dei volgari italiani?",
+    opts: [
+      "Indica il fiorentino come volgare illustre, modello linguistico per tutta Italia",
+      "Individua 14 varietà e le critica tutte (anche il fiorentino): il volgare 'illustre', sovraregionale, non coincide con nessuna città ma appartiene a tutta Italia",
+      "Considera il siciliano parlato la lingua perfetta da imitare senza riserve",
+      "Sostiene che il volgare non potrà mai raggiungere la dignità del latino"
+    ],
+    correct: 1,
+    explanation: "Dante individua 14 varietà di volgare e le critica tutte, fiorentino incluso. Il volgare 'illustre, cardinale, aulico e curiale' è sovraregionale, non si identifica con nessuna città ma appartiene a tutta Italia. Loda solo l'uso poetico del siciliano e del bolognese (per un equivoco filologico)."
+  },
+  {
+    source: "1. Le Tre Corone",
+    q: "Cosa sono i 'dantismi' nel lessico della Commedia?",
+    opts: [
+      "Latinismi di origine classica che si infittiscono soprattutto nel Paradiso",
+      "Neologismi coniati da Dante, in particolare verbi parasintetici con prefisso in- (inurbarsi, infuturarsi, indiarsi)",
+      "Gallicismi in -anza usati per nobilitare lo stile (amanza, dilettanza)",
+      "Dialettalismi settentrionali per caratterizzare i personaggi (co 'capo', ca 'casa', ancoi)"
+    ],
+    correct: 1,
+    explanation: "I dantismi sono i neologismi coniati da Dante per esigenze espressive: il gruppo più cospicuo è quello dei verbi parasintetici con prefisso in- (inurbarsi 'entrare in città', infuturarsi, indiarsi 'unirsi a Dio'), accanto ad altri come trasumanare e appulcrare."
+  },
+  {
+    source: "1. Le Tre Corone",
+    q: "Come si caratterizza la lingua del Canzoniere di Petrarca rispetto a quella di Dante?",
+    opts: [
+      "Per il plurilinguismo e un lessico amplissimo, più vario di quello dantesco",
+      "Per il monolinguismo e un lessico limitato e selezionato, incentrato sull'interiorità (mio, io, amore, core), in opposizione al plurilinguismo dantesco",
+      "Per l'uso esclusivo del latino anche nelle poesie volgari",
+      "Per l'abbondanza di dialettalismi e di voci concrete e popolari"
+    ],
+    correct: 1,
+    explanation: "Al plurilinguismo dantesco si contrappone il monolinguismo di Petrarca: il volgare è per lui lingua esclusivamente poetica. Il lessico è limitato e incentrato sull'interiorità (le parole più frequenti sono mio, io, amore, core, occhio, dolce), ma sfruttato in tutte le sue possibilità semantiche."
+  },
+  {
+    source: "1. Le Tre Corone",
+    q: "Qual è la componente più complessa e influente della lingua di Boccaccio nel Decameron?",
+    opts: [
+      "La grafia, rigorosamente e costantemente latineggiante",
+      "La sintassi, con costrutti dotti latineggianti (ampi periodi, gerundi, participi, inversioni) accanto a costrutti del parlato; divenne modello della prosa elevata grazie a Bembo",
+      "La metrica, modellata sulla tradizione provenzale",
+      "Il lessico, esclusivamente aulico e privo di voci popolari"
+    ],
+    correct: 1,
+    explanation: "La sintassi è la componente più complessa e influente di Boccaccio: convivono costrutti dotti e latineggianti (ampi periodi, gerundi, participi, infiniti, inversioni) e costrutti del parlato. Codificata dalle Prose bembiane, divenne per secoli la 'marca' della prosa elevata."
+  },
+  {
+    source: "2. Umanesimo e norma",
+    q: "Cosa accade al volgare nell'età dell'Umanesimo (Quattrocento)?",
+    opts: [
+      "Viene finalmente codificato in una grammatica di riferimento condivisa",
+      "Subisce un rallentamento: il latino (recuperato nel modello ciceroniano) è considerato la sola lingua elevata, e il volgare resta relegato agli usi pratici",
+      "Diventa la sola lingua della scienza, soppiantando il latino",
+      "Viene imposto come lingua ufficiale di tutte le cancellerie italiane"
+    ],
+    correct: 1,
+    explanation: "In età umanistica l'espansione del fiorentino letterario rallenta: la riscoperta dei classici porta a considerare il latino (nel modello ciceroniano) come sola lingua elevata. Il volgare, privo di una grammatica di riferimento, è emarginato dalla letteratura e usato per scopi pratici e amministrativi."
+  },
+  {
+    source: "2. Umanesimo e norma",
+    q: "Quale opera grammaticale si deve a Leon Battista Alberti?",
+    opts: [
+      "Le Prose della volgar lingua, prima grammatica del volgare a stampa",
+      "La Grammatichetta vaticana (1437-41 ca.), grammatica del fiorentino vivo e prima grammatica di una lingua volgare moderna",
+      "Il De vulgari eloquentia, riscoperto e tradotto in volgare",
+      "Il Vocabolario degli Accademici della Crusca"
+    ],
+    correct: 1,
+    explanation: "Ad Alberti, avviatore dell'Umanesimo volgare, si deve la Grammatichetta vaticana (1437-41 ca.), grammatica del fiorentino vivo e coevo: è la prima grammatica di una lingua volgare moderna. Alberti riprese inoltre la tesi di Flavio Biondo sull'origine del volgare."
+  },
+  {
+    source: "2. Da toscano a italiano",
+    q: "Su quale modello linguistico si fondano le Prose della volgar lingua di Bembo (1525)?",
+    opts: [
+      "Sul fiorentino parlato contemporaneo dell'uso vivo",
+      "Sulla lingua delle 'tre corone', in particolare Petrarca per la poesia e Boccaccio per la prosa, del Trecento",
+      "Su un'ipotetica lingua 'cortigiana' comune alle corti italiane",
+      "Sul latino di Cicerone adattato al volgare"
+    ],
+    correct: 1,
+    explanation: "Le Prose della volgar lingua di Bembo (1525) fondano la norma sul modello delle 'tre corone' trecentesche, in particolare Petrarca (poesia) e Boccaccio (prosa). L'opera offre agli scriventi non toscani un punto di riferimento sicuro e diventa decisiva per l'unificazione."
+  },
+  {
+    source: "2. Da toscano a italiano",
+    q: "Quali sono le tre principali posizioni nella 'questione della lingua' del primo Cinquecento?",
+    opts: [
+      "Purismo, classicismo e romanticismo",
+      "Teoria cortigiana (lingua delle corti), teoria italianista (Trissino, basata sul De vulgari eloquentia) e teoria fiorentinista (Machiavelli)",
+      "Teoria latinista, teoria siciliana e teoria veneziana",
+      "Teoria sincronica, diacronica e diafasica"
+    ],
+    correct: 1,
+    explanation: "Le tre posizioni sono: la teoria cortigiana (una 'lingua delle corti', vicina alle koinè), la teoria italianista di Trissino (legata al De vulgari eloquentia, antifiorentina) e la teoria fiorentinista di Machiavelli (primato del fiorentino contemporaneo). Bembo si impose sul modello trecentesco."
+  },
+  {
+    source: "2. Firenze e la Crusca",
+    q: "Quale fu l'obiettivo dell'Accademia della Crusca (1582-83) e del suo Vocabolario?",
+    opts: [
+      "Promuovere il fiorentino parlato contemporaneo contro la norma di Bembo",
+      "Separare 'il fior di farina' (la buona lingua) dalla 'crusca', secondo il modello bembiano fondato sul primato del fiorentino trecentesco",
+      "Codificare un'ipotetica lingua cortigiana sovraregionale",
+      "Raccogliere il lessico tecnico e scientifico escluso dalla tradizione letteraria"
+    ],
+    correct: 1,
+    explanation: "L'Accademia della Crusca (1582-83) si proponeva di separare il 'fior di farina' (la buona lingua) dalla 'crusca', secondo il modello bembiano adattato dai fiorentini, col primato del fiorentino trecentesco. Ispiratore del Vocabolario fu Leonardo Salviati."
+  },
+  {
+    source: "2. Firenze e la Crusca",
+    q: "Quale scelta linguistica di Galileo fu importante per la storia dell'italiano?",
+    opts: [
+      "Scrivere le opere scientifiche in latino, per garantirne la diffusione sovranazionale",
+      "Usare l'italiano (non il latino) nelle opere fondamentali della scienza moderna, con una prosa chiara ma complessa, in continuità con la tradizione toscana",
+      "Adottare lo stile barocco di Marino anche nel lessico scientifico",
+      "Scrivere in dialetto pisano per avvicinarsi al parlato comune"
+    ],
+    correct: 1,
+    explanation: "Pur essendo il latino la lingua dominante della scienza, Galileo scelse l'italiano per le sue opere decisive: una prosa che non scende ai registri bassi, chiara ma complessa, con prevalenza del nome sul verbo, sintassi nominale, participi e costruzioni passive."
+  },
+  {
+    source: "3. Sei-Settecento",
+    q: "Come si rinnova l'italiano tra Sei e Settecento, culminando in età illuminista?",
+    opts: [
+      "Soprattutto in direzione letteraria, recuperando il modello trecentesco della Crusca",
+      "In direzione europea (soprattutto sotto l'influsso del francese) e non letteraria, legato allo sviluppo di scienza e tecnica; il legame tra rinnovamento di lingua e idee era ribadito sul 'Caffè'",
+      "Rifiutando ogni apporto straniero, in nome di un rigido purismo",
+      "Tornando al latino come lingua privilegiata della scienza"
+    ],
+    correct: 1,
+    explanation: "Tra Sei e Settecento l'italiano si rinnova in direzione europea (soprattutto per l'influsso del francese) e non letteraria, legato allo sviluppo di scienza e tecnica. La connessione tra rinnovamento della lingua e delle idee era sottolineata da Beccaria sul periodico 'Il Caffè'."
+  },
+  {
+    source: "3. Primo Ottocento",
+    q: "Nel primo Ottocento, come si differenziano purismo e classicismo?",
+    opts: [
+      "Il purismo guarda al modello cinquecentesco, il classicismo a quello trecentesco",
+      "Il purismo (Antonio Cesari) aspira a una lingua naturale e popolare ispirata al Trecento; il classicismo (Leopardi, Monti) guarda alla tradizione cinquecentesca e ai valori della cultura scientifica e filosofica",
+      "Il purismo accoglie liberamente i francesismi, il classicismo li rifiuta del tutto",
+      "Sono due denominazioni della stessa corrente antifrancese"
+    ],
+    correct: 1,
+    explanation: "Il purismo, con il caposcuola Antonio Cesari, aspira a una lingua naturale e popolare ispirata alle scritture trecentesche; il classicismo, ispirato alla teoria trissiniana, guarda ai valori della tradizione cinquecentesca e alla cultura scientifico-filosofica (Leopardi, Monti)."
+  },
+  {
+    source: "4. Lingua d'uso nazionale",
+    q: "A quale soluzione linguistica approda Manzoni nell'edizione definitiva dei Promessi Sposi (1840)?",
+    opts: [
+      "Al toscano letterario della tradizione, con i lombardismi conservati",
+      "Al fiorentino dell'uso vivo contemporaneo (il dialetto fiorentino colto), eliminando i lombardismi e le forme troppo letterarie",
+      "A una lingua composita 'italiana', aperta agli apporti di tutti i volgari",
+      "Al milanese, sua lingua materna, per aderire al parlato"
+    ],
+    correct: 1,
+    explanation: "Dopo le fasi del 'Fermo e Lucia' (ibrido) e della Ventisettana (toscano-milanese), nella Quarantana (1840) Manzoni adotta il fiorentino dell'uso vivo contemporaneo, eliminando lombardismi e forme letterarie (anche egli/ella > lui/lei) per una lingua moderna e 'intera'."
+  },
+  {
+    source: "4. Lingua d'uso nazionale",
+    q: "Cosa obietta Ascoli (Proemio all'Archivio Glottologico Italiano, 1873) alla soluzione manzoniana?",
+    opts: [
+      "Che il fiorentino è troppo arcaico per fungere da lingua nazionale",
+      "Che la lingua non si impone dall'alto ma è conseguenza dello sviluppo culturale ed economico; propone un modello policentrico contro quello centralistico di Manzoni",
+      "Che bisognava adottare il latino come lingua unitaria della nazione",
+      "Che il modello andava cercato nei mass media e non nella letteratura"
+    ],
+    correct: 1,
+    explanation: "Ascoli contesta l'idea di una lingua imposta dall'alto: l'unificazione linguistica verrà solo dopo lo sviluppo culturale, economico e sociale della nazione. Contrappone al modello centralistico di Manzoni (Firenze come Parigi) un modello policentrico. Entrambe le posizioni si rivelarono in parte fondate."
+  }
+];
+
+let current = 0;
+let score = 0;
+let answers = [];
+let shuffledOpts = [];
+let shuffledCorrect = 0;
+const LETTERS = ['A', 'B', 'C', 'D'];
+
+function shuffleArray(arr) {
+  const a = arr.slice();
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    const tmp = a[i]; a[i] = a[j]; a[j] = tmp;
+  }
+  return a;
+}
+
+function init() {
+  current = 0;
+  score = 0;
+  answers = [];
+  document.getElementById('quiz-container').style.display = '';
+  document.getElementById('results-container').style.display = 'none';
+  showQuestion();
+}
+
+function showQuestion() {
+  const q = questions[current];
+
+  document.getElementById('progress-bar').style.width = ((current / questions.length) * 100) + '%';
+  document.getElementById('question-counter').textContent = 'Domanda ' + (current + 1) + ' di ' + questions.length;
+  document.getElementById('source-tag').textContent = q.source;
+  document.getElementById('question-text').textContent = q.q;
+
+  const optContainer = document.getElementById('options');
+  optContainer.innerHTML = '';
+
+  const indices = shuffleArray([0, 1, 2, 3]);
+  shuffledOpts = indices.map(function(i) { return { text: q.opts[i], orig: i }; });
+  shuffledCorrect = shuffledOpts.findIndex(function(o) { return o.orig === q.correct; });
+
+  shuffledOpts.forEach(function(opt, i) {
+    const btn = document.createElement('button');
+    btn.className = 'option-btn';
+    btn.innerHTML = '<span class="letter">' + LETTERS[i] + '</span><span>' + opt.text + '</span>';
+    btn.onclick = function() { selectOption(i); };
+    optContainer.appendChild(btn);
+  });
+
+  const fb = document.getElementById('feedback');
+  fb.style.display = 'none';
+  fb.className = '';
+  fb.textContent = '';
+
+  const nextBtn = document.getElementById('next-btn');
+  nextBtn.style.display = 'none';
+  nextBtn.textContent = current === questions.length - 1 ? 'Vedi i risultati →' : 'Prossima domanda →';
+}
+
+function selectOption(selected) {
+  const q = questions[current];
+  const btns = document.querySelectorAll('.option-btn');
+
+  btns.forEach(function(b) { b.disabled = true; });
+
+  const isCorrect = selected === shuffledCorrect;
+  if (isCorrect) score++;
+  answers.push({
+    qIdx: current,
+    isCorrect: isCorrect,
+    selectedLetter: LETTERS[selected],
+    correctLetter: LETTERS[shuffledCorrect],
+    selectedText: shuffledOpts[selected].text,
+    correctText: shuffledOpts[shuffledCorrect].text
+  });
+
+  btns[selected].classList.add(isCorrect ? 'correct' : 'wrong');
+  if (!isCorrect) btns[shuffledCorrect].classList.add('correct');
+
+  const fb = document.getElementById('feedback');
+  fb.style.display = 'block';
+  if (isCorrect) {
+    fb.className = 'correct-fb';
+    fb.textContent = '✓ Corretto! ' + q.explanation;
+  } else {
+    fb.className = 'wrong-fb';
+    fb.textContent = '✗ Risposta errata. ' + q.explanation;
+  }
+
+  document.getElementById('next-btn').style.display = 'block';
+}
+
+document.getElementById('next-btn').addEventListener('click', function() {
+  current++;
+  if (current >= questions.length) {
+    showResults();
+  } else {
+    showQuestion();
+  }
+});
+
+document.getElementById('retry-btn').addEventListener('click', init);
+
+function showResults() {
+  document.getElementById('progress-bar').style.width = '100%';
+  document.getElementById('quiz-container').style.display = 'none';
+  document.getElementById('results-container').style.display = 'block';
+
+  const pct = Math.round((score / questions.length) * 100);
+  const wrong = questions.length - score;
+
+  document.getElementById('score-num').textContent = score;
+  document.getElementById('stat-correct').textContent = score;
+  document.getElementById('stat-wrong').textContent = wrong;
+  document.getElementById('stat-pct').textContent = pct + '%';
+
+  const circle = document.getElementById('score-circle');
+  if (pct >= 85) circle.style.background = 'linear-gradient(135deg, #2ecc71, #27ae60)';
+  else if (pct >= 65) circle.style.background = 'linear-gradient(135deg, #f39c12, #e67e22)';
+  else circle.style.background = 'linear-gradient(135deg, #e74c3c, #c0392b)';
+
+  var voteLabel, voteComment;
+  if (pct >= 90) { voteLabel = '🏆 Eccellente!'; voteComment = 'Ottima preparazione — sei pronto per l\'esame!'; }
+  else if (pct >= 80) { voteLabel = '⭐ Molto Bene!'; voteComment = 'Preparazione solida, qualche piccola lacuna da rivedere.'; }
+  else if (pct >= 65) { voteLabel = '👍 Bene'; voteComment = 'Buona base, ma ripassa le domande errate.'; }
+  else if (pct >= 50) { voteLabel = '📚 Sufficiente'; voteComment = 'Ancora un po\' di studio ti servirà per essere sicuro.'; }
+  else { voteLabel = '⚠️ Insufficiente'; voteComment = 'Rivedi il materiale con attenzione prima dell\'esame.'; }
+
+  document.getElementById('vote-label').textContent = voteLabel;
+  document.getElementById('vote-comment').textContent = voteComment;
+
+  const list = document.getElementById('breakdown-list');
+  list.innerHTML = '';
+
+  answers.forEach(function(a, i) {
+    const q = questions[a.qIdx];
+    const item = document.createElement('div');
+    item.className = 'result-item';
+    const icon = a.isCorrect ? '✅' : '❌';
+    var answerHTML;
+    if (a.isCorrect) {
+      answerHTML = '<span class="ri-answer">Risposta: ' + a.correctLetter + '. ' + a.correctText + '</span>';
+    } else {
+      answerHTML = '<span class="ri-answer ri-wrong-answer">Tua risposta: ' + a.selectedLetter + '. ' + a.selectedText + '<br>Risposta corretta: ' + a.correctLetter + '. ' + a.correctText + '</span>';
+    }
+    item.innerHTML =
+      '<span class="ri-num">' + (i+1) + '.</span>' +
+      '<div class="ri-q">' + q.q + answerHTML + '</div>' +
+      '<span class="ri-icon">' + icon + '</span>';
+    list.appendChild(item);
+  });
+
+  document.getElementById('results-container').scrollIntoView({ behavior: 'smooth' });
+}
+
+init();
+</script>
+</body>
+</html>

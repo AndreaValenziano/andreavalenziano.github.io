@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quiz — L'italiano contemporaneo (Lorenzetti)</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Georgia', serif;
+    background: #eef3f4;
+    color: #1d2b2e;
+    min-height: 100vh;
+  }
+
+  header {
+    background: linear-gradient(135deg, #0f3d4a, #1d7a8c);
+    color: white;
+    padding: 28px 24px;
+    text-align: center;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.3);
+  }
+  header h1 { font-size: 1.85rem; letter-spacing: 0.5px; margin-bottom: 6px; }
+  header p { font-size: 0.95rem; opacity: 0.85; font-style: italic; }
+
+  #progress-bar-container { background: #c4d6da; height: 8px; }
+  #progress-bar {
+    height: 100%;
+    background: linear-gradient(90deg, #1d7a8c, #5bbccf);
+    width: 0%;
+    transition: width 0.4s ease;
+  }
+
+  #quiz-container { max-width: 780px; margin: 36px auto; padding: 0 16px 60px; }
+
+  #question-counter {
+    font-size: 0.85rem; color: #5a7177; text-align: right;
+    margin-bottom: 10px; font-style: italic;
+  }
+
+  .card {
+    background: white; border-radius: 12px; padding: 32px 36px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    border-top: 4px solid #1d7a8c; animation: fadeIn 0.35s ease;
+  }
+  @keyframes fadeIn { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:translateY(0); } }
+
+  .source-tag {
+    display: inline-block; font-size: 0.72rem;
+    background: #e3f1f3; color: #136575;
+    border: 1px solid #a9d6df; border-radius: 20px;
+    padding: 3px 10px; margin-bottom: 14px; font-family: sans-serif;
+  }
+
+  .question-text {
+    font-size: 1.13rem; line-height: 1.65; color: #1d2b2e;
+    margin-bottom: 24px; font-weight: bold;
+  }
+
+  .options { display: flex; flex-direction: column; gap: 11px; }
+
+  .option-btn {
+    display: flex; align-items: flex-start; gap: 12px;
+    background: #f7fafb; border: 2px solid #d6e2e4; border-radius: 9px;
+    padding: 13px 16px; cursor: pointer; font-size: 1rem;
+    font-family: 'Georgia', serif; color: #1d2b2e; text-align: left;
+    transition: border-color 0.2s, background 0.2s; line-height: 1.5;
+  }
+  .option-btn:hover:not(:disabled) { border-color: #1d7a8c; background: #e3f1f3; }
+  .option-btn .letter {
+    display: inline-flex; align-items: center; justify-content: center;
+    min-width: 28px; height: 28px; border-radius: 50%;
+    background: #d6e2e4; color: #3a5359; font-size: 0.85rem; font-weight: bold;
+    font-family: sans-serif; flex-shrink: 0; margin-top: 1px;
+    transition: background 0.2s, color 0.2s;
+  }
+  .option-btn.correct { border-color: #1d7a8c; background: #e3f1f3; }
+  .option-btn.correct .letter { background: #1d7a8c; color: white; }
+  .option-btn.wrong { border-color: #c0392b; background: #fdf0ef; }
+  .option-btn.wrong .letter { background: #c0392b; color: white; }
+  .option-btn:disabled { cursor: default; }
+
+  #feedback {
+    margin-top: 18px; padding: 12px 16px; border-radius: 8px;
+    font-size: 0.93rem; line-height: 1.55; display: none; font-family: sans-serif;
+  }
+  #feedback.correct-fb { background: #e3f1f3; color: #135c52; border-left: 4px solid #1d7a8c; }
+  #feedback.wrong-fb   { background: #fdf0ef; color: #922b21; border-left: 4px solid #c0392b; }
+
+  #next-btn {
+    display: none; margin-top: 22px;
+    background: linear-gradient(135deg, #0f3d4a, #1d7a8c);
+    color: white; border: none; border-radius: 8px; padding: 12px 30px;
+    font-size: 1rem; cursor: pointer; font-family: 'Georgia', serif;
+    letter-spacing: 0.5px; float: right; transition: opacity 0.2s;
+  }
+  #next-btn:hover { opacity: 0.88; }
+  .clearfix::after { content: ''; display: table; clear: both; }
+
+  #results-container {
+    display: none; max-width: 780px; margin: 36px auto;
+    padding: 0 16px 60px; animation: fadeIn 0.5s ease;
+  }
+  .results-card {
+    background: white; border-radius: 14px; padding: 40px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.12); text-align: center;
+    border-top: 6px solid #1d7a8c;
+  }
+  .results-card h2 { font-size: 1.7rem; color: #0f3d4a; margin-bottom: 8px; }
+  .score-circle {
+    width: 130px; height: 130px; border-radius: 50%; margin: 28px auto;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    font-family: sans-serif;
+  }
+  .score-circle .score-num { font-size: 2.5rem; font-weight: bold; color: white; line-height: 1; }
+  .score-circle .score-den { font-size: 1rem; color: rgba(255,255,255,0.85); }
+  .vote-label { font-size: 1.4rem; font-weight: bold; margin-bottom: 6px; }
+  .vote-comment { font-size: 1rem; color: #5a7177; margin-bottom: 28px; font-style: italic; }
+
+  .stats-row { display: flex; justify-content: center; gap: 32px; margin: 0 0 20px; font-family: sans-serif; }
+  .stat-box { text-align: center; }
+  .stat-box .stat-val { font-size: 1.5rem; font-weight: bold; }
+  .stat-box .stat-lab { font-size: 0.8rem; color: #5a7177; }
+  .stat-correct .stat-val { color: #1d7a8c; }
+  .stat-wrong   .stat-val { color: #c0392b; }
+  .stat-pct     .stat-val { color: #0f3d4a; }
+
+  .results-breakdown { border-top: 1px solid #d6e2e4; padding-top: 28px; text-align: left; margin-top: 10px; }
+  .results-breakdown h3 { font-size: 1.1rem; margin-bottom: 16px; color: #0f3d4a; }
+  .result-item {
+    display: flex; align-items: flex-start; gap: 10px; padding: 10px 0;
+    border-bottom: 1px solid #eef3f4; font-size: 0.92rem;
+  }
+  .result-item .ri-num { font-weight: bold; color: #5a7177; min-width: 28px; font-family: sans-serif; }
+  .result-item .ri-q { flex: 1; line-height: 1.45; }
+  .result-item .ri-icon { font-size: 1.1rem; flex-shrink: 0; }
+  .result-item .ri-answer {
+    font-size: 0.85rem; color: #136575; margin-top: 3px; display: block;
+    font-style: italic; font-family: sans-serif;
+  }
+  .result-item .ri-answer.ri-wrong-answer { color: #c0392b; }
+
+  #retry-btn {
+    margin-top: 28px; background: linear-gradient(135deg, #0f3d4a, #1d7a8c);
+    color: white; border: none; border-radius: 8px; padding: 13px 36px;
+    font-size: 1rem; cursor: pointer; font-family: 'Georgia', serif;
+    letter-spacing: 0.5px; transition: opacity 0.2s;
+  }
+  #retry-btn:hover { opacity: 0.88; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>L'italiano contemporaneo (Lorenzetti)</h1>
+  <p>Lingue d'Italia, lessico, morfologia, sintassi e fonologia &mdash; 31 domande</p>
+</header>
+<div id="progress-bar-container"><div id="progress-bar"></div></div>
+
+<div id="quiz-container">
+  <div id="question-counter"></div>
+  <div class="card" id="question-card">
+    <span class="source-tag" id="source-tag"></span>
+    <p class="question-text" id="question-text"></p>
+    <div class="options" id="options"></div>
+    <div id="feedback"></div>
+    <div class="clearfix">
+      <button id="next-btn">Prossima domanda &rarr;</button>
+    </div>
+  </div>
+</div>
+
+<div id="results-container">
+  <div class="results-card">
+    <h2>Risultati del Quiz</h2>
+    <div class="score-circle" id="score-circle">
+      <span class="score-num" id="score-num"></span>
+      <span class="score-den">/31</span>
+    </div>
+    <div class="stats-row">
+      <div class="stat-box stat-correct">
+        <div class="stat-val" id="stat-correct"></div>
+        <div class="stat-lab">Corrette</div>
+      </div>
+      <div class="stat-box stat-wrong">
+        <div class="stat-val" id="stat-wrong"></div>
+        <div class="stat-lab">Errate</div>
+      </div>
+      <div class="stat-box stat-pct">
+        <div class="stat-val" id="stat-pct"></div>
+        <div class="stat-lab">Percentuale</div>
+      </div>
+    </div>
+    <p class="vote-label" id="vote-label"></p>
+    <p class="vote-comment" id="vote-comment"></p>
+    <button id="retry-btn">&#8635; Rifai il quiz</button>
+    <div class="results-breakdown">
+      <h3>Riepilogo domanda per domanda</h3>
+      <div id="breakdown-list"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+const questions = [
+  {
+    source: "L'Italia linguistica contemporanea",
+    q: "Quante lingue sono riconosciute ufficialmente in Italia dalla legge 482 del 1999?",
+    opts: [
+      "Circa 8 lingue, corrispondenti alle sole minoranze di confine già tutelate prima del 1999 (francese, tedesco, sloveno)",
+      "Circa 15 lingue, tra cui l'italiano (lingua nazionale e ufficiale, 55 milioni di parlanti), il croato del Molise, il mòcheno e il cimbrico",
+      "Circa 20 lingue, includendo anche le principali varietà dialettali regionali della penisola",
+      "Circa 33 lingue, cioè tutte quelle effettivamente parlate sul territorio secondo l'indice di diversità linguistica"
+    ],
+    correct: 1,
+    explanation: "La legge 482/99 riconosce circa 15 lingue. Prima del '99 erano tutelati solo il francese della Valle d'Aosta, il tedesco di Bolzano e lo sloveno di Trieste e Gorizia. Le ~33 lingue sono invece il totale di quelle parlate, usato per calcolare l'indice di diversità."
+  },
+  {
+    source: "L'Italia linguistica contemporanea",
+    q: "Quali sono le più piccole comunità alloglotte d'Italia, con meno di 2500 parlanti?",
+    opts: [
+      "Il sardo della Sardegna, il friulano del Friuli e il ladino del Trentino-Alto Adige",
+      "Il croato del Molise, il mòcheno e il cimbrico del Trentino e del Veneto",
+      "Il catalano di Alghero, il greco tra Puglia e Calabria e il walser della Valle d'Aosta",
+      "I tabarchini sardi, le comunità galloitaliche e i dialetti giudeo-italiani, tutte prive di tutela"
+    ],
+    correct: 1,
+    explanation: "Con meno di 2500 parlanti, il croato del Molise, il mòcheno e il cimbrico sono le comunità alloglotte riconosciute più piccole. Tabarchini, galloitalici e giudeo-italiani sono invece comunità minori prive di tutela giuridica."
+  },
+  {
+    source: "L'Italia linguistica contemporanea",
+    q: "Quanto vale l'indice di diversità linguistica dell'Italia (probabilità che due cittadini presi a caso parlino lingue materne diverse, da 0 a 1)?",
+    opts: [
+      "0,33, un valore medio-basso, in linea con la media europea",
+      "0,59, uno dei più alti d'Europa, secondo solo al Belgio (0,65)",
+      "0,65, il più alto d'Europa, davanti al Belgio",
+      "0,95, prossimo al massimo teorico, per via dei circa 33 idiomi parlati"
+    ],
+    correct: 1,
+    explanation: "Su circa 33 lingue parlate, l'Italia ottiene un indice di 0,59: uno dei più alti d'Europa, secondo solo al Belgio con 0,65 (con i dialetti il valore sarebbe ancora maggiore)."
+  },
+  {
+    source: "L'Italia linguistica contemporanea",
+    q: "Secondo il sondaggio dell'Unione Europea del 2001, quanti europei conoscono l'italiano oltre alla propria lingua madre?",
+    opts: [
+      "Il 19%, alla pari con il francese",
+      "Il 10%, come il tedesco",
+      "Solo il 3%, a fronte del 41% che conosce l'inglese",
+      "Il 7%, come lo spagnolo"
+    ],
+    correct: 2,
+    explanation: "Solo il 3% degli europei conosce l'italiano oltre alla madrelingua (41% inglese, 19% francese, 10% tedesco, 7% spagnolo). Alla domanda su quale lingua sia più utile accanto alla propria, l'italiano non compare nemmeno."
+  },
+  {
+    source: "L'italiano: genealogia e storia",
+    q: "Chi ipotizzò per primo la parentela dell'italiano con il francese e il provenzale, e su quale base?",
+    opts: [
+      "I linguisti della comparativa di inizio Ottocento, sulla base delle leggi fonetiche regolari",
+      "Dante nel De vulgari eloquentia, sulla base della somiglianza di parole come dio/dieu e cielo/ciel",
+      "Bembo nelle Prose della Volgar Lingua, confrontando i modelli letterari romanzi",
+      "Manzoni, durante il soggiorno a Parigi, confrontando il lessico quotidiano delle due lingue"
+    ],
+    correct: 1,
+    explanation: "Fu Dante, nel De vulgari eloquentia, a ipotizzare la parentela tra italiano, francese e provenzale per via di somiglianze lessicali (dio/dieu, cielo/ciel). I rapporti furono però comprovati solo a inizio Ottocento dalla linguistica comparativa moderna."
+  },
+  {
+    source: "L'italiano: genealogia e storia",
+    q: "Quali sono le tappe principali della storia dell'italiano secondo il testo?",
+    opts: [
+      "Le Origini siciliane, lo Stilnovo bolognese e l'Arcadia romana",
+      "Dante, il modello grammaticale di Bembo (1525) e la lingua 'risciacquata in Arno' di Manzoni (1840)",
+      "Il De vulgari eloquentia, il Vocabolario della Crusca (1612) e l'Unità d'Italia (1861)",
+      "Petrarca, la fondazione dell'Accademia della Crusca e la riforma scolastica postunitaria"
+    ],
+    correct: 1,
+    explanation: "La storia dell'italiano nasce a Firenze tra '200 e '300; le tappe sono Dante, il modello grammaticale di Bembo (1525) e la lingua 'risciacquata in Arno' di Manzoni per i Promessi Sposi (1840). Fino al 1861 l'italiano visse quasi solo nello scritto."
+  },
+  {
+    source: "L'italiano: genealogia e storia",
+    q: "Quanti italofoni (in grado di parlare italiano) c'erano nel 1861 secondo le stime di De Mauro?",
+    opts: [
+      "Circa il 25%, concentrati in Toscana e a Roma",
+      "Il 2,5%, mentre stime più ottimistiche arrivano al 10%",
+      "Circa il 50%, grazie alla diffusione della stampa quotidiana",
+      "Meno dell'1%, limitati ai letterati e agli ecclesiastici"
+    ],
+    correct: 1,
+    explanation: "Secondo De Mauro, nel 1861 gli italofoni erano il 2,5% (stime ottimistiche fino al 10%): non si poteva parlare di lingua nazionale. L'Unità diede uno slancio decisivo con burocrazia unificata, esercito, scuola elementare obbligatoria e stampa."
+  },
+  {
+    source: "L'italiano: sociolinguistica",
+    q: "Quanti e quali sono i principali assi di variazione linguistica dell'italiano?",
+    opts: [
+      "2: diatopico (geografico) e diastratico (sociale)",
+      "3: diatopico, diastratico e diafasico (stilistico)",
+      "4: diatopico (geografico), diastratico (sociale), diafasico (stilistico) e diamesico (scritto/parlato)",
+      "5: ai quattro precedenti si aggiunge l'asse diacronico (storico)"
+    ],
+    correct: 2,
+    explanation: "Gli assi sono 4: diatopico (forme dialettali), diastratico (forme 'ineducate'), diafasico (forme stilisticamente inadatte) e diamesico (tra espressione scritta e parlata). Il loro insieme definisce lo 'spazio linguistico' italiano."
+  },
+  {
+    source: "L'italiano: le varietà",
+    q: "Che cos'è l'italiano neostandard?",
+    opts: [
+      "La varietà letteraria codificata dalle grammatiche normative dell'Ottocento post-Manzoni",
+      "La novità maggiore degli ultimi quarant'anni: una varietà scritta e parlata, in buona parte coincidente con lo standard, che integra fenomeni del parlato prima ripudiati",
+      "Una varietà esclusivamente parlata, tipica delle persone di basso livello d'istruzione",
+      "Il nome tecnico dell'italiano regionale settentrionale diffuso dalla televisione"
+    ],
+    correct: 1,
+    explanation: "Il neostandard è la novità maggiore degli ultimi 40 anni: varietà scritta e parlata, in gran parte coincidente con lo standard ma che integra fenomeni del parlato prima banditi. Le denominazioni (comune, dell'uso medio, tendenziale) ne colgono aspetti diversi."
+  },
+  {
+    source: "L'italiano: le varietà",
+    q: "Come si definisce l'italiano popolare?",
+    opts: [
+      "La varietà di riferimento, codificata e sovraregionale, usata negli scritti formali",
+      "Una varietà di italiano regionale, con alta frequenza di elementi rifiutati dallo standard, usata soprattutto da persone di basso livello d'istruzione",
+      "Un gergo parassita che prende a prestito la grammatica e la sintassi della lingua ospitante",
+      "La pronuncia fiorentina acquisita nativamente dai parlanti colti della Toscana"
+    ],
+    correct: 1,
+    explanation: "L'italiano popolare è una varietà di italiano regionale (parlato e scritto) con elevata frequenza di elementi rifiutati dallo standard, usata soprattutto da chi ha bassa istruzione. È una 'varietà di contatto', nata dall'incontro continuo tra lingua e dialetto."
+  },
+  {
+    source: "Il lessico",
+    q: "Nella terminologia del lessico, in che rapporto stanno le parole 'il' e 'lo'?",
+    opts: [
+      "Sono due lessemi diversi, perché hanno forma diversa",
+      "Sono due occorrenze dello stesso lessema, ma non della stessa forma",
+      "Sono due accezioni distinte dello stesso significato",
+      "Sono due allomorfi dello stesso morfema flessivo"
+    ],
+    correct: 1,
+    explanation: "Il lessema è l'unità di lessico in astratto, la forma (o parola) ciascuna sua variabile, l'occorrenza ogni suo uso concreto. 'Il' e 'lo' sono due occorrenze dello stesso lessema (l'articolo determinativo) ma di forme diverse."
+  },
+  {
+    source: "Il lessico",
+    q: "Quanti lessemi contiene il GRADIT, il grande dizionario di Tullio De Mauro?",
+    opts: [
+      "Circa 50.000 lessemi, pari al vocabolario comune",
+      "Circa 7.000 lessemi, pari al vocabolario di base",
+      "Circa 260.000 lessemi",
+      "Circa 2 milioni, contando tutte le forme flesse"
+    ],
+    correct: 2,
+    explanation: "I vocabolari più ampi superano i 200.000 lessemi: il GRADIT di De Mauro ne conta circa 260.000. I ~2 milioni sono invece la stima delle 'forme'; ~7.000 è il vocabolario di base e ~45-50.000 il vocabolario comune."
+  },
+  {
+    source: "Il lessico",
+    q: "Da quante parole è composto il vocabolario di base (VdB) dell'italiano e com'è strutturato?",
+    opts: [
+      "Circa 2.000 parole, tutte appartenenti al lessico fondamentale",
+      "Poco meno di 7.000 lessemi, divisi in lessico fondamentale (~2.000, il 90% di qualsiasi testo), di alto uso e di alta disponibilità",
+      "Circa 45.000 lessemi, coincidenti con il vocabolario comune",
+      "Circa 260.000 lessemi, come l'intero lemmario del GRADIT"
+    ],
+    correct: 1,
+    explanation: "Il VdB conta poco meno di 7.000 lessemi d'uso quotidiano, divisi in lessico fondamentale (~2.000, che copre il 90% di qualunque testo), di alto uso (2/3.000) e di alta disponibilità (~2.300). Il vocabolario comune (~45.000) gli sta intorno."
+  },
+  {
+    source: "Il lessico",
+    q: "Cosa caratterizza il lessico di 'alta disponibilità', come la parola 'forchetta'?",
+    opts: [
+      "Sono i ~2.000 lessemi fondamentali che coprono il 90% di ogni testo",
+      "Sono parole che indicano cose quotidiane ma che nominiamo di rado: più pensate che usate",
+      "Sono i tecnicismi settoriali, usati solo dagli specialisti del campo",
+      "Sono i regionalismi privi di un corrispettivo nell'italiano comune"
+    ],
+    correct: 1,
+    explanation: "Il lessico di alta disponibilità (~2.300 lessemi) riguarda cose che vediamo o facciamo ogni giorno ma che nominiamo di rado (es. 'forchetta', usata di solito solo quando l'abbiamo davanti): parole più pensate che usate, esposte ai mutamenti della cultura materiale."
+  },
+  {
+    source: "Il lessico",
+    q: "Qual è la lingua straniera più rappresentata nel lemmario dell'italiano?",
+    opts: [
+      "L'inglese, con circa 6.000 voci, davanti al francese",
+      "Il greco, con circa 8.000 voci, molte delle quali arrivate tramite il latino",
+      "Il francese, con circa 5.000 voci, dominante nel vocabolario di base",
+      "Lo spagnolo, eredità del dominio politico sei-settecentesco"
+    ],
+    correct: 1,
+    explanation: "Nel lemmario esteso (~200.000 voci) la lingua più rappresentata è il greco (~8.000 voci, spesso giunte tramite il latino: filosofia, problema). L'inglese (~6.000) supera il francese (~5.000), ma nel vocabolario di base prevalgono nettamente i francesismi (>400 contro ~50 anglicismi)."
+  },
+  {
+    source: "Il lessico",
+    q: "La parola 'retroterra', dal tedesco Hinterland, è un esempio di:",
+    opts: [
+      "Forestierismo non adattato, rimasto estraneo al sistema italiano",
+      "Calco, cioè la traduzione con parole italiane degli elementi della parola originale",
+      "Allotropo (doppione), come desco/disco da discus",
+      "Prestito adattato alla forma italiana, come bistecca da beef-steak"
+    ],
+    correct: 1,
+    explanation: "'Retroterra' (da Hinterland) è un calco: si traducono con parole italiane gli elementi della parola straniera. Diversi sono il forestierismo non adattato (hard-disk), il prestito adattato (bistecca) e l'allotropo (desco/disco)."
+  },
+  {
+    source: "Morfologia",
+    q: "Nella parola 'parola', come si analizzano i due morfi 'parol-' e '-a'?",
+    opts: [
+      "'parol-' è un prefisso e '-a' un suffisso derivativo",
+      "'parol-' è il morfo lessicale (porta il significato principale) e '-a' un morfo grammaticale flessivo",
+      "Sono due allomorfi dello stesso morfema singolare",
+      "'parol-' è la base e '-a' un confisso neoclassico"
+    ],
+    correct: 1,
+    explanation: "Il morfo è l'unità minima dell'espressione morfologica: 'parol-' porta il significato principale (morfo lessicale), '-a' un significato grammaticale (morfo grammaticale, qui flessivo, che crea le forme). I morfi derivativi (-aio, -iere) creano invece nuovi lessemi."
+  },
+  {
+    source: "Morfologia",
+    q: "Quale rapporto c'è tra prefissi e suffissi in italiano, secondo il GRADIT?",
+    opts: [
+      "Ci sono molti più prefissi (261) che suffissi (94), e i prefissi formano soprattutto nomi",
+      "Ci sono molti più suffissi (261) che prefissi (94); i suffissi formano soprattutto nomi e aggettivi, i prefissi i verbi",
+      "Prefissi e suffissi sono in numero quasi uguale e formano indistintamente ogni categoria",
+      "I prefissi sono più numerosi dei suffissi e formano soprattutto avverbi"
+    ],
+    correct: 1,
+    explanation: "Il GRADIT registra 261 suffissi contro 94 prefissi. I suffissi formano soprattutto nomi e aggettivi (-zione d'azione, -ista d'agente), mentre i prefissi 'preferiscono' i verbi. I derivati totali sono circa 93.000."
+  },
+  {
+    source: "Morfologia",
+    q: "Cosa sono i composti neoclassici (es. ginecologo, logopedia)?",
+    opts: [
+      "Composti di due parole italiane autonome, come capostazione",
+      "Composti formati da semiparole (o confissi) di origine greco-latina, non autonome da sole (idro-, -geno)",
+      "Prestiti non adattati provenienti direttamente dalle lingue classiche",
+      "Derivati ottenuti con suffisso zero, come fiore→fiorire"
+    ],
+    correct: 1,
+    explanation: "I composti neoclassici nascono dalla giustapposizione di semiparole (o confissi) di origine greca o latina che da sole non costituiscono un lessema (non si dice 'epato'). Sono oltre metà dei composti, formatisi soprattutto tra '800 e '900 per le terminologie scientifiche."
+  },
+  {
+    source: "Morfologia",
+    q: "Quale classe flessiva dei nomi è la più dinamica e in crescita nell'italiano contemporaneo?",
+    opts: [
+      "La classe in -o/-i (maschili come libro)",
+      "La classe in -a/-e (femminili come casa)",
+      "La classe degli invariabili (re, gru; e prestiti come sport, foto)",
+      "La classe in -e/-i, in forte espansione recente"
+    ],
+    correct: 2,
+    explanation: "Le classi o/i e a/e sono stabili (un terzo dei nomi ciascuna). La classe degli invariabili è la più dinamica e in crescita: accoglie le parole tronche (re), i grecismi in -i (estasi), i prestiti in consonante (sport) e i femminili in -o da accorciamento (foto, moto)."
+  },
+  {
+    source: "Morfologia",
+    q: "Quale coniugazione domina tra i verbi italiani e quali risultano produttive per i neologismi?",
+    opts: [
+      "Domina la coniugazione in -ere; sono produttive -ere e -ire",
+      "Domina la coniugazione in -are (68%); sono produttive solo -are (formattare) e -ire parasintetica (sfoltire)",
+      "Le tre coniugazioni sono equivalenti e tutte ugualmente produttive",
+      "Domina la coniugazione in -ire, l'unica produttiva per prestiti e neologismi"
+    ],
+    correct: 1,
+    explanation: "La classe in -are domina con il 68% dei lessemi di base (contro 17% di -ere e 10% di -ire). L'italiano crea neologismi o adatta prestiti solo in -are (formattare) e in -ire per i parasintetici (sfoltire): sono le uniche coniugazioni produttive."
+  },
+  {
+    source: "Morfologia",
+    q: "Qual è lo stato del congiuntivo nell'italiano parlato contemporaneo?",
+    opts: [
+      "È in espansione e copre circa l'80% delle subordinate",
+      "È in crisi: pur essendo il modo tipico della subordinazione, compare solo nel 5% delle subordinate del parlato",
+      "È scomparso del tutto, sostituito ovunque dal condizionale",
+      "È stabile e obbligatorio in tutte le subordinate, formali e informali"
+    ],
+    correct: 1,
+    explanation: "Il congiuntivo è in crisi: pur essendo il modo tipico della subordinazione, compare solo nel 5% delle subordinate del parlato, soppiantato dall'indicativo (65%, soprattutto presente) e dall'infinito (23%). Il solo presente indicativo copre circa l'80% degli usi verbali comuni."
+  },
+  {
+    source: "Sintassi",
+    q: "Com'è cambiato l'ordine dei costituenti della frase nel passaggio allo standard e al neostandard?",
+    opts: [
+      "L'italiano è passato dall'ordine SVO all'ordine SOV",
+      "L'italiano è rimasto una lingua SVO; le variazioni riguardano la struttura informativa (dislocazioni, frasi scisse, tema sospeso)",
+      "L'ordine dei costituenti è diventato totalmente libero, senza più una struttura di base",
+      "L'italiano ha adottato l'ordine VSO tipico delle lingue celtiche"
+    ],
+    correct: 1,
+    explanation: "L'italiano è sempre rimasto una lingua SVO, con buona elasticità dell'ordine. Le variazioni riguardano soprattutto la struttura informativa dell'enunciato: per enfatizzare si sposta un costituente con dislocazioni, frasi scisse e costruzioni a tema sospeso o libero."
+  },
+  {
+    source: "Sintassi",
+    q: "In che cosa consiste la dislocazione a sinistra (es. 'l'inglese lo leggo bene')?",
+    opts: [
+      "Si sposta un pronome a inizio frase e il costituente pieno alla fine",
+      "Si porta in prima posizione il costituente da enfatizzare (tema), riprendendolo poi con un pronome",
+      "Si divide la frase in due parti con il verbo essere e il che",
+      "Si sposta un costituente senza alcun elemento di ripresa che ne segnali il ruolo"
+    ],
+    correct: 1,
+    explanation: "Nella dislocazione a sinistra il costituente da enfatizzare risale a inizio frase (diventando tema) ed è ripreso da un pronome nella seconda parte ('l'inglese lo leggo bene'). È frequentissima e antichissima: il primo esempio è nel Placito cassinese, primo testo in italiano (oltre mille anni fa)."
+  },
+  {
+    source: "Sintassi",
+    q: "Qual è l'origine e l'uso tipico della frase scissa (es. 'è questo che volevo sentire')?",
+    opts: [
+      "È di origine dialettale meridionale ed è tipica dell'italiano popolare",
+      "Proviene dal francese, arriva in Italia nel '700 e si è specializzata nelle negazioni e nelle domande ('non è che…')",
+      "È un'eredità diretta del latino classico ed è sempre stata stilisticamente neutra",
+      "Nasce nel parlato toscano e serve a omettere il soggetto della frase"
+    ],
+    correct: 1,
+    explanation: "La frase scissa divide l'enunciato in due (verbo essere + che) per mettere in rilievo l'elemento tra 'essere' e 'che'. Proviene dal francese, arriva in Italia nel '700 (osteggiata dai puristi) e si è poi specializzata in negazioni e domande ('non è che…')."
+  },
+  {
+    source: "Sintassi",
+    q: "Che tipo di categoria sono i segnali (o particelle) discorsivi, come 'allora', 'cioè', 'guarda', 'capito?'?",
+    opts: [
+      "Una categoria lessicale autonoma, con un significato proprio e fisso",
+      "Una categoria funzionale (non lessicale): la funzione può essere svolta da avverbi, congiunzioni, interiezioni o frasi, senza modificare il significato",
+      "Una sottoclasse dei pronomi relativi tipica dello scritto",
+      "Un tipo di subordinata caratteristico dei registri formali"
+    ],
+    correct: 1,
+    explanation: "Il segnale discorsivo è una categoria funzionale, non lessicale: la funzione può essere svolta da avverbi (praticamente), congiunzioni (allora, ma), interiezioni (eh?), sintagmi verbali (guarda, senti) o frasi. Riempie i 'buchi' del parlato e gestisce il contatto con l'interlocutore, senza cambiare il significato."
+  },
+  {
+    source: "Fonologia",
+    q: "Qual è la differenza tra fono e fonema, illustrata dalla coppia minima mano/nano?",
+    opts: [
+      "Il fono studia la funzione distintiva, il fonema l'aspetto puramente fisico del suono",
+      "Il fono è l'unità fisica (tra [ ]); il fonema è l'unità che distingue i significati (tra / /): in mano/nano /m/ e /n/ sono fonemi diversi",
+      "Fono e fonema sono sinonimi, con notazioni del tutto intercambiabili",
+      "Il fonema è una variante (allofono) del fono in un dato contesto"
+    ],
+    correct: 1,
+    explanation: "La fonetica studia i suoni come foni (unità fisica, tra parentesi quadre [ ]); la fonologia li studia come fonemi (unità che distingue i significati, tra barre / /). In 'mano/nano' (coppia minima) /m/ e /n/ sono fonemi diversi; i foni fisicamente diversi riconducibili a uno stesso fonema sono allofoni."
+  },
+  {
+    source: "Fonologia",
+    q: "Perché la corrispondenza tra lettere e suoni in italiano non è perfettamente biunivoca?",
+    opts: [
+      "Perché l'italiano scrive usando l'alfabeto fonetico IPA al posto di quello latino",
+      "Perché la stessa lettera può avere valori diversi (C = /k/ in 'cane', /tʃ/ in 'cento') e lo stesso suono può rendersi con lettere diverse (/k/ = c, ch, q)",
+      "Perché in italiano ogni fonema corrisponde sempre a una sola lettera, come accade in inglese",
+      "Perché l'ortografia segue la pronuncia regionale e non quella standard"
+    ],
+    correct: 1,
+    explanation: "L'ortografia italiana è tra le più fedeli ai suoni (a differenza dell'inglese), ma non può essere biunivoca: la stessa lettera ha valori diversi (C = /k/ in 'cane', /tʃ/ in 'cento') e lo stesso fonema si rende con lettere diverse (/k/ = <c> cuoco, <ch> china, <q> quota). Per precisione si usa l'IPA."
+  },
+  {
+    source: "Fonologia",
+    q: "Quanti fonemi conta l'italiano standard?",
+    opts: [
+      "21 fonemi, come le lettere dell'alfabeto",
+      "30 fonemi, di cui 23 consonantici",
+      "7 fonemi, corrispondenti alle vocali toniche",
+      "Oltre 100 fonemi, includendo tutte le varianti regionali"
+    ],
+    correct: 1,
+    explanation: "Per l'italiano standard si contano 30 fonemi, di cui 23 consonantici (15 con opposizione breve/lunga). Il numero oscilla perché alcuni suoni sono discussi (consonanti doppie, semiconsonanti /j/ e /w/). Le differenze coi regionali stanno più nella distribuzione che nell'inventario."
+  },
+  {
+    source: "Fonologia",
+    q: "Che cos'è la 'gorgia toscana'?",
+    opts: [
+      "Il dittongamento di Ĕ e Ŏ toniche in sillaba aperta (PĔDE>piede, BŎNU>buono)",
+      "La realizzazione delle occlusive sorde /p t k/ intervocaliche come fricative [ɸ θ h] (la copre, si trema)",
+      "L'allungamento delle consonanti iniziali di parola dopo una parola accentata",
+      "La caduta delle consonanti finali ereditata dal latino"
+    ],
+    correct: 1,
+    explanation: "La gorgia toscana è la realizzazione delle occlusive sorde /p t k/ come fricative [ɸ θ h] quando sono tra vocali (o tra vocale e /r/): 'la copre' → [ɸ], 'si trema' → [θ], 'la casa' → [h]. È un indebolimento articolatorio tipico della Toscana."
+  },
+  {
+    source: "Fonologia",
+    q: "In che cosa consiste il raddoppiamento fonosintattico?",
+    opts: [
+      "Nel raddoppiare le vocali finali accentate delle parole",
+      "Nel realizzare come lunghe le consonanti iniziali di parola (anche se brevi) dopo certe parole: quelle che finiscono in vocale accentata, le preposizioni a, da, fra, su e monosillabi come che, e, è, ho, sta",
+      "Nel pronunciare doppie tutte le consonanti interne di parola",
+      "Nello scrivere con due consonanti i prestiti stranieri non adattati"
+    ],
+    correct: 1,
+    explanation: "Nel raddoppiamento fonosintattico (standard e varietà centro-meridionali) la consonante iniziale di una parola si pronuncia lunga anche se fonologicamente breve: dipende dalla parola precedente, cioè quelle che terminano in vocale accentata ('a [kk]asa'), le preposizioni a, da, fra, su e vari monosillabi (che, e, è, ho, sta…). Ne restano tracce in 'appena', 'chissà', 'dappertutto'."
+  }
+];
+
+let current = 0;
+let score = 0;
+let answers = [];
+let shuffledOpts = [];
+let shuffledCorrect = 0;
+const LETTERS = ['A', 'B', 'C', 'D'];
+
+function shuffleArray(arr) {
+  const a = arr.slice();
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    const tmp = a[i]; a[i] = a[j]; a[j] = tmp;
+  }
+  return a;
+}
+
+function init() {
+  current = 0;
+  score = 0;
+  answers = [];
+  document.getElementById('quiz-container').style.display = '';
+  document.getElementById('results-container').style.display = 'none';
+  showQuestion();
+}
+
+function showQuestion() {
+  const q = questions[current];
+
+  document.getElementById('progress-bar').style.width = ((current / questions.length) * 100) + '%';
+  document.getElementById('question-counter').textContent = 'Domanda ' + (current + 1) + ' di ' + questions.length;
+  document.getElementById('source-tag').textContent = q.source;
+  document.getElementById('question-text').textContent = q.q;
+
+  const optContainer = document.getElementById('options');
+  optContainer.innerHTML = '';
+
+  const indices = shuffleArray([0, 1, 2, 3]);
+  shuffledOpts = indices.map(function(i) { return { text: q.opts[i], orig: i }; });
+  shuffledCorrect = shuffledOpts.findIndex(function(o) { return o.orig === q.correct; });
+
+  shuffledOpts.forEach(function(opt, i) {
+    const btn = document.createElement('button');
+    btn.className = 'option-btn';
+    btn.innerHTML = '<span class="letter">' + LETTERS[i] + '</span><span>' + opt.text + '</span>';
+    btn.onclick = function() { selectOption(i); };
+    optContainer.appendChild(btn);
+  });
+
+  const fb = document.getElementById('feedback');
+  fb.style.display = 'none';
+  fb.className = '';
+  fb.textContent = '';
+
+  const nextBtn = document.getElementById('next-btn');
+  nextBtn.style.display = 'none';
+  nextBtn.textContent = current === questions.length - 1 ? 'Vedi i risultati →' : 'Prossima domanda →';
+}
+
+function selectOption(selected) {
+  const q = questions[current];
+  const btns = document.querySelectorAll('.option-btn');
+
+  btns.forEach(function(b) { b.disabled = true; });
+
+  const isCorrect = selected === shuffledCorrect;
+  if (isCorrect) score++;
+  answers.push({
+    qIdx: current,
+    isCorrect: isCorrect,
+    selectedLetter: LETTERS[selected],
+    correctLetter: LETTERS[shuffledCorrect],
+    selectedText: shuffledOpts[selected].text,
+    correctText: shuffledOpts[shuffledCorrect].text
+  });
+
+  btns[selected].classList.add(isCorrect ? 'correct' : 'wrong');
+  if (!isCorrect) btns[shuffledCorrect].classList.add('correct');
+
+  const fb = document.getElementById('feedback');
+  fb.style.display = 'block';
+  if (isCorrect) {
+    fb.className = 'correct-fb';
+    fb.textContent = '✓ Corretto! ' + q.explanation;
+  } else {
+    fb.className = 'wrong-fb';
+    fb.textContent = '✗ Risposta errata. ' + q.explanation;
+  }
+
+  document.getElementById('next-btn').style.display = 'block';
+}
+
+document.getElementById('next-btn').addEventListener('click', function() {
+  current++;
+  if (current >= questions.length) {
+    showResults();
+  } else {
+    showQuestion();
+  }
+});
+
+document.getElementById('retry-btn').addEventListener('click', init);
+
+function showResults() {
+  document.getElementById('progress-bar').style.width = '100%';
+  document.getElementById('quiz-container').style.display = 'none';
+  document.getElementById('results-container').style.display = 'block';
+
+  const pct = Math.round((score / questions.length) * 100);
+  const wrong = questions.length - score;
+
+  document.getElementById('score-num').textContent = score;
+  document.getElementById('stat-correct').textContent = score;
+  document.getElementById('stat-wrong').textContent = wrong;
+  document.getElementById('stat-pct').textContent = pct + '%';
+
+  const circle = document.getElementById('score-circle');
+  if (pct >= 85) circle.style.background = 'linear-gradient(135deg, #2ecc71, #27ae60)';
+  else if (pct >= 65) circle.style.background = 'linear-gradient(135deg, #f39c12, #e67e22)';
+  else circle.style.background = 'linear-gradient(135deg, #e74c3c, #c0392b)';
+
+  var voteLabel, voteComment;
+  if (pct >= 90) { voteLabel = '🏆 Eccellente!'; voteComment = 'Ottima preparazione — sei pronto per l\'esame!'; }
+  else if (pct >= 80) { voteLabel = '⭐ Molto Bene!'; voteComment = 'Preparazione solida, qualche piccola lacuna da rivedere.'; }
+  else if (pct >= 65) { voteLabel = '👍 Bene'; voteComment = 'Buona base, ma ripassa le domande errate.'; }
+  else if (pct >= 50) { voteLabel = '📚 Sufficiente'; voteComment = 'Ancora un po\' di studio ti servirà per essere sicuro.'; }
+  else { voteLabel = '⚠️ Insufficiente'; voteComment = 'Rivedi il materiale con attenzione prima dell\'esame.'; }
+
+  document.getElementById('vote-label').textContent = voteLabel;
+  document.getElementById('vote-comment').textContent = voteComment;
+
+  const list = document.getElementById('breakdown-list');
+  list.innerHTML = '';
+
+  answers.forEach(function(a, i) {
+    const q = questions[a.qIdx];
+    const item = document.createElement('div');
+    item.className = 'result-item';
+    const icon = a.isCorrect ? '✅' : '❌';
+    var answerHTML;
+    if (a.isCorrect) {
+      answerHTML = '<span class="ri-answer">Risposta: ' + a.correctLetter + '. ' + a.correctText + '</span>';
+    } else {
+      answerHTML = '<span class="ri-answer ri-wrong-answer">Tua risposta: ' + a.selectedLetter + '. ' + a.selectedText + '<br>Risposta corretta: ' + a.correctLetter + '. ' + a.correctText + '</span>';
+    }
+    item.innerHTML =
+      '<span class="ri-num">' + (i+1) + '.</span>' +
+      '<div class="ri-q">' + q.q + answerHTML + '</div>' +
+      '<span class="ri-icon">' + icon + '</span>';
+    list.appendChild(item);
+  });
+
+  document.getElementById('results-container').scrollIntoView({ behavior: 'smooth' });
+}
+
+init();
+</script>
+</body>
+</html>
