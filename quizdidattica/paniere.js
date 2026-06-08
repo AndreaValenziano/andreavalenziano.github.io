@@ -1,0 +1,4412 @@
+window.PANIERE = [
+  {
+    "id": "did-001",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 1 — Che cos'è la didattica dell'italiano",
+    "q": "La Didattica dell'italiano (DdI) attinge principalmente a quali ambiti disciplinari?",
+    "opts": [
+      "Psicologia cognitiva, sociologia e pedagogia generale",
+      "Linguistica italiana, storia della lingua e studi filologici e storico-letterari",
+      "Didattica generale, filosofia del linguaggio e retorica",
+      "Semiotica, antropologia culturale e storia della scuola"
+    ],
+    "correct": 1,
+    "explanation": "La DdI attinge all'ambito linguistico e storico-letterario, ovvero linguistica italiana, storia della lingua e studi filologici e storico-letterari."
+  },
+  {
+    "id": "did-002",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 1 — Che cos'è la didattica dell'italiano",
+    "q": "Che cosa distingue la Didattica dell'italiano dalla Didattica generale?",
+    "opts": [
+      "La DdI si occupa solo di lingua scritta, la Didattica generale di tutte le forme di comunicazione",
+      "La DdI ha un'epistemologia propria perché ricerca le condizioni per l'apprendimento di una specifica disciplina",
+      "La DdI non considera le metodologie didattiche, al contrario della Didattica generale",
+      "La DdI è una branca della pedagogia tradizionale, mentre la Didattica generale è innovativa"
+    ],
+    "correct": 1,
+    "explanation": "La DdI si distingue dalla Didattica generale perché ricerca le condizioni per l'apprendimento di una specifica disciplina, avendo quindi un'epistemologia propria."
+  },
+  {
+    "id": "did-003",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 1 — Che cos'è la didattica dell'italiano",
+    "q": "In quale periodo storico si colloca l'avvio della storia della Didattica dell'italiano come disciplina?",
+    "opts": [
+      "Anni '20 e '30 del Novecento",
+      "Anni '80 e '90 del Novecento",
+      "Anni '60 e '70 del Novecento",
+      "Fine dell'Ottocento"
+    ],
+    "correct": 2,
+    "explanation": "La DdI ha una storia relativamente recente rispetto ad altre didattiche disciplinari: nasce negli anni '60/'70 del Novecento da spinte di innovazione della pedagogia tradizionale verso l'educazione linguistica."
+  },
+  {
+    "id": "did-004",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 1 — Che cos'è la didattica dell'italiano",
+    "q": "Quale caratteristica aveva l'insegnamento dell'italiano prima della nascita della Didattica dell'italiano come disciplina?",
+    "opts": [
+      "Era incentrato sulle varietà regionali e sui dialetti come punto di partenza",
+      "Privilegiava la lingua orale e la produzione spontanea degli studenti",
+      "Si basava sulla storia della letteratura italiana e su una lingua monolitica, formale, scritta, analizzata più che utilizzata",
+      "Seguiva un approccio induttivo che partiva dall'osservazione di casi particolari"
+    ],
+    "correct": 2,
+    "explanation": "Prima della nascita della DdI, il riferimento era la storia della letteratura italiana e l'insegnamento di una lingua monolitica, priva di varietà regionali, di registro formale, scritta, analizzata più che utilizzata."
+  },
+  {
+    "id": "did-005",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 1 — Le teorie di apprendimento",
+    "q": "Quali studiosi sono associati alle teorie comportamentiste dell'apprendimento?",
+    "opts": [
+      "Piaget e Vygotskij",
+      "Bruner e Miller",
+      "Skinner e Pavlov",
+      "De Mauro e Lombardo Radice"
+    ],
+    "correct": 2,
+    "explanation": "Le teorie comportamentiste sono associate a Skinner (esperimenti sui topi) e Pavlov (esperimenti sui cani), che studiavano il comportamento come insieme di reazioni adattative a stimoli osservabili."
+  },
+  {
+    "id": "did-006",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 1 — Le teorie di apprendimento",
+    "q": "Secondo le teorie costruttiviste, come avviene l'apprendimento?",
+    "opts": [
+      "Tramite la sola memorizzazione di regole e contenuti trasmessi dall'insegnante",
+      "Come risposta automatica a stimoli osservabili provenienti dall'ambiente",
+      "Attraverso il coinvolgimento attivo del soggetto, la condivisione sociale e la cooperazione, partendo da interessi e conoscenze pregresse",
+      "Attraverso l'acquisizione di conoscenze tramite l'analisi di strutture mentali innate"
+    ],
+    "correct": 2,
+    "explanation": "Le teorie costruttiviste (Piaget e Vygotskij) pongono al centro il soggetto che costruisce il suo sapere tramite condivisione sociale e cooperazione, spinto da interessi e conoscenze pregresse."
+  },
+  {
+    "id": "did-007",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 1 — Le teorie di apprendimento",
+    "q": "Quale approccio prevale oggi nella didattica dell'italiano?",
+    "opts": [
+      "Approcci comportamentisti e metodi deduttivi",
+      "Metodi costruttivisti e approcci induttivi",
+      "Metodi cognitivisti e approcci trasmissivi",
+      "Approcci nozionistici e metodi mnemonici"
+    ],
+    "correct": 1,
+    "explanation": "Nella didattica dell'italiano prevalgono oggi i metodi di tipo costruttivista e gli approcci induttivi, che procedono dall'osservazione di casi particolari alla formulazione di regole generali."
+  },
+  {
+    "id": "did-008",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 1 — I contesti di apprendimento",
+    "q": "Come viene definito il 'contratto didattico' nel testo?",
+    "opts": [
+      "Un documento scritto e firmato da insegnanti e famiglie che stabilisce gli obiettivi di apprendimento",
+      "Un sistema di regole, un patto non scritto che definisce diritti e doveri di insegnante e studenti e i reciproci comportamenti attesi",
+      "Un programma ministeriale che regola i contenuti disciplinari da trasmettere",
+      "Il piano di valutazione condiviso tra docente e classe all'inizio dell'anno scolastico"
+    ],
+    "correct": 1,
+    "explanation": "Il contratto didattico è un sistema di regole, un 'patto non scritto' che definisce diritti e doveri di insegnante e studenti, basato su consuetudini che danno luogo a specifici comportamenti o aspettative reciproci."
+  },
+  {
+    "id": "did-009",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 1 — I contesti di apprendimento",
+    "q": "Che cos'è il 'triangolo didattico' menzionato nel testo?",
+    "opts": [
+      "Un modello grafico che rappresenta i tre livelli di valutazione (formativa, sommativa, diagnostica)",
+      "Un'ottica triplice per interpretare il contesto didattico che comprende studente, insegnante e sapere disciplinare",
+      "La tripartizione dei momenti della lezione in introduzione, sviluppo e verifica",
+      "Il rapporto fra scuola, famiglia e territorio nella formazione dello studente"
+    ],
+    "correct": 1,
+    "explanation": "Il triangolo didattico è un'ottica triplice per interpretare il contesto didattico, i cui vertici sono studente, insegnante e sapere disciplinare."
+  },
+  {
+    "id": "did-010",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 1 — Una storia complessa, tra frammentazione linguistica e divario sociale",
+    "q": "Quale legge del 1859 introdusse l'obbligo scolastico per i primi due anni di scuola in Italia?",
+    "opts": [
+      "Legge Gentile",
+      "Legge Coppino",
+      "Legge Casati",
+      "Legge Credaro"
+    ],
+    "correct": 2,
+    "explanation": "La legge Casati del 1859 introdusse l'obbligo scolastico per i primi due anni di scuola, anche se spesso non veniva rispettato."
+  },
+  {
+    "id": "did-011",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 1 — Una storia complessa, tra frammentazione linguistica e divario sociale",
+    "q": "Fino a quale decennio l'obbligo scolastico in Italia è rimasto un traguardo difficile da raggiungere?",
+    "opts": [
+      "Fino agli anni '30 del Novecento",
+      "Fino agli anni '60 del Novecento",
+      "Fino agli anni '80 del Novecento",
+      "Fino alla fine dell'Ottocento"
+    ],
+    "correct": 1,
+    "explanation": "L'obbligo scolastico è stato un traguardo difficile da raggiungere fino almeno agli anni '60, incentivato dalla legge sulla scuola media unica del 1962."
+  },
+  {
+    "id": "did-012",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 1 — Si è sempre insegnato italiano a scuola?",
+    "q": "Nel Medioevo e durante Umanesimo e Rinascimento, quale lingua era al centro dell'insegnamento scolastico?",
+    "opts": [
+      "Il volgare fiorentino, considerato il modello di riferimento",
+      "Il latino, mentre volgari e dialetti erano nell'uso ma non a scuola",
+      "L'italiano standard, già codificato dai grammatici dell'epoca",
+      "Il greco antico, come lingua della tradizione filosofica"
+    ],
+    "correct": 1,
+    "explanation": "Nel Medioevo, Umanesimo e Rinascimento, la scuola era per pochissimi e vi si insegnava il latino. I volgari e i dialetti erano nell'uso comune ma non a scuola, con rare eccezioni."
+  },
+  {
+    "id": "did-013",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 1 — Si è sempre insegnato italiano a scuola?",
+    "q": "Quale documento dei Gesuiti, tra fine Cinquecento e Settecento, incluse la letteratura italiana nei curricoli?",
+    "opts": [
+      "Le Regulae Societatis Iesu del 1540",
+      "Il Ratio studiorum (1586-99)",
+      "La Summa Theologiae di Tommaso d'Aquino",
+      "Le Costituzioni Apostoliche di Gregorio XIII"
+    ],
+    "correct": 1,
+    "explanation": "Il Ratio studiorum dei Gesuiti (1586-99) prevedeva la letteratura italiana nei percorsi dei collegi gesuiti, con autori selezionati, e il latino veniva insegnato tramite l'italiano."
+  },
+  {
+    "id": "did-014",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 1 — Si è sempre insegnato italiano a scuola?",
+    "q": "In quale regione italiana e in quale anno l'italiano fu incluso per la prima volta tra le materie di studio ufficiali?",
+    "opts": [
+      "Toscana, 1750",
+      "Piemonte, 1729, con le Regie Costitutioni",
+      "Lombardia, 1764, per impulso dell'Illuminismo milanese",
+      "Veneto, 1815, dopo il Congresso di Vienna"
+    ],
+    "correct": 1,
+    "explanation": "Nel 1729, con le Regie Costitutioni in Piemonte, l'italiano entrò ufficialmente tra le materie di studio, rappresentando la prima riforma in tal senso."
+  },
+  {
+    "id": "did-015",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 1 — Alle origini dell'idea di educazione linguistica",
+    "q": "A chi viene attribuita la prima utilizzazione dell'espressione 'educazione linguistica' nella seconda metà dell'Ottocento?",
+    "opts": [
+      "Graziadio Isaia Ascoli",
+      "Giuseppe Lombardo Radice",
+      "Francesco D'Ovidio",
+      "Tullio De Mauro"
+    ],
+    "correct": 2,
+    "explanation": "L'espressione 'educazione linguistica' è già utilizzata nella seconda metà dell'Ottocento da Francesco D'Ovidio, anche se riferita più all'educazione letteraria."
+  },
+  {
+    "id": "did-016",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 1 — Alle origini dell'idea di educazione linguistica",
+    "q": "Quale contributo diede Giuseppe Lombardo Radice alla didattica della lingua italiana?",
+    "opts": [
+      "Propose l'uso esclusivo del dialetto nelle scuole elementari per avvicinare gli studenti alla lingua",
+      "Nelle Lezioni di didattica (1913) propose di avvicinare la lingua alle realtà degli studenti e sostenne la trasversalità dell'educazione linguistica",
+      "Redasse le Dieci tesi per l'educazione linguistica democratica nel 1975",
+      "Fondò la Società di Linguistica Italiana nel 1967"
+    ],
+    "correct": 1,
+    "explanation": "Giuseppe Lombardo Radice nelle Lezioni di didattica (1913) propose un nuovo approccio: avvicinare la lingua e le strategie didattiche alle realtà degli studenti, superare i vuoti formalismi e sostenere la trasversalità dell'educazione linguistica."
+  },
+  {
+    "id": "did-017",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 1 — La rivoluzione delle Dieci tesi del GISCEL",
+    "q": "Quale opera del 1967 denunciò l'insuccesso scolastico e la deprivazione linguistica come cause di esclusione civile?",
+    "opts": [
+      "Le Dieci tesi per l'educazione linguistica democratica del GISCEL",
+      "Lettera a una professoressa della scuola di Barbiana",
+      "Storia linguistica dell'Italia unita di De Mauro",
+      "De l'enseignement regulier de la langue maternelle di Girard"
+    ],
+    "correct": 1,
+    "explanation": "La Lettera a una professoressa della scuola di Barbiana (1967) diede voce agli studenti lasciati da parte, denunciando come insuccesso e frustrazione scolastica portassero a deprivazione linguistica e comunicativa e quindi a esclusione dalla vita civile."
+  },
+  {
+    "id": "did-018",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 1 — La rivoluzione delle Dieci tesi del GISCEL",
+    "q": "Cosa fu il GISCEL e quando fu fondato?",
+    "opts": [
+      "Un gruppo di insegnanti di lettere fondato nel 1960 per riformare i programmi ministeriali",
+      "Il Gruppo di Intervento nel Campo dell'Educazione Linguistica, fondato nel 1975 da Tullio De Mauro",
+      "Una rivista di linguistica applicata fondata da Ascoli nel 1874",
+      "La Società di Linguistica Italiana, nata nel 1967"
+    ],
+    "correct": 1,
+    "explanation": "Il GISCEL (Gruppo di Intervento nel Campo dell'Educazione Linguistica) fu fondato nel 1975 da Tullio De Mauro, dopo la fondazione della SLI nel 1967, e produsse le Dieci tesi per l'educazione linguistica democratica."
+  },
+  {
+    "id": "did-019",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 1 — Uno sguardo alla storia dei programmi scolastici",
+    "q": "Negli anni tra il 1860 e gli anni '20 del Novecento, su quale aspetto si concentravano principalmente i programmi scolastici di italiano?",
+    "opts": [
+      "Sullo sviluppo della competenza comunicativa orale e sull'ascolto attivo",
+      "Sull'analisi della variazione linguistica e sullo studio dei dialetti",
+      "Sull'esercizio della scrittura (componimento, copiatura, dettato), sulla grammatica come acquisizione di nozioni e sulla memorizzazione di poesie e prose",
+      "Sulla lettura di testi contemporanei e sull'educazione al pensiero critico"
+    ],
+    "correct": 2,
+    "explanation": "Nei programmi dal 1860 agli anni '20 del Novecento la centralità era data all'esercizio della scrittura (componimento, copiatura, dettato), alla grammatica come acquisizione di nozioni e allo svolgimento di esercizi, e alla memorizzazione di poesie e prose."
+  },
+  {
+    "id": "did-020",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 1 — Uno sguardo alla storia dei programmi scolastici",
+    "q": "A partire da quale anno le Indicazioni nazionali hanno portato una chiara attenzione ai due versanti della didattica dell'italiano (lingua e letteratura) e alla 'riflessione sulla lingua'?",
+    "opts": [
+      "Dal 1962, con la legge sulla scuola media unica",
+      "Dal 1988-92 e poi dal 2007 con le Indicazioni nazionali",
+      "Dal 1940, con l'istituzione della scuola media unica",
+      "Dal 1975, con le Dieci tesi del GISCEL"
+    ],
+    "correct": 1,
+    "explanation": "Dal 1988-92 (con l'estensione dell'obbligo e la rivisitazione dei programmi) e poi dal 2007 (Indicazioni nazionali) si è avuta un'attenzione sempre più chiara ai due versanti della didattica dell'italiano e alla 'riflessione sulla lingua'."
+  },
+  {
+    "id": "did-021",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 1 — Competenza linguistica e competenza comunicativa nella L1",
+    "q": "Come viene definita la competenza comunicativa nel testo?",
+    "opts": [
+      "La conoscenza delle regole grammaticali e morfosintattiche della lingua",
+      "La capacità di adeguare le interazioni e le produzioni linguistiche, orali e scritte, al contesto e allo scopo in cui si collocano",
+      "L'insieme delle abilità di lettura e scrittura acquisite durante la scolarizzazione",
+      "La padronanza del codice scritto in tutte le sue varietà formali"
+    ],
+    "correct": 1,
+    "explanation": "La competenza comunicativa è definita come la capacità di adeguare le interazioni e le produzioni linguistiche, orali e scritte, al contesto e allo scopo in cui si collocano."
+  },
+  {
+    "id": "did-022",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 1 — Gli ambiti della competenza dell'italiano",
+    "q": "Quali delle seguenti coppie di abilità linguistiche sono classificate come 'ricettive'?",
+    "opts": [
+      "Parlare e scrivere",
+      "Leggere e scrivere",
+      "Ascoltare e leggere",
+      "Ascoltare e parlare"
+    ],
+    "correct": 2,
+    "explanation": "Le abilità ricettive sono ascoltare e leggere, mentre parlare e scrivere sono abilità produttive."
+  },
+  {
+    "id": "did-023",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 1 — La riflessione sulla lingua",
+    "q": "Come viene definita la 'riflessione sulla lingua' rispetto alle altre abilità linguistiche?",
+    "opts": [
+      "Come la prima e più importante delle abilità, prerequisito delle altre quattro",
+      "Come quinta abilità e collante fra le altre quattro, consistente nell'essere consapevoli dei meccanismi della lingua",
+      "Come sinonimo di grammatica tradizionale, ovvero lo studio delle regole morfosintattiche",
+      "Come abilità esclusivamente metalinguistica, separata dalla pratica comunicativa"
+    ],
+    "correct": 1,
+    "explanation": "La riflessione sulla lingua viene definita quinta abilità e collante fra le altre quattro (ascoltare, parlare, leggere, scrivere), e consiste nell'essere consapevoli dei meccanismi della lingua."
+  },
+  {
+    "id": "did-024",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 1 — I documenti ufficiali per insegnare italiano L1",
+    "q": "Perché le Indicazioni nazionali hanno sostituito i vecchi programmi ministeriali in Italia?",
+    "opts": [
+      "Per uniformare i programmi di tutti i paesi dell'Unione Europea",
+      "Perché vige il principio di autonomia scolastica dagli anni Novanta, che lascia a ogni istituto la definizione della propria programmazione didattica entro una cornice ufficiale",
+      "Perché i vecchi programmi erano stati dichiarati incostituzionali dalla Corte Costituzionale",
+      "Per adeguarsi alle direttive del GISCEL in materia di educazione linguistica democratica"
+    ],
+    "correct": 1,
+    "explanation": "Le Indicazioni nazionali hanno sostituito i vecchi programmi ministeriali perché vige il principio di autonomia scolastica (dagli anni Novanta): ogni istituto definisce la propria programmazione didattica all'interno di una cornice ufficiale che stabilisce traguardi e obiettivi."
+  },
+  {
+    "id": "did-025",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 1 — I documenti ufficiali per insegnare italiano L1",
+    "q": "Le Indicazioni nazionali italiane si collegano a quale documento sovranazionale per la competenza alfabetica funzionale?",
+    "opts": [
+      "Il Quadro comune europeo di riferimento per le lingue (QCER)",
+      "Le otto competenze chiave dell'Unione Europea",
+      "Il Trattato di Lisbona sull'istruzione",
+      "Le Dieci tesi del GISCEL adottate a livello europeo"
+    ],
+    "correct": 1,
+    "explanation": "Le Indicazioni nazionali attingono alle otto competenze chiave dell'Unione Europea; per la didattica dell'italiano in particolare si fa riferimento alla competenza alfabetica funzionale."
+  },
+  {
+    "id": "did-026",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 2 — La scuola alla scoperta della variazione linguistica",
+    "q": "Quali fattori di cambiamento linguistico vengono elencati nel Cap. 2 come oggetto di educazione linguistica?",
+    "opts": [
+      "Fonologia, morfologia, sintassi, lessico e pragmatica",
+      "Diatopia, diastratia, diamesia, diacronia e diafasia",
+      "Oralità, scrittura, lettura, ascolto e riflessione metalinguistica",
+      "Registro formale, informale, tecnico, letterario e burocratico"
+    ],
+    "correct": 1,
+    "explanation": "I fattori di cambiamento linguistico citati nel Cap. 2 sono: diatopia, diastratia, diamesia, diacronia e diafasia, che producono le diverse varietà di italiano."
+  },
+  {
+    "id": "did-027",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 2 — L'italiano nel tempo",
+    "q": "Quale attività didattica viene suggerita per far osservare la variazione diacronica della lingua italiana?",
+    "opts": [
+      "Analisi di questionari sociolinguistici somministrati a parlanti di diverse generazioni",
+      "Osservazione di cartelli e iscrizioni del contesto cittadino di diverse epoche e confronto tra testi letterari del passato e loro riscritture contemporanee",
+      "Ascolto di registrazioni audio di parlanti dialettofoni di diversa età",
+      "Studio sistematico della grammatica storica con esercizi di analisi morfologica"
+    ],
+    "correct": 1,
+    "explanation": "Per osservare la variazione diacronica il testo suggerisce di osservare cartelli/iscrizioni del contesto cittadino di diverse epoche, esaminare testi dal passato (es. manifesti comunali) e confrontare testi letterari antichi con riscritture contemporanee."
+  },
+  {
+    "id": "did-028",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 2 — L'italiano nello spazio geografico",
+    "q": "A quale tipo di variazione linguistica afferisce lo studio dei dialetti e dell'italiano regionale?",
+    "opts": [
+      "Variazione diacronica",
+      "Variazione diamesica",
+      "Variazione diastratia",
+      "Variazione diatopica"
+    ],
+    "correct": 3,
+    "explanation": "Lo studio dei dialetti e dell'italiano regionale rientra nella variazione diatopica (legata allo spazio geografico), trattata dalla dialettologia."
+  },
+  {
+    "id": "did-029",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 2 — Italiano e condizioni sociali",
+    "q": "Come può entrare a scuola la variazione diastratica secondo il testo?",
+    "opts": [
+      "Tramite la lettura di testi di autori semicolti (come Clelia Marchi o Tommaso Bordonaro) e di testimonianze storiche (lettere di soldati, partigiani, migranti)",
+      "Attraverso l'analisi di testi giuridici e burocratici di diversa epoca",
+      "Studiando le varianti regionali del lessico tramite atlanti linguistici",
+      "Confrontando trascrizioni di discorsi politici di epoche diverse"
+    ],
+    "correct": 0,
+    "explanation": "La diastratia può entrare a scuola tramite testimonianze di italiano popolare o dei semicolti: autori semicolti noti (come Clelia Marchi o Tommaso Bordonaro) e testimonianze storiche (lettere/diari di soldati, partigiani, migranti italiani)."
+  },
+  {
+    "id": "did-030",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 2 — Tra scritto e parlato: la variazione diamesica",
+    "q": "A cosa fa riferimento la variazione diamesica?",
+    "opts": [
+      "Alla variazione legata alle condizioni sociali e al livello di istruzione dei parlanti",
+      "Alla variazione legata al mezzo di espressione, cioè scritto e parlato",
+      "Alla variazione legata allo spazio geografico e alle aree dialettali",
+      "Alla variazione legata al periodo storico in cui si usa la lingua"
+    ],
+    "correct": 1,
+    "explanation": "La variazione diamesica è la variazione legata al mezzo di espressione: scritto e parlato, incluse le forme intermedie come la comunicazione mediata dal computer."
+  },
+  {
+    "id": "did-031",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 2 — La situazione comunicativa: registri e sottocodici",
+    "q": "Cosa sono i 'sottocodici' nel contesto della variazione linguistica a scuola?",
+    "opts": [
+      "Le varietà di lingua legate a situazioni di formalità o informalità nella comunicazione quotidiana",
+      "I dialetti e le parlate locali usati dagli studenti in contesti informali",
+      "I linguaggi settoriali legati alle diverse discipline di studio",
+      "Le varianti scritte e parlate della stessa lingua in contesti comunicativi diversi"
+    ],
+    "correct": 2,
+    "explanation": "I sottocodici sono i linguaggi settoriali, e il testo suggerisce di lavorarvi attraverso i testi delle diverse discipline studiate."
+  },
+  {
+    "id": "did-032",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 2 — L'autobiografia linguistica",
+    "q": "Qual è lo scopo dell'autobiografia linguistica come strumento didattico?",
+    "opts": [
+      "Valutare il livello di competenza grammaticale degli studenti all'inizio dell'anno",
+      "Conoscere e valorizzare il retroterra linguistico degli studenti per mettere in campo strategie didattiche adeguate",
+      "Promuovere la riflessione sulla norma e sullo standard linguistico",
+      "Insegnare agli studenti a distinguere tra registro formale e informale"
+    ],
+    "correct": 1,
+    "explanation": "L'autobiografia linguistica è uno strumento utile per conoscere e valorizzare il retroterra linguistico degli studenti, così da mettere in campo strategie didattiche adeguate."
+  },
+  {
+    "id": "did-033",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 2 — Il problema della norma a scuola",
+    "q": "Come viene definita la 'norma linguistica' secondo Berretta nel testo?",
+    "opts": [
+      "L'insieme delle regole grammaticali codificate nei manuali scolastici e accademici",
+      "L'uso statisticamente prevalente che i parlanti fanno della lingua: una convenzione fra i parlanti in un determinato periodo storico",
+      "Il modello di lingua elaborato dall'Accademia della Crusca come riferimento ufficiale",
+      "Le indicazioni ministeriali sui contenuti linguistici da insegnare nelle scuole"
+    ],
+    "correct": 1,
+    "explanation": "Secondo Berretta, la norma linguistica è l'uso statisticamente prevalente che i parlanti fanno della lingua, ovvero una convenzione fra i parlanti in un determinato periodo storico."
+  },
+  {
+    "id": "did-034",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 2 — Il problema della norma a scuola",
+    "q": "Cosa intende Serianni con 'norma interiorizzata' nel contesto scolastico?",
+    "opts": [
+      "La capacità degli studenti di autocorreggersi grazie all'apprendimento implicito della lingua",
+      "Un'immagine di lingua creata tramite l'esperienza scolastica, stereotipata, artificiosa e priva di aderenza con la realtà: l'italiano scolastico",
+      "Le regole grammaticali che gli studenti memorizzano spontaneamente senza essere istruiti",
+      "Il sistema di valori linguistici condivisi da insegnanti e studenti nel contratto didattico"
+    ],
+    "correct": 1,
+    "explanation": "Secondo Serianni, la norma interiorizzata deriva dall'immagine di lingua creata tramite l'esperienza scolastica: una lingua stereotipata, artificiosa, priva di aderenza con la realtà, che costituisce il cosiddetto italiano scolastico."
+  },
+  {
+    "id": "did-035",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 2 — Insegnare l'italiano che cambia: il neostandard",
+    "q": "Quale delle seguenti descrive meglio la posizione più aperta e innovativa riguardo all'insegnamento dell'italiano neostandard?",
+    "opts": [
+      "Definire con precisione quale sia l'italiano corretto, seguendo il modello tradizionale con scarsa apertura alle innovazioni",
+      "Adottare esclusivamente il dialetto locale come punto di partenza per l'educazione linguistica",
+      "Tenere conto della realtà dei fatti, abbandonare l'idea di giusto vs sbagliato e abbracciare quella di adatto vs non adatto ai contesti comunicativi",
+      "Eliminare qualsiasi riferimento alla norma e insegnare ogni varietà linguistica come equivalente"
+    ],
+    "correct": 2,
+    "explanation": "La posizione più aperta rispetto all'italiano neostandard propone di tenere conto della realtà dei fatti, abbandonando l'idea di giusto vs sbagliato in favore di quella di adatto vs non adatto ai contesti comunicativi."
+  },
+  {
+    "id": "did-036",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 3 — La didattica del parlato e dell'ascolto",
+    "q": "Secondo il testo, in che senso la risposta alla domanda 'a parlare e ad ascoltare si insegna?' può essere positiva?",
+    "opts": [
+      "A livello fisico, funzionale e cognitivo si impara in maniera spontanea a parlare e ad ascoltare",
+      "La scuola è l'unico contesto in cui si acquisiscono le competenze orali",
+      "Parlare e ascoltare si imparano esclusivamente attraverso l'istruzione formale",
+      "La didattica dell'oralità non è necessaria perché le competenze orali sono innate e complete"
+    ],
+    "correct": 0,
+    "explanation": "Il testo afferma che a livello fisico, funzionale e cognitivo la risposta può essere positiva, nel senso che si impara in maniera spontanea a parlare e ad ascoltare."
+  },
+  {
+    "id": "did-037",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 3 — La didattica del parlato e dell'ascolto",
+    "q": "Perché, nonostante l'acquisizione spontanea, è necessaria una didattica dell'oralità a scuola?",
+    "opts": [
+      "Perché i bambini non riescono ad apprendere la lingua parlata senza supporto scolastico",
+      "Perché saper parlare e saper ascoltare riguardano anche la padronanza grammaticale e le abilità comunicativo-pragmatiche",
+      "Perché l'oralità è meno importante della scrittura e va trascurata nel curriculum",
+      "Perché il dialetto interferisce sempre negativamente con la lingua parlata"
+    ],
+    "correct": 1,
+    "explanation": "Il testo spiega che saper parlare e saper ascoltare sono qualcosa di diverso rispetto all'acquisizione spontanea: riguardano il punto di vista grammaticale e delle abilità comunicativo-pragmatiche, ossia saper padroneggiare la lingua nell'oralità."
+  },
+  {
+    "id": "did-038",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 3 — La didattica del parlato e dell'ascolto",
+    "q": "Come mai storicamente la didattica dell'italiano L1 è stata incentrata sulla dimensione scritta?",
+    "opts": [
+      "Perché l'italiano parlato era considerato troppo difficile da insegnare",
+      "A causa del maggior prestigio della lingua scritta e della relazione fra italiano e dialetti",
+      "Perché le Indicazioni nazionali imponevano di ignorare l'oralità",
+      "Perché gli studi linguistici non si erano mai occupati del parlato"
+    ],
+    "correct": 1,
+    "explanation": "Secondo il testo, la centralità della dimensione scritta è dovuta a fattori quali il maggior prestigio della lingua scritta e la relazione fra italiano e dialetti."
+  },
+  {
+    "id": "did-039",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 3 — La didattica del parlato e dell'ascolto",
+    "q": "Cosa emerge riguardo all'oralità nei programmi scolastici italiani dall'Unità d'Italia fino agli anni precedenti al 1923?",
+    "opts": [
+      "L'oralità era considerata prioritaria rispetto alla scrittura",
+      "L'ascolto era al centro di ogni attività didattica",
+      "L'oralità era nominata in negativo, come qualcosa da tenere a bada o correggere nella pronuncia",
+      "I programmi prevedevano ampi spazi per il parlato dialogico e monologico"
+    ],
+    "correct": 2,
+    "explanation": "Il testo afferma che nei programmi dall'Unità d'Italia c'è una condanna del parlato: quando l'oralità è nominata, è nominata in negativo, come qualcosa da tenere a bada o da correggere riguardo alla pronuncia."
+  },
+  {
+    "id": "did-040",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 3 — La didattica del parlato e dell'ascolto",
+    "q": "Quale contributo fondamentale hanno dato le Dieci tesi del GISCEL alla didattica dell'oralità?",
+    "opts": [
+      "Hanno proposto di eliminare il dialetto dalle scuole italiane",
+      "Hanno introdotto l'obbligo di esami orali in tutte le scuole",
+      "Hanno posto accento sulla capacità di produzione orale, di impostare discorso, dialogo, racconto e discussione, con indicazioni concrete ai docenti",
+      "Hanno stabilito che la scrittura debba precedere sempre lo sviluppo del parlato"
+    ],
+    "correct": 2,
+    "explanation": "Il testo specifica che l'apporto delle Dieci tesi del GISCEL ha posto accento sulla capacità di produzione orale, di impostare un discorso, dialogo, racconto, discussione, fornendo indicazioni concrete ai docenti e raccomandazioni sulla gestione dell'interazione."
+  },
+  {
+    "id": "did-041",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 3 — La didattica del parlato e dell'ascolto",
+    "q": "Quale cambiamento avviene nella didattica dell'oralità a partire dagli anni '70?",
+    "opts": [
+      "Gli studi linguistici accolgono e contemplano l'aspetto dell'oralità",
+      "Il Ministero impone l'abolizione delle prove scritte in favore di quelle orali",
+      "Nasce l'obbligo di registrare tutte le lezioni nelle scuole italiane",
+      "I programmi scolastici eliminano qualsiasi riferimento alla scrittura"
+    ],
+    "correct": 0,
+    "explanation": "Il testo afferma che un cambiamento avviene dagli anni '70, quando gli studi linguistici hanno accolto e contemplato l'aspetto dell'oralità."
+  },
+  {
+    "id": "did-042",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 3 — La didattica del parlato e dell'ascolto",
+    "q": "Nelle Indicazioni nazionali, quale ruolo ha l'oralità nella scuola dell'infanzia?",
+    "opts": [
+      "Un ruolo marginale, subordinato alla lettura e alla scrittura",
+      "Un ruolo primario, poiché ascolto e parlato sono le modalità privilegiate di apprendimento e di interazione",
+      "Un ruolo esclusivamente correttivo, per eliminare gli errori di pronuncia",
+      "Un ruolo opzionale, lasciato alla discrezione dell'insegnante"
+    ],
+    "correct": 1,
+    "explanation": "Il testo specifica che nella scuola dell'infanzia, nelle Indicazioni nazionali, ascolto e parlato hanno un ruolo primario perché sono le modalità privilegiate di apprendimento e d'interazione."
+  },
+  {
+    "id": "did-043",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 3 — La didattica del parlato e dell'ascolto",
+    "q": "Nei licei, secondo le Indicazioni nazionali, a cosa fanno riferimento gli obiettivi legati al parlato?",
+    "opts": [
+      "All'ascolto attivo e ai discorsi espositivi e argomentativi come prioritari",
+      "Ai turni verbali, all'ordine dei temi e all'efficacia espressiva",
+      "Alla maggiore attenzione al contesto e all'interazione comunicativa",
+      "Alla narrazione orale come tipo di testo più ricorrente"
+    ],
+    "correct": 1,
+    "explanation": "Il testo indica che nei licei gli obiettivi riguardano turni verbali, ordine dei temi ed efficacia espressiva."
+  },
+  {
+    "id": "did-044",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 3 — La didattica del parlato e dell'ascolto",
+    "q": "Quale lacuna generale è segnalata nelle Indicazioni nazionali riguardo all'oralità?",
+    "opts": [
+      "L'assenza di obiettivi specifici per la scuola primaria",
+      "L'assenza di riflessione sulla lingua nell'ambito dell'oralità",
+      "La mancanza di riferimento ai generi testuali scritti",
+      "L'esclusione del parlato monologico dagli obiettivi formativi"
+    ],
+    "correct": 1,
+    "explanation": "Il testo segnala che, in generale, nelle Indicazioni nazionali è assente la riflessione sulla lingua nell'ambito dell'oralità."
+  },
+  {
+    "id": "did-045",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 3 — La didattica del parlato e dell'ascolto",
+    "q": "Fino a circa quanti mesi il bambino sviluppa suoni legati agli stati fisiologici, secondo le tappe descritte nel testo?",
+    "opts": [
+      "Fino a 12 mesi",
+      "Fino a 7 mesi",
+      "Fino a 2 mesi",
+      "Fino a 24 mesi"
+    ],
+    "correct": 2,
+    "explanation": "Il testo indica che fino a circa 2 mesi i suoni sono legati agli stati fisiologici (es. pianto, segnali di fame)."
+  },
+  {
+    "id": "did-046",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 3 — La didattica del parlato e dell'ascolto",
+    "q": "Cosa si verifica, secondo il testo, tra i 18 e i 24 mesi nello sviluppo linguistico del bambino?",
+    "opts": [
+      "Inizia la lallazione e la produzione di sillabe per piacere",
+      "Si verificano vocalizzazioni e risate",
+      "Avviene l'esplosione del vocabolario",
+      "Il bambino passa da enunciati semplici a testi complessi"
+    ],
+    "correct": 2,
+    "explanation": "Il testo specifica che dopo i 12 mesi compare la parola e poi si ha l'incremento del lessico con l'esplosione del vocabolario fra i 18 e i 24 mesi."
+  },
+  {
+    "id": "did-047",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 3 — La didattica del parlato e dell'ascolto",
+    "q": "Cosa contraddistingue la lallazione nello sviluppo fonologico del bambino?",
+    "opts": [
+      "La produzione di sillabe per il puro piacere di riprodurre un suono, che avviene dopo i 4-7 mesi",
+      "La comparsa delle prime parole a 12 mesi con significato convenzionale",
+      "La capacità di costruire enunciati complessi a partire dai 24 mesi",
+      "La comunicazione intenzionale tramite gesti che inizia a 9 mesi"
+    ],
+    "correct": 0,
+    "explanation": "Il testo descrive la lallazione come la produzione di sillabe per il piacere di riprodurre un suono, che avviene dopo i 4-7 mesi."
+  },
+  {
+    "id": "did-048",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 3 — La didattica del parlato e dell'ascolto",
+    "q": "Quale affermazione descrive meglio il rapporto tra lingua parlata e lingua scritta secondo il testo?",
+    "opts": [
+      "Parlato e scritto sono due canali equivalenti per veicolare lo stesso messaggio",
+      "Lo scritto è superiore al parlato e lo comprende come suo sottoinsieme",
+      "Parlato e scritto sono modalità comunicative differenti in senso ampio e complesso, con rappresentazioni diverse del messaggio non sempre traducibili l'una nell'altra",
+      "Il parlato è una forma degradata dello scritto e deve essere corretto verso di esso"
+    ],
+    "correct": 2,
+    "explanation": "Il testo afferma esplicitamente che lingua scritta e lingua parlata non sono due canali per veicolare messaggi, ma modalità comunicative differenti in senso più ampio e complesso, con rappresentazioni diverse del messaggio non traducibili per forza l'una nell'altra."
+  },
+  {
+    "id": "did-049",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 3 — La didattica del parlato e dell'ascolto",
+    "q": "Quale delle seguenti è una caratteristica del parlato elencata nel testo, non dello scritto?",
+    "opts": [
+      "Cancellabile",
+      "Regolato e programmato",
+      "Non cancellabile e retroattivo",
+      "Esplicito e coeso"
+    ],
+    "correct": 2,
+    "explanation": "Il testo elenca tra le caratteristiche del parlato: non cancellabile e retroattivo (riformulabile, ripianificabile). Queste non appartengono allo scritto, che invece è cancellabile."
+  },
+  {
+    "id": "did-050",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 3 — La didattica del parlato e dell'ascolto",
+    "q": "Chi è Nencioni e cosa introduce nel testo per quanto riguarda il parlato?",
+    "opts": [
+      "Uno studioso citato per la classificazione dei tipi di ascolto",
+      "L'autore che introduce il concetto di 'parlato-recitato' tra le sfumature tra parlato e scritto",
+      "Un didatta che ha elaborato le Dieci tesi del GISCEL",
+      "Il fondatore del GSCP (Gruppo di studio sulla comunicazione parlata)"
+    ],
+    "correct": 1,
+    "explanation": "Il testo cita Nencioni in riferimento al 'parlato-recitato', uno degli esempi di sfumature che esistono tra gli estremi parlato-parlato e scritto-scritto."
+  },
+  {
+    "id": "did-051",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 3 — La didattica del parlato e dell'ascolto",
+    "q": "Quale tipo di gesti è menzionato nel testo come oggetto di lavoro didattico sul linguaggio non verbale?",
+    "opts": [
+      "Solo gesti iconici e simbolici",
+      "Gesti iconici, simbolici, batonici, grammaticali e deittici",
+      "Gesti deittici e batonici esclusivamente",
+      "Gesti simbolici e grammaticali, escludendo quelli iconici"
+    ],
+    "correct": 1,
+    "explanation": "Il testo elenca tutti e cinque i tipi di gesti su cui lavorare nella didattica del linguaggio non verbale: iconici, simbolici, batonici, grammaticali e deittici."
+  },
+  {
+    "id": "did-052",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 3 — La didattica del parlato e dell'ascolto",
+    "q": "Perché, secondo il testo, è importante incentivare l'utilizzo dell'oralità in contesti senza valutazione o giudizio?",
+    "opts": [
+      "Per permettere agli studenti di praticare solo il parlato informale senza obiettivi linguistici",
+      "Per passare dalla paura al controllo della propria parola e acquisire gli elementi pragmatici del linguaggio",
+      "Perché la valutazione orale è vietata dalle Indicazioni nazionali",
+      "Per ridurre il tempo dedicato alla scrittura in classe"
+    ],
+    "correct": 1,
+    "explanation": "Il testo afferma che nella didattica vanno acquisiti gli elementi pragmatici del linguaggio e serve incentivare l'utilizzo dell'oralità in contesti senza valutazione o giudizio per passare dalla paura al controllo della propria parola."
+  },
+  {
+    "id": "did-053",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 3 — La didattica del parlato e dell'ascolto",
+    "q": "Come deve comportarsi l'insegnante nei confronti del parlato dei bambini nella scuola dell'infanzia e nei primi anni della primaria?",
+    "opts": [
+      "Correggere direttamente e sistematicamente ogni errore grammaticale",
+      "Parlare in modo chiaro, corretto ed espressivo, riformulare le frasi imprecise e rispettare i tempi del bambino incentivandolo in modo non invasivo",
+      "Evitare di interagire verbalmente per non condizionare lo sviluppo spontaneo",
+      "Concentrarsi esclusivamente sulla pronuncia corretta, trascurando la dimensione pragmatica"
+    ],
+    "correct": 1,
+    "explanation": "Il testo indica che l'insegnante deve essere un modello non invasivo: parla in modo chiaro, corretto ed espressivo, attua strategie per far evolvere il parlato (es. riformulazione vs correzione diretta), rispetta i tempi del bambino e lo incentiva valorizzandolo."
+  },
+  {
+    "id": "did-054",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 3 — La didattica del parlato e dell'ascolto",
+    "q": "Cosa caratterizza il parlato nella scolarità successiva alla primaria, secondo il paragrafo 5.2?",
+    "opts": [
+      "Solo situazioni di parlato monologico, senza interazione",
+      "Situazioni di parlato interazionale con strutture di partecipazione diverse e occasioni di parlato monologico, con casi di comunicazione asimmetrica",
+      "Un'attenzione prevalente alla qualità del parlato rispetto ai contenuti",
+      "L'assenza totale di dialogo fra studenti, con solo interazione studente-insegnante"
+    ],
+    "correct": 1,
+    "explanation": "Il testo descrive che nella scolarità successiva permangono situazioni di parlato interazionale/interattivo con varietà di situazioni e strutture di partecipazione diverse, più occasioni di parlato monologico, e sono chiari i casi di comunicazione asimmetrica."
+  },
+  {
+    "id": "did-055",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 3 — La didattica del parlato e dell'ascolto",
+    "q": "Quali sono i due aspetti che l'insegnante deve prendere in considerazione riguardo al parlato, secondo il paragrafo 5.2?",
+    "opts": [
+      "La pronuncia corretta e la velocità di eloquio",
+      "L'interazione positiva in classe con libero scambio e l'esercizio critico dell'oralità per migliorare competenze linguistiche",
+      "La valutazione del contenuto e la correzione degli errori grammaticali",
+      "La distinzione tra parlato monologico e dialogico e la scelta dei generi testuali"
+    ],
+    "correct": 1,
+    "explanation": "Il testo indica due aspetti: un'interazione positiva in classe con libero scambio e diritto di prendere parola, e la necessità di esercitare l'oralità in modo critico (non solo frequente) per migliorare le competenze linguistiche."
+  },
+  {
+    "id": "did-056",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 3 — La didattica del parlato e dell'ascolto",
+    "q": "In cosa consiste la proposta didattica 'parlare per parlare' descritta nel testo?",
+    "opts": [
+      "Lasciare gli studenti in conversazione libera senza obiettivi didattici",
+      "Fornire occasioni per parlare liberamente solo di argomenti personali",
+      "Creare occasioni per riflettere su come si parla, sperimentarsi in dialoghi critici e poi passare a diversi parlati con critica e autocritica",
+      "Consentire solo il parlato spontaneo, escludendo qualsiasi forma di monitoraggio"
+    ],
+    "correct": 2,
+    "explanation": "Il testo spiega che 'parlare per parlare' significa fornire occasioni in cui non si parla solo per raccontarsi liberamente o verificare i contenuti, ma per riflettere su come si parla, sperimentarsi in dialoghi critici e poi passare a diversi parlati con critica e autocritica."
+  },
+  {
+    "id": "did-057",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 3 — La didattica del parlato e dell'ascolto",
+    "q": "Quale tipo di testo è il più ricorrente e sollecitato nella scuola dell'infanzia nell'ambito del parlato?",
+    "opts": [
+      "Il testo argomentativo",
+      "La narrazione orale",
+      "Il testo espositivo-esplicativo",
+      "Il testo regolativo"
+    ],
+    "correct": 1,
+    "explanation": "Il testo afferma che nella scuola dell'infanzia la narrazione orale è il tipo di testo più ricorrente e sollecitato, tramite resoconti di esperienze, ri-raccontare storie, inventarle ecc."
+  },
+  {
+    "id": "did-058",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 3 — La didattica del parlato e dell'ascolto",
+    "q": "Perché il testo regolativo è considerato efficace nella didattica del parlato?",
+    "opts": [
+      "Perché è il più facile da produrre oralmente senza pianificazione",
+      "Perché permette di rendersi conto dell'efficacia del proprio parlato (es. dare istruzioni orali e poi ragionare sulla loro chiarezza)",
+      "Perché sviluppa principalmente la competenza narrativa e descrittiva",
+      "Perché stimola la capacità argomentativa attraverso il dibattito strutturato"
+    ],
+    "correct": 1,
+    "explanation": "Il testo spiega che il testo regolativo è efficace per rendersi conto dell'efficacia del proprio parlato: per esempio fare da guida orale per orientarsi nello spazio e poi ragionare sulla chiarezza della propria spiegazione."
+  },
+  {
+    "id": "did-059",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 3 — La didattica del parlato e dell'ascolto",
+    "q": "Cosa include la pratica della flipped classroom (classe invertita) nella didattica del parlato espositivo?",
+    "opts": [
+      "Sostituire le lezioni frontali con video preregistrati dall'insegnante",
+      "Far esporre gli studenti a diversi tipi di esposizione e riformulare spiegazioni a diversi target o contesti",
+      "Invertire l'ordine degli argomenti nel programma disciplinare",
+      "Portare gli studenti a casa per sperimentare situazioni comunicative reali"
+    ],
+    "correct": 1,
+    "explanation": "Il testo cita la flipped classroom e la riformulazione (spiegazioni a diversi target o contesti) come pratiche per lavorare sul parlato espositivo-esplicativo."
+  },
+  {
+    "id": "did-060",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 3 — La didattica del parlato e dell'ascolto",
+    "q": "Quale critica viene mossa alla domanda 'perché?' nell'ambito del dialogo didattico, citando la riflessione di Chambers?",
+    "opts": [
+      "È troppo specifica e non lascia libertà di risposta",
+      "È aggressiva, perentoria e troppo ampia, quindi poco incentivante",
+      "Richiede risposte troppo brevi e non favorisce la discussione",
+      "È inappropriata per la scuola primaria ma efficace nella secondaria"
+    ],
+    "correct": 1,
+    "explanation": "Il testo cita Chambers in merito al tipo di domande: la domanda 'perché?' è messa in discussione perché aggressiva, perentoria e troppo ampia."
+  },
+  {
+    "id": "did-061",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 3 — La didattica del parlato e dell'ascolto",
+    "q": "Come viene descritto il dibattito regolamentato nel testo come attività didattica?",
+    "opts": [
+      "Un'attività riservata esclusivamente alla scuola secondaria di secondo grado",
+      "Un confronto organizzato tra squadre di studenti su un argomento, con il docente come regista e giudice, che richiede preparazione con ricerca di fonti",
+      "Un momento di conversazione libera tra studenti senza regole precise",
+      "Un'attività esclusivamente monologica in cui ogni studente espone una tesi"
+    ],
+    "correct": 1,
+    "explanation": "Il testo descrive il dibattito regolamentato come confronto organizzato tra squadre di studenti su un argomento con il docente come regista e giudice, che richiede preparazione con ricerca di fonti e pianificazione dell'argomentazione, possibile in tutte le fasi della scolarità."
+  },
+  {
+    "id": "did-062",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 3 — La didattica del parlato e dell'ascolto",
+    "q": "In che modo la multimodalità è collegata alla didattica del parlato nel testo?",
+    "opts": [
+      "La multimodalità è considerata un ostacolo all'apprendimento dell'oralità",
+      "Riguarda solo l'uso della lavagna interattiva durante le lezioni",
+      "Comprende l'uso di video di dibattiti, supporti tecnologici e registrazioni per autoanalisi, permettendo di confrontarsi con varietà linguistiche adatte a diversi contesti",
+      "Si limita alla gestualità corporea dell'insegnante durante la spiegazione"
+    ],
+    "correct": 2,
+    "explanation": "Il testo descrive la multimodalità come le interazioni fra sistemi di segni, codici e modalità diverse: guardare video di dibattiti o parlato pubblico, supportare l'esposizione con mezzi tecnologici, registrare per autoanalisi, con trasversalità oltre l'ora di italiano."
+  },
+  {
+    "id": "did-063",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 3 — La didattica del parlato e dell'ascolto",
+    "q": "Quali parametri sono indicati nel testo per la valutazione del parlato tramite griglie?",
+    "opts": [
+      "Solo correttezza grammaticale e pronuncia",
+      "Fluenza, pianificazione, comprensibilità, uso di supporti, adeguatezza di stile e registro, correttezza grammaticale di base, qualità degli aspetti non verbali",
+      "Quantità di parole prodotte, numero di pause e volume della voce",
+      "Solo contenuto, organizzazione del discorso e lessico specifico della disciplina"
+    ],
+    "correct": 1,
+    "explanation": "Il testo indica che la valutazione deve avvalersi di griglie con parametri abbastanza oggettivi come: fluenza, pianificazione, interruzioni faticose per chi ascolta, comprensibilità, uso di supporti, adeguatezza di stile e registro, correttezza grammaticale di base, qualità aspetti non verbali."
+  },
+  {
+    "id": "did-064",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 3 — La didattica del parlato e dell'ascolto",
+    "q": "Qual è la distinzione fondamentale tra 'udire', 'sentire' e 'ascoltare' che emerge nel testo?",
+    "opts": [
+      "Udire e sentire sono azioni volontarie, mentre ascoltare è un riflesso automatico",
+      "Già dalla nascita si ode e si sente, mentre l'ascoltare è una tappa successiva, un'azione volontaria e un sistema attivo e dinamico",
+      "Udire è l'azione più complessa, che richiede maggiore impegno cognitivo di ascoltare",
+      "I tre termini sono sinonimi e indicano lo stesso processo percettivo"
+    ],
+    "correct": 1,
+    "explanation": "Il testo afferma che fin da quando si nasce si ode e si sente, mentre l'ascoltare è una tappa successiva: un'azione volontaria, un sistema attivo e dinamico che mette in campo conoscenze linguistiche ed extralinguistiche."
+  },
+  {
+    "id": "did-065",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 3 — La didattica del parlato e dell'ascolto",
+    "q": "Cosa si intende per 'opacità' dell'ascolto nel testo?",
+    "opts": [
+      "L'ascolto è difficile da capire per i bambini piccoli",
+      "L'ascolto è un'abilità sfuggente e silenziosa che non traspare immediatamente ma tramite atteggiamenti e prestazioni concrete",
+      "L'ascolto richiede sempre un ambiente silenzioso per essere efficace",
+      "L'ascolto è talmente automatico da essere invisibile anche all'ascoltatore stesso"
+    ],
+    "correct": 1,
+    "explanation": "Il testo descrive l'ascolto come abilità sfuggente e silenziosa, difficile da monitorare, valutare e controllare: la sua 'opacità' consiste nel fatto che non traspare immediatamente ma tramite atteggiamenti e prestazioni concrete."
+  },
+  {
+    "id": "did-066",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 3 — La didattica del parlato e dell'ascolto",
+    "q": "Secondo la classificazione di K. Galvin citata nel testo, quale tipo di ascolto ha la finalità di valutare ragionamenti e prove?",
+    "opts": [
+      "Ascolto transazionale",
+      "Ascolto interazionale",
+      "Ascolto critico",
+      "Ascolto d'intrattenimento"
+    ],
+    "correct": 2,
+    "explanation": "Il testo cita la classificazione di K. Galvin: l'ascolto critico ha la finalità di valutare ragionamenti e prove."
+  },
+  {
+    "id": "did-067",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 3 — La didattica del parlato e dell'ascolto",
+    "q": "Quali sono le due macro situazioni di ascolto a scuola individuate nel testo?",
+    "opts": [
+      "Ascolto critico e ascolto d'intrattenimento",
+      "Ascolto per piacere e ascolto per ricordare",
+      "Ascolto interazionale e ascolto di parlato monologico",
+      "Ascolto attivo e ascolto passivo"
+    ],
+    "correct": 2,
+    "explanation": "Il testo indica che a scuola si possono distinguere due macro situazioni: ascolto interazionale e ascolto di parlato monologico."
+  },
+  {
+    "id": "did-068",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 3 — La didattica del parlato e dell'ascolto",
+    "q": "Cosa prevede la proposta didattica del 'preascolto' secondo il testo?",
+    "opts": [
+      "Ascoltare un testo due volte di fila per aumentare la comprensione",
+      "Attivare scenari e schemi cognitivi preattivati su tema, situazione o tipo di testo orale prima di ascoltare, chiarendo gli obiettivi dell'ascolto",
+      "Fornire la trascrizione scritta del testo prima dell'ascolto",
+      "Fare un test di comprensione prima di esporre gli studenti al testo orale"
+    ],
+    "correct": 1,
+    "explanation": "Il testo descrive il preascolto come la pratica di attivare scenari e schemi cognitivi preattivati su un certo tema, situazione o tipo di testo orale prima di ascoltare, ad esempio parlare del testo facendo ipotesi e chiarendo gli obiettivi."
+  },
+  {
+    "id": "did-069",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 3 — La didattica del parlato e dell'ascolto",
+    "q": "In cosa consiste l'azione metacognitiva sull'ascolto descritta nel testo?",
+    "opts": [
+      "Valutare la comprensione degli studenti tramite test standardizzati",
+      "Auto-osservazione a posteriori di una situazione di ascolto per problematizzare e trovare soluzioni che favoriscano l'autonomia",
+      "Registrare le lezioni e riascoltarle in un secondo momento",
+      "Analizzare il parlato dell'insegnante per migliorare la qualità della spiegazione"
+    ],
+    "correct": 1,
+    "explanation": "Il testo descrive la metacognizione sull'ascolto come un'azione di auto-osservazione a posteriori di una situazione di ascolto (es. 'Come ho ascoltato? L'ambiente era favorevole?') per problematizzare e trovare soluzioni che favoriscano l'autonomia."
+  },
+  {
+    "id": "did-070",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 3 — La didattica del parlato e dell'ascolto",
+    "q": "Cosa si intende per 'deautomatizzazione' dell'ascolto e come si propone di attuarla nel testo?",
+    "opts": [
+      "Rendere l'ascolto automatico tramite esercizi ripetuti di memorizzazione",
+      "Stimolare l'ascolto critico e attivo attraverso proposte di esercizi di attenzione come il 'trova l'intruso', contrastando l'ascolto passivo tipico della scuola",
+      "Eliminare le attività di ascolto passivo sostituendole con produzione orale",
+      "Insegnare tecniche di speed listening per elaborare rapidamente le informazioni udite"
+    ],
+    "correct": 1,
+    "explanation": "Il testo spiega che l'ascolto a scuola è spesso passivo e propone la deautomatizzazione tramite esercizi di attenzione (come un 'trova l'intruso') per rendere l'ascolto critico, attivo e partecipato."
+  },
+  {
+    "id": "did-071",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 4 — La didattica della lettura e della scrittura",
+    "q": "Secondo il testo, perché leggere e scrivere sono processi diversi dall'acquisizione del linguaggio orale?",
+    "opts": [
+      "Perché richiedono grande sforzo e non sono spontanei e naturali come il linguaggio orale",
+      "Perché si apprendono solo in età adulta, a differenza del linguaggio orale",
+      "Perché dipendono esclusivamente da fattori genetici, mentre il parlato è culturale",
+      "Perché la lettura è automatizzata fin dalla nascita, mentre la scrittura non lo è"
+    ],
+    "correct": 0,
+    "explanation": "Il testo afferma esplicitamente che leggere e scrivere necessitano di grande sforzo e non sono processi spontanei e naturali come quelli orali."
+  },
+  {
+    "id": "did-072",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 4 — La didattica della lettura e della scrittura",
+    "q": "Cosa intende Vygotskij quando sostiene che imparare a scrivere non significa solo imparare la tecnica della scrittura?",
+    "opts": [
+      "Che la scrittura è una semplice trascrizione del linguaggio orale in segni grafici",
+      "Che la padronanza della scrittura implica entrare in un mondo nuovo, non solo acquisire la tecnica",
+      "Che la tecnica è sufficiente per chi ha buone basi grammaticali",
+      "Che l'automatizzazione della scrittura è l'obiettivo principale dell'istruzione"
+    ],
+    "correct": 1,
+    "explanation": "Il testo richiama Vygotskij per sottolineare che imparare a scrivere con padronanza non significa solo imparare la tecnica, ma entrare in un mondo nuovo."
+  },
+  {
+    "id": "did-073",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 4 — La didattica della lettura e della scrittura",
+    "q": "Secondo Ferreiro, che cos'è la scrittura?",
+    "opts": [
+      "Un codice di trascrizione diretta del linguaggio orale",
+      "Un sistema automatizzato di produzione grafica",
+      "Una rappresentazione del linguaggio che implica selezione degli elementi e crea un sistema alternativo",
+      "Un insieme di simboli arbitrari privi di legame con il pensiero"
+    ],
+    "correct": 2,
+    "explanation": "Ferreiro definisce la scrittura non un semplice codice di trascrizione, ma una rappresentazione del linguaggio che implica selezione degli elementi e crea un sistema alternativo."
+  },
+  {
+    "id": "did-074",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 4 — La didattica della lettura e della scrittura",
+    "q": "Perché la scrittura è definita un'attività metalinguistica?",
+    "opts": [
+      "Perché utilizza un alfabeto diverso da quello orale",
+      "Perché è orientata alla riflessione sul linguaggio, che diventa oggetto stesso di ragionamento",
+      "Perché si apprende solo attraverso la grammatica normativa",
+      "Perché sostituisce completamente la comunicazione orale nelle società alfabetizzate"
+    ],
+    "correct": 1,
+    "explanation": "Il testo afferma che la scrittura è un'attività metalinguistica perché è orientata alla riflessione sul linguaggio, che diventa oggetto stesso di ragionamento."
+  },
+  {
+    "id": "did-075",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 4 — La didattica della lettura e della scrittura",
+    "q": "Nella metafora dell'iceberg usata per descrivere la letto-scrittura, cosa si trova 'sotto la punta'?",
+    "opts": [
+      "L'ambiente sociale e culturale in cui avviene l'apprendimento",
+      "I processi cognitivi endogeni, come memoria, attenzione e funzioni esecutive",
+      "Le strategie didattiche dell'insegnante",
+      "I materiali scolastici e i libri di testo"
+    ],
+    "correct": 1,
+    "explanation": "Secondo il testo, sotto la punta dell'iceberg si trovano i processi cognitivi endogeni: elementi fisici, funzioni cognitive ed esecutive e sub-processi."
+  },
+  {
+    "id": "did-076",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 4 — La didattica della lettura e della scrittura",
+    "q": "Quali sono le tre grandi possibilità biologiche che il bambino sfrutta nell'attività cerebrale durante la letto-scrittura, evidenziate dalle neuroimmagini?",
+    "opts": [
+      "Capacità di imitazione, di memorizzazione e di riproduzione grafica",
+      "Capacità di realizzare nuovi collegamenti, di costruire aree specializzate e di recuperare e collegare automaticamente le informazioni",
+      "Capacità fonologica, lessicale e sintattica",
+      "Capacità visiva, uditiva e motoria fine"
+    ],
+    "correct": 1,
+    "explanation": "Il testo indica che il bambino sfrutta tre grandi possibilità biologiche: realizzare nuovi collegamenti, costruire aree con notevole grado di specializzazione, e recuperare e collegare automaticamente le informazioni da queste aree."
+  },
+  {
+    "id": "did-077",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 4 — La didattica della lettura e della scrittura",
+    "q": "Cosa si intende con il termine 'alfabetizzazione emergente'?",
+    "opts": [
+      "Il programma ministeriale per l'insegnamento della lettura nella scuola primaria",
+      "L'insieme di conoscenze, idee e abilità sulla letto-scrittura che si sviluppa spontaneamente nel bambino già in età prescolare",
+      "La capacità di leggere e scrivere in modo formalmente corretto acquisita entro il primo anno di scuola",
+      "Il metodo fonico-sillabico usato all'inizio della scuola primaria"
+    ],
+    "correct": 1,
+    "explanation": "L'alfabetizzazione emergente è definita come l'insieme di conoscenze, idee e abilità rispetto ai processi di lettura e scrittura che si sviluppa in modo spontaneo e naturale nel bambino già in età prescolare."
+  },
+  {
+    "id": "did-078",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 4 — La didattica della lettura e della scrittura",
+    "q": "Quale processo cognitivo descrive il passaggio del bambino dalla dimensione semantica della lingua a quella simbolica?",
+    "opts": [
+      "Automatizzazione",
+      "Memorizzazione",
+      "Astrazione",
+      "Lateralizzazione"
+    ],
+    "correct": 2,
+    "explanation": "Il testo afferma che i bambini si staccano progressivamente dalla dimensione semantica della lingua per entrare in quella simbolica, attraverso un processo di astrazione."
+  },
+  {
+    "id": "did-079",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 4 — La didattica della lettura e della scrittura",
+    "q": "Quali tre grandi aree vanno sollecitate per promuovere l'alfabetizzazione emergente?",
+    "opts": [
+      "Motoria, visiva e uditiva",
+      "Narrativa, grafica e ortografica",
+      "Linguistica, fonologica e pragmatica",
+      "Lessicale, sintattica e testuale"
+    ],
+    "correct": 2,
+    "explanation": "Il testo indica che per promuovere l'alfabetizzazione emergente vanno sollecitate tre grandi aree: linguistica, fonologica e pragmatica."
+  },
+  {
+    "id": "did-080",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 4 — La didattica della lettura e della scrittura",
+    "q": "In cosa consiste l'attività della 'caccia alle lettere' descritta nel testo?",
+    "opts": [
+      "Un gioco di memoria in cui i bambini abbinano carte con lettere dell'alfabeto",
+      "Un'attività in cui i bambini esplorano la realtà alla ricerca di materiali in cui sono presenti lettere, per poi raccoglierli e discuterne",
+      "Un esercizio di copiatura di testi dalla lavagna durante la scuola primaria",
+      "Una gara per trovare il maggior numero di parole che iniziano con una lettera data"
+    ],
+    "correct": 1,
+    "explanation": "La caccia alle lettere è un'attività soprattutto della scuola dell'infanzia in cui i bambini esplorano la realtà cercando materiali con lettere, seguita da raccolta e discussione a partire da domande-stimolo."
+  },
+  {
+    "id": "did-081",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 4 — La didattica della lettura e della scrittura",
+    "q": "Quale gradualità è raccomandata nello sviluppo delle abilità fonologiche nei bambini?",
+    "opts": [
+      "Fonemi > sillabe > rime > allitterazioni > versi di animali",
+      "Versi di animali > rime > allitterazioni > sillabe > fonemi",
+      "Rime > fonemi > sillabe > allitterazioni > versi di animali",
+      "Sillabe > fonemi > rime > allitterazioni > versi di animali"
+    ],
+    "correct": 1,
+    "explanation": "Il testo descrive una gradualità precisa: percezione e ripetizione versi di animali > percezione, individuazione e produzione di rime > percezione allitterazioni > lavoro su sillabe > lavoro sui fonemi."
+  },
+  {
+    "id": "did-082",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 4 — La didattica della lettura e della scrittura",
+    "q": "Perché la gradualità è importante nell'esercizio delle abilità fonologiche?",
+    "opts": [
+      "Perché i bambini più piccoli non hanno ancora sviluppato la capacità uditiva necessaria",
+      "Perché la coscienza fonologica è legata alla coscienza analitica, che viene dopo quella globale, e richiede astrazione",
+      "Perché le attività fonologiche sono valutate solo alla fine della scuola primaria",
+      "Perché i fonemi sono più semplici delle rime da riconoscere"
+    ],
+    "correct": 1,
+    "explanation": "Il testo spiega che la gradualità è importante perché la coscienza fonologica è legata alla coscienza analitica, che viene dopo quella globale, e richiede astrazione."
+  },
+  {
+    "id": "did-083",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 4 — La didattica della lettura e della scrittura",
+    "q": "Secondo il testo, quale tipo di risposta riguardo all'utilità della lingua scritta è associato ai migliori risultati nella letto-scrittura?",
+    "opts": [
+      "Le risposte di tipo tautologico",
+      "Le risposte incentrate sulla vita scolastica",
+      "Le risposte di tipo funzionale",
+      "Le risposte legate allo strumento in quanto codice"
+    ],
+    "correct": 2,
+    "explanation": "Il testo indica che i bambini che danno risposte di tipo funzionale riguardo agli scopi e alle funzioni della lingua scritta avranno, secondo gli studi, migliori risultati nella letto-scrittura."
+  },
+  {
+    "id": "did-084",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 4 — La didattica della lettura e della scrittura",
+    "q": "Quali sono le tre grandi studiose citate per gli studi psicogenetici sulla letto-scrittura?",
+    "opts": [
+      "Ferreiro e Vygotskij",
+      "Ferreiro e Teberosky",
+      "Frith e Teberosky",
+      "Bruner e Ferreiro"
+    ],
+    "correct": 1,
+    "explanation": "Il testo cita le studiose Ferreiro e Teberosky per gli studi psicogenetici sul processo tramite cui i bambini accedono alla letto-scrittura."
+  },
+  {
+    "id": "did-085",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 4 — La didattica della lettura e della scrittura",
+    "q": "Qual è la sequenza corretta dei tre grandi periodi della psicogenesi della lingua scritta secondo Ferreiro e Teberosky?",
+    "opts": [
+      "Fase alfabetica > fase sillabica > differenziazione tra disegno e scrittura",
+      "Costruzione di differenziazioni quantitative e qualitative > differenziazione tra disegno e scrittura > fonetizzazione",
+      "Differenziazione tra disegno e scrittura > costruzione di differenziazioni quantitative e qualitative > progressiva fonetizzazione",
+      "Fase ortografica > fase sillabica > differenziazione tra disegno e scrittura"
+    ],
+    "correct": 2,
+    "explanation": "I tre grandi periodi si susseguono così: differenziazione tra disegno e scrittura, costruzione di differenziazioni quantitative e qualitative, progressiva fonetizzazione della scrittura."
+  },
+  {
+    "id": "did-086",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 4 — La didattica della lettura e della scrittura",
+    "q": "Cosa si intende con 'ipotesi del referente' nella prima fase della psicogenesi della scrittura?",
+    "opts": [
+      "I bambini credono che la scrittura e il disegno siano la stessa cosa",
+      "I bambini pensano che la lunghezza della parola scritta corrisponda alla dimensione dell'oggetto reale",
+      "I segni tendono a richiamare graficamente il referente, avvicinandosi al disegno",
+      "I bambini ipotizzano che ogni lettera corrisponda a una sillaba"
+    ],
+    "correct": 2,
+    "explanation": "Nella prima fase dei grafismi primitivi, a volte i segni tendono a richiamare il referente (ipotesi del referente), avvicinandosi al disegno."
+  },
+  {
+    "id": "did-087",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 4 — La didattica della lettura e della scrittura",
+    "q": "Quali sono le due vie di accesso alla lettura descritte nel testo?",
+    "opts": [
+      "Via sintattica e via semantica",
+      "Via diretta/lessicale e via indiretta/fonologica",
+      "Via globale e via analitica",
+      "Via visiva e via uditiva"
+    ],
+    "correct": 1,
+    "explanation": "Il testo descrive due vie per accedere alla lettura: la via diretta/lessicale, che recupera materiale lessicale già presente, e la via indiretta/fonologica, basata su decifrazione e conversione grafema-fonema."
+  },
+  {
+    "id": "did-088",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 4 — La didattica della lettura e della scrittura",
+    "q": "Quando è particolarmente utile la via fonologica nella lettura?",
+    "opts": [
+      "Quando si legge un testo noto e già memorizzato",
+      "Quando si vogliono cogliere le sfumature stilistiche di un testo letterario",
+      "Quando si leggono parole di cui non si conosce il significato",
+      "Quando si vuole aumentare la velocità di lettura"
+    ],
+    "correct": 2,
+    "explanation": "Il testo afferma che la via fonologica è utile per leggere parole di cui non si conosce il significato, a differenza di quella lessicale che agisce su materiale già noto."
+  },
+  {
+    "id": "did-089",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 4 — La didattica della lettura e della scrittura",
+    "q": "Quali sono i quattro stadi del modello evolutivo-stadiale di Uta Frith?",
+    "opts": [
+      "Semantico, sintattico, fonologico, ortografico",
+      "Logografico, alfabetico, ortografico, lessicale",
+      "Globale, sillabico, fonematico, lessicale",
+      "Visivo, uditivo, motorio, cognitivo"
+    ],
+    "correct": 1,
+    "explanation": "Il modello evolutivo-stadiale di Uta Frith prevede quattro stadi principali: logografico, alfabetico, ortografico e lessicale."
+  },
+  {
+    "id": "did-090",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 4 — La didattica della lettura e della scrittura",
+    "q": "In cosa consiste la 'didattica a spirale' di Bruner applicata alla letto-scrittura?",
+    "opts": [
+      "Un approccio che introduce sempre nuovi argomenti senza tornare sui precedenti",
+      "Un ritorno sulle scoperte fatte in un crescendo di complessità che alterna situazioni aperte ed esplorative ad attività mirate",
+      "Un metodo basato esclusivamente sulla ripetizione meccanica degli esercizi",
+      "Un curricolo che separa nettamente la fase della lettura da quella della scrittura"
+    ],
+    "correct": 1,
+    "explanation": "La didattica a spirale di Bruner consiste nel ritorno sulle scoperte fatte in un crescendo di complessità, alternando situazioni aperte ed esplorative ad attività mirate."
+  },
+  {
+    "id": "did-091",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 4 — La didattica della lettura e della scrittura",
+    "q": "Nella pratica della 'scrittura spontanea', quale ruolo assume l'insegnante durante l'attività?",
+    "opts": [
+      "Corregge immediatamente gli errori del bambino per evitare che si fissino",
+      "Risponde ai dubbi del bambino fornendo la forma corretta",
+      "È presente ma non corregge né risponde ai dubbi, incentiva il bambino a provare e trovare la risposta",
+      "Scrive al posto del bambino mostrando la forma corretta"
+    ],
+    "correct": 2,
+    "explanation": "Nella scrittura spontanea, il docente è presente ma non corregge il bambino né risponde ai suoi dubbi: lo incentiva a provare e trovare la risposta, costruendo un atteggiamento esplorativo e positivo."
+  },
+  {
+    "id": "did-092",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 4 — La didattica della lettura e della scrittura",
+    "q": "Qual è il fine principale dell'attività di 'dettare all'adulto / scrivere con l'adulto'?",
+    "opts": [
+      "Allenare la velocità di scrittura dell'insegnante come modello per i bambini",
+      "Incentivare il passaggio dall'oralità alla scrittura, alleggerendo l'allievo dal compito tecnico",
+      "Valutare la comprensione lessicale del bambino tramite la dettatura",
+      "Insegnare ai bambini la punteggiatura attraverso l'osservazione"
+    ],
+    "correct": 1,
+    "explanation": "La pratica di dettare all'adulto o scrivere con l'adulto permette di incentivare il passaggio dall'oralità alla scrittura, alleggerendo l'allievo dal compito tecnico di scrivere."
+  },
+  {
+    "id": "did-093",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 4 — La didattica della lettura e della scrittura",
+    "q": "Cosa si intende per 'lettura per previsione/anticipazione' nella didattica della letto-scrittura?",
+    "opts": [
+      "Leggere velocemente un testo per anticipare i tempi di completamento del programma",
+      "Fare ipotesi guardando solo le immagini di un testo e poi verificarle leggendolo",
+      "Anticipare la lettura del testo assegnando domande-guida prima della lettura",
+      "Predire la difficoltà di un testo in base al numero di parole"
+    ],
+    "correct": 1,
+    "explanation": "La lettura per previsione/anticipazione consiste nel fare ipotesi guardando solo le immagini di un testo, e poi, leggendolo, verificare le ipotesi."
+  },
+  {
+    "id": "did-094",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 4 — La didattica della lettura e della scrittura",
+    "q": "Secondo Teruggi, come va considerata la questione del metodo per insegnare a leggere e scrivere?",
+    "opts": [
+      "Come la questione più importante della didattica della letto-scrittura, su cui la ricerca deve ancora esprimersi",
+      "Come un falso dilemma: conta essere consapevoli che il bambino è il vero costruttore del sapere",
+      "Come una scelta esclusiva tra il metodo globale e quello fonico-sillabico",
+      "Come un problema risolto definitivamente dalla neuroscienza cognitiva"
+    ],
+    "correct": 1,
+    "explanation": "Teruggi considera la questione del metodo un falso dilemma: conta essere consapevoli che il bambino è il vero costruttore del sapere e se ne approprierà con i suoi tempi e i giusti stimoli."
+  },
+  {
+    "id": "did-095",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 4 — La didattica della lettura e della scrittura",
+    "q": "Quali sono le quattro strategie di lettura funzionale descritte nel testo?",
+    "opts": [
+      "Lettura silenziosa, lettura ad alta voce, lettura condivisa, lettura guidata",
+      "Lettura orientativa, lettura selettiva, lettura globale/estensiva, lettura analitica/intensiva",
+      "Lettura decifrativa, lettura inferenziale, lettura critica, lettura creativa",
+      "Lettura veloce, lettura lenta, lettura per piacere, lettura per studio"
+    ],
+    "correct": 1,
+    "explanation": "Il testo descrive quattro strategie di lettura funzionale: lettura orientativa, lettura selettiva (scanning), lettura globale/estensiva e lettura analitica/intensiva."
+  },
+  {
+    "id": "did-096",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 4 — La didattica della lettura e della scrittura",
+    "q": "Cosa distingue la lettura selettiva (scanning) dalla lettura globale/estensiva?",
+    "opts": [
+      "La lettura selettiva cerca parole o informazioni specifiche, quella globale mira a comprendere il significato complessivo del testo",
+      "La lettura selettiva è più lenta e approfondita di quella globale",
+      "La lettura globale è usata nei testi di consultazione, quella selettiva nelle letture di svago",
+      "La lettura selettiva richiede annotazioni a margine, quella globale no"
+    ],
+    "correct": 0,
+    "explanation": "La lettura selettiva serve a cercare parole o informazioni specifiche ed è tipica dei testi di consultazione; la lettura globale mira a comprendere il significato complessivo del testo, usata per le letture di svago."
+  },
+  {
+    "id": "did-097",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 4 — La didattica della lettura e della scrittura",
+    "q": "Cosa sono le 'inferenze di integrazione' nel processo di comprensione del testo?",
+    "opts": [
+      "Connessioni create tra le parti del testo attraverso i connettivi espliciti",
+      "Informazioni ricavate dalla struttura sintattica delle frasi del testo",
+      "Il recupero di informazioni mancanti nel testo ricorrendo al repertorio di conoscenze personali del lettore",
+      "L'integrazione tra le informazioni del testo e le domande dell'insegnante"
+    ],
+    "correct": 2,
+    "explanation": "Le inferenze di integrazione consistono nel recuperare informazioni mancanti ricorrendo al repertorio di conoscenze personale del lettore, perché non esplicitate nel testo."
+  },
+  {
+    "id": "did-098",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 4 — La didattica della lettura e della scrittura",
+    "q": "Quali sono gli schemi cognitivi dinamici descritti nel testo?",
+    "opts": [
+      "Frames e schemata",
+      "Scripts/copioni e plans",
+      "Memoria semantica e memoria episodica",
+      "Inferenze di connessione e inferenze di integrazione"
+    ],
+    "correct": 1,
+    "explanation": "Il testo distingue schemi cognitivi statici (frames e schemata) e dinamici: scripts/copioni (sequenze di azioni convenzionali legate a situazioni specifiche) e plans (schemi dinamici più complessi legati alla conoscenza degli scopi delle azioni)."
+  },
+  {
+    "id": "did-099",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 4 — 2.3.1.1 Le domande",
+    "q": "Quali sono le domande che prevedono processi di riformulazione, dove la risposta è nel testo ma in una forma diversa rispetto alla domanda?",
+    "opts": [
+      "Domande fattuali",
+      "Domande a parafrasi",
+      "Domande inferenziali",
+      "Domande chiuse"
+    ],
+    "correct": 1,
+    "explanation": "Le domande a parafrasi prevedono processi di riformulazione: la risposta è nel testo ma in un'altra forma rispetto alla domanda."
+  },
+  {
+    "id": "did-100",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 4 — 2.3.1.1 Le domande",
+    "q": "Cosa richiedono le domande inferenziali/concettuali?",
+    "opts": [
+      "Di trovare una risposta esplicitamente indicata nel testo",
+      "Di riformulare la risposta con parole proprie",
+      "Di ricavare un'informazione non espressa esplicitamente nel testo",
+      "Di scegliere tra più opzioni fornite dall'insegnante"
+    ],
+    "correct": 2,
+    "explanation": "Le domande inferenziali/concettuali richiedono di ricavare un'informazione non espressa esplicitamente nel testo."
+  },
+  {
+    "id": "did-101",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 4 — 2.3.1.2 Il cloze",
+    "q": "Qual è la principale funzione didattica della tecnica del cloze?",
+    "opts": [
+      "Favorire la memorizzazione mnemotica di parole isolate",
+      "Collegare informazioni nuove e date, riflettere sulla struttura dei testi e favorire la memorizzazione dei contenuti",
+      "Allenare la velocità di lettura silenziosa",
+      "Stimolare la produzione orale spontanea degli studenti"
+    ],
+    "correct": 1,
+    "explanation": "Il cloze è utile per la capacità di collegare informazioni nuove e date, riflettere sulla struttura dei testi e favorire la memorizzazione dei contenuti; impone inoltre di leggere sempre la parte successiva per capire l'importanza del contesto."
+  },
+  {
+    "id": "did-102",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 4 — 2.3.1.2 Il cloze",
+    "q": "In quale variante del cloze le parole da inserire vengono fornite sotto il testo, eventualmente con un 'intruso'?",
+    "opts": [
+      "Cloze a crescere",
+      "Cloze meccanico",
+      "Cloze orale",
+      "Cloze facilitato"
+    ],
+    "correct": 3,
+    "explanation": "Il cloze facilitato prevede che sotto il testo siano riportate le parole da inserire, magari con l'aggiunta di un 'intruso'."
+  },
+  {
+    "id": "did-103",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 4 — 2.3.1.2 Il cloze",
+    "q": "Come funziona la variante 'cloze a crescere' secondo Balboni?",
+    "opts": [
+      "Si tolgono le parole partendo dalla fine del testo verso l'inizio",
+      "Si tolgono prima le parole più lunghe e poi quelle più brevi",
+      "Si toglie una parola ogni sette circa (tranne le prime righe) e poi le lacune diventano sempre più frequenti",
+      "Si tolgono solo i verbi, poi gli aggettivi, poi i sostantivi"
+    ],
+    "correct": 2,
+    "explanation": "Nel cloze 'a crescere' si toglie una parola ogni sette circa (a parte dalle prime righe che servono a dare un contesto) e poi le lacune diventano man mano sempre più frequenti."
+  },
+  {
+    "id": "did-104",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 4 — 2.3.1.3 Il puzzle di parole",
+    "q": "Qual è l'obiettivo principale del puzzle di parole come attività didattica?",
+    "opts": [
+      "La produzione autonoma di un nuovo testo originale",
+      "La ricostruzione di un testo riordinando pezzi di frasi, parole, sintagmi o paragrafi",
+      "La memorizzazione di un testo attraverso la ripetizione",
+      "La comprensione uditiva tramite registrazioni con pause"
+    ],
+    "correct": 1,
+    "explanation": "Il puzzle di parole è finalizzato alla ricostruzione del testo: si tratta di riordinare pezzi di frasi o testi — parole, sintagmi, paragrafi, parti di un dialogo, testi."
+  },
+  {
+    "id": "did-105",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 4 — 2.3.1.3 Il puzzle di parole",
+    "q": "Riguardo al risultato del puzzle di parole, cosa si afferma nel testo?",
+    "opts": [
+      "Deve riprodurre esattamente il testo originale",
+      "Non deve riprodurre il testo originale perché l'obiettivo è la creatività",
+      "Non dev'essere per forza esattamente come il testo originale, purché sia coerente e coeso",
+      "Deve essere valutato esclusivamente in base alla correttezza grammaticale"
+    ],
+    "correct": 2,
+    "explanation": "Il risultato del puzzle di parole non dev'essere per forza esattamente come il testo originale, purché sia coerente e coeso."
+  },
+  {
+    "id": "did-106",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 4 — 2.3.1.4 La parafrasi, il riassunto e la sintesi",
+    "q": "Qual è la differenza fondamentale tra riassunto e sintesi?",
+    "opts": [
+      "Il riassunto usa un registro colloquiale, la sintesi uno formale",
+      "Il riassunto parte da un unico testo, la sintesi parte da più testi",
+      "Il riassunto è più breve della sintesi",
+      "La sintesi prevede cancellazioni mentre il riassunto prevede generalizzazioni"
+    ],
+    "correct": 1,
+    "explanation": "Il riassunto parte da un unico testo di partenza, mentre la sintesi parte da più testi di partenza."
+  },
+  {
+    "id": "did-107",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 4 — 2.3.1.4 La parafrasi, il riassunto e la sintesi",
+    "q": "Quali sono le tre azioni previste dal riassunto e dalla sintesi?",
+    "opts": [
+      "Selezione, traduzione e ampliamento",
+      "Cancellazione dei contenuti non essenziali, generalizzazione delle informazioni, costruzione (compressione in macro-atto)",
+      "Identificazione del tema, elaborazione di titoli, produzione di testo nuovo",
+      "Lettura analitica, annotazione a margine, riscrittura integrale"
+    ],
+    "correct": 1,
+    "explanation": "Riassunto e sintesi prevedono tre azioni: cancellazione dei contenuti non essenziali, generalizzazione delle informazioni e costruzione (comprimere in un macro-atto una sequenza di proposizioni)."
+  },
+  {
+    "id": "did-108",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 4 — 2.3.2.1 L'insegnamento reciproco",
+    "q": "Quali sono le quattro azioni dell'insegnamento reciproco?",
+    "opts": [
+      "Leggere, sottolineare, annotare, riassumere",
+      "Predire, interrogare, chiarire, riassumere",
+      "Ascoltare, parlare, leggere, scrivere",
+      "Motivare, esplorare, applicare, valutare"
+    ],
+    "correct": 1,
+    "explanation": "Le quattro azioni dell'insegnamento reciproco sono: predire (fare ipotesi), interrogare (formulare domande come docenti), chiarire (riconoscere passaggi difficili e superare l'ostacolo col gruppo), riassumere."
+  },
+  {
+    "id": "did-109",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 4 — 2.3.2.1 L'insegnamento reciproco",
+    "q": "Nel modello di Cardarello e Bertolini per l'insegnamento reciproco, cosa avviene nella fase del 'modellamento'?",
+    "opts": [
+      "Gli studenti assumono il ruolo dell'insegnante e applicano le strategie",
+      "Il docente verbalizza le operazioni che la mente compie durante la comprensione",
+      "Il docente fornisce un feedback incoraggiando gli studenti a interrogare e riassumere",
+      "Il docente spiega direttamente le strategie di comprensione ed esemplifica"
+    ],
+    "correct": 1,
+    "explanation": "Nella fase del modellamento il docente verbalizza le operazioni che la mente compie durante la comprensione, rendendo esplicito il processo cognitivo."
+  },
+  {
+    "id": "did-110",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 4 — 2.3.2.2 Il social reading",
+    "q": "Qual è il ruolo del docente nel social reading?",
+    "opts": [
+      "Lettore principale che guida la lettura ad alta voce",
+      "Valutatore dei testi prodotti dagli studenti",
+      "Mediatore che fornisce domande-stimolo, motiva le discussioni e raccoglie il materiale prodotto",
+      "Osservatore passivo che non interviene durante la lettura collettiva"
+    ],
+    "correct": 2,
+    "explanation": "Nel social reading il docente ha il ruolo di mediatore: fornisce domande-stimolo, interviene per motivare le discussioni, coordina le interazioni e poi raccoglie il materiale prodotto."
+  },
+  {
+    "id": "did-111",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 4 — 2.3.2.3 L'approccio cooperativo di Chambers",
+    "q": "L'approccio 'Tell me' di Chambers è una pratica di social reading in quale ambiente?",
+    "opts": [
+      "Digitale, su piattaforme web dedicate",
+      "Non digitale, basato sul dialogo e la discussione in presenza",
+      "Ibrido, alternando incontri in presenza e interazioni online",
+      "Individuale, con attività da svolgere a casa"
+    ],
+    "correct": 1,
+    "explanation": "L'approccio Tell me di Chambers è una pratica di social reading in ambiente non digitale, che prevede la condivisione attraverso il dialogo e la discussione delle osservazioni su quanto letto."
+  },
+  {
+    "id": "did-112",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 4 — 2.3.2.3 L'approccio cooperativo di Chambers",
+    "q": "Nell'approccio di Chambers, perché si sconsiglia di usare la parola 'Perché?' nelle domande agli studenti?",
+    "opts": [
+      "Perché è grammaticalmente scorretta nel registro scolastico",
+      "Perché è troppo vaga e non orienta la riflessione",
+      "Perché è una parola aggressiva, polemica e demoralizzante",
+      "Perché introduce ragionamenti causali troppo complessi per i giovani lettori"
+    ],
+    "correct": 2,
+    "explanation": "Secondo Chambers, 'Perché?' è una parola aggressiva, polemica e demoralizzante; si devono trovare alternative che valorizzino l'opinione degli studenti, come 'come lo sai?'."
+  },
+  {
+    "id": "did-113",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 4 — 2.4 La scelta dei testi",
+    "q": "Quali criteri interni vengono indicati per la scelta dei testi da utilizzare in classe?",
+    "opts": [
+      "Lunghezza del testo e anno di pubblicazione",
+      "Livello di difficoltà (gradualità) e qualità linguistica e letteraria",
+      "Popolarità tra gli studenti e disponibilità in biblioteca",
+      "Costo del materiale e formato digitale o cartaceo"
+    ],
+    "correct": 1,
+    "explanation": "I criteri interni per la scelta dei testi sono: il livello di difficoltà (gradualità) e la qualità linguistica e letteraria, poiché i testi sono fonte di arricchimento linguistico e culturale."
+  },
+  {
+    "id": "did-114",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 4 — 3.2 Come scrivono i bambini 'inesperti'",
+    "q": "Cosa si intende con 'knowledge telling' nella scrittura dei bambini inesperti?",
+    "opts": [
+      "La capacità di trasformare le conoscenze in un testo argomentativo strutturato",
+      "L'abilità di selezionare solo le informazioni rilevanti per il destinatario",
+      "Il limitarsi a dire ciò che si sa, senza rielaborazione",
+      "La tendenza a copiare brani da testi già esistenti"
+    ],
+    "correct": 2,
+    "explanation": "Il 'knowledge telling' consiste nel dire ciò che si sa senza rielaborazione: è la caratteristica dei testi prodotti dai bambini inesperti."
+  },
+  {
+    "id": "did-115",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 4 — 3.2 Come scrivono i bambini 'inesperti'",
+    "q": "Qual è la caratteristica principale dei 'testi a flusso' prodotti dai bambini nelle primissime fasi di scrittura?",
+    "opts": [
+      "Utilizzo eccessivo di connettivi complessi e subordinate",
+      "Assenza di interpunzione e incapacità di costruire la frase",
+      "Struttura rigidamente suddivisa in paragrafi",
+      "Presenza di un vocabolario ricco ma con errori ortografici"
+    ],
+    "correct": 1,
+    "explanation": "I testi a flusso sono una primissima fase caratterizzata dall'assenza di interpunzione: il bambino non ha ancora la capacità di costruire la frase."
+  },
+  {
+    "id": "did-116",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 4 — 3.3 Come scrivono i bambini 'esperti'",
+    "q": "Cosa caratterizza il 'knowledge transforming' nei bambini esperti nella scrittura?",
+    "opts": [
+      "La capacità di scrivere testi molto lunghi e ricchi di dettagli",
+      "La tendenza a riprodurre fedelmente testi già letti",
+      "Il trasformare ciò che si sa, rielaborando le conoscenze in forma riflessiva e problematizzata",
+      "L'utilizzo corretto di punteggiatura e ortografia"
+    ],
+    "correct": 2,
+    "explanation": "Il 'knowledge transforming' consiste nel trasformare ciò che si sa: il bambino esperto problematizza i ricordi per costruire su di essi una revisione delle proprie conoscenze, non si limita a elencarne i contenuti."
+  },
+  {
+    "id": "did-117",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 4 — 3.4 Costruire il linguaggio in autonomia: il ruolo del docente",
+    "q": "Quali sono i quattro 'appigli' che il docente può costruire per aiutare gli studenti nella scrittura autonoma?",
+    "opts": [
+      "Dizionario, grammatica, manuale di stile, enciclopedia",
+      "Consegna di scrittura, schemi testuali, modelli, ciò che si fa prima della scrittura",
+      "Brainstorming, mappa concettuale, scaletta, bozza",
+      "Lettura del testo, comprensione, analisi, produzione"
+    ],
+    "correct": 1,
+    "explanation": "Il docente deve costruire un sistema di appigli composto da: consegna di scrittura, schemi testuali, modelli e ciò che si fa prima della scrittura (attività pre-scrittura)."
+  },
+  {
+    "id": "did-118",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 4 — 3.5 Il primo appiglio: la consegna di scrittura",
+    "q": "Qual è la caratteristica principale di una buona consegna di scrittura secondo il testo?",
+    "opts": [
+      "Essere breve e sintetica per non vincolare la creatività dello studente",
+      "Essere problematica: non troppo facile, non troppo difficile, non troppo ampia e aperta",
+      "Essere completamente aperta per stimolare la libera espressione",
+      "Essere identica per tutti gli studenti per garantire equità nella valutazione"
+    ],
+    "correct": 1,
+    "explanation": "La caratteristica principale di una buona consegna è la problematicità: non troppo facile, non troppo difficile, non troppo ampia e aperta. È più lunga e dettagliata e offre appigli agli studenti."
+  },
+  {
+    "id": "did-119",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 4 — 3.6 Il secondo appiglio: gli schemi testuali",
+    "q": "Perché è fondamentale far scoprire e interiorizzare le strutture testuali prima di far scrivere un testo?",
+    "opts": [
+      "Perché riduce il tempo necessario per la correzione dell'insegnante",
+      "Perché solo così gli studenti saranno in grado di produrre un testo e si trasmette l'idea che alla base di un testo ci sono delle regole",
+      "Perché permette di confrontare i testi degli studenti con un modello di riferimento standardizzato",
+      "Perché agevola la memorizzazione dei contenuti disciplinari"
+    ],
+    "correct": 1,
+    "explanation": "Far scoprire e interiorizzare le strutture testuali è fondamentale perché solo così gli studenti saranno in grado di produrre un testo e si trasmette l'idea che alla base di un testo ci sono delle regole."
+  },
+  {
+    "id": "did-120",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 4 — 3.7 Il terzo appiglio: una biblioteca di modelli",
+    "q": "A quale scopo vengono utilizzati i testi-modello nella didattica della scrittura?",
+    "opts": [
+      "Per essere imitati fedelmente dagli studenti come esercizio di copia",
+      "Per ricavare tratti e caratteristiche strutturali in maniera efficace e apprezzare stile, varietà e ricchezza lessicale",
+      "Per valutare il livello di lettura degli studenti rispetto a testi complessi",
+      "Per sostituire la consegna di scrittura quando questa risulta troppo difficile"
+    ],
+    "correct": 1,
+    "explanation": "I modelli vengono usati non per imitazione, ma per sfruttare la buona qualità di un testo al fine di ricavare tratti e caratteristiche in maniera efficace, e per apprezzare stile, varietà e ricchezza lessicale."
+  },
+  {
+    "id": "did-121",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 4 — 3.9 Tre validi allenamenti: scrivere riassunti, recensioni e quarte di copertina",
+    "q": "Quale vantaggio specifico offre il riassunto come allenamento alla scrittura?",
+    "opts": [
+      "Permette di evitare la fase difficile di raccolta delle idee, perché il contenuto è già presente nel testo di partenza",
+      "Stimola la creatività perché lascia ampia libertà nell'invenzione dei contenuti",
+      "Allena principalmente la competenza ortografica e la punteggiatura",
+      "Sviluppa la capacità argomentativa attraverso la difesa di una tesi personale"
+    ],
+    "correct": 0,
+    "explanation": "Il riassunto come allenamento permette di evitare la fase difficile di raccolta delle idee, perché il contenuto è già presente nel testo di partenza; ci si concentra sul selezionare le informazioni importanti e organizzare una riscrittura."
+  },
+  {
+    "id": "did-122",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 4 — 3.10.1 La riscrittura grammaticale",
+    "q": "Su cosa interviene la riscrittura grammaticale?",
+    "opts": [
+      "Sul punto di vista narrativo e sulle caratteristiche del protagonista",
+      "Sul luogo di ambientazione e sul finale del testo",
+      "Unicamente su aspetti linguistico-grammaticali come la morfologia",
+      "Sul contenuto e sullo stile complessivo del testo"
+    ],
+    "correct": 2,
+    "explanation": "La riscrittura grammaticale richiede di trasformare il testo intervenendo unicamente su aspetti linguistico-grammaticali (es. morfologia): riscrivere al passato, cambiare il genere del protagonista, renderlo plurale, ecc."
+  },
+  {
+    "id": "did-123",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 4 — 3.10.3 La riscrittura 'mista'",
+    "q": "Cosa caratterizza la riscrittura 'mista' rispetto alle altre tipologie di riscrittura?",
+    "opts": [
+      "Si applica solo a testi poetici e richiede la trasformazione in prosa",
+      "Combina trasformazioni sia linguistico-grammaticali sia di contenuto, ed è consigliata preferibilmente in gruppo",
+      "Prevede solo interventi sul registro linguistico, senza modificare i contenuti",
+      "È riservata ai livelli scolastici più avanzati e non si applica alla scuola primaria"
+    ],
+    "correct": 1,
+    "explanation": "La riscrittura mista combina trasformazioni dal punto di vista linguistico-grammaticale e dal punto di vista del contenuto; si tratta di richieste più complesse, consigliate preferibilmente in gruppo su testi brevi e già noti."
+  },
+  {
+    "id": "did-124",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 4 — 3.12 La valutazione delle competenze di scrittura",
+    "q": "Come deve essere condotta la valutazione delle competenze di scrittura in una didattica progettuale?",
+    "opts": [
+      "Esclusivamente sul prodotto finale, confrontandolo con un testo modello",
+      "In base al numero di errori grammaticali e ortografici presenti nel testo",
+      "Sul processo di apprendimento, monitorato costantemente, tenendo conto del progresso rispetto al punto di partenza",
+      "Attraverso una valutazione sommativa alla fine dell'anno scolastico"
+    ],
+    "correct": 2,
+    "explanation": "La valutazione non va fatta sul prodotto finale, ma sul processo di apprendimento, che va monitorato costantemente per capire progressi e punti da migliorare, tenendo conto anche del progresso rispetto al punto di partenza."
+  },
+  {
+    "id": "did-125",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 4 — 3.13 La correzione",
+    "q": "Qual è il rischio principale della modalità di correzione 'rilevativa'?",
+    "opts": [
+      "Che imponga il punto di vista dell'insegnante senza attivare la riflessione dello studente",
+      "Che porti a ipercorrettismo per sbagliata individuazione dell'errore vero",
+      "Che richieda troppo tempo rispetto alla correzione risolutiva",
+      "Che non fornisca alcuna indicazione allo studente su dove si trova l'errore"
+    ],
+    "correct": 1,
+    "explanation": "La correzione rilevativa — che rileva la presenza di un errore senza correggerlo — può portare a ipercorrettismo, perché lo studente potrebbe individuare erroneamente quale sia l'errore vero e correggere una parte che invece era corretta."
+  },
+  {
+    "id": "did-126",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 6 — La riflessione sulla lingua",
+    "q": "Secondo il testo, il pregiudizio negativo sulla grammatica deriva principalmente da:",
+    "opts": [
+      "Una lunga storia didattica che l'ha presentata come schematismi vuoti e regole da applicare",
+      "La difficoltà intrinseca della lingua italiana rispetto ad altre lingue",
+      "La scarsa preparazione degli insegnanti di italiano",
+      "Il fatto che la grammatica non abbia alcuna utilità pratica"
+    ],
+    "correct": 0,
+    "explanation": "Il testo afferma che il pregiudizio sulla grammatica — vista come fatta di regole da applicare e schematismi vuoti — deriva da una lunga storia didattica, nonostante ci fossero intuizioni felici anche nel passato."
+  },
+  {
+    "id": "did-127",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 6 — La riflessione sulla lingua",
+    "q": "Che cosa significa, secondo il cap. 6, che la grammatica è una 'scienza intelligente'?",
+    "opts": [
+      "Che contiene molte regole logiche e precise",
+      "Che deve essere mezzo per indagare il linguaggio, rivederlo e migliorarlo, attivando il ragionamento",
+      "Che può essere appresa solo da studenti con alto quoziente intellettivo",
+      "Che il suo insegnamento richiede strumenti tecnologici avanzati"
+    ],
+    "correct": 1,
+    "explanation": "Il testo definisce la grammatica 'scienza intelligente' nel senso che deve essere mezzo per indagare il nostro e altrui operato linguistico, rivederlo, migliorarlo, effettuare scelte — una grammatica per l'intelligenza che attivi il ragionamento."
+  },
+  {
+    "id": "did-128",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 6 — La riflessione sulla lingua",
+    "q": "Uno dei problemi della grammatica come metalinguaggio è:",
+    "opts": [
+      "L'assenza di qualsiasi terminologia specifica",
+      "L'ipertrofia dei termini grammaticali",
+      "La mancanza di riferimenti alla lingua parlata",
+      "L'eccessiva semplicità dei contenuti proposti"
+    ],
+    "correct": 1,
+    "explanation": "Il testo indica che la grammatica si configura come metalinguaggio e che uno dei problemi è proprio l'ipertrofia dei termini grammaticali."
+  },
+  {
+    "id": "did-129",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 6 — La riflessione sulla lingua",
+    "q": "Tra le critiche alla grammatica tradizionale elencate nel testo, quale NON è menzionata?",
+    "opts": [
+      "Limitatezza dei livelli linguistici indagati (soprattutto morfosintassi)",
+      "Riferimento a un linguaggio formale scritto come modello",
+      "Eccessiva attenzione alla varietà linguistica e ai dialetti",
+      "Impianto teorico e concettuale spesso antico"
+    ],
+    "correct": 2,
+    "explanation": "Le critiche elencate nel testo riguardano limitatezza di livelli linguistici, riferimento al linguaggio formale scritto, impianto teorico antico e mancanza di varietà linguistica. La grammatica tradizionale è criticata proprio per aver tralasciato la varietà linguistica, non per averla studiata eccessivamente."
+  },
+  {
+    "id": "did-130",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 6 — La riflessione sulla lingua",
+    "q": "Secondo Coseriu, citato nel testo, cos'è il 'sistema' di una lingua?",
+    "opts": [
+      "Le concretizzazioni reali di una lingua in una data comunità",
+      "L'insieme delle possibilità potenzialmente offerte da una lingua tramite i suoi meccanismi",
+      "Le regole esplicite prescritte nelle grammatiche normative",
+      "Il modello standard imposto dall'istruzione pubblica"
+    ],
+    "correct": 1,
+    "explanation": "Secondo Coseriu, bisogna distinguere fra sistema (insieme delle possibilità potenzialmente offerte da una lingua tramite i suoi meccanismi) e norma (concretizzazioni reali del sistema in una data comunità ritenute accettabili)."
+  },
+  {
+    "id": "did-131",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 6 — La riflessione sulla lingua",
+    "q": "La 'norma implicita', come descritta nel testo, consiste in:",
+    "opts": [
+      "Le regole esplicitamente proposte nelle grammatiche scolastiche",
+      "Un istinto che porta i parlanti a praticare una sorta di sanzione sociale a chi la infrange",
+      "Le disposizioni ufficiali del Ministero dell'Istruzione",
+      "L'insieme degli errori tollerati nell'uso scritto formale"
+    ],
+    "correct": 1,
+    "explanation": "Il testo distingue norma implicita — istinto che porta i parlanti a praticare una sorta di sanzione sociale a chi la infrange — e norma esplicita, proposta nelle grammatiche."
+  },
+  {
+    "id": "did-132",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 6 — La riflessione sulla lingua",
+    "q": "Riguardo alla terminologia grammaticale in classe, il testo raccomanda di:",
+    "opts": [
+      "Introdurre tutti i termini specialistici fin dalle prime lezioni per abituare gli studenti",
+      "Evitare completamente qualsiasi termine tecnico nella scuola primaria",
+      "Adottare una progressione dei contenuti e dei termini, privilegiando acquisizioni meno ma più profonde",
+      "Sostituire sempre la terminologia grammaticale con parole alternative per favorire la comprensione"
+    ],
+    "correct": 2,
+    "explanation": "Il testo afferma che si dovrebbe adottare una progressione dei contenuti e dei termini, privilegiando meno acquisizioni ma più profonde, evitando l'eccesso di terminologia tipico della grammatica tradizionale."
+  },
+  {
+    "id": "did-133",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 6 — La riflessione sulla lingua",
+    "q": "Secondo Lo Duca, citata nel testo, quante sono le ragioni a favore del fare grammatica durante tutto il percorso scolastico?",
+    "opts": [
+      "Due",
+      "Tre",
+      "Quattro",
+      "Cinque"
+    ],
+    "correct": 2,
+    "explanation": "Il testo riporta quattro ragioni a favore (<Lo Duca): disposizioni ufficiali, ripercussioni sulle capacità nell'uso, spontanea attività del bambino a costruire ipotesi sulla propria lingua, gestione dell'errore."
+  },
+  {
+    "id": "did-134",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 6 — La riflessione sulla lingua",
+    "q": "Il LAD (Language Acquisition Device) è stato proposto da:",
+    "opts": [
+      "Bruner",
+      "Chomsky",
+      "Piaget",
+      "Karmiloff-Smith"
+    ],
+    "correct": 1,
+    "explanation": "Il testo indica che il LAD (Language Acquisition Device) — dispositivo innato di acquisizione linguistica — è stato proposto da Chomsky, mentre il LASS (Language Acquisition Support System) è di Bruner."
+  },
+  {
+    "id": "did-135",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 6 — La riflessione sulla lingua",
+    "q": "Il LASS (Language Acquisition Support System) si riferisce a:",
+    "opts": [
+      "Un dispositivo innato di acquisizione linguistica presente in ogni essere umano",
+      "Il sostegno sociale dato all'interazione che supporta l'acquisizione della lingua",
+      "Un programma informatico per l'apprendimento delle lingue straniere",
+      "La capacità cognitiva di generalizzare le regole grammaticali"
+    ],
+    "correct": 1,
+    "explanation": "Il LASS (Language Acquisition Support System), proposto da Bruner, è il sistema di supporto all'acquisizione: il sostegno sociale dato all'interazione."
+  },
+  {
+    "id": "did-136",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 6 — La riflessione sulla lingua",
+    "q": "Che cosa significa 'fare grammatica' secondo la prospettiva presentata nel par. 1.3?",
+    "opts": [
+      "Memorizzare regole grammaticali e applicarle meccanicamente",
+      "Trasformare la sensibilità linguistica in coscienza, convertendo la grammatica implicita in esplicita",
+      "Studiare la storia della lingua italiana attraverso i secoli",
+      "Correggere gli errori degli studenti con esercizi di completamento"
+    ],
+    "correct": 1,
+    "explanation": "Il testo afferma che fare grammatica è trasformare la sensibilità in coscienza, diventare consapevoli, trasformare la grammatica implicita del bambino in esplicita."
+  },
+  {
+    "id": "did-137",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 6 — La riflessione sulla lingua",
+    "q": "La 'grammatica emergente' descritta nel testo si riferisce a:",
+    "opts": [
+      "Un nuovo manuale di grammatica pubblicato di recente",
+      "La grande sensibilità linguistica e intuito dei bambini nel cogliere i fenomeni della loro lingua",
+      "Le regole grammaticali che emergono dalla letteratura contemporanea",
+      "Un approccio didattico basato sull'emergenza cognitiva"
+    ],
+    "correct": 1,
+    "explanation": "Il testo indica che i bambini hanno grande sensibilità linguistica e intuito nel cogliere i fenomeni della loro lingua (es. capiscono differenza fra 'gatto' e 'gattino'), e che esiste per questo una grammatica emergente."
+  },
+  {
+    "id": "did-138",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 6 — La riflessione sulla lingua",
+    "q": "Nella distinzione terminologica fra 'grammatica' e 'riflessione sulla lingua', cosa implica la seconda espressione secondo il par. 1.4?",
+    "opts": [
+      "Un ritorno all'analisi grammaticale, logica e del periodo tradizionale",
+      "Un'attività mentale diversa, centrata sullo studente e sui suoi processi cognitivi",
+      "Lo studio esclusivo della morfologia e dell'ortografia",
+      "L'applicazione di regole prescrittive in modo sistematico"
+    ],
+    "correct": 1,
+    "explanation": "Il testo afferma che fare grammatica non significa più solo insegnare la grammatica, ma intraprendere con gli studenti una diversa attività mentale, mettendo al centro lo studente e i suoi processi."
+  },
+  {
+    "id": "did-139",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 6 — La riflessione sulla lingua",
+    "q": "Il modello valenziale è menzionato nel par. 1.4 come alternativa alla grammatica tradizionale perché:",
+    "opts": [
+      "È più semplice da memorizzare per gli studenti",
+      "Fornisce un modello teorico più economico che supera le lacune dei criteri nozionali-semantici",
+      "È l'unico modello approvato dalle Indicazioni Nazionali",
+      "Permette di insegnare la morfologia senza ricorrere agli esercizi"
+    ],
+    "correct": 1,
+    "explanation": "Il testo afferma che la grammatica tradizionale opera su criteri nozionali-semantici con risultati lacunosi e che servono nuovi modelli teorici più economici, come quello valenziale."
+  },
+  {
+    "id": "did-140",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 6 — La riflessione sulla lingua",
+    "q": "Qual è la differenza principale fra il metodo di scoperta della grammatica proposto da Lo Duca e l'approccio tradizionale, secondo il par. 1.4?",
+    "opts": [
+      "Lo Duca propone di partire dalla spiegazione della regola e poi vedere gli esempi, invertendo la sequenza tradizionale",
+      "Lo Duca propone un procedere induttivo che parte da dati concreti per arrivare alla regola, al contrario dell'approccio deduttivo tradizionale",
+      "Lo Duca propone di abolire completamente la terminologia grammaticale",
+      "Lo Duca propone di insegnare solo la sintassi, tralasciando la morfologia"
+    ],
+    "correct": 1,
+    "explanation": "Il testo descrive il metodo Lo Duca come un procedere induttivo che crea situazioni di problem solving: partire da frasi concrete, osservare, fare ipotesi, sistematizzare — al contrario dell'approccio deduttivo tradizionale che prima spiega la regola e poi mostra gli esempi."
+  },
+  {
+    "id": "did-141",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 6 — La riflessione sulla lingua",
+    "q": "Annette Karmiloff-Smith è descritta nel testo come:",
+    "opts": [
+      "Fondatrice della psicologia cognitiva e maestra di Chomsky",
+      "Allieva di Piaget che rivede e aggiorna la sua teoria dello sviluppo",
+      "Linguista che ha elaborato la teoria della valenza verbale",
+      "Ricercatrice che ha proposto il concetto di norma implicita ed esplicita"
+    ],
+    "correct": 1,
+    "explanation": "Il testo descrive Annette Karmiloff-Smith come allieva di Piaget che ne rivede e aggiorna la teoria, in particolare superando il concetto di stadi rigidi con quello di fasi."
+  },
+  {
+    "id": "did-142",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 6 — La riflessione sulla lingua",
+    "q": "Le tre fasi dello sviluppo cognitivo secondo Karmiloff-Smith sono, nell'ordine:",
+    "opts": [
+      "Rappresentazioni interne, raccolta dati esterni, ricomposizione",
+      "Raccolta dati esterni, focus sulle rappresentazioni interne, ricomposizione di dati esterni e rappresentazioni interne",
+      "Imitazione, generalizzazione, sistematizzazione",
+      "Implicito, esplicito 1, esplicito 2"
+    ],
+    "correct": 1,
+    "explanation": "Secondo Karmiloff-Smith, le fasi sono: raccolta dati esterni, focus sulle rappresentazioni interne, ricomposizione di dati esterni e rappresentazioni interne."
+  },
+  {
+    "id": "did-143",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 6 — La riflessione sulla lingua",
+    "q": "I participi 'errati' come 'aprito' o 'scenduto' prodotti dai bambini, secondo la teoria della RR, derivano da:",
+    "opts": [
+      "Imitazione di forme sentite dagli adulti nell'ambiente familiare",
+      "Un deficit nel dispositivo innato di acquisizione linguistica",
+      "Un bambino nella seconda fase che crea rappresentazioni interne generalizzando i dati raccolti",
+      "L'esposizione precoce a libri con errori di stampa"
+    ],
+    "correct": 2,
+    "explanation": "Il testo afferma che i participi sbagliati come 'aprito' e 'scenduto' non possono derivare da imitazione di stimoli esterni, ma si ipotizza vengano da un bambino che è nella seconda fase, in cui crea rappresentazioni interne generalizzando i dati raccolti."
+  },
+  {
+    "id": "did-144",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 6 — La riflessione sulla lingua",
+    "q": "La 'ridescrizione rappresentazionale' (RR) è importante per la didattica della grammatica perché:",
+    "opts": [
+      "Dimostra che i bambini non possono fare grammatica prima dei 10 anni",
+      "Implica che le rappresentazioni interne sono flessibili e manipolabili, rendendo utile riflettere con i bambini sulla lingua",
+      "Prova che l'innatismo è l'unico fattore nello sviluppo linguistico",
+      "Giustifica il ritorno all'approccio deduttivo nella scuola primaria"
+    ],
+    "correct": 1,
+    "explanation": "Il testo afferma che la ridescrizione rappresentazionale implica che le rappresentazioni interne non sono immutabili, ma flessibili e manipolabili — e che se non ci fosse, sarebbe inutile riflettere coi bambini sulla lingua."
+  },
+  {
+    "id": "did-145",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 6 — La riflessione sulla lingua",
+    "q": "L'approccio deduttivo nella lezione tradizionale di grammatica prevede, nell'ordine:",
+    "opts": [
+      "Dati concreti, ragionamento per confronto, costruzione di regole",
+      "Spiegazione del fenomeno da parte del docente, descrizione della regola, verifica dell'apprendimento",
+      "Osservazione, ipotesi, sistematizzazione, ridescrizione",
+      "Testo, frase, parola, sistematizzazione"
+    ],
+    "correct": 1,
+    "explanation": "Il testo descrive l'approccio deduttivo come: spiegazione del fenomeno da parte del docente partendo da esempi, descrizione della regola, verifica dell'apprendimento."
+  },
+  {
+    "id": "did-146",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 6 — La riflessione sulla lingua",
+    "q": "Nell'approccio induttivo descritto nel par. 2.4, quale momento NON è sempre presente?",
+    "opts": [
+      "L'insieme di fenomeni linguistici come punto di partenza",
+      "Il ragionamento per confronto e contrasto",
+      "La costruzione di regole",
+      "La messa a punto e la ridescrizione delle regole"
+    ],
+    "correct": 3,
+    "explanation": "Il testo elenca i momenti dell'approccio induttivo specificando che la messa a punto e la ridescrizione delle regole sono presenti 'non sempre' — sono momenti eventuali, non obbligatori."
+  },
+  {
+    "id": "did-147",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 6 — La riflessione sulla lingua",
+    "q": "Tra gli svantaggi dell'approccio induttivo rispetto a quello deduttivo, il testo menziona:",
+    "opts": [
+      "Il fatto che non sviluppa il pensiero critico degli studenti",
+      "I tempi lunghi di programmazione e realizzazione e i risultati non totalmente prevedibili",
+      "La difficoltà degli studenti ad accettare un approccio basato sulla scoperta",
+      "L'incompatibilità con qualsiasi manuale scolastico disponibile"
+    ],
+    "correct": 1,
+    "explanation": "Il testo elenca tra gli svantaggi dell'approccio induttivo: il tempo lungo per la programmazione, i pochi testi che seguono questo metodo, il tempo lungo per la realizzazione, i risultati non totalmente prevedibili e la difficoltà di inserire queste attività nei tempi della programmazione scolastica."
+  },
+  {
+    "id": "did-148",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 6 — La riflessione sulla lingua",
+    "q": "Nelle Indicazioni Nazionali, i nuclei relativi a grammatica e riflessione sulla lingua comprendono:",
+    "opts": [
+      "Solo morfologia e sintassi",
+      "Lessico, morfologia, sintassi, ortografia e punteggiatura",
+      "Fonologia, morfologia, sintassi, lessico e pragmatica",
+      "Ortografia, morfologia, analisi logica e analisi del periodo"
+    ],
+    "correct": 1,
+    "explanation": "Il testo indica che i nuclei relativi a grammatica e riflessione sulla lingua nelle Indicazioni Nazionali sono: lessico, morfologia, sintassi, ortografia e punteggiatura."
+  },
+  {
+    "id": "did-149",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 6 — La riflessione sulla lingua",
+    "q": "Il principio di 'ciclicità non ripetitiva' proposto da Colombo per il sillabo di riflessione sulla lingua significa:",
+    "opts": [
+      "Ripetere ogni anno gli stessi argomenti grammaticali allo stesso modo per fissarli meglio",
+      "Affrontare gli argomenti a spirale, approfondendoli nei diversi cicli scolastici senza ripresentarli ripetitivamente",
+      "Fare grammatica solo nei cicli pari e lasciare quelli dispari liberi per la scrittura",
+      "Esaurire tutti gli argomenti grammaticali in ogni ciclo scolastico"
+    ],
+    "correct": 1,
+    "explanation": "Il testo descrive la ciclicità non ripetitiva come una didattica a spirale — opposta al tornare ripetitivamente sempre sulle stesse cose allo stesso modo — in cui i diversi cicli scolastici non devono esaurire tutti gli argomenti per forza."
+  },
+  {
+    "id": "did-150",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 6 — La riflessione sulla lingua",
+    "q": "Per la scuola dell'infanzia, il testo raccomanda che la riflessione sulla lingua sia:",
+    "opts": [
+      "Sistematica e basata su esercizi strutturati di morfologia",
+      "Non esplicita, ma realizzata creando situazioni spontanee e ludiche",
+      "Focalizzata sulla sintassi della frase complessa",
+      "Affidata esclusivamente ai genitori attraverso attività domestiche"
+    ],
+    "correct": 1,
+    "explanation": "Il testo indica che la scuola dell'infanzia è uno spazio in cui avvicinare i bambini alla riflessione sulla lingua non in forma esplicita, ma creando situazioni spontanee e ludiche."
+  },
+  {
+    "id": "did-151",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 6 — La riflessione sulla lingua",
+    "q": "Nella progressione dei contenuti per la scuola primaria, quale parte del discorso il testo suggerisce di introdurre prima tra aggettivi e pronomi?",
+    "opts": [
+      "I pronomi, perché sono più frequenti nei testi",
+      "Gli aggettivi qualificativi, poi gli altri aggettivi, poi i pronomi",
+      "I pronomi personali, poi i dimostrativi, poi gli aggettivi",
+      "Tutti insieme, perché le due categorie sono strettamente legate"
+    ],
+    "correct": 1,
+    "explanation": "Il testo specifica che per aggettivi e pronomi si propongono prima gli aggettivi qualificativi, poi gli altri aggettivi, e poi i pronomi."
+  },
+  {
+    "id": "did-152",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 6 — La riflessione sulla lingua",
+    "q": "Riguardo alla sintassi nella scuola primaria, il testo indica che alla fine del ciclo lo studente deve sapere:",
+    "opts": [
+      "Identificare tutti i complementi dell'analisi logica tradizionale",
+      "Analizzare frasi complesse con subordinate di vario tipo",
+      "Cos'è una frase nucleare funzionante, con il verbo e le sue valenze",
+      "Distinguere coordinazione e subordinazione in testi letterari"
+    ],
+    "correct": 2,
+    "explanation": "Il testo afferma che alla fine della primaria si deve sapere cos'è una frase nucleare funzionante, con riflessione sul verbo e le valenze, gli argomenti del verbo — soggetto, oggetto diretto e non, alcune espansioni e circostanti."
+  },
+  {
+    "id": "did-153",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 6 — La riflessione sulla lingua",
+    "q": "Per la scuola secondaria di primo grado, il testo indica che la sfida nel riprendere temi già affrontati consiste nel:",
+    "opts": [
+      "Presentarli in modo identico per consolidarne la memorizzazione",
+      "Riproporre esattamente gli stessi esercizi per verificare i progressi",
+      "Non riprendere mai gli argomenti già trattati in precedenza",
+      "Non riprenderli in maniera ripetitiva ma approfondirli con metodo induttivo"
+    ],
+    "correct": 3,
+    "explanation": "Il testo afferma che nella secondaria di primo grado è inevitabile riprendere alcuni temi già affrontati, ma la sfida è farlo approfondendoli — sempre con metodo induttivo, per scoperta — senza ripeterli in maniera ripetitiva."
+  },
+  {
+    "id": "did-154",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 6 — La riflessione sulla lingua",
+    "q": "Per la scuola secondaria di secondo grado, il testo segnala come difficoltà ricorrente degli studenti:",
+    "opts": [
+      "L'incapacità di usare correttamente le preposizioni semplici",
+      "La difficoltà a superare la visione lineare delle espressioni linguistiche e a gerarchizzare le componenti di frasi complesse",
+      "La scarsa conoscenza del vocabolario di base della lingua italiana",
+      "L'impossibilità di distinguere nomi propri da nomi comuni"
+    ],
+    "correct": 1,
+    "explanation": "Il testo indica che nel secondo ciclo le difficoltà ricorrenti degli studenti includono: superare la visione lineare delle espressioni linguistiche, gerarchizzare le componenti di frasi complesse, ammettere la ricorsività delle strutture e padroneggiare le procedure di coesione."
+  },
+  {
+    "id": "did-155",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 6 — La riflessione sulla lingua",
+    "q": "Tra i limiti dei manuali di grammatica elencati nel par. 3.4, quale è menzionato?",
+    "opts": [
+      "L'uso di troppi esempi tratti dalla letteratura classica",
+      "L'eccessiva attenzione al linguaggio parlato a scapito di quello scritto",
+      "Modello linguistico distante dalla realtà (scolastichese) e terminologia ipertrofica",
+      "La mancanza di qualsiasi esercizio di verifica"
+    ],
+    "correct": 2,
+    "explanation": "Il testo elenca tra i limiti dei manuali: alcune si rifanno a modelli innovativi ma non si preoccupano delle implicazioni didattiche, modello linguistico distante dalla realtà (scolastichese), spesso teoricamente deboli, incoerenti, lacunose, non universali, ipertrofiche nella terminologia."
+  },
+  {
+    "id": "did-156",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 6 — La riflessione sulla lingua",
+    "q": "Nell'approccio induttivo alla didattica dell'ortografia, i 'facilitatori' sono:",
+    "opts": [
+      "Gli insegnanti di sostegno che aiutano i bambini con difficoltà",
+      "Software educativi per l'apprendimento automatico dell'ortografia",
+      "Strumenti come check-list e cartelloni che aiutano a ricordare le regole durante la produzione",
+      "I testi semplificati usati come modelli ortografici"
+    ],
+    "correct": 2,
+    "explanation": "Il testo descrive i facilitatori come strumenti per ricordare le regole e gli errori, coerenti con la metafora didattica utilizzata, come check-list, cartelloni e fogli sui banchi da consultare durante la produzione per sviluppare autonomia."
+  },
+  {
+    "id": "did-157",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 6 — La riflessione sulla lingua",
+    "q": "La 'strada a tre corsie da percorrere a zigzag', proposta nel par. 4.2 per la morfologia, consiste nel lavorare su:",
+    "opts": [
+      "Fonologia, morfologia e sintassi in sequenza fissa",
+      "Parola, frase e testo in modo intrecciato",
+      "Grammatica implicita, grammatica esplicita e metalinguaggio",
+      "Approccio deduttivo, approccio induttivo e approccio misto"
+    ],
+    "correct": 1,
+    "explanation": "Il testo propone per la morfologia una 'strada a tre corsie da percorrere a zigzag' che riguarda i livelli di parola, frase e testo, da affrontare in modo intrecciato e non sequenziale."
+  },
+  {
+    "id": "did-158",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 6 — La riflessione sulla lingua",
+    "q": "Riguardo all'insegnamento della punteggiatura, il testo afferma che i manuali tradizionali errano perché:",
+    "opts": [
+      "Propongono troppi segni da imparare contemporaneamente",
+      "Ignorano la dimensione reale della punteggiatura, che si esprime nel testo e nel suo legame con gli altri livelli linguistici",
+      "Non includono esercizi pratici di applicazione",
+      "Si concentrano solo sulla punteggiatura dei dialoghi, trascurando la narrativa"
+    ],
+    "correct": 1,
+    "explanation": "Il testo critica i manuali perché definiscono il singolo segno con riferimento al concetto di pausa e propongono esercizi su singole frasi ad hoc, ignorando così la dimensione reale della punteggiatura che si esprime nel testo e nel suo legame con gli altri livelli linguistici."
+  },
+  {
+    "id": "did-159",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 6 — La riflessione sulla lingua",
+    "q": "La grammatica valenziale, proposta nel par. 4.4, risale originariamente a:",
+    "opts": [
+      "Sabatini (1990), che elabora il concetto di circostanti ed espansioni",
+      "Tesnière (1959), che introduce il concetto di valenza verbale e classifica i verbi per numero di argomenti",
+      "Chomsky (1957), che propone la grammatica generativa trasformazionale",
+      "Lo Duca e Provenzano, che sviluppano il gioco dei sintagmi"
+    ],
+    "correct": 1,
+    "explanation": "Il testo indica che la grammatica valenziale risale a Tesnière (1959), che elabora il concetto di valenza verbale e la classificazione in verbi mono-bi-tri-tetra-valenti. Sabatini introduce poi i concetti di circostanti ed espansioni."
+  },
+  {
+    "id": "did-160",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 6 — La riflessione sulla lingua",
+    "q": "Secondo il testo, quale affermazione riassume meglio la posizione sull'approccio valenziale alla fine del cap. 6?",
+    "opts": [
+      "È un approccio già completamente messo a punto che dovrebbe sostituire integralmente l'analisi logica tradizionale",
+      "Va abbandonato perché i suoi limiti superano i vantaggi rispetto all'approccio tradizionale",
+      "Non ancora totalmente messo a punto, ma merita di essere percorso con convinzione, esplorando le trasposizioni didattiche e trovando equilibrio fra innovazione e tradizione",
+      "È adatto solo alla scuola secondaria di secondo grado, non ai cicli inferiori"
+    ],
+    "correct": 2,
+    "explanation": "Il testo conclude affermando che l'approccio valenziale non è ancora totalmente messo a punto, ma è una pista che merita di essere percorsa con convinzione, esplorarne le trasposizioni didattiche e trovare equilibrio fra innovazione e tradizione."
+  },
+  {
+    "id": "did-161",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 7 — La didattica del lessico",
+    "q": "Qual è la differenza tra 'lessema' e 'lemma'?",
+    "opts": [
+      "Il lessema è la forma base da dizionario, il lemma è l'unità astratta di significato",
+      "Il lessema è un'unità astratta di significato, il lemma è la forma base convenzionale da dizionario",
+      "Il lessema riguarda solo le parole piene, il lemma solo le parole grammaticali",
+      "Lessema e lemma sono sinonimi usati in contesti diversi"
+    ],
+    "correct": 1,
+    "explanation": "Il lessema è un'entità astratta, unità di significato che si esprime in forme diverse; il lemma è la forma base con cui si rappresenta convenzionalmente un lessema nei dizionari."
+  },
+  {
+    "id": "did-162",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 7 — La didattica del lessico",
+    "q": "Qual è la distinzione tra parole lessicali (piene) e parole grammaticali (vuote) riguardo alla loro numerosità?",
+    "opts": [
+      "Entrambe le categorie hanno un numero fisso di elementi nella lingua",
+      "Le parole grammaticali crescono con i neologismi, le parole lessicali restano fisse",
+      "Le parole lessicali sono di numero variabile perché si aggiungono neologismi, mentre le grammaticali restano sostanzialmente fisse",
+      "Le parole grammaticali sono in numero variabile, le lessicali sono fisse"
+    ],
+    "correct": 2,
+    "explanation": "Le parole piene/lessicali sono di numero variabile perché si arricchiscono tramite i meccanismi di formazione delle parole e i neologismi, mentre le parole vuote/grammaticali restano sostanzialmente di numero fisso."
+  },
+  {
+    "id": "did-163",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 7 — La didattica del lessico",
+    "q": "Il 'Vocabolario di base' elaborato da Tullio De Mauro comprende circa quante parole ed è suddiviso in quante fasce?",
+    "opts": [
+      "Circa 5000 parole suddivise in 2 fasce",
+      "Circa 7000 parole suddivise in 3 fasce",
+      "Circa 10000 parole suddivise in 4 fasce",
+      "Circa 3000 parole suddivise in 2 fasce"
+    ],
+    "correct": 1,
+    "explanation": "Il Vocabolario di base di De Mauro comprende circa 7000 parole usate con maggiore frequenza statistica, suddivise in tre fasce: fondamentale (1900 parole), alto uso (2750) e alta disponibilità (2300)."
+  },
+  {
+    "id": "did-164",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 7 — La didattica del lessico",
+    "q": "La fascia del 'vocabolario di alta disponibilità' nel Vocabolario di base di De Mauro comprende parole caratterizzate da quale proprietà?",
+    "opts": [
+      "Le parole più usate in assoluto sia nello scritto che nel parlato",
+      "Parole molto frequenti nello scritto formale",
+      "Parole poco usate nello scritto ma molto presenti nella lingua parlata",
+      "Termini specialistici dei linguaggi tecnico-scientifici"
+    ],
+    "correct": 2,
+    "explanation": "Il vocabolario di alta disponibilità comprende circa 2300 parole poco usate nello scritto ma molto presenti nella lingua parlata; la terza fascia è stata ricavata da esperimenti psicologici di comprensione delle parole."
+  },
+  {
+    "id": "did-165",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 7 — La didattica del lessico",
+    "q": "Nei rapporti paradigmatici tra parole, quale tipo di relazione semantica indica il rapporto di equivalenza?",
+    "opts": [
+      "Antonimia",
+      "Meronimia",
+      "Sinonimia",
+      "Iperonimia"
+    ],
+    "correct": 2,
+    "explanation": "Nei rapporti paradigmatici (in assenza), la relazione di equivalenza semantica corrisponde alla sinonimia. I rapporti gerarchici comprendono iperonimia/iponimia e meronimia; l'opposizione semantica è l'antonimia."
+  },
+  {
+    "id": "did-166",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 7 — La didattica del lessico",
+    "q": "Oltre al significato, quale ulteriore tipo di informazione si trova tipicamente in una voce di vocabolario dell'uso?",
+    "opts": [
+      "L'etimologia completa e la storia diacronica della parola",
+      "La divisione in sillabe, l'accento, le informazioni grammaticali, le accezioni e la frequenza d'uso",
+      "Solo la definizione e gli esempi d'uso in letteratura",
+      "Le famiglie di parole con la stessa radice e i derivati"
+    ],
+    "correct": 1,
+    "explanation": "Una voce di vocabolario dell'uso offre molte informazioni: divisione in sillabe, accento, informazioni grammaticali, le diverse accezioni di significato e la frequenza d'uso (collocazione nelle fasce del vocabolario di base)."
+  },
+  {
+    "id": "did-167",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 7 — La didattica del lessico",
+    "q": "Secondo la teoria di Sapir e Whorf (relativismo linguistico), da che cosa dipendono le differenze nella visione del mondo?",
+    "opts": [
+      "Dalla diversa organizzazione sintattica delle lingue",
+      "Dalle differenze nel sistema fonologico delle lingue",
+      "Dalle differenze linguistiche nel modo in cui la realtà viene categorizzata",
+      "Dal diverso sistema di scrittura adottato da ciascuna cultura"
+    ],
+    "correct": 2,
+    "explanation": "La teoria di Sapir e Whorf sostiene che le differenze nelle visioni del mondo dipendono dalle differenze linguistiche, cioè da come la realtà viene categorizzata attraverso le diverse lingue. Gli studi sui colori hanno evidenziato sia alcuni universali sia alcune differenze."
+  },
+  {
+    "id": "did-168",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 7 — La didattica del lessico",
+    "q": "In quale periodo di vita si verifica la cosiddetta 'esplosione del lessico' nel normale sviluppo linguistico?",
+    "opts": [
+      "Tra i 6 e i 10 anni, con l'ingresso nella scuola primaria",
+      "Tra i 12 e i 14 anni, in concomitanza con la scuola secondaria",
+      "Tra i 18 e i 24 mesi circa",
+      "Nel primo anno di vita, prima ancora della produzione verbale"
+    ],
+    "correct": 2,
+    "explanation": "L'esplosione del lessico avviene fra i 18 e i 24 mesi circa, periodo in cui si forma il lessico mentale; in seguito l'apprendimento si stabilizza come processo di life-long learning."
+  },
+  {
+    "id": "did-169",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 7 — La didattica del lessico",
+    "q": "Il 'principio di mutua esclusività' nell'acquisizione lessicale afferma che:",
+    "opts": [
+      "Le parole nuove vengono rapidamente assegnate a referenti che già hanno un nome",
+      "A ogni parola corrisponde un solo referente",
+      "I bambini imparano le parole solo nel contesto dell'interazione sociale",
+      "Il lessico produttivo è sempre più ricco di quello ricettivo"
+    ],
+    "correct": 1,
+    "explanation": "Il principio di mutua esclusività stabilisce che a una parola corrisponde un solo referente. Un principio complementare è quello dell'attribuzione rapida del significato: le parole nuove vengono rapidamente assegnate a referenti che ancora non hanno un nome."
+  },
+  {
+    "id": "did-170",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 7 — La didattica del lessico",
+    "q": "Secondo Serianni, quale competenza lessicale dovrebbe possedere uno studente al termine del secondo grado?",
+    "opts": [
+      "Conoscere almeno 15.000 lemmi del vocabolario di base",
+      "Saper usare correttamente tutti i tecnicismi disciplinari studiati nel quinquennio",
+      "Essere in grado di leggere e comprendere un editoriale di un quotidiano, muovendosi tra parole anche ignote o complesse",
+      "Padroneggiare i registri formali della comunicazione accademica e professionale"
+    ],
+    "correct": 2,
+    "explanation": "Serianni indica come traguardo per la fine della scuola secondaria di secondo grado la capacità di leggere e comprendere un editoriale di un quotidiano, sapendosi muovere tra parole a volte ignote e complesse, anche ai fini della partecipazione alla vita civile."
+  },
+  {
+    "id": "did-171",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 7 — La didattica del lessico",
+    "q": "Cosa si intende con 'tecnicismi collaterali' nel lessico disciplinare?",
+    "opts": [
+      "Termini specialistici imprescindibili per comprendere una disciplina",
+      "Termini tipici di un settore ma evitabili, usati per elevare il registro",
+      "Parole che hanno sia un significato comune sia uno tecnico-specialistico",
+      "Neologismi creati da studenti per sopperire alla mancanza di termini appropriati"
+    ],
+    "correct": 1,
+    "explanation": "I tecnicismi collaterali sono tipici di un ambito disciplinare ma evitabili; vengono usati per elevare il registro. Si distinguono dai tecnicismi specifici, che sono invece imprescindibili per la comprensione della disciplina."
+  },
+  {
+    "id": "did-172",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 7 — La didattica del lessico",
+    "q": "Quale difficoltà lessicale descrive il fenomeno del 'non fare centro'?",
+    "opts": [
+      "L'abuso di parole generiche come 'fare', 'dare', 'cosa' al posto di termini più precisi",
+      "L'utilizzo di una parola intendendone un'altra perché simile, come 'emanare rumori' al posto di 'emettere rumori'",
+      "L'incapacità di padroneggiare i registri stilistici adeguati al contesto",
+      "La creazione di neologismi non attestati dalla norma linguistica"
+    ],
+    "correct": 1,
+    "explanation": "'Non fare centro' indica la tendenza a usare una parola intendendone un'altra perché simile (es. 'emanare rumori' invece di 'emettere rumori'). Nei bambini è un buon segno di sperimentazione, ma può diventare problematico negli adulti."
+  },
+  {
+    "id": "did-173",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 7 — La didattica del lessico",
+    "q": "Quale attività didattica viene proposta per affrontare la difficoltà delle 'parole fuori posto' (difficoltà nel padroneggiare i registri)?",
+    "opts": [
+      "Gli anagrammi e i lipogrammi per potenziare la creatività lessicale",
+      "Gli esercizi di cloze per riconoscere il connettivo adatto",
+      "Gli 'Esercizi di stile' di Queneau, per la secondaria di secondo grado e oltre",
+      "La lettura di albi illustrati per sensibilizzare ai quasi-sinonimi"
+    ],
+    "correct": 2,
+    "explanation": "Per lavorare sulle 'parole fuori posto' e sulla padronanza dei registri, si propone — soprattutto per la secondaria di secondo grado — il lavoro sugli 'Esercizi di stile' di Raymond Queneau."
+  },
+  {
+    "id": "did-174",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 7 — La didattica del lessico",
+    "q": "Cosa si intende per 'competenza lessicale esplicita'?",
+    "opts": [
+      "La capacità di capire le parole usate in un contesto e operare scelte lessicali appropriate senza saperle giustificare",
+      "La capacità di motivare l'appropriatezza di scelte lessicali, esplicitare il significato di una parola e analizzare le relazioni tra parole con conoscenze linguistiche",
+      "La conoscenza automatica e inconsapevole delle regole di formazione delle parole",
+      "La padronanza del lessico ricettivo rispetto a quello produttivo"
+    ],
+    "correct": 1,
+    "explanation": "La competenza lessicale esplicita consiste nel saper motivare l'appropriatezza e la correttezza delle scelte lessicali, esplicitare il significato di una parola/espressione, individuare rapporti di significato anche fuori contesto, e analizzare le scelte lessicali con conoscenze linguistiche."
+  },
+  {
+    "id": "did-175",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 7 — La didattica del lessico",
+    "q": "Nel lavoro sui registri linguistici, che cosa si suggerisce di esplorare attraverso gli schemi di Berruto?",
+    "opts": [
+      "La struttura morfologica dei principali tecnicismi disciplinari",
+      "Le progressioni tematiche dei testi espositivi",
+      "La ricchezza dei sinonimi e le diverse varietà di lingua",
+      "Le catene anaforiche nei testi giornalistici"
+    ],
+    "correct": 2,
+    "explanation": "Per lavorare sui registri, si suggerisce di esplorare la ricchezza dei sinonimi tramite gli schemi di Berruto, che illustrano le diverse varietà della lingua italiana. Si propone anche di lavorare con testi funzionali e di innalzare o abbassare consapevolmente il registro di un testo in lavori di gruppo."
+  },
+  {
+    "id": "did-176",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 7 — La didattica del lessico",
+    "q": "Quale strumento lessicografico è specificatamente citato per supportare gli studenti nell'apprendimento dei termini specialistici?",
+    "opts": [
+      "Il GDLI (Grande Dizionario della Lingua Italiana)",
+      "Il RIF (Repertorio Italiano di Famiglie di Parole)",
+      "Lo Studiabolario, il dizionario degli studenti",
+      "Il DELI (Dizionario Etimologico della Lingua Italiana)"
+    ],
+    "correct": 2,
+    "explanation": "Lo Studiabolario, il dizionario degli studenti, è citato come strumento utile per il lavoro sui termini specialistici nell'ambito della didattica del lessico a scuola."
+  },
+  {
+    "id": "did-177",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 7 — La didattica del lessico",
+    "q": "Quale tipo di lavoro didattico viene suggerito per sviluppare la 'figurative competence' nei bambini?",
+    "opts": [
+      "Lavoro sulle collocazioni lessicali e sui rapporti sintagmatici tra parole",
+      "Lavoro su analogie, similitudini, espressioni figurate, modi di dire ed espressioni idiomatiche, anche tramite albi illustrati",
+      "Costruzione di mappe concettuali per l'iperonimia e l'iponimia",
+      "Esercizi di riscrittura di testi con cambio di registro"
+    ],
+    "correct": 1,
+    "explanation": "Per sviluppare la figurative competence, si suggerisce — fin da molto presto — di lavorare su analogie e similitudini, espressioni figurate, modi di dire ed espressioni idiomatiche, anche tramite albi illustrati per la sensibilizzazione ai quasi-sinonimi."
+  },
+  {
+    "id": "did-178",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 8 — Il testo e la sua didattica",
+    "q": "Quando viene introdotta la linguistica del testo in Italia, e grazie a quali studiose?",
+    "opts": [
+      "Negli anni Cinquanta, grazie ai lavori di Tullio De Mauro",
+      "Negli anni Settanta, grazie a Bice Mortara Garavelli e Maria-Elisabeth Conte",
+      "Negli anni Novanta, grazie alla scuola di Basilea di Angela Ferrari",
+      "Nei primi anni 2000, grazie a Cecilia Andorno e Massimo Palermo"
+    ],
+    "correct": 1,
+    "explanation": "In Italia la linguistica del testo viene introdotta negli anni Settanta grazie a Bice Mortara Garavelli e Maria-Elisabeth Conte. Seguì un successo rapido fino agli anni '90, poi una fase di stanca, e un rinnovato interesse dal 2000 con Andorno, Palermo e la scuola di Basilea di Ferrari."
+  },
+  {
+    "id": "did-179",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 8 — Il testo e la sua didattica",
+    "q": "Quale delle seguenti affermazioni descrive correttamente il rapporto tra coerenza e coesione in un testo?",
+    "opts": [
+      "La coesione è la proprietà principale e condizione necessaria e sufficiente per l'esistenza del testo; la coerenza è complementare",
+      "La coerenza riguarda gli aspetti formali del testo; la coesione garantisce l'unitarietà del significato",
+      "La coerenza è la proprietà principale e condizione necessaria e sufficiente; la coesione riguarda gli aspetti formali e non è condizione necessaria",
+      "Coerenza e coesione sono sinonimi: entrambe indicano l'unitarietà del significato"
+    ],
+    "correct": 2,
+    "explanation": "La coerenza (unitarietà di significato) è la proprietà principale del testo e condizione necessaria e sufficiente per la sua esistenza. La coesione riguarda gli aspetti formali del testo ed è una proprietà complementare, ma non condizione necessaria."
+  },
+  {
+    "id": "did-180",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 8 — Il testo e la sua didattica",
+    "q": "Nella classificazione di Werlich, quale tipo testuale ha come focus dominante la dimostrazione o persuasione circa la validità di una tesi?",
+    "opts": [
+      "Espositivo-informativo",
+      "Prescrittivo",
+      "Descrittivo",
+      "Argomentativo"
+    ],
+    "correct": 3,
+    "explanation": "Nella tipologia funzionalista di Werlich, il tipo argomentativo ha come scopo dimostrare o persuadere circa la validità di una tesi attraverso la scelta, la disposizione e la formulazione di specifici argomenti."
+  },
+  {
+    "id": "did-181",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 8 — Il testo e la sua didattica",
+    "q": "Qual è la caratteristica linguistica prevalente del tipo testuale descrittivo?",
+    "opts": [
+      "Numerosi connettivi logici di tipo causale e avversativo",
+      "Ampia varietà di sostantivi e aggettivi qualificativi",
+      "Tempi verbali spesso al passato o al presente storico",
+      "Struttura gerarchica delle istruzioni suddivise in articoli e commi"
+    ],
+    "correct": 1,
+    "explanation": "Il tipo descrittivo, che mira a rappresentare persone, oggetti, luoghi o situazioni in un contesto spaziale e atemporale, si caratterizza linguisticamente per un'ampia varietà di sostantivi e aggettivi qualificativi."
+  },
+  {
+    "id": "did-182",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 8 — Il testo e la sua didattica",
+    "q": "Nel tipo testuale argomentativo, quali sono i tre elementi fondamentali del 'nucleo dell'argomentazione'?",
+    "opts": [
+      "Introduzione, sviluppo e conclusione",
+      "Tesi, antitesi e sintesi",
+      "Opinione (tesi), argomento (prova a sostegno) e regola generale (garanzia)",
+      "Premessa, dimostrazione e confutazione"
+    ],
+    "correct": 2,
+    "explanation": "Il nucleo dell'argomentazione è composto da tre elementi fondamentali: l'opinione (tesi), l'argomento (prova a sostegno della tesi) e la regola generale (garanzia che collega opinione e argomento). Sono presenti anche elementi accessori come qualificatore, riserva, rinforzo e fonte."
+  },
+  {
+    "id": "did-183",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 8 — Il testo e la sua didattica",
+    "q": "Quali forme verbali o costrutti sono tipici del tipo testuale prescrittivo (regolativo), ad esempio nelle ricette?",
+    "opts": [
+      "Il congiuntivo presente e l'indicativo futuro",
+      "L'imperativo, l'infinito semplice e il 'si' impersonale",
+      "Il passato remoto e il trapassato prossimo",
+      "Il condizionale presente e il congiuntivo imperfetto"
+    ],
+    "correct": 1,
+    "explanation": "Nel tipo prescrittivo, in generi come le ricette, si usano tipicamente l'imperativo, l'infinito semplice e il 'si' impersonale, oltre al congiuntivo. Le leggi invece presentano una struttura gerarchica suddivisa in articoli e commi."
+  },
+  {
+    "id": "did-184",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 8 — Il testo e la sua didattica",
+    "q": "Nella 'progressione con topic globale', come si realizza tipicamente la ripresa del referente?",
+    "opts": [
+      "Riprendendo lo stesso referente del topic introdotto nella frase precedente",
+      "Riprendendo un elemento presente nella parte della frase in cui si dice qualcosa a proposito del topic",
+      "Tramite incapsulatori anaforici che sostituiscono una frase intera o una porzione di testo",
+      "Tramite pronomi personali che rinviano al soggetto della frase precedente"
+    ],
+    "correct": 2,
+    "explanation": "Nella progressione con topic globale, il referente del topic è contenuto in un'intera frase o in più frasi, ed è tipicamente realizzata tramite incapsulatori anaforici che sostituiscono una frase intera o una porzione di testo."
+  },
+  {
+    "id": "did-185",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 8 — Il testo e la sua didattica",
+    "q": "Cos'è un 'incapsulatore anaforico'?",
+    "opts": [
+      "Un pronome personale che riprende il soggetto della frase precedente",
+      "Un elemento che rinvia a un referente presentato successivamente nel testo (catafora)",
+      "Un elemento che sostituisce una frase intera o una porzione di testo già enunciata",
+      "Un avverbio che indica la posizione spaziale del referente nel testo"
+    ],
+    "correct": 2,
+    "explanation": "L'incapsulatore anaforico è un tipo di anafora per sostituzione che sostituisce una frase intera o una porzione di testo già presentata, condensandone il contenuto in una singola espressione nominale."
+  },
+  {
+    "id": "did-186",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 8 — Il testo e la sua didattica",
+    "q": "Quale problema ricorrente si osserva nell'uso dei connettivi da parte degli studenti?",
+    "opts": [
+      "La tendenza a usare esclusivamente connettivi aggiuntivi, evitando quelli avversativi",
+      "L'uso di connettivi specifici come se fossero generici, o l'uso sbagliato del connettivo specifico, con usi riempitivi privi di valore semantico",
+      "L'abuso di connettivi concessivi e ipotetici nei testi narrativi",
+      "La difficoltà a inserire connettivi nei testi descrittivi, per la loro natura atemporale"
+    ],
+    "correct": 1,
+    "explanation": "Gli studenti spesso non hanno idea della relazione logica specifica e usano connettivi specifici come se fossero generici, oppure scelgono il connettivo sbagliato, producendo usi riempitivi, privi del loro valore semantico."
+  },
+  {
+    "id": "did-187",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 8 — Il testo e la sua didattica",
+    "q": "Nella classificazione di Sabatini, su quale criterio si basa la distinzione tra i tipi di testo?",
+    "opts": [
+      "La funzione comunicativa prevalente (descrittiva, narrativa, espositiva, ecc.)",
+      "La natura del patto interpretativo che lega autore e destinatario",
+      "La distinzione tra testi autonomi e testi che elaborano altri testi",
+      "Il registro linguistico utilizzato (alto, medio, basso)"
+    ],
+    "correct": 1,
+    "explanation": "Sabatini classifica i testi in base alla natura del patto interpretativo che lega autore e destinatario, distinguendo tra testi fortemente vincolanti, mediamente vincolanti e poco vincolanti."
+  },
+  {
+    "id": "did-188",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 8 — Il testo e la sua didattica",
+    "q": "Quale attività didattica viene proposta specificamente per il tipo testuale espositivo?",
+    "opts": [
+      "Le rielaborazioni con interpolazioni di complessità crescente",
+      "Il ripristino dell'ordine degli enunciati di un testo per comprendere la logica sottesa alla disposizione delle informazioni",
+      "L'esercizio dell'argomentazione orale per conoscere più punti di vista",
+      "Il riconoscimento delle anafore con perifrasi tipiche dei testi giornalistici"
+    ],
+    "correct": 1,
+    "explanation": "Per il tipo espositivo si propone di ripristinare l'ordine degli enunciati di un testo, un'attività che porta gli studenti a comprendere la logica sottesa alla disposizione delle informazioni nel testo."
+  },
+  {
+    "id": "did-189",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 8 — Il testo e la sua didattica",
+    "q": "Secondo il Cap. 8, quale caratteristica accomuna i diversi generi di testo digitato/mediato dal computer?",
+    "opts": [
+      "L'alto grado di intertestualità e la struttura rigidamente gerarchica dei contenuti",
+      "Il registro linguistico: basso in chat e instant messaging, medio in forum e social, alto in mail e blog",
+      "La prevalente funzione argomentativa e persuasiva dei contenuti",
+      "L'assenza di coesione formale, compensata da una forte coerenza semantica"
+    ],
+    "correct": 1,
+    "explanation": "I generi dei testi digitati/mediati dal computer sono accomunati dal registro: basso in chat e instant messaging, medio in forum, blog e social, alto in mail e blog. Due caratteristiche sfruttabili didatticamente sono la multimedialità e l'intertestualità."
+  },
+  {
+    "id": "did-190",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 8 — Il testo e la sua didattica",
+    "q": "Nel tipo testuale narrativo, quale tipo di attività didattica di rielaborazione implica il livello più profondo di intervento sul testo?",
+    "opts": [
+      "La modifica della sola superficie linguistica (es. cambio di tempo verbale)",
+      "La ricostruzione dell'ordine del materiale tematico",
+      "La modifica in parte dei contenuti",
+      "La riscrittura da un genere a un altro genere"
+    ],
+    "correct": 3,
+    "explanation": "Le interpolazioni di rielaborazione dei testi narrativi sono ordinate per complessità crescente: dalla modifica della sola superficie linguistica, alla diversa distribuzione del materiale tematico, alle modifiche parziali dei contenuti, fino alla riscrittura da un genere a un altro genere, che è il livello più profondo."
+  },
+  {
+    "id": "did-191",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 9 — L'italiano di comunicazione a scuola",
+    "q": "Secondo il Cap. 9, in quale prospettiva va intesa la lingua come strumento trasversale alle discipline?",
+    "opts": [
+      "Come materia autonoma e separata dalle altre discipline",
+      "Come strumento di comunicazione condiviso da docenti, studenti e materiali didattici",
+      "Come codice esclusivo della disciplina letteraria",
+      "Come insieme di regole grammaticali da applicare in ogni materia"
+    ],
+    "correct": 1,
+    "explanation": "Il testo afferma che la lingua è strumento di comunicazione trasversale alle discipline, con punti di vista complementari di docenti, studenti e libri di testo/materiali didattici."
+  },
+  {
+    "id": "did-192",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 9 — L'italiano di comunicazione a scuola",
+    "q": "Quale documento è citato nel testo come prima consapevolezza della trasversalità dell'educazione linguistica?",
+    "opts": [
+      "Le Indicazioni Nazionali",
+      "I Programmi del 1979",
+      "Le Dieci tesi",
+      "Il Quadro europeo di riferimento"
+    ],
+    "correct": 2,
+    "explanation": "Il testo indica che la prima consapevolezza della trasversalità dell'educazione linguistica si trova nelle 'Dieci tesi', prima ancora dei Programmi del '79 e dell''85."
+  },
+  {
+    "id": "did-193",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 9 — L'italiano di comunicazione a scuola",
+    "q": "Come viene definita la lingua del manuale scolastico rispetto al testo specialistico e a quello divulgativo?",
+    "opts": [
+      "Equivalente al testo specialistico, ma con più immagini",
+      "Una via di mezzo che accompagna il profano a diventare più esperto",
+      "Un testo puramente divulgativo privo di rigore",
+      "Un testo pensato esclusivamente per esperti della materia"
+    ],
+    "correct": 1,
+    "explanation": "Il testo afferma che il manuale scolastico non è né testo specialistico né divulgativo, ma una via di mezzo che punta ad accompagnare un profano a diventare più esperto, definito 'discorso scientifico pedagogico'."
+  },
+  {
+    "id": "did-194",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 9 — L'italiano di comunicazione a scuola",
+    "q": "Quale caratteristica sintattica viene limitata nei libri di testo scolastici rispetto al discorso scientifico puro?",
+    "opts": [
+      "L'uso dei connettivi causali",
+      "La lunghezza delle frasi",
+      "La spersonalizzazione dell'agente",
+      "L'uso del passivo"
+    ],
+    "correct": 2,
+    "explanation": "Il testo specifica che a livello sintattico i libri di testo scolastici limitano i tratti peculiari del discorso scientifico, come la spersonalizzazione dell'agente."
+  },
+  {
+    "id": "did-195",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 9 — L'italiano di comunicazione a scuola",
+    "q": "Quale approccio adottano i libri di testo scolastici rispetto alla terminologia tecnica?",
+    "opts": [
+      "La evitano del tutto per non ostacolare la comprensione",
+      "La usano senza spiegarla, dando per scontata la conoscenza dei termini",
+      "Non rinunciano al rigore lessicale, ma si sforzano di spiegare i termini tecnici",
+      "Sostituiscono sempre i termini tecnici con sinonimi comuni"
+    ],
+    "correct": 2,
+    "explanation": "Il testo afferma che a livello lessicale i libri di testo scolastici non danno per scontata la conoscenza della terminologia e si sforzano di spiegare i termini tecnici, senza rinunciare al rigore lessicale ma accompagnando ad esso."
+  },
+  {
+    "id": "did-196",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 9 — L'italiano di comunicazione a scuola",
+    "q": "Quale doppio vantaggio è descritto nell'attività di riscrittura dei manuali da studenti madrelingua per studenti NAI?",
+    "opts": [
+      "Miglioramento della calligrafia per entrambi i gruppi",
+      "Vantaggio per entrambi i gruppi di studenti grazie alla semplificazione linguistica",
+      "Apprendimento di una seconda lingua per gli studenti madrelingua",
+      "Riduzione del carico di lavoro per i docenti di italiano"
+    ],
+    "correct": 1,
+    "explanation": "Il testo descrive attività di riscrittura dei manuali fatta da studenti con lingua madre italiana per studenti NAI attraverso la semplificazione linguistica, che produce un doppio vantaggio per entrambi i gruppi."
+  },
+  {
+    "id": "did-197",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 9 — L'italiano di comunicazione a scuola",
+    "q": "Quale coppia di discipline ha ricevuto particolare attenzione nelle ricerche e sperimentazioni sugli itinerari linguistici trasversali?",
+    "opts": [
+      "Italiano e storia",
+      "Italiano e arte",
+      "Italiano e matematica/scienze",
+      "Italiano e geografia"
+    ],
+    "correct": 2,
+    "explanation": "Il testo afferma che particolare attenzione in ricerche e sperimentazioni è stata posta sul rapporto italiano-matematica/scienze, con diversi progetti ed esperienze di lavoro comune."
+  },
+  {
+    "id": "did-198",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 9 — L'italiano di comunicazione a scuola",
+    "q": "Come viene descritta la relazione tra reading literacy e numeracy nel testo?",
+    "opts": [
+      "La numeracy è prerequisito per la reading literacy",
+      "Sono competenze del tutto indipendenti e separate",
+      "La reading literacy viene proposta come porta d'accesso per la numeracy",
+      "La numeracy sostituisce la reading literacy nei testi di matematica"
+    ],
+    "correct": 2,
+    "explanation": "Il testo afferma che il lavoro linguistico sui testi di matematica propone la reading literacy come porta d'accesso per la numeracy."
+  },
+  {
+    "id": "did-199",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 10 — La valutazione",
+    "q": "Qual è lo scopo principale dei test standardizzati secondo la definizione fornita nel Cap. 10?",
+    "opts": [
+      "Valutare le prestazioni dei singoli studenti per la promozione",
+      "Raccogliere informazioni comparabili sulle abilità degli allievi per valutare il sistema educativo nel suo insieme",
+      "Misurare le competenze dei singoli insegnanti",
+      "Certificare le conoscenze degli studenti per il mondo del lavoro"
+    ],
+    "correct": 1,
+    "explanation": "Il testo specifica che i test standardizzati hanno valenza sistemica e sono volti a fornire una valutazione del sistema educativo nel suo insieme per offrire ai decisori politici elementi per misurare la qualità della formazione, non per valutare i singoli studenti o insegnanti."
+  },
+  {
+    "id": "did-200",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 10 — La valutazione",
+    "q": "In quale paese nasce la concezione dei test standardizzati e in quale periodo?",
+    "opts": [
+      "In Gran Bretagna, nella seconda metà dell'Ottocento",
+      "In Francia, agli inizi del Novecento",
+      "Negli Stati Uniti, nei primi decenni del Novecento",
+      "In Germania, nel dopoguerra"
+    ],
+    "correct": 2,
+    "explanation": "Il testo afferma che la concezione dei test standardizzati nasce negli Stati Uniti nei primi decenni del Novecento, diffondendosi poi in altri paesi nella seconda metà del secolo."
+  },
+  {
+    "id": "did-201",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 10 — La valutazione",
+    "q": "In quale anno sono stati avviati i primi test PISA e i primi test INVALSI in Italia?",
+    "opts": [
+      "PISA nel 1990, INVALSI nel 1999",
+      "PISA nel 2000, INVALSI nel 2004",
+      "PISA nel 1995, INVALSI nel 2000",
+      "PISA nel 2004, INVALSI nel 2008"
+    ],
+    "correct": 1,
+    "explanation": "Il testo indica che i primi test PISA risalgono al 2000 e i primi test INVALSI in Italia al 2004."
+  },
+  {
+    "id": "did-202",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 10 — La valutazione",
+    "q": "Qual è la cadenza delle rilevazioni PISA e su cosa si focalizzano?",
+    "opts": [
+      "Annuale, con focus su tutte le discipline contemporaneamente",
+      "Biennale, alternando matematica e lettura",
+      "Triennale, con focus su uno dei tre ambiti (reading literacy, matematica, scienze)",
+      "Quinquennale, con un ambito diverso ogni volta"
+    ],
+    "correct": 2,
+    "explanation": "Il testo afferma che le prove PISA hanno cadenza triennale con focus su uno dei tre ambiti: reading literacy, matematica, scienze."
+  },
+  {
+    "id": "did-203",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 10 — La valutazione",
+    "q": "Qual è il campione target delle prove PISA?",
+    "opts": [
+      "Studenti universitari del primo anno",
+      "Studenti di terza media, circa 3000 per paese",
+      "Quindicenni o sedicenni prossimi alla fine della scuola dell'obbligo, almeno 5000 da 150 classi diverse",
+      "Tutti gli studenti della scuola secondaria superiore"
+    ],
+    "correct": 2,
+    "explanation": "Il testo specifica che le prove PISA coinvolgono un campione selezionato di quindicenni o sedicenni prossimi alla fine della scuola dell'obbligo, con un campione di almeno 5000 studenti da 150 classi diverse."
+  },
+  {
+    "id": "did-204",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 10 — La valutazione",
+    "q": "Quale è lo scopo dichiarato delle prove PISA secondo il testo?",
+    "opts": [
+      "Verificare i contenuti disciplinari appresi a scuola",
+      "Valutare il possesso di competenze utili per affrontare la vita nella società globale",
+      "Misurare la velocità di lettura degli studenti",
+      "Confrontare i programmi scolastici dei diversi paesi"
+    ],
+    "correct": 1,
+    "explanation": "Il testo afferma che lo scopo delle prove PISA è verificare non i contenuti, ma il possesso di competenze utili per affrontare la vita della società globale, ossia la capacità di utilizzare abilità e competenze acquisite a scuola."
+  },
+  {
+    "id": "did-205",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 10 — La valutazione",
+    "q": "Come viene definita la reading literacy nel quadro di riferimento PISA citato nel testo?",
+    "opts": [
+      "La capacità di leggere ad alta voce con fluenza e precisione",
+      "Il riconoscimento delle parole scritte e la loro corretta pronuncia",
+      "Comprendere, usare, valutare i testi e riflettere su di essi per raggiungere obiettivi personali ed essere parte attiva della società",
+      "La velocità di lettura misurata in parole al minuto"
+    ],
+    "correct": 2,
+    "explanation": "Il testo riporta la definizione di reading literacy PISA: comprendere, usare e valutare i testi, riflettere su di essi e sentirsi coinvolti nella loro lettura al fine di raggiungere i propri obiettivi, sviluppare le proprie conoscenze e le proprie potenzialità e di essere parte attiva della società."
+  },
+  {
+    "id": "did-206",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 10 — La valutazione",
+    "q": "Quanti livelli di reading literacy prevede il sistema PISA per l'interpretazione dei risultati?",
+    "opts": [
+      "4 livelli",
+      "5 livelli",
+      "6 livelli",
+      "10 livelli"
+    ],
+    "correct": 2,
+    "explanation": "Il testo afferma che per interpretare i risultati PISA vengono usati 6 livelli di reading literacy, che distinguono tra low performers e top performers."
+  },
+  {
+    "id": "did-207",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 10 — La valutazione",
+    "q": "Quale punteggio ha ottenuto l'Italia nelle prove PISA 2018 per la comprensione del testo, e qual era la media OCSE?",
+    "opts": [
+      "Italia 487, media OCSE 500",
+      "Italia 512, media OCSE 487",
+      "Italia 476, media OCSE 487",
+      "Italia 450, media OCSE 476"
+    ],
+    "correct": 2,
+    "explanation": "Il testo riporta che nei risultati PISA 2018 l'Italia ha ottenuto 476 punti per la comprensione del testo, a fronte di una media OCSE di 487."
+  },
+  {
+    "id": "did-208",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 10 — La valutazione",
+    "q": "In quale anno è stato istituito l'INVALSI e sotto la vigilanza di quale ente opera?",
+    "opts": [
+      "1999, sotto la vigilanza del Ministero dell'Istruzione",
+      "2004, sotto la vigilanza della Presidenza del Consiglio",
+      "1995, sotto la vigilanza dell'OCSE",
+      "2001, sotto la vigilanza delle Regioni"
+    ],
+    "correct": 0,
+    "explanation": "Il testo afferma che l'INVALSI (Istituto nazionale per la valutazione del sistema educativo di istruzione e di formazione) è un ente di ricerca istituito nel 1999 che opera sotto la vigilanza del Ministero dell'Istruzione."
+  },
+  {
+    "id": "did-209",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 10 — La valutazione",
+    "q": "In quali gradi scolastici si svolgono oggi le prove INVALSI di italiano?",
+    "opts": [
+      "Solo in terza media e quinta superiore",
+      "In seconda primaria, quinta primaria, terza media, seconda superiore e quinta superiore",
+      "In tutti i gradi dalla prima elementare alla quinta superiore",
+      "Solo nelle scuole superiori, dalla prima alla quinta"
+    ],
+    "correct": 1,
+    "explanation": "Il testo specifica che oggi le prove INVALSI si svolgono in seconda primaria, quinta primaria, terza media, seconda superiore e quinta superiore."
+  },
+  {
+    "id": "did-210",
+    "fonte": "didattica",
+    "source": "Didattica dell'italiano come lingua prima (Cignetti, Viale, Demartini, Fornara)",
+    "capitolo": "Cap. 10 — La valutazione",
+    "q": "Quali sono i macroaspetti della comprensione del testo su cui si basano i quesiti INVALSI?",
+    "opts": [
+      "Velocità di lettura, memorizzazione, rielaborazione creativa",
+      "Localizzare e individuare informazioni, ricostruire il significato del testo, riflettere sul contenuto o sulla forma",
+      "Analisi grammaticale, analisi logica, analisi del periodo",
+      "Comprensione orale, produzione scritta, riflessione metalinguistica"
+    ],
+    "correct": 1,
+    "explanation": "Il testo indica che i quesiti di comprensione del testo INVALSI si basano su tre macroaspetti: localizzare e individuare informazioni, ricostruire il significato del testo, riflettere sul contenuto o sulla forma, con relativi sottoaspetti mirati."
+  },
+  {
+    "id": "let-001",
+    "fonte": "lettura",
+    "source": "La Lettura Espressiva nell'Insegnamento dell'Italiano (Cap. 5)",
+    "q": "Come viene definita la lettura ad alta voce nel Capitolo 5?",
+    "opts": [
+      "La capacità di leggere in maniera efficace ed espressiva un testo, differenziando la modalità a seconda dei generi testuali, del significato, delle intenzioni comunicative e del contesto",
+      "La semplice pratica di pronunciare ad alta voce le parole scritte su una pagina, senza particolari attenzioni espressive",
+      "L'abilità di memorizzare lunghi testi e recitarli davanti a un pubblico senza commettere errori",
+      "La tecnica di leggere a voce alta per favorire la comprensione dei soli testi narrativi"
+    ],
+    "correct": 0,
+    "explanation": "Il testo definisce la lettura ad alta voce come la capacità di leggere in maniera efficace ed espressiva, differenziando la modalità a seconda dei tipi e dei generi testuali, del significato, delle intenzioni comunicative, delle situazioni e del contesto di lettura."
+  },
+  {
+    "id": "let-002",
+    "fonte": "lettura",
+    "source": "La Lettura Espressiva nell'Insegnamento dell'Italiano (Cap. 5)",
+    "q": "La competenza di lettura ad alta voce si colloca all'incrocio di quali ambiti?",
+    "opts": [
+      "Scrittura e lettura",
+      "Ascolto e lettura",
+      "Grammatica e dizione",
+      "Oralità e produzione scritta"
+    ],
+    "correct": 1,
+    "explanation": "Il testo specifica che questa capacità si colloca all'incrocio di almeno due diversi ambiti di competenza: l'ascolto e la lettura."
+  },
+  {
+    "id": "let-003",
+    "fonte": "lettura",
+    "source": "La Lettura Espressiva nell'Insegnamento dell'Italiano (Cap. 5)",
+    "q": "Secondo il testo, qual è il percorso ciclico della lettura ad alta voce dal punto di vista dell'apprendente?",
+    "opts": [
+      "Inizia con la lettura e prosegue con la scrittura",
+      "Inizia con la comprensione e prosegue con la memorizzazione",
+      "Inizia con l'ascolto della voce dell'adulto e prosegue con la lettura propria",
+      "Inizia con la dizione e prosegue con l'ascolto"
+    ],
+    "correct": 2,
+    "explanation": "Per l'apprendente il percorso ciclico inizia con l'ascolto (si ascolta la voce dell'adulto che legge) e prosegue con la lettura propria."
+  },
+  {
+    "id": "let-004",
+    "fonte": "lettura",
+    "source": "La Lettura Espressiva nell'Insegnamento dell'Italiano (Cap. 5)",
+    "q": "Perché la lettura ad alta voce è connessa alla comprensione del testo, secondo il capitolo?",
+    "opts": [
+      "Perché obbliga l'allievo a scrivere ciò che sente, rafforzando la memoria",
+      "Perché la velocità di lettura aumenta proporzionalmente alla comprensione",
+      "Perché permette all'insegnante di correggere immediatamente gli errori di pronuncia",
+      "Perché attraverso l'ascolto della voce dell'insegnante l'apprendente può concentrarsi sul significato senza disperdere energie nel decodificare il testo scritto"
+    ],
+    "correct": 3,
+    "explanation": "La lettura ad alta voce è connessa alla comprensione perché l'apprendente, ascoltando la voce dell'insegnante, può concentrarsi sul significato senza disperdere energie nel compito di decodificare il testo scritto."
+  },
+  {
+    "id": "let-005",
+    "fonte": "lettura",
+    "source": "La Lettura Espressiva nell'Insegnamento dell'Italiano (Cap. 5)",
+    "q": "Chi è la neuroscienziata cognitivista citata nel capitolo per i suoi studi sul cervello che legge?",
+    "opts": [
+      "Giorgina Cantalini",
+      "Aidan Chambers",
+      "Maryanne Wolf",
+      "Batini"
+    ],
+    "correct": 2,
+    "explanation": "La neuroscienziata cognitivista Maryanne Wolf è citata nel testo per i suoi studi dedicati al cervello che legge e ai vantaggi dell'esposizione precoce del bambino alla voce dell'adulto che legge."
+  },
+  {
+    "id": "let-006",
+    "fonte": "lettura",
+    "source": "La Lettura Espressiva nell'Insegnamento dell'Italiano (Cap. 5)",
+    "q": "Quale indicatore predice, secondo le ricerche citate, l'abilità di lettura che un bambino raggiungerà in futuro?",
+    "opts": [
+      "Il numero di libri posseduti in famiglia",
+      "Il livello di istruzione dei genitori",
+      "L'età in cui il bambino impara l'alfabeto",
+      "La quantità di tempo trascorsa ascoltando genitori o persone di fiducia che leggono ad alta voce"
+    ],
+    "correct": 3,
+    "explanation": "Le ricerche hanno dimostrato che la quantità di tempo trascorsa dal bambino ascoltando i genitori o altre persone di fiducia che gli leggevano ad alta voce è un buon predittore dell'abilità di lettura che raggiungerà anni dopo."
+  },
+  {
+    "id": "let-007",
+    "fonte": "lettura",
+    "source": "La Lettura Espressiva nell'Insegnamento dell'Italiano (Cap. 5)",
+    "q": "Quali competenze, oltre a quelle puramente linguistiche, possono svilupparsi grazie alla lettura ad alta voce secondo le ricerche citate?",
+    "opts": [
+      "Solo capacità matematiche e logico-deduttive",
+      "Esclusivamente competenze motorie e sportive",
+      "Capacità di attenzione, memoria, problem solving, abilità interpersonali, competenze emotive, empatia e teoria della mente",
+      "Solo abilità di scrittura e grammatica"
+    ],
+    "correct": 2,
+    "explanation": "Le ricerche dimostrano vantaggi in termini di potenziamento del vocabolario, capacità di attenzione, memoria, comprensione del testo, capacità di problem solving, abilità interpersonali, competenze emotive, sviluppo di empatia e teoria della mente."
+  },
+  {
+    "id": "let-008",
+    "fonte": "lettura",
+    "source": "La Lettura Espressiva nell'Insegnamento dell'Italiano (Cap. 5)",
+    "q": "Qual è il nome dell'iniziativa italiana collegata al progetto di rilevanza nazionale «Leggimi ancora»?",
+    "opts": [
+      "Nati per leggere",
+      "LaAV (Movimento nazionale di lettori ad alta voce)",
+      "Leggere insieme",
+      "Libro aperto"
+    ],
+    "correct": 1,
+    "explanation": "LaAV (Movimento nazionale di lettori ad alta voce) è collegato al progetto di rilevanza nazionale Leggimi ancora, finalizzato a studiare gli effetti dell'introduzione della pratica della lettura ad alta voce nel curricolo scolastico del primo ciclo."
+  },
+  {
+    "id": "let-009",
+    "fonte": "lettura",
+    "source": "La Lettura Espressiva nell'Insegnamento dell'Italiano (Cap. 5)",
+    "q": "Secondo Batini, fino a quale età sarebbe opportuno inserire la lettura ad alta voce all'interno del curricolo scolastico?",
+    "opts": [
+      "Fino a 10 anni (fine scuola primaria)",
+      "Fino a 14 anni (fine scuola secondaria di primo grado)",
+      "Fino a 16 anni (compimento dell'obbligo scolastico)",
+      "Fino a 18 anni (fine scuola secondaria di secondo grado)"
+    ],
+    "correct": 2,
+    "explanation": "Batini propone l'inserimento della lettura ad alta voce all'interno del curricolo scolastico almeno fino al compimento dell'obbligo, cioè fino a 16 anni."
+  },
+  {
+    "id": "let-010",
+    "fonte": "lettura",
+    "source": "La Lettura Espressiva nell'Insegnamento dell'Italiano (Cap. 5)",
+    "q": "Cosa prevedono le Indicazioni nazionali riguardo alla lettura ad alta voce praticata dall'insegnante?",
+    "opts": [
+      "Che venga praticata senza alcuna finalizzazione scolastica, semplicemente per alimentare il piacere di leggere",
+      "Che venga svolta solo in orari extrascolastici",
+      "Che sia sempre accompagnata da compiti scolastici scritti per verificare la comprensione",
+      "Che sia limitata ai testi di narrativa classica italiana"
+    ],
+    "correct": 0,
+    "explanation": "Le Indicazioni nazionali fanno riferimento esplicito alla pratica della lettura ad alta voce fatta dall'insegnante senza alcuna finalizzazione, cioè senza legare a essa particolari compiti scolastici, ma semplicemente allo scopo di alimentare il piacere di leggere."
+  },
+  {
+    "id": "let-011",
+    "fonte": "lettura",
+    "source": "La Lettura Espressiva nell'Insegnamento dell'Italiano (Cap. 5)",
+    "q": "Quale traguardo di apprendimento è previsto al termine della terza classe della scuola primaria riguardo alla lettura?",
+    "opts": [
+      "Impiegare tecniche di lettura silenziosa e di lettura espressiva ad alta voce",
+      "Padroneggiare la lettura strumentale sia nella modalità ad alta voce, curandone l'espressione, sia in quella silenziosa",
+      "Leggere testi letterari di vario tipo e costruirne un'interpretazione",
+      "Leggere ad alta voce in modo espressivo testi noti raggruppando le parole legate dal significato"
+    ],
+    "correct": 1,
+    "explanation": "Il traguardo di apprendimento di fine terza elementare è «Padroneggiare la lettura strumentale (di decifrazione) sia nella modalità ad alta voce, curandone l'espressione, sia in quella silenziosa»."
+  },
+  {
+    "id": "let-012",
+    "fonte": "lettura",
+    "source": "La Lettura Espressiva nell'Insegnamento dell'Italiano (Cap. 5)",
+    "q": "In quali documenti ufficiali non compare più il riferimento alla lettura ad alta voce?",
+    "opts": [
+      "Nelle Indicazioni nazionali per il primo ciclo di istruzione",
+      "Nei piani di studio per la scuola dell'infanzia",
+      "Nei programmi per la scuola primaria",
+      "Nelle Indicazioni nazionali rivolte agli ordini scolastici successivi al primo ciclo (es. licei)"
+    ],
+    "correct": 3,
+    "explanation": "Nei documenti ufficiali rivolti agli ordini scolastici successivi al primo ciclo, l'interesse per la lettura ad alta voce non si manifesta sostanzialmente più; nelle Indicazioni nazionali per i licei la parola «voce» compare solo nella sezione del liceo musicale e coreutico."
+  },
+  {
+    "id": "let-013",
+    "fonte": "lettura",
+    "source": "La Lettura Espressiva nell'Insegnamento dell'Italiano (Cap. 5)",
+    "q": "Qual è il traguardo di apprendimento di fine terza della scuola secondaria di primo grado che dà più rilevanza alla lettura ad alta voce?",
+    "opts": [
+      "Leggere testi di vario genere e formulare giudizi personali",
+      "Padroneggiare la lettura strumentale curandone l'espressione",
+      "Leggere ad alta voce in modo espressivo testi noti raggruppando le parole legate dal significato e usando pause e intonazioni per permettere a chi ascolta di capire",
+      "Impiegare tecniche di lettura silenziosa e di lettura espressiva ad alta voce"
+    ],
+    "correct": 2,
+    "explanation": "Il traguardo di fine terza di scuola secondaria di primo grado è quello che dà più rilevanza alla lettura ad alta voce: «leggere ad alta voce in modo espressivo testi noti raggruppando le parole legate dal significato e usando pause e intonazioni per seguire lo sviluppo del testo e permettere a chi ascolta di capire»."
+  },
+  {
+    "id": "let-014",
+    "fonte": "lettura",
+    "source": "La Lettura Espressiva nell'Insegnamento dell'Italiano (Cap. 5)",
+    "q": "Secondo il capitolo, quanti sono i compiti principali che l'insegnante deve svolgere in relazione alla lettura ad alta voce?",
+    "opts": [
+      "Tre",
+      "Due",
+      "Quattro",
+      "Cinque"
+    ],
+    "correct": 0,
+    "explanation": "Il testo elenca esplicitamente tre compiti dell'insegnante: proporre occasioni ricorrenti di lettura, curare la propria lettura espressiva per offrire un buon modello, e guidare gli allievi nello sviluppo delle competenze legate alla lettura espressiva."
+  },
+  {
+    "id": "let-015",
+    "fonte": "lettura",
+    "source": "La Lettura Espressiva nell'Insegnamento dell'Italiano (Cap. 5)",
+    "q": "Quanto dovrebbero durare le sessioni di lettura ad alta voce secondo Batini, all'interno del sistema di istruzione?",
+    "opts": [
+      "Almeno 15 minuti, idealmente 30 minuti",
+      "Almeno un'ora, idealmente due ore",
+      "Almeno 10 minuti, idealmente 20 minuti",
+      "Almeno 30 minuti, idealmente un'ora"
+    ],
+    "correct": 3,
+    "explanation": "Batini sostiene che le sessioni di lettura dovrebbero durare almeno mezz'ora, dove possibile e all'interno del sistema di istruzione, idealmente un'ora, con un aumento graduale della durata."
+  },
+  {
+    "id": "let-016",
+    "fonte": "lettura",
+    "source": "La Lettura Espressiva nell'Insegnamento dell'Italiano (Cap. 5)",
+    "q": "Slegare la lettura ad alta voce dagli abituali compiti scolastici significa, secondo il testo:",
+    "opts": [
+      "Vietare qualsiasi discussione successiva sulla lettura",
+      "Escludere totalmente l'intervento dell'insegnante durante e dopo la lettura",
+      "Non escludere la discussione sul testo letto, ma accogliere come valide tutte le riflessioni degli allievi",
+      "Limitare la lettura a testi non presenti nel programma scolastico"
+    ],
+    "correct": 2,
+    "explanation": "Slegare la lettura dagli abituali compiti scolastici non vuol dire escludere la discussione su quanto si è letto, ma significa accogliere come valide tutte le riflessioni proposte dagli allievi, magari stimolando la discussione con domande aperte."
+  },
+  {
+    "id": "let-017",
+    "fonte": "lettura",
+    "source": "La Lettura Espressiva nell'Insegnamento dell'Italiano (Cap. 5)",
+    "q": "A quale approccio didattico appartengono le «domande aperte» suggerite per stimolare la discussione dopo la lettura?",
+    "opts": [
+      "L'approccio Montessori",
+      "Il metodo Reggio Emilia",
+      "L'approccio dialogico di Bakhtin",
+      "L'approccio Tell me di Aidan Chambers"
+    ],
+    "correct": 3,
+    "explanation": "Il testo suggerisce di stimolare la discussione con domande aperte come quelle proprie dell'approccio Tell me di Aidan Chambers."
+  },
+  {
+    "id": "let-018",
+    "fonte": "lettura",
+    "source": "La Lettura Espressiva nell'Insegnamento dell'Italiano (Cap. 5)",
+    "q": "Quale strategia viene definita efficace con allievi di ogni età per la lettura ad alta voce?",
+    "opts": [
+      "Ritualizzare la lettura, dedicando a essa momenti specifici e ricorrenti della vita scolastica",
+      "Variare ogni volta il momento della giornata in cui si legge per mantenere l'interesse",
+      "Leggere solo quando gli allievi lo richiedono esplicitamente",
+      "Associare sempre la lettura ad alta voce a una valutazione scritta"
+    ],
+    "correct": 0,
+    "explanation": "Una strategia efficace con allievi di ogni età è ritualizzare la lettura ad alta voce, cioè dedicare a essa momenti specifici e ricorrenti della vita scolastica, poiché la continuità è uno dei fattori chiave per il successo di questa pratica didattica."
+  },
+  {
+    "id": "let-019",
+    "fonte": "lettura",
+    "source": "La Lettura Espressiva nell'Insegnamento dell'Italiano (Cap. 5)",
+    "q": "Quale tipo di «aiutante» viene suggerito per introdurre il momento lettura con i bambini più piccoli?",
+    "opts": [
+      "Un cartello con scritto 'Ora si legge'",
+      "Una campanella che suona all'inizio della lettura",
+      "Una marionetta, un pupazzetto o un oggetto come una valigia piena di libri",
+      "Un video animato che introduce il libro"
+    ],
+    "correct": 2,
+    "explanation": "Con allievi più piccoli si può puntare su qualche 'aiutante': una marionetta, un pupazzetto, un oggetto come una valigia piena di libri che segni l'inizio del 'momento lettura', magari accompagnato dalla recita a memoria di una filastrocca."
+  },
+  {
+    "id": "let-020",
+    "fonte": "lettura",
+    "source": "La Lettura Espressiva nell'Insegnamento dell'Italiano (Cap. 5)",
+    "q": "Cosa si dice riguardo alla qualità della lettura ad alta voce dell'insegnante?",
+    "opts": [
+      "È sufficiente che l'insegnante legga ad alta voce, indipendentemente dalla qualità espressiva",
+      "La qualità espressiva è importante solo per gli allievi delle scuole superiori",
+      "È preferibile una lettura monotona a una eccessivamente espressiva",
+      "Letture 'mal fatte' hanno il potere di annullare i benefici potenziali della lettura ad alta voce"
+    ],
+    "correct": 3,
+    "explanation": "Il testo afferma esplicitamente che non basta leggere ad alta voce: bisogna anche leggere bene. Letture 'mal fatte' hanno purtroppo il potere di annullare i benefici potenziali della lettura ad alta voce."
+  },
+  {
+    "id": "let-021",
+    "fonte": "lettura",
+    "source": "La Lettura Espressiva nell'Insegnamento dell'Italiano (Cap. 5)",
+    "q": "Perché la lettura ad alta voce può generare sensazioni negative negli allievi più deboli?",
+    "opts": [
+      "Perché i testi scelti sono sempre troppo difficili per loro",
+      "Perché spesso è usata come strumento di verifica e controllo, associandola a valutazioni e giudizi sulla performance",
+      "Perché gli allievi deboli non hanno sufficiente vocabolario per capire i testi",
+      "Perché la lettura ad alta voce è fisicamente più faticosa della lettura silenziosa"
+    ],
+    "correct": 1,
+    "explanation": "La lettura ad alta voce è spesso data come esercizio, allenamento, verifica e strumento di controllo, per cui gli allievi più deboli associano alla richiesta di leggere sensazioni negative che possono disincentivarli dalla lettura."
+  },
+  {
+    "id": "let-022",
+    "fonte": "lettura",
+    "source": "La Lettura Espressiva nell'Insegnamento dell'Italiano (Cap. 5)",
+    "q": "Quale principio fondamentale viene affermato riguardo al diritto dell'allievo che legge ad alta voce?",
+    "opts": [
+      "L'allievo ha il diritto di scegliere sempre il testo che preferisce leggere",
+      "L'allievo ha il diritto di rifiutarsi di leggere ad alta voce senza conseguenze valutative",
+      "L'allievo ha il diritto di ricevere sempre una valutazione positiva indipendentemente dalla qualità",
+      "L'allievo ha il diritto di leggere gratuitamente, senza la preoccupazione di essere giudicato"
+    ],
+    "correct": 3,
+    "explanation": "Il testo afferma che è indispensabile allontanare la pratica della lettura ad alta voce dalla logica valutativa; anche l'allievo che legge ha il diritto di farlo gratuitamente, senza la preoccupazione di essere giudicato."
+  },
+  {
+    "id": "let-023",
+    "fonte": "lettura",
+    "source": "La Lettura Espressiva nell'Insegnamento dell'Italiano (Cap. 5)",
+    "q": "Quali tipi di testi vengono suggeriti per iniziare la lettura ad alta voce nelle prime classi della scuola primaria?",
+    "opts": [
+      "Filastrocche, racconti brevi, favole e albi illustrati, anche a più voci",
+      "Romanzi brevi e testi espositivi semplici",
+      "Solo testi poetici classici della letteratura italiana",
+      "Principalmente testi informativi e scientifici adatti all'età"
+    ],
+    "correct": 0,
+    "explanation": "Nelle prime classi della scuola primaria si può partire da filastrocche e racconti brevi o favole, magari da leggere a più voci, o da albi illustrati, anch'essi adatti a letture a più voci."
+  },
+  {
+    "id": "let-024",
+    "fonte": "lettura",
+    "source": "La Lettura Espressiva nell'Insegnamento dell'Italiano (Cap. 5)",
+    "q": "A quale format televisivo vengono paragonate le gare di lettura ad alta voce proposte in classe?",
+    "opts": [
+      "I telegiornali",
+      "I documentari",
+      "I talent show",
+      "I quiz a premi"
+    ],
+    "correct": 2,
+    "explanation": "Il testo descrive le gare di lettura ad alta voce con un format analogo a quello dei talent show cui gli allievi sono abituati ad assistere in televisione."
+  },
+  {
+    "id": "let-025",
+    "fonte": "lettura",
+    "source": "La Lettura Espressiva nell'Insegnamento dell'Italiano (Cap. 5)",
+    "q": "Qual è il legame tra una buona lettura espressiva ad alta voce e la comprensione del testo?",
+    "opts": [
+      "Non c'è alcun legame dimostrabile tra lettura espressiva e comprensione",
+      "Una buona lettura espressiva garantisce sempre e in modo definitivo la comprensione del testo",
+      "La comprensione è indipendente dalla qualità espressiva della lettura",
+      "È molto probabile che chi legge bene ad alta voce abbia compreso il testo, anche se non è l'unico indizio di comprensione"
+    ],
+    "correct": 3,
+    "explanation": "Il testo afferma che è molto probabile che l'allievo che legge bene un testo ad alta voce lo abbia anche compreso a fondo, anche se una buona lettura espressiva non è l'unico indizio per determinare se la comprensione è realmente avvenuta."
+  },
+  {
+    "id": "let-026",
+    "fonte": "lettura",
+    "source": "La Lettura Espressiva nell'Insegnamento dell'Italiano (Cap. 5)",
+    "q": "Qual è la caratteristica particolare degli albi illustrati della serie di Mo Willems con Reginald e Tina?",
+    "opts": [
+      "La narrazione procede attraverso i dialoghi tra i personaggi in nuvolette, senza narratore, con caratteri tipografici variabili per dimensioni",
+      "La narrazione avviene tramite un narratore onnisciente esterno ai personaggi",
+      "Il testo è scritto in versi rimati che suggeriscono la cadenza della lettura",
+      "Gli episodi sono tutti privi di immagini per favorire l'immaginazione"
+    ],
+    "correct": 0,
+    "explanation": "In tutti gli episodi della serie, la narrazione procede attraverso i dialoghi tra i personaggi inseriti in nuvolette senza l'aiuto del narratore. Le scritte variano per dimensioni e disposizione, suggerendo in maniera molto efficace il modo di pronunciare e intonare parole e frasi."
+  },
+  {
+    "id": "let-027",
+    "fonte": "lettura",
+    "source": "La Lettura Espressiva nell'Insegnamento dell'Italiano (Cap. 5)",
+    "q": "Come variano i caratteri tipografici nella serie di Mo Willems per indicare il bisbiglio o l'urlo?",
+    "opts": [
+      "Il bisbiglio è indicato con caratteri in corsivo, l'urlo con caratteri in grassetto",
+      "Il bisbiglio è indicato con puntini di sospensione, l'urlo con punti esclamativi multipli",
+      "Il bisbiglio è in grigio chiaro, l'urlo in rosso e maiuscolo",
+      "Il bisbiglio è indicato con carattere che si rimpicciolisce, l'urlo con carattere che si ingigantisce proporzionalmente all'intensità"
+    ],
+    "correct": 3,
+    "explanation": "Quando un personaggio bisbiglia, il carattere si rimpicciolisce; quando urla, il carattere si ingigantisce proporzionalmente all'intensità dell'urlo, fino a occupare anche una intera doppia pagina."
+  },
+  {
+    "id": "let-028",
+    "fonte": "lettura",
+    "source": "La Lettura Espressiva nell'Insegnamento dell'Italiano (Cap. 5)",
+    "q": "Quanti episodi conta la serie originale in inglese di Mo Willems con Reginald e Tina, e quanti sono stati tradotti in italiano?",
+    "opts": [
+      "Venticinque episodi totali, di cui otto tradotti in italiano dalla casa editrice il Castoro",
+      "Trenta episodi totali, di cui quindici tradotti in italiano",
+      "Venti episodi totali, di cui dieci tradotti in italiano",
+      "Quindici episodi totali, di cui cinque tradotti in italiano"
+    ],
+    "correct": 0,
+    "explanation": "La serie originale in lingua inglese conta venticinque episodi, dei quali otto sono stati tradotti in italiano dalla casa editrice il Castoro."
+  },
+  {
+    "id": "let-029",
+    "fonte": "lettura",
+    "source": "La Lettura Espressiva nell'Insegnamento dell'Italiano (Cap. 5)",
+    "q": "Qual è la strategia didattica legata alle nuove tecnologie suggerita nel Quadro 5.2 per sviluppare la lettura espressiva?",
+    "opts": [
+      "La visione di video YouTube e la discussione successiva in classe",
+      "L'utilizzo di app di lettura automatica per confrontare la propria voce con quella digitale",
+      "La produzione di registrazioni audio in stile podcast da caricare su siti dedicati",
+      "La partecipazione a videoconferenze con esperti di lettura espressiva"
+    ],
+    "correct": 2,
+    "explanation": "Il Quadro 5.2 suggerisce la proposta di percorsi didattici finalizzati alla produzione di registrazioni audio in stile podcast da caricare realmente su siti dedicati, particolarmente adatta agli allievi in contatto con i social network."
+  },
+  {
+    "id": "let-030",
+    "fonte": "lettura",
+    "source": "La Lettura Espressiva nell'Insegnamento dell'Italiano (Cap. 5)",
+    "q": "A quale tipo di testo si adatta in modo particolare la strategia del podcast secondo il Quadro 5.2?",
+    "opts": [
+      "Al testo narrativo di invenzione",
+      "Al testo espositivo-informativo, per restituire ricerche su argomenti di studio",
+      "Al testo poetico e lirico",
+      "Al testo drammatico e teatrale"
+    ],
+    "correct": 1,
+    "explanation": "La strategia del podcast si adatta in modo particolare alla restituzione di ricerche su argomenti di studio, magari legati alle discipline, lavorando così sul testo espositivo-informativo."
+  },
+  {
+    "id": "let-031",
+    "fonte": "lettura",
+    "source": "La Lettura Espressiva nell'Insegnamento dell'Italiano (Cap. 5)",
+    "q": "Qual è il primo principio di riferimento per una lettura ad alta voce efficace enunciato nella sezione 6?",
+    "opts": [
+      "Conoscere bene la propria voce e lavorare su di essa",
+      "Curare la dizione e limitare le inflessioni regionali",
+      "Evitare gli eccessi espressivi durante la lettura",
+      "Conoscere e studiare bene il testo, capire la storia e coglierne il senso"
+    ],
+    "correct": 3,
+    "explanation": "Il primo principio enunciato nella sezione 6 è la necessità di conoscere e studiare bene il testo, capire la storia e coglierne il senso."
+  },
+  {
+    "id": "let-032",
+    "fonte": "lettura",
+    "source": "La Lettura Espressiva nell'Insegnamento dell'Italiano (Cap. 5)",
+    "q": "Chi è Giorgina Cantalini e qual è il suo approccio alla lettura ad alta voce?",
+    "opts": [
+      "È una pedagogista che propone la lettura ad alta voce come terapia cognitiva per bambini con difficoltà",
+      "È un'attrice e studiosa che promuove uno studio attento della struttura linguistico-testuale dei brani per individuare informazioni nuove e date",
+      "È una neuroscienziata che ha dimostrato i benefici della lettura ad alta voce sul cervello in sviluppo",
+      "È un'autrice di manuali scolastici per l'insegnamento della lettura espressiva alle elementari"
+    ],
+    "correct": 1,
+    "explanation": "Giorgina Cantalini è citata come attrice e studiosa che promuove un approccio intrecciato con la linguistica, che prevede uno studio attento e preciso della struttura linguistico-testuale dei brani per individuare le informazioni nuove e le informazioni date."
+  },
+  {
+    "id": "let-033",
+    "fonte": "lettura",
+    "source": "La Lettura Espressiva nell'Insegnamento dell'Italiano (Cap. 5)",
+    "q": "Qual è il rischio di una lettura ad alta voce eccessivamente espressiva?",
+    "opts": [
+      "Di diventare teatralità e falsare il ritmo narrativo, facendo perdere di vista il senso del racconto",
+      "Di rendere il testo troppo facile da comprendere, riducendo lo sforzo cognitivo degli allievi",
+      "Di annoiare gli allievi con una recitazione troppo lontana dalla realtà",
+      "Di creare dipendenza dall'ascolto e ridurre la motivazione alla lettura autonoma"
+    ],
+    "correct": 0,
+    "explanation": "Un'efficace lettura ad alta voce non deve mai apparire eccessivamente espressiva perché l'uso della gestualità accentuata con toni forzati rischia di diventare teatralità e di falsare il ritmo narrativo, facendo perdere di vista il senso del racconto."
+  },
+  {
+    "id": "let-034",
+    "fonte": "lettura",
+    "source": "La Lettura Espressiva nell'Insegnamento dell'Italiano (Cap. 5)",
+    "q": "Perché conoscere bene il testo favorisce il contatto visivo con il pubblico durante la lettura?",
+    "opts": [
+      "Perché chi conosce il testo non deve portare il libro con sé e ha le mani libere per gesticolare",
+      "Perché la conoscenza del testo elimina la tensione emotiva e permette di rilassarsi",
+      "Perché avere memorizzato i passaggi permette di avere più occasioni di rivolgere lo sguardo verso il pubblico",
+      "Perché conoscendo il testo si può leggere più velocemente, risparmiando tempo per il contatto visivo"
+    ],
+    "correct": 2,
+    "explanation": "Conoscere bene il testo, avendo dedicato al suo studio tutto il tempo necessario fino a memorizzare alcuni passaggi, è un modo per avere più occasioni di rivolgere lo sguardo verso il pubblico, stabilendo un contatto visivo che crea empatia e vicinanza."
+  },
+  {
+    "id": "let-035",
+    "fonte": "lettura",
+    "source": "La Lettura Espressiva nell'Insegnamento dell'Italiano (Cap. 5)",
+    "q": "Quali sono i tre parametri vocali che bisogna imparare a controllare durante la lettura ad alta voce?",
+    "opts": [
+      "Velocità, chiarezza e prosodia",
+      "Respirazione, articolazione e ritmo",
+      "Intensità, frequenza e risonanza",
+      "Volume, tono (o altezza della voce) e timbro (o colore della voce)"
+    ],
+    "correct": 3,
+    "explanation": "Il testo elenca tre parametri da controllare: il volume (che non deve mai essere alto troppo a lungo), il tono (o altezza della voce, più o meno acuta o grave) e il timbro (o colore della voce, che varia da persona a persona)."
+  },
+  {
+    "id": "let-036",
+    "fonte": "lettura",
+    "source": "La Lettura Espressiva nell'Insegnamento dell'Italiano (Cap. 5)",
+    "q": "Perché il volume non deve essere usato come unica risorsa espressiva durante la lettura?",
+    "opts": [
+      "Perché un volume elevato disturba le classi vicine e crea problemi di convivenza scolastica",
+      "Perché un volume troppo alto per troppo tempo genera stanchezza in chi legge e di conseguenza in chi ascolta",
+      "Perché il volume non è controllabile consapevolmente senza una formazione vocale specifica",
+      "Perché variare solo il volume rende la lettura prevedibile e noiosa"
+    ],
+    "correct": 1,
+    "explanation": "Il volume non deve mai essere alto troppo a lungo perché genera stanchezza in chi legge e di conseguenza in chi ascolta; pertanto non dovrebbe essere usato come unica risorsa per variare la modalità di lettura."
+  },
+  {
+    "id": "let-037",
+    "fonte": "lettura",
+    "source": "La Lettura Espressiva nell'Insegnamento dell'Italiano (Cap. 5)",
+    "q": "Quale aspetto della pronuncia viene indicato come particolarmente importante per la dizione durante la lettura?",
+    "opts": [
+      "La velocità di articolazione e il ritmo delle frasi",
+      "L'intonazione melodica tipica della lingua letteraria italiana",
+      "La corretta pronuncia delle vocali aperte e chiuse e delle consonanti sorde o sonore, anche per limitare le inflessioni regionali",
+      "La capacità di modulare la voce per imitare diversi personaggi"
+    ],
+    "correct": 2,
+    "explanation": "La dizione è importante, e a questo scopo è utile consultare manuali o risorse online per ascoltare la corretta pronuncia delle parole, soprattutto in relazione alle vocali aperte e chiuse e alle consonanti sorde o sonore, anche per limitare l'effetto delle proprie inflessioni regionali."
+  },
+  {
+    "id": "let-038",
+    "fonte": "lettura",
+    "source": "La Lettura Espressiva nell'Insegnamento dell'Italiano (Cap. 5)",
+    "q": "Qual è la 'semplice prova' descritta nel Quadro 5.3 per capire la differenza tra lettura meccanica e lettura incentrata sul senso?",
+    "opts": [
+      "Leggere un testo scientifico senza preparazione e poi confrontarsi con un esperto",
+      "Leggere un dialogo teatrale interpretando tutti i personaggi contemporaneamente",
+      "Leggere lo stesso testo a velocità diverse e misurare la comprensione degli ascoltatori",
+      "Cimentarsi con una filastrocca: senza studiarla si cade nell'effetto cantilena; studiandone il significato si può leggerla senza il vincolo delle rime"
+    ],
+    "correct": 3,
+    "explanation": "Il Quadro 5.3 propone come prova la lettura di una filastrocca: senza studiarla a fondo si tende a leggerla con il ritmo delle rime (effetto cantilena); studiandola a livello di significato si può leggerla senza il vincolo delle rime, favorendo l'attenzione al senso."
+  },
+  {
+    "id": "let-039",
+    "fonte": "lettura",
+    "source": "La Lettura Espressiva nell'Insegnamento dell'Italiano (Cap. 5)",
+    "q": "Perché la preparazione del testo è indispensabile quando si leggono gli albi illustrati ai bambini?",
+    "opts": [
+      "Perché bisogna mostrare le immagini contestualmente alla lettura senza spezzarne troppo l'ascolto, e la memorizzazione dei brevi testi lo facilita",
+      "Perché le immagini degli albi illustrati sono spesso disturbanti e vanno introdotte gradualmente",
+      "Perché il lessico degli albi illustrati è spesso arcaico e richiede una spiegazione preventiva",
+      "Perché gli albi illustrati contengono spesso messaggi impliciti che l'insegnante deve saper spiegare"
+    ],
+    "correct": 0,
+    "explanation": "Studiare bene il testo degli albi illustrati è indispensabile perché bisogna mostrare le immagini contestualmente alla lettura senza spezzarne troppo l'ascolto. La preparazione consente di memorizzare i brevi testi e spostare contemporaneamente lo sguardo verso il pubblico."
+  },
+  {
+    "id": "let-040",
+    "fonte": "lettura",
+    "source": "La Lettura Espressiva nell'Insegnamento dell'Italiano (Cap. 5)",
+    "q": "Quale manuale viene citato nel Quadro 5.5 per esercizi sulla voce che coinvolgono respiro e movimento del corpo?",
+    "opts": [
+      "Il manuale di Giorgina Cantalini sulla struttura linguistico-testuale",
+      "Il manuale di Batini sulla lettura ad alta voce nel curricolo scolastico",
+      "Il manuale di Coblenzer e Muhar sulla voce, il respiro e il movimento del corpo",
+      "Il manuale di Aidan Chambers sull'approccio Tell me"
+    ],
+    "correct": 2,
+    "explanation": "Il Quadro 5.5 cita il manuale di Coblenzer e Muhar, che offre esercizi sulla voce incentrati sul rapporto tra la voce, il respiro e il movimento del corpo."
+  },
+  {
+    "id": "let-041",
+    "fonte": "lettura",
+    "source": "La Lettura Espressiva nell'Insegnamento dell'Italiano (Cap. 5)",
+    "q": "Come viene metaforicamente descritta la classe quando si applica il manuale di Coblenzer e Muhar per preparare la lettura espressiva?",
+    "opts": [
+      "Come un teatro in cui ogni allievo recita la propria parte",
+      "Come uno studio di registrazione dove si producono materiali audio professionali",
+      "Come una palestra per allenare il corpo e gli organi fonatori, come un riscaldamento",
+      "Come un laboratorio di ricerca linguistica sul parlato"
+    ],
+    "correct": 2,
+    "explanation": "Il testo descrive la classe trasformata in una sorta di palestra per allenare il corpo e gli organi fonatori e per preparare i momenti di lettura ad alta voce, come una specie di riscaldamento."
+  },
+  {
+    "id": "let-042",
+    "fonte": "lettura",
+    "source": "La Lettura Espressiva nell'Insegnamento dell'Italiano (Cap. 5)",
+    "q": "Fino a quando la scuola solitamente pratica la lettura ad alta voce con maggior frequenza, per poi trascurarla?",
+    "opts": [
+      "Fino alla fine della scuola dell'infanzia",
+      "Fino alla fine della scuola primaria",
+      "Fino alla fine della scuola secondaria di primo grado",
+      "Fino ai primi anni della scuola secondaria di secondo grado"
+    ],
+    "correct": 1,
+    "explanation": "Il testo afferma che di solito la scuola svolge questo ruolo con maggior frequenza solo fino alla fine della primaria, per poi trascurarlo o addirittura abbandonarlo."
+  },
+  {
+    "id": "let-043",
+    "fonte": "lettura",
+    "source": "La Lettura Espressiva nell'Insegnamento dell'Italiano (Cap. 5)",
+    "q": "Cosa si dice riguardo alla capacità di leggere ad alta voce e all'allenamento necessario?",
+    "opts": [
+      "Essendo molto complessa, è spesso data per scontata ma non può essere raggiunta senza allenamento e studi specifici",
+      "È una capacità innata che non può essere sviluppata attraverso l'allenamento",
+      "È una capacità semplice che si acquisisce naturalmente con l'età senza bisogno di studi specifici",
+      "È una capacità che dipende esclusivamente dalla qualità della voce naturale di ciascuno"
+    ],
+    "correct": 0,
+    "explanation": "Il testo afferma che la capacità di leggere ad alta voce si dà spesso per scontata ma, essendo una questione molto complessa, non può essere raggiunta senza allenamento e studi specifici."
+  },
+  {
+    "id": "let-044",
+    "fonte": "lettura",
+    "source": "La Lettura Espressiva nell'Insegnamento dell'Italiano (Cap. 5)",
+    "q": "Quale ruolo svolge il ritmo nella lettura ad alta voce, secondo il principio enunciato nella sezione 6?",
+    "opts": [
+      "Il ritmo deve essere sempre regolare e costante per non disturbare la concentrazione degli ascoltatori",
+      "Il ritmo deve seguire esclusivamente i segni di interpunzione presenti nel testo",
+      "Il ritmo non può slegarsi dal senso del racconto e non si deve ridurre al rispetto delle sole pause suggerite dall'interpunzione",
+      "Il ritmo deve essere deciso dall'insegnante in base all'età degli allievi e non dal significato del testo"
+    ],
+    "correct": 2,
+    "explanation": "Il testo precisa che il giusto ritmo della lettura non può slegarsi dal senso del racconto e non può e non deve ridursi al rispetto delle pause suggerite dai soli segni di interpunzione."
+  },
+  {
+    "id": "let-045",
+    "fonte": "lettura",
+    "source": "La Lettura Espressiva nell'Insegnamento dell'Italiano (Cap. 5)",
+    "q": "Qual è il rischio di enfatizzare ciò che il testo già dice, soprattutto nel caso di storie emotivamente coinvolgenti?",
+    "opts": [
+      "Di rendere la storia incomprensibile per i lettori meno esperti",
+      "Di finire per prendere il posto della storia, relegandola in secondo piano mentre è lei che deve continuare a parlare a chi ascolta",
+      "Di rendere la lettura troppo lenta e ridurre il tempo disponibile per le attività didattiche",
+      "Di creare confusione tra la voce del narratore e quella dei personaggi"
+    ],
+    "correct": 1,
+    "explanation": "Il testo avverte che non bisogna enfatizzare ciò che il testo già dice, in particolare nel caso di storie forti: se si esagera, si finisce per prendere il posto della storia, relegandola in secondo piano mentre è lei che deve continuare a parlare a chi ascolta."
+  },
+  {
+    "id": "meme-001",
+    "fonte": "meme",
+    "source": "La lingua dei meme (Riassunto)",
+    "q": "Con quale termine viene indicata la modalità attraverso cui un parlante esplicita il proprio messaggio (parlata, scritta, digitale ecc.)?",
+    "opts": [
+      "Diafasia",
+      "Diamesia",
+      "Diastratia",
+      "Diatopia"
+    ],
+    "correct": 1,
+    "explanation": "Il termine 'diamesia' indica il canale comunicativo (parlato, scritto, digitale). Il testo afferma che è cresciuta l'importanza del canale diamesico nella dimensione trasmessa online."
+  },
+  {
+    "id": "meme-002",
+    "fonte": "meme",
+    "source": "La lingua dei meme (Riassunto)",
+    "q": "Come viene definita la nuova forma di comunicazione scritta emersa con l'avvento dei media digitali?",
+    "opts": [
+      "Italiano parlato digitale",
+      "Neoitaliano",
+      "Italiano digitato o e-italiano",
+      "Cyberitaliano"
+    ],
+    "correct": 2,
+    "explanation": "Il testo indica che 'con l'avvento e l'incremento dei media digitali si è manifestato anche un nuovo modo di comunicare, l'italiano digitato o e-italiano'."
+  },
+  {
+    "id": "meme-003",
+    "fonte": "meme",
+    "source": "La lingua dei meme (Riassunto)",
+    "q": "A quale forma di comunicazione satirica tradizionale si sostituiscono i meme secondo il testo?",
+    "opts": [
+      "Alle caricature pubblicitarie",
+      "Alle vignette di satira politica",
+      "Alle lettere ai giornali",
+      "Ai programmi radiofonici di satira"
+    ],
+    "correct": 1,
+    "explanation": "Il testo afferma che 'il fenomeno social dei meme si sostituisce, ad esempio, alle vignette di satira politica, un tempo opere d'autore; mentre ora i meme sono anonimi'."
+  },
+  {
+    "id": "meme-004",
+    "fonte": "meme",
+    "source": "La lingua dei meme (Riassunto)",
+    "q": "Nel caso del 'povero gabbiano', quale elemento ha reso virale il brano originale del 1988?",
+    "opts": [
+      "Una pubblicità televisiva nazionale",
+      "Il remix di un DJ famoso",
+      "Due influencer siciliani che hanno intonato una strofa in un loro video",
+      "Un film di successo che ne includeva la colonna sonora"
+    ],
+    "correct": 2,
+    "explanation": "Secondo il testo, due influencer siciliani hanno intonato in un loro video una strofa di una canzone di Gianni Celeste, rendendo virale il brano originale composto nel 1988."
+  },
+  {
+    "id": "meme-005",
+    "fonte": "meme",
+    "source": "La lingua dei meme (Riassunto)",
+    "q": "Quali sono i due elementi principali che rendono funzionale un meme secondo il testo?",
+    "opts": [
+      "La lunghezza e la completezza del testo",
+      "Il valore ironico e la capacità di essere virale",
+      "La qualità grafica e la firma dell'autore",
+      "La lunghezza e il numero di condivisioni"
+    ],
+    "correct": 1,
+    "explanation": "Il testo afferma che 'gli elementi che rendono funzionale un meme sono sicuramente il valore ironico e la capacità di essere virale'."
+  },
+  {
+    "id": "meme-006",
+    "fonte": "meme",
+    "source": "La lingua dei meme (Riassunto)",
+    "q": "Perché l'aggettivo 'virale' è definito nel testo come un aggettivo 'circolare'?",
+    "opts": [
+      "Perché si usa solo in ambito scientifico",
+      "Perché parte da un significato biologico, poi assume il senso web, poi torna al significato biologico a causa del Covid",
+      "Perché viene usato in modo ripetitivo sui social",
+      "Perché il suo significato cambia a seconda della piattaforma digitale"
+    ],
+    "correct": 1,
+    "explanation": "Il testo spiega che 'virale è un aggettivo circolare': prima aveva il significato biologico (virus), poi ha acquisito quello web, e durante il Covid è tornato al significato biologico originale."
+  },
+  {
+    "id": "meme-007",
+    "fonte": "meme",
+    "source": "La lingua dei meme (Riassunto)",
+    "q": "In quale categoria di scritture rientrano i meme digitali secondo il testo?",
+    "opts": [
+      "Scritture private sul web",
+      "Scritture esposte sul web",
+      "Scritture istituzionali digitali",
+      "Scritture specialistiche in rete"
+    ],
+    "correct": 1,
+    "explanation": "Il testo afferma che 'i meme digitali rientrano nella categoria delle scritture esposte sul web, ovvero quelle scritture che non costituiscono un genere testuale in senso stretto'."
+  },
+  {
+    "id": "meme-008",
+    "fonte": "meme",
+    "source": "La lingua dei meme (Riassunto)",
+    "q": "Qual è il significato originale del verbo inglese 'to drop' da cui deriva il verbo 'droppare'?",
+    "opts": [
+      "Creare o pubblicare",
+      "Eliminare o cancellare",
+      "Cadere o permettere che qualcosa cada",
+      "Condividere o promuovere"
+    ],
+    "correct": 2,
+    "explanation": "Il testo specifica che 'il verbo droppare deriva dal verbo inglese to drop, cadere o permettere che qualcosa cada', che nel linguaggio web ha assunto il significato di trascinare e condividere un'immagine."
+  },
+  {
+    "id": "meme-009",
+    "fonte": "meme",
+    "source": "La lingua dei meme (Riassunto)",
+    "q": "Da quale parola greca deriva il termine inglese 'meme'?",
+    "opts": [
+      "Mneme (memoria)",
+      "Mimema (imitazione o esempio)",
+      "Meteme (trasformazione)",
+      "Megame (grandezza)"
+    ],
+    "correct": 1,
+    "explanation": "Il testo spiega che 'la parola meme è un prestito tratto dall'inglese meme, derivato dal greco mimema, imitazione o esempio'."
+  },
+  {
+    "id": "meme-010",
+    "fonte": "meme",
+    "source": "La lingua dei meme (Riassunto)",
+    "q": "Chi ha coniato il termine 'meme' e in quale anno?",
+    "opts": [
+      "Umberto Eco nel 1965",
+      "Richard Dawkins nel 1976",
+      "Marshall McLuhan nel 1964",
+      "Diaz nel 1995"
+    ],
+    "correct": 1,
+    "explanation": "Secondo il testo, 'la parola meme nasce grazie a Richard Dawkins, biologo evolutivo e docente di comunicazione della scienza all'università di Oxford', nel 1976 con il libro 'The Selfish Game'."
+  },
+  {
+    "id": "meme-011",
+    "fonte": "meme",
+    "source": "La lingua dei meme (Riassunto)",
+    "q": "Perché Dawkins ha preferito abbreviare 'mimeme' in 'meme'?",
+    "opts": [
+      "Perché era più facile da pronunciare in inglese",
+      "Perché avesse un suono affine con 'gene'",
+      "Perché era già in uso nel gergo biologico",
+      "Perché si adattava meglio alla sintassi inglese"
+    ],
+    "correct": 1,
+    "explanation": "Il testo afferma che Dawkins 'preferisce abbreviare la parola greca mimeme in meme, perché avesse un suono affine con gene'."
+  },
+  {
+    "id": "meme-012",
+    "fonte": "meme",
+    "source": "La lingua dei meme (Riassunto)",
+    "q": "Quale delle seguenti affermazioni descrive correttamente la mutazione di un meme secondo Diaz?",
+    "opts": [
+      "La mutazione avviene solo per errori di copiatura accidentale",
+      "La mutazione può avvenire per significato o per struttura, e avviene per caso, per aggiunta o per parodia",
+      "La mutazione è sempre intenzionale e pianificata dall'autore",
+      "La mutazione riguarda esclusivamente la parte visiva del meme"
+    ],
+    "correct": 1,
+    "explanation": "Il testo riporta la definizione di Diaz secondo cui 'la mutazione della replica può avvenire per significato, mantenendo la struttura del meme o viceversa, e avviene per caso, per aggiunta o per parodia'."
+  },
+  {
+    "id": "meme-013",
+    "fonte": "meme",
+    "source": "La lingua dei meme (Riassunto)",
+    "q": "Secondo la definizione di Diaz, come si diffonde un meme?",
+    "opts": [
+      "In modo verticale, come un comunicato stampa",
+      "Orizzontalmente come un virus, a una velocità sempre maggiore",
+      "In modo selettivo, raggiungendo solo gruppi specifici",
+      "Verticalmente, dall'alto verso il basso nella gerarchia social"
+    ],
+    "correct": 1,
+    "explanation": "Il testo cita Diaz: il meme 'si diffonde orizzontalmente come un virus, a una velocità sempre maggiore'."
+  },
+  {
+    "id": "meme-014",
+    "fonte": "meme",
+    "source": "La lingua dei meme (Riassunto)",
+    "q": "Quale verbo derivato da 'meme' è trattato sul sito dell'Accademia della Crusca?",
+    "opts": [
+      "Memizzare",
+      "Memare",
+      "Memificare",
+      "Memologare"
+    ],
+    "correct": 1,
+    "explanation": "Il testo afferma che 'sul sito web dell'Accademia della Crusca è trattato il verbo memare, che presenta due significati: creare, diffondere e condividere memi e trasformare qualcosa in un meme'."
+  },
+  {
+    "id": "meme-015",
+    "fonte": "meme",
+    "source": "La lingua dei meme (Riassunto)",
+    "q": "Quali sono le tre varianti dell'appellativo dato a chi crea meme?",
+    "opts": [
+      "Memer, memista, mematico",
+      "Memer, mematore, memista",
+      "Memologo, mematore, mematico",
+      "Memista, memizzatore, memologista"
+    ],
+    "correct": 1,
+    "explanation": "Il testo indica che 'abbiamo tre varianti per l'appellativo dato a chi crea meme; memer, mematore e memista'."
+  },
+  {
+    "id": "meme-016",
+    "fonte": "meme",
+    "source": "La lingua dei meme (Riassunto)",
+    "q": "Quale caratteristica strutturale accomuna i meme alle vignette sui quotidiani?",
+    "opts": [
+      "Entrambi sono firmati da autori professionisti",
+      "Entrambi associano una parte iconica e una parte verbale",
+      "Entrambi sono esclusivamente in bianco e nero",
+      "Entrambi richiedono una lunga didascalia esplicativa"
+    ],
+    "correct": 1,
+    "explanation": "Il testo afferma che 'tra gli aspetti che meglio caratterizzano il meme vi è l'associazione tra parte iconica e parte verbale. Questo tratto accomuna i meme alle scritture tradizionali, con analogie tra il meme e i fumetti o le vignette sui quotidiani'."
+  },
+  {
+    "id": "meme-017",
+    "fonte": "meme",
+    "source": "La lingua dei meme (Riassunto)",
+    "q": "Cosa sono i 'meme di reazione' secondo il testo?",
+    "opts": [
+      "Meme che reagiscono a notizie di attualità entro 24 ore",
+      "Meme in cui da un meme nascono messaggi e situazioni trasferibili ad altri contesti che generano effetto comico",
+      "Meme che utilizzano le emoji come reazione",
+      "Meme creati in risposta diretta a un politico"
+    ],
+    "correct": 1,
+    "explanation": "Il testo spiega che i 'meme di reazione' nascono quando 'da un meme nascono una serie di messaggi e situazioni che possono essere trasferiti ad altri contesti e situazioni e che generano tutti un effetto comico da parte del ricevente'."
+  },
+  {
+    "id": "meme-018",
+    "fonte": "meme",
+    "source": "La lingua dei meme (Riassunto)",
+    "q": "Quale tipo di rapporto tra parte iconica e verbale prevede che parole e figure lavorino insieme contribuendo all'informazione indipendentemente l'una dall'altra?",
+    "opts": [
+      "Parallelismo",
+      "Equivalenza",
+      "Intersecazione",
+      "Montaggio"
+    ],
+    "correct": 2,
+    "explanation": "Il testo elenca 'intersecazione' come la modalità in cui 'parole e figure lavorano insieme e contribuiscono all'informazione indipendentemente'."
+  },
+  {
+    "id": "meme-019",
+    "fonte": "meme",
+    "source": "La lingua dei meme (Riassunto)",
+    "q": "Quale tipo di rapporto tra parte iconica e verbale prevede che parole e figure seguano percorsi diversi senza intersecarsi?",
+    "opts": [
+      "Interdipendenza",
+      "Equivalenza",
+      "Intersecazione",
+      "Parallelismo"
+    ],
+    "correct": 3,
+    "explanation": "Secondo il testo, il 'parallelismo' è la relazione in cui 'parole e figure seguono percorsi versi senza intersecarsi'."
+  },
+  {
+    "id": "meme-020",
+    "fonte": "meme",
+    "source": "La lingua dei meme (Riassunto)",
+    "q": "A quale personaggio reale si ricollega la famiglia memetica del 'Dude with sign'?",
+    "opts": [
+      "Un attivista di Los Angeles che mostrava cartelli satirici sulle mode",
+      "Un giovane manifestante di New York che con ironia metteva in mostra temi e vizi della società",
+      "Un comico televisivo che reggeva cartelli durante il suo show",
+      "Un politico americano famoso per i suoi cartelli durante i comizi"
+    ],
+    "correct": 1,
+    "explanation": "Il testo indica che il 'Dude with sign' è 'un giovane manifestante di New York che metteva in mostra con ironia temi e vizi della società'."
+  },
+  {
+    "id": "meme-021",
+    "fonte": "meme",
+    "source": "La lingua dei meme (Riassunto)",
+    "q": "Qual è la tipologia di meme in cui tutta la concentrazione si ha sulla parte verbale, con la parte iconica che al massimo fa da sfondo?",
+    "opts": [
+      "Meme dialogico",
+      "Meme-striscia",
+      "Meme-cartello",
+      "Meme-copia"
+    ],
+    "correct": 2,
+    "explanation": "Il testo definisce il 'meme-cartello' come quello in cui 'tutta la concentrazione si ha sulla parte verbale che di solito consiste in una battuta umoristica, mentre la parte iconica al massimo è uno sfondo particolare'."
+  },
+  {
+    "id": "meme-022",
+    "fonte": "meme",
+    "source": "La lingua dei meme (Riassunto)",
+    "q": "Quale famosa serie è citata come esempio tipico di meme-cartello?",
+    "opts": [
+      "'This is Fine' con il cane tra le fiamme",
+      "'Keep Calm and…'",
+      "'One does not simply…'",
+      "'Distracted boyfriend'"
+    ],
+    "correct": 1,
+    "explanation": "Il testo afferma che 'probabilmente la serie di meme-cartello più diffusa è quella di Keep Calm and…'"
+  },
+  {
+    "id": "meme-023",
+    "fonte": "meme",
+    "source": "La lingua dei meme (Riassunto)",
+    "q": "In cosa consiste il 'meme-striscia'?",
+    "opts": [
+      "Un meme che si diffonde a striscia virale molto rapidamente",
+      "Una sequenza umoristica di due o tre vignette autoconclusive",
+      "Un meme che occupa l'intera larghezza dello schermo",
+      "Un tipo di meme con testo disposto in orizzontale"
+    ],
+    "correct": 1,
+    "explanation": "Il testo definisce il 'meme-striscia' come quello che 'consiste in una sequenza umoristica di due o tre vignette autoconclusive'."
+  },
+  {
+    "id": "meme-024",
+    "fonte": "meme",
+    "source": "La lingua dei meme (Riassunto)",
+    "q": "Cosa si intende con la parte verbale 'diegetica' in un meme?",
+    "opts": [
+      "La battuta è esterna alla narrazione e scritta in maiuscolo sopra o sotto l'immagine",
+      "La battuta è interna alla narrazione, contenuta nell'immagine stessa",
+      "Il testo è assente e l'interpretazione è lasciata all'immagine",
+      "La parte verbale è in dialetto"
+    ],
+    "correct": 1,
+    "explanation": "Il testo spiega che la parte verbale è 'diegetica, cioè interna alla narrazione, se la battuta è contenuta nell'immagine'."
+  },
+  {
+    "id": "meme-025",
+    "fonte": "meme",
+    "source": "La lingua dei meme (Riassunto)",
+    "q": "Qual è la struttura più frequente nei meme secondo il testo?",
+    "opts": [
+      "Immagine sola senza testo",
+      "Testo lungo seguito da un'immagine di supporto",
+      "Premessa verbale, immagine e conclusione verbale",
+      "Due immagini affiancate con un testo centrale"
+    ],
+    "correct": 2,
+    "explanation": "Il testo afferma che 'la struttura più frequente nei meme è quella che vede una premessa verbale, un'immagine e una conclusione verbale, molto efficace in quanto crea un'aspettativa che viene risolta nella conclusione'."
+  },
+  {
+    "id": "meme-026",
+    "fonte": "meme",
+    "source": "La lingua dei meme (Riassunto)",
+    "q": "In quale tipologia di meme l'effetto umoristico è affidato a una modificazione del volto e chi è definito il 'king' di questo genere?",
+    "opts": [
+      "Meme dialogico; Roberto Benigni",
+      "Meme-striscia; Beppe Grillo",
+      "Meme-copia; Silvio Berlusconi",
+      "Meme-cartello; Dante Alighieri"
+    ],
+    "correct": 2,
+    "explanation": "Il testo definisce il 'meme-copia' come quello in cui 'l'effetto umoristico è affidato a una modificazione del volto' e afferma che 'in questo settore, il king del meme è sicuramente Silvio Berlusconi'."
+  },
+  {
+    "id": "meme-027",
+    "fonte": "meme",
+    "source": "La lingua dei meme (Riassunto)",
+    "q": "Come viene descritto l'italiano usato nei meme in termini generali?",
+    "opts": [
+      "Una lingua fortemente colloquiale e ricca di errori intenzionali",
+      "Una lingua corretta, di uso medio, che rispetta alcune regole e convenzioni",
+      "Una lingua prevalentemente dialettale con influenze straniere",
+      "Una lingua tecnica e specialistica adatta agli esperti di comunicazione"
+    ],
+    "correct": 1,
+    "explanation": "Il testo afferma che 'l'italiano dei meme è sostanzialmente una lingua corretta, di uso medio, che non è scritta di getto ma rispetta alcune regole e convenzioni come l'impiego della punteggiatura o l'uso del paragrafo'."
+  },
+  {
+    "id": "meme-028",
+    "fonte": "meme",
+    "source": "La lingua dei meme (Riassunto)",
+    "q": "Quale costruzione sintattica il testo segnala come frequente nella lingua dei meme?",
+    "opts": [
+      "Le frasi passive con agente espresso",
+      "Le frasi dislocate con il complemento oggetto anticipato a sinistra",
+      "Le frasi relative introdotte da 'il quale'",
+      "Le frasi nominali prive di verbo"
+    ],
+    "correct": 1,
+    "explanation": "Il testo indica che 'frequenti sono le frasi dislocate, quindi con il complemento oggetto anticipato a sinistra'."
+  },
+  {
+    "id": "meme-029",
+    "fonte": "meme",
+    "source": "La lingua dei meme (Riassunto)",
+    "q": "Perché nei meme vengono a volte forzate violazioni delle norme ortografiche come l'omissione dell'h in 'ho'?",
+    "opts": [
+      "Per adeguarsi alle tendenze della messaggistica istantanea",
+      "Per conferire al testo un'aura popolareggiante a fini comici",
+      "Per risparmiare spazio nel formato grafico del meme",
+      "Per includere un pubblico non scolarizzato"
+    ],
+    "correct": 1,
+    "explanation": "Il testo spiega che le violazioni ortografiche forzate 'conferiscono al testo un'aura popolareggiante a fini comici'."
+  },
+  {
+    "id": "meme-030",
+    "fonte": "meme",
+    "source": "La lingua dei meme (Riassunto)",
+    "q": "Quale ruolo ricopre la polisemia nella produzione dei meme?",
+    "opts": [
+      "Un ruolo marginale, limitato ai meme di carattere linguistico",
+      "Un ruolo chiave, insieme al passaggio da un elemento lessicale noto a uno nuovo",
+      "Un ruolo puramente decorativo nel titolo del meme",
+      "Un ruolo negativo, poiché genera ambiguità non volute"
+    ],
+    "correct": 1,
+    "explanation": "Il testo afferma che 'la polisemia ricopre un ruolo chiave per la produzione dei meme, ma anche il passaggio dall'elemento lessicale facilmente riconoscibile a un elemento nuovo, come avviene negli snowclones'."
+  },
+  {
+    "id": "meme-031",
+    "fonte": "meme",
+    "source": "La lingua dei meme (Riassunto)",
+    "q": "Che cos'è uno 'snowclone'?",
+    "opts": [
+      "Un meme che diventa virale durante l'inverno",
+      "Un particolare tipo di clichè che consiste nell'impiego di una frase nota modificata per adattarla ironicamente a un nuovo contesto",
+      "Un meme basato sulla ripetizione esatta di una citazione celebre",
+      "Un formato di meme con immagini di paesaggi invernali"
+    ],
+    "correct": 1,
+    "explanation": "Il testo definisce lo snowclone come 'un particolare tipo di clichè che consiste nell'impiego di una frase nota ma modificata per essere adattata ironicamente a un nuovo contesto'."
+  },
+  {
+    "id": "meme-032",
+    "fonte": "meme",
+    "source": "La lingua dei meme (Riassunto)",
+    "q": "Da quale convinzione deriva l'origine del termine 'snowclone'?",
+    "opts": [
+      "Dalla credenza che i fiocchi di neve siano tutti diversi tra loro",
+      "Dalla convinzione che gli eschimesi possiedano un elevato numero di parole per indicare la neve",
+      "Dal fatto che le frasi snowclone si diffondono come la neve",
+      "Dall'idea che le variazioni siano fredde e impersonali come la neve"
+    ],
+    "correct": 1,
+    "explanation": "Il testo spiega che 'la parola viene dall'inglese copia di neve, per la convinzione che gli eschimesi possiedano un elevato numero di parole per indicare la neve'."
+  },
+  {
+    "id": "meme-033",
+    "fonte": "meme",
+    "source": "La lingua dei meme (Riassunto)",
+    "q": "Perché il meme trova campo fertile nell'ambito sportivo secondo il testo?",
+    "opts": [
+      "Perché lo sport attira un pubblico giovane e digitalmente attivo",
+      "Perché lo sport favorisce il dibattito, lo scherzo, l'insulto e l'interazione fra sportivi, tifosi e utenti della rete",
+      "Perché le immagini sportive sono facilmente reperibili online",
+      "Perché i risultati sportivi sono prevedibili e quindi adatti alla satira"
+    ],
+    "correct": 1,
+    "explanation": "Il testo afferma che 'il meme trova campo fertile nell'ambito dello sport; perché si tratta di attività che favoriscono il dibattito, lo scherzo, spesso l'insulto e comunque l'interazione fra sportivi, tifosi e utenti della rete'."
+  },
+  {
+    "id": "meme-034",
+    "fonte": "meme",
+    "source": "La lingua dei meme (Riassunto)",
+    "q": "Quale evento relativo al calciatore Francesco Totti ha generato una miriade di meme?",
+    "opts": [
+      "La sua vittoria al campionato del mondo del 2006",
+      "La separazione dalla moglie Ilary, con meme incentrati sul dialetto romanesco",
+      "Un gol decisivo segnato in una finale di Champions League",
+      "Un errore grammaticale in un'intervista televisiva"
+    ],
+    "correct": 1,
+    "explanation": "Il testo indica che 'la separazione del calciatore Francesco Totti con la moglie Ilary ha generato una miriade di meme soprattutto facendo leva sull'ilarità del dialetto romanesco parlato dal calciatore'."
+  },
+  {
+    "id": "meme-035",
+    "fonte": "meme",
+    "source": "La lingua dei meme (Riassunto)",
+    "q": "Quale caratteristica del meme lo rende utile nell'ambito politico secondo il testo?",
+    "opts": [
+      "La capacità di sintetizzare programmi politici complessi in poche parole",
+      "L'intertestualità, che gli permette di toccare più contesti con una sola immagine",
+      "La possibilità di raggiungere solo l'elettorato più giovane",
+      "L'anonimato, che protegge i creatori da conseguenze legali"
+    ],
+    "correct": 1,
+    "explanation": "Il testo spiega che 'in questo contesto il meme si inserisce grazie alla sua caratteristica di intertestualità, quindi in grado di toccare più contesti con una sola immagine'."
+  },
+  {
+    "id": "meme-036",
+    "fonte": "meme",
+    "source": "La lingua dei meme (Riassunto)",
+    "q": "Come viene definito il 'politico 4.0' secondo il testo?",
+    "opts": [
+      "Il politico che usa esclusivamente i social per comunicare con gli elettori",
+      "Il politico che è memabile e ha un appeal con il pubblico della rete",
+      "Il politico che produce personalmente i propri meme",
+      "Il politico che risponde ai meme con ironia"
+    ],
+    "correct": 1,
+    "explanation": "Il testo afferma che 'il politico 4.0 è colui che è memabile, che ha un appeal con il pubblico della rete'."
+  },
+  {
+    "id": "meme-037",
+    "fonte": "meme",
+    "source": "La lingua dei meme (Riassunto)",
+    "q": "In quale campagna elettorale americana i meme sono stati usati dalla destra radicale come strumento di lotta politica, contribuendo a diffondere fake news?",
+    "opts": [
+      "La campagna del 2012 contro Obama",
+      "La campagna del 2016 che ha portato all'elezione di Trump",
+      "La campagna del 2020 vinta da Biden",
+      "La campagna del 2008 tra Obama e McCain"
+    ],
+    "correct": 1,
+    "explanation": "Il testo cita 'il caso impiegato dalla destra radicale americana nella campagna elettorale del 2016, quella che ha portato all'elezione di Trump'."
+  },
+  {
+    "id": "meme-038",
+    "fonte": "meme",
+    "source": "La lingua dei meme (Riassunto)",
+    "q": "Quale personaggio storico-letterario è citato come tra i più famosi soggetti di meme grammaticali?",
+    "opts": [
+      "Giacomo Leopardi",
+      "Dante Alighieri",
+      "Alessandro Manzoni",
+      "Giovanni Boccaccio"
+    ],
+    "correct": 1,
+    "explanation": "Il testo indica che 'uno dei più famosi è il sommo poeta Dante Alighieri, protagonista di vignette usate per censurare errori grammaticali'."
+  },
+  {
+    "id": "meme-039",
+    "fonte": "meme",
+    "source": "La lingua dei meme (Riassunto)",
+    "q": "Quali sono i tre filoni di meme generati dalla notorietà della regina Elisabetta II?",
+    "opts": [
+      "Meme sui suoi vestiti, sul suo cane Corgi e sulla famiglia reale",
+      "Meme con le sue reactions, meme sul rapporto con la moglie del nipote Harry e meme sulla sua longevità",
+      "Meme sul suo stile di vita, sui suoi discorsi e sulla monarchia britannica",
+      "Meme sulle sue smorfie, sui suoi viaggi e sulla Brexit"
+    ],
+    "correct": 1,
+    "explanation": "Il testo indica che 'la sua notorietà ha generato 3 filoni di meme: i meme con le sue reactions, i meme che hanno per oggetto il problematico rapporto con la moglie del nipote Harry; e quelli sulla sua longevità e addirittura immortalità'."
+  },
+  {
+    "id": "meme-040",
+    "fonte": "meme",
+    "source": "La lingua dei meme (Riassunto)",
+    "q": "Su quale aspetto fisico si concentrano principalmente i meme su Donald Trump?",
+    "opts": [
+      "La sua corporatura e il suo modo di camminare",
+      "I suoi capelli tendenti all'arancione e la sconfitta alle presidenziali del 2020",
+      "I suoi abiti costosi e le sue scarpe",
+      "Le sue espressioni facciali durante i dibattiti"
+    ],
+    "correct": 1,
+    "explanation": "Il testo afferma che 'i meme principali su Donald Trump si concentrano sui suoi capelli tendenti all'arancione e alla sconfitta alle presidenziali del 2020'."
+  },
+  {
+    "id": "meme-041",
+    "fonte": "meme",
+    "source": "La lingua dei meme (Riassunto)",
+    "q": "Quale categoria grammaticale è definita nel testo come il settore 'più esposto all'errore' e quindi il più sfruttato nei meme?",
+    "opts": [
+      "La morfologia verbale",
+      "La sintassi del periodo",
+      "L'ortografia",
+      "La punteggiatura"
+    ],
+    "correct": 2,
+    "explanation": "Il testo afferma che 'l'ortografia è sicuramente il settore della grammatica più esposto all'errore' e che proprio questo settore 'trova nei meme un esilarante sbocco'."
+  },
+  {
+    "id": "meme-042",
+    "fonte": "meme",
+    "source": "La lingua dei meme (Riassunto)",
+    "q": "Quale delle seguenti è classificata come un errore di 'semplificazione di nessi difficili' secondo il testo?",
+    "opts": [
+      "'daccordo' (errata univerbazione)",
+      "'avvolte' (errata segmentazione)",
+      "'pissicologo' (semplificazione di nesso difficile)",
+      "'palquet' (resa adattata alla pronuncia)"
+    ],
+    "correct": 2,
+    "explanation": "Il testo elenca tra gli errori nei meme le 'semplificazioni di nessi difficili (pissicologo)' come categoria distinta dall'errata univerbazione o dalla resa fonetica di parole straniere."
+  },
+  {
+    "id": "meme-043",
+    "fonte": "meme",
+    "source": "La lingua dei meme (Riassunto)",
+    "q": "Quale esempio offre il testo per illustrare l'importanza della virgola nella punteggiatura dei meme?",
+    "opts": [
+      "'Mangio bene, oggi' vs 'Mangio bene oggi'",
+      "'Vado a mangiare nonna' vs 'Vado a mangiare, nonna'",
+      "'Parla, piano' vs 'Parla piano'",
+      "'Arrivo, subito' vs 'Arrivo subito'"
+    ],
+    "correct": 1,
+    "explanation": "Il testo usa l'esempio di 'vado a mangiare nonna' e 'vado a mangiare, nonna' per mostrare come la virgola cambi il significato in modo comico, insegnando l'importanza della corretta ortografia."
+  },
+  {
+    "id": "meme-044",
+    "fonte": "meme",
+    "source": "La lingua dei meme (Riassunto)",
+    "q": "Quale pagina Facebook viene citata come esempio del successo dell'insegnamento della grammatica tramite meme?",
+    "opts": [
+      "'Errori italiani', con oltre 2 milioni di follower",
+      "'Commenti memorabili', con più di 4 milioni di follower",
+      "'La grammatica italiana', con 1 milione di follower",
+      "'Italiani si nasce', con 3 milioni di follower"
+    ],
+    "correct": 1,
+    "explanation": "Il testo cita 'la pagina Facebook commenti memorabili, che conta più di 4 milioni di followers e propone lo screen di un post infarcito di errori di varia natura' come prova del successo nell'insegnamento grammaticale tramite meme."
+  },
+  {
+    "id": "meme-045",
+    "fonte": "meme",
+    "source": "La lingua dei meme (Riassunto)",
+    "q": "Nel settore del lessico, quale fenomeno viene descritto come tipico delle persone anziane o con basso livello di istruzione che genera effetto comico nei meme?",
+    "opts": [
+      "Il calco strutturale dall'inglese usato in modo improprio",
+      "La sostituzione di una parola sconosciuta con una di forma simile (paretimologia)",
+      "L'uso sistematico del dialetto al posto dell'italiano standard",
+      "La ripetizione ossessiva di parole senza significato"
+    ],
+    "correct": 1,
+    "explanation": "Il testo afferma che 'tra le persone anziane o quelle con un livello non elevato di istruzione, si tende a sostituire una parola che non si conosce con una che ha una forma simile, generando un effetto comico'. Questo fenomeno è la paretimologia, citata come titolo del paragrafo 5.6."
+  }
+];
