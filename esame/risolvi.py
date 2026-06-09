@@ -144,6 +144,22 @@ ANSWER_TOOL = {
     }
 }
 
+# System prompt per il fallback Ollama di segmentazione (Stage 2.5)
+SYSTEM_SEGMENTA = """\
+Sei un assistente che analizza testo OCR di screenshot di esami universitari italiani.
+
+Il testo contiene UNA O PIÙ domande a risposta multipla. Il tuo compito è separarle.
+
+Rispondi SOLO con un oggetto JSON valido:
+{"domande": ["<testo domanda 1 con le sue opzioni>", "<testo domanda 2 con le sue opzioni>", ...]}
+
+Regole:
+- Ogni elemento è una stringa con il testo di UNA sola domanda e le sue opzioni di risposta.
+- Copia il testo verbatim dall'OCR: NON correggere, NON parafrasare.
+- Se c'è una sola domanda, la lista ha un solo elemento.
+- NON aggiungere testo fuori dal JSON. NON usare ```json. Solo il JSON puro.
+"""
+
 
 # ─── Stage 1: Knowledge base ──────────────────────────────────────────────────
 
@@ -316,6 +332,209 @@ def ocr_parallelo(immagini: list[Path], workers: int) -> list[tuple[int, Path, s
 
     risultati.sort(key=lambda x: x[0])
     return risultati
+
+
+# ─── Stage 2.5: Segmentazione domande ─────────────────────────────────────────
+
+# Pattern riutilizzati in più funzioni di segmentazione
+_RE_GLIFO   = re.compile(r'^[Î>}|■►●]\s')  # marcatore domanda (layout grammatica)
+_RE_OPZ_O   = re.compile(r'^[OoQ0©]\s+\S')          # opzione cerchietto (grammatica; © = OCR radio button)
+_RE_OPZ_LET = re.compile(r'^[A-Dpcb]{1}[.)\s]\s*\S') # opzione lettera A/B/C/D (didattica)
+_RE_RUMORE  = re.compile(                            # righe da ignorare
+    r'^(?:e{2,}|[-=_+/*]{3,}|domanda\s+\d+\s+di\s+\d+)$', re.I
+)
+
+
+def _is_opzione_riga(riga: str) -> bool:
+    return bool(_RE_OPZ_O.match(riga) or _RE_OPZ_LET.match(riga))
+
+
+def _pulisci_riga(riga: str) -> str:
+    """Rimuove il marcatore iniziale (Î, O, A., ecc.) da una riga OCR."""
+    riga = _RE_GLIFO.sub('', riga)
+    riga = re.sub(r'^[OoQ0]\s+', '', riga)
+    riga = re.sub(r'^[A-Dpcb]{1}[.)\s]\s*', '', riga)
+    return riga.strip()
+
+
+def _segmenta_euristico(testo: str) -> list[str]:
+    """
+    Spezza il testo OCR di un'immagine in blocchi-domanda distinti.
+
+    Strategia 1 (layout grammatica — marcatore Î presente):
+        Ogni riga che inizia con 'Î' apre un nuovo blocco. Caso comune per
+        quizgrammatica, dove ogni screenshot ha ~3 domande impilate.
+
+    Strategia 2 (layout senza Î — es. quizdidattica):
+        Split sulla transizione opzione→non-opzione, solo dopo ≥ 3 opzioni
+        nel blocco corrente. Evita falsi split su righe di wrap/continuazione.
+    """
+    righe = [r.strip() for r in testo.splitlines()
+             if r.strip() and not _RE_RUMORE.match(r.strip())]
+    if not righe:
+        return [testo.strip()] if testo.strip() else []
+
+    usa_glifo = any(_RE_GLIFO.match(r) for r in righe)
+
+    # I blocchi vengono costruiti con le righe ORIGINALI (non pulite) per poter
+    # eseguire correttamente _is_opzione_riga nel post-processing. La pulizia
+    # dei marcatori avviene solo al momento di produrre l'output.
+    blocchi_raw: list[list[str]] = []
+    corrente: list[str] = []
+
+    if usa_glifo:
+        # Strategia 1: split esplicito sul glifo Î
+        for riga in righe:
+            if _RE_GLIFO.match(riga) and corrente:
+                blocchi_raw.append(corrente)
+                corrente = []
+            corrente.append(riga)
+    else:
+        # Strategia 2: split sulla transizione opzione→non-opzione.
+        # Condizioni: ≥ 4 opzioni viste (evita split dopo solo 3 su immagini con wrap)
+        # E la riga non-opzione deve avere ≥ 4 parole (esclude righe di continuazione
+        # come "alla lingua" o "loro lingua" che sono tail di un'opzione wrappata).
+        MIN_OPZ = 4
+        MIN_PAROLE_Q = 4
+        opz_in_blocco = 0
+        ultima_era_opzione = False
+        for riga in righe:
+            e_opzione = _is_opzione_riga(riga)
+            if (not e_opzione and ultima_era_opzione
+                    and opz_in_blocco >= MIN_OPZ
+                    and len(riga.split()) >= MIN_PAROLE_Q
+                    and corrente):
+                blocchi_raw.append(corrente)
+                corrente = []
+                opz_in_blocco = 0
+            corrente.append(riga)
+            if e_opzione:
+                opz_in_blocco += 1
+            ultima_era_opzione = e_opzione
+
+    if corrente:
+        blocchi_raw.append(corrente)
+
+    # Post-processing: i blocchi senza opzioni (righe di continuazione / wrap)
+    # vengono fusi nel blocco precedente invece di diventare domande separate.
+    # Confronto sulle righe ORIGINALI (prima della pulizia dei marcatori).
+    blocchi_finali: list[list[str]] = []
+    for b in blocchi_raw:
+        ha_opzioni = any(_is_opzione_riga(r) for r in b)
+        if not ha_opzioni and blocchi_finali:
+            blocchi_finali[-1].extend(b)
+        else:
+            blocchi_finali.append(b)
+
+    # Pulizia dei marcatori e join finale
+    risultato = [
+        '\n'.join(_pulisci_riga(r) for r in b if r.strip()).strip()
+        for b in blocchi_finali
+    ]
+    risultato = [t for t in risultato if t]
+    return risultato if risultato else [testo.strip()]
+
+
+def _split_sospetto(blocchi: list[str], testo_originale: str) -> bool:
+    """
+    Ritorna True se il risultato euristico sembra inaffidabile e vale la pena
+    invocare il fallback Ollama.
+
+    Il rapporto opzioni/blocco è calcolato SOLO sui blocchi che contengono
+    almeno un'opzione (i blocchi di continuazione sono già stati fusi).
+
+    Criteri di sospetto:
+    - 0 blocchi con opzioni
+    - 1 blocco effettivo con ≥ 8 opzioni (= 2+ domande probabilmente fuse)
+    - rapporto opzioni/blocco < 2.5  (split troppo aggressivo)
+    - rapporto opzioni/blocco ≥ 5.5  (domande probabilmente ancora fuse)
+    """
+    B = len(blocchi)
+    if B == 0:
+        return True
+
+    # Conta le righe-opzione nel testo originale (riga per riga, non regex multiline)
+    # Il post-processing in _segmenta_euristico ha già fuso i blocchi di continuazione,
+    # quindi B riflette correttamente il numero di domande estratte.
+    M = sum(1 for r in testo_originale.splitlines() if _is_opzione_riga(r.strip()))
+    if M < 2:
+        return False  # Testo libero o OCR vuoto — nessun fallback utile
+
+    if B == 1 and M >= 8:
+        return True   # 1 blocco, 8+ opzioni → 2+ domande probabilmente fuse
+
+    rapporto = M / B
+    return rapporto < 2.5 or rapporto >= 5.5
+
+
+def _segmenta_ollama(ollama_mod, model: str, testo: str) -> list[str]:
+    """
+    Usa il modello Ollama locale per separare domande multiple in un testo OCR.
+    Chiamato solo come fallback quando _split_sospetto() ritorna True.
+    Ritorna [testo] se il parsing JSON fallisce (per non perdere domande).
+    """
+    try:
+        response = ollama_mod.chat(
+            model=model,
+            messages=[
+                {"role": "system", "content": SYSTEM_SEGMENTA},
+                {"role": "user",   "content": f"Testo OCR da separare:\n\n{testo}"}
+            ],
+            format="json",
+            options={"num_ctx": 4096, "temperature": 0}
+        )
+        raw = response.message.content.strip()
+        raw = re.sub(r'^```(?:json)?\s*', '', raw)
+        raw = re.sub(r'\s*```$', '', raw)
+        dati = json.loads(raw)
+        domande = dati.get("domande", [])
+        if isinstance(domande, list) and all(isinstance(d, str) for d in domande):
+            pulite = [d.strip() for d in domande if d.strip()]
+            return pulite if pulite else [testo]
+    except Exception:
+        pass
+    return [testo]
+
+
+def segmenta_domande(
+    ocr_results: list[tuple[int, Path, str]],
+    ollama_mod,
+    model: str
+) -> list[tuple[int, Path, str]]:
+    """
+    Stage 2.5 — Segmentazione: spezza ogni testo OCR in singole domande.
+
+    Per ogni immagine:
+      1. Prova lo splitter euristico (istantaneo, nessuna chiamata LLM).
+      2. Se il risultato sembra incoerente, usa il modello Ollama come fallback.
+      3. Stampa avanzamento.
+
+    Ritorna una lista piatta di tuple (qid, path, testo_domanda) con qid
+    sequenziale globale — stessa forma di ocr_results, compatibile con
+    risposte_ollama_rag() e risposte_parallele() senza modifiche.
+    """
+    lista_piatta: list[tuple[int, Path, str]] = []
+    qid = 0
+
+    for _i, path, testo in ocr_results:
+        blocchi = _segmenta_euristico(testo)
+
+        usato_fallback = False
+        if ollama_mod is not None and _split_sospetto(blocchi, testo):
+            blocchi_fb = _segmenta_ollama(ollama_mod, model, testo)
+            if blocchi_fb:
+                blocchi = blocchi_fb
+                usato_fallback = True
+
+        k = len(blocchi)
+        fb_label = "  (fallback ollama)" if usato_fallback else ""
+        print(f"    {path.name} → {k} domand{'e' if k != 1 else 'a'}{fb_label}", flush=True)
+
+        for blocco in blocchi:
+            lista_piatta.append((qid, path, blocco))
+            qid += 1
+
+    return lista_piatta
 
 
 # ─── Stage 3a: Claude API con prompt caching ──────────────────────────────────
@@ -881,7 +1100,7 @@ def main() -> None:
     print()
     print(f"╔══════════════════════════════════════════════════════════════╗")
     print(f"║  risolvi.py                                                  ║")
-    print(f"║  {len(immagini):2d} domande  ·  {backend_label}".ljust(63) + "║")
+    print(f"║  {len(immagini):2d} immagini  ·  {backend_label}".ljust(63) + "║")
     print(f"║  {ollama_workers} workers".ljust(63) + "║")
     print(f"╚══════════════════════════════════════════════════════════════╝")
     print()
@@ -899,6 +1118,14 @@ def main() -> None:
     ocr_results = ocr_parallelo(immagini, args.workers)
     print(f"  ✓ completato in {time.time() - t1:.1f}s\n")
 
+    # ── Stage 2.5: Segmentazione domande ─────────────────────────────────────
+    t25 = time.time()
+    print("▶ Stage 2.5 — Segmentazione domande")
+    ollama_per_segm = ollama if args.backend == "ollama" else None
+    domande = segmenta_domande(ocr_results, ollama_per_segm, model)
+    print(f"  ✓ {len(domande)} domande da {len(immagini)} immagin{'i' if len(immagini) != 1 else 'e'}"
+          f" — completato in {time.time() - t25:.1f}s\n")
+
     # ── Stage 3: Risposte ─────────────────────────────────────────────────────
     t2 = time.time()
 
@@ -907,14 +1134,14 @@ def main() -> None:
         print()
         client = anthropic.Anthropic(api_key=api_key)
         system_blocks = build_system_blocks(kb)
-        output_lines = risposte_parallele(client, model, system_blocks, ocr_results, ollama_workers)
+        output_lines = risposte_parallele(client, model, system_blocks, domande, ollama_workers)
 
     else:  # ollama
         print(f"▶ Stage 3 — Risposte Ollama RAG (top-{args.top_k}, {ollama_workers} paralleli)")
         print()
         output_lines = risposte_ollama_rag(
             ollama, model, args.embed_modello, kb,
-            ocr_results, args.top_k, ollama_workers
+            domande, args.top_k, ollama_workers
         )
 
     print(f"\n  ✓ completato in {time.time() - t2:.1f}s\n")
