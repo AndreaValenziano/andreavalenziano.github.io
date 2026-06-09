@@ -13,4 +13,6 @@ REM Pre-requisiti Ollama (una tantum):
 REM   ollama pull qwen2.5:14b       :: modello chat principale (~9 GB VRAM)
 REM   ollama pull nomic-embed-text  :: modello embedding (~300 MB)
 
+set PYTHONUTF8=1
+set PYTHONIOENCODING=utf-8
 "%~dp0.venv\Scripts\python.exe" "%~dp0risolvi.py" %*

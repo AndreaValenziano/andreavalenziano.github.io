@@ -168,7 +168,7 @@ def estrai_pdf(pdf_path: Path) -> str:
     try:
         result = subprocess.run(
             ["pdftotext", "-layout", str(pdf_path), "-"],
-            capture_output=True, text=True, timeout=120
+            capture_output=True, text=True, encoding="utf-8", errors="replace", timeout=120
         )
         testo = result.stdout.strip()
     except FileNotFoundError:
