@@ -15,4 +15,6 @@ REM   ollama pull nomic-embed-text  :: modello embedding (~300 MB)
 
 set PYTHONUTF8=1
 set PYTHONIOENCODING=utf-8
+set "PATH=%PATH%;C:\Program Files\Tesseract-OCR"
+set "TESSDATA_PREFIX=%USERPROFILE%\tessdata"
 "%~dp0.venv\Scripts\python.exe" "%~dp0risolvi.py" %*
