@@ -1,3 +1,6 @@
+# File IDE JetBrains
+.idea/
+
 # Chiave API Anthropic — NON committare mai
 esame/apikey.txt
 .env
