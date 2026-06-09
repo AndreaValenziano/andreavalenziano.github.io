@@ -59,7 +59,7 @@ Python CLI tool that solves multiple-choice exam questions: local OCR (Tesseract
 - `claude` (default) — Anthropic API, forced tool-use for structured JSON, prompt caching. Models: `haiku` → `claude-haiku-4-5`, `sonnet` → `claude-sonnet-4-6`. Requires `ANTHROPIC_API_KEY` env var.
 - `ollama` — local/offline RAG: chunk KB → embed (`nomic-embed-text`, cached to `.cache/emb_*.npz`) → cosine retrieval → `ollama.chat` (default model `qwen2.5:7b`).
 
-**Material loading priority:** inline flashcards in `index.html` (special-cased for `quizecologia`) › `.md` files › PDFs via `pdftotext`. Does **not** read `paniere.json`.
+**Material loading priority:** inline flashcards in `index.html` (special-cased for `quizecologia`) › recap `.md` files (stem contains *ripasso*, *recap*, *completo*, *riepilogo*, or *comprensiv*) › other `.md` files › PDFs via `pdftotext`. Does **not** read `paniere.json`.
 
 **Output:** `esame/risultati_YYYYMMDD_HHMMSS.md` — OCR text + answers per question.
 

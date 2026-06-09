@@ -59,6 +59,11 @@ OLLAMA_EMBED_DEFAULT   = "nomic-embed-text"
 
 IMG_EXTENSIONS = {".png", ".jpg", ".jpeg", ".bmp", ".tiff", ".tif", ".webp"}
 
+# Keyword per riconoscere i file .md di recap/ripasso comprensivi (case-insensitive).
+# I file il cui stem contiene almeno una di queste parole vengono caricati per primi
+# nella knowledge base, prima degli altri .md.
+RECAP_KEYWORDS = ("ripasso", "recap", "completo", "riepilogo", "comprensiv")
+
 # System prompt per il backend Claude (con tool use strutturato)
 SYSTEM_ISTRUZIONI = """\
 Sei un assistente per esami universitari italiani.
@@ -205,7 +210,8 @@ def _fingerprint_blocco(testo: str) -> str:
 def costruisci_knowledge_base(materia_path: Path) -> str:
     """
     Costruisce la knowledge base dalla cartella della materia.
-    Ordine di priorità: flashcard HTML > file .md > fallback PDF.
+    Ordine di priorità: flashcard HTML > recap .md (nomi con ripasso/recap/completo/
+    riepilogo/comprensiv) > altri .md > fallback PDF.
     I duplicati (stesso contenuto con nomi diversi) vengono saltati.
     """
     blocchi = []
@@ -235,7 +241,14 @@ def costruisci_knowledge_base(materia_path: Path) -> str:
         if not p.name.endswith(".extracted.md")
     )
     md_stems = {p.stem for p in md_files}
-    for md_path in md_files:
+
+    # Partiziona: recap comprensivi (per RECAP_KEYWORDS) caricati per primi
+    recap_files = [p for p in md_files if any(k in p.stem.lower() for k in RECAP_KEYWORDS)]
+    altri_md    = [p for p in md_files if not any(k in p.stem.lower() for k in RECAP_KEYWORDS)]
+    if recap_files:
+        print(f"    ↳ {len(recap_files)} file recap caricati per primi: {', '.join(p.name for p in recap_files)}", flush=True)
+
+    for md_path in recap_files + altri_md:
         testo = md_path.read_text(encoding="utf-8")
         _aggiungi_se_nuovo(md_path.name, testo, f"## FILE: {md_path.name}\n\n{testo}")
 
