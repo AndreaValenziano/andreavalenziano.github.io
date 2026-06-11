@@ -1,0 +1,17 @@
+# File IDE JetBrains
+.idea/
+
+# Chiave API Anthropic — NON committare mai
+esame/apikey.txt
+.env
+
+# Virtualenv e cache Python
+esame/.venv/
+**/__pycache__/
+*.pyc
+
+# Cache embedding RAG (rigenerate automaticamente)
+esame/.cache/
+
+# Risultati delle sessioni (contengono testo OCR delle domande)
+esame/risultati_*.md
