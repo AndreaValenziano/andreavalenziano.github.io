@@ -950,16 +950,57 @@ def risposte_ollama_rag(
     return output_lines
 
 
+# ─── Stage 2.5b: Salva domande estratte ────────────────────────────────────────
+
+def salva_domande_estratte(
+    domande: list[tuple[int, Path, str]],
+    materia_path: Path,
+    immagini_path: Path,
+    timestamp: str
+) -> Path:
+    """
+    Salva l'elenco delle domande (con le relative opzioni) appena segmentate,
+    in un file markdown indipendente — generato subito dopo lo Stage 2.5,
+    senza attendere le risposte dello Stage 3.
+    """
+    out_dir = Path(__file__).parent  # cartella esame/
+    out_path = out_dir / f"domande_estratte_{timestamp}.md"
+
+    righe = [
+        f"# Domande estratte — {timestamp}",
+        f"",
+        f"- **Materia**: `{materia_path}`",
+        f"- **Immagini**: `{immagini_path}`",
+        f"- **Domande**: {len(domande)}",
+        f"",
+        "---",
+        "",
+    ]
+
+    for qid, path, blocco in domande:
+        righe.append(f"## [{qid + 1:02d}] {path.name}")
+        righe.append("")
+        righe.append("```")
+        righe.append(blocco)
+        righe.append("```")
+        righe.append("")
+
+    out_path.write_text("\n".join(righe), encoding="utf-8")
+    return out_path
+
+
 # ─── Stage 4: Salva risultati ──────────────────────────────────────────────────
 
 def salva_risultati(
     output_lines: list,
     materia_path: Path,
     immagini_path: Path,
-    model_name: str
+    model_name: str,
+    timestamp: str | None = None
 ) -> Path:
     """Salva i risultati completi (OCR + risposta) in un file markdown."""
-    timestamp = time.strftime("%Y%m%d_%H%M%S")
+    if timestamp is None:
+        timestamp = time.strftime("%Y%m%d_%H%M%S")
     out_dir = Path(__file__).parent  # cartella esame/
     out_path = out_dir / f"risultati_{timestamp}.md"
 
@@ -1126,6 +1167,10 @@ def main() -> None:
     print(f"  ✓ {len(domande)} domande da {len(immagini)} immagin{'i' if len(immagini) != 1 else 'e'}"
           f" — completato in {time.time() - t25:.1f}s\n")
 
+    timestamp = time.strftime("%Y%m%d_%H%M%S")
+    dom_path = salva_domande_estratte(domande, args.materia, args.immagini, timestamp)
+    print(f"  ↳ Domande estratte salvate in: {dom_path}\n")
+
     # ── Stage 3: Risposte ─────────────────────────────────────────────────────
     t2 = time.time()
 
@@ -1147,7 +1192,7 @@ def main() -> None:
     print(f"\n  ✓ completato in {time.time() - t2:.1f}s\n")
 
     # ── Stage 4: Salva ───────────────────────────────────────────────────────
-    out_path = salva_risultati(output_lines, args.materia, args.immagini, model)
+    out_path = salva_risultati(output_lines, args.materia, args.immagini, model, timestamp)
 
     print(f"▶ Risultati salvati in: {out_path}")
     print(f"  Tempo totale: {time.time() - t0:.1f}s")
