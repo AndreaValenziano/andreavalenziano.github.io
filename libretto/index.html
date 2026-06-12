@@ -99,6 +99,46 @@
   .rowbtns .toggle { background: #f3f4f6; color: var(--ink); font-weight: 500; }
   .rowbtns .del { background: #fee2e2; color: var(--red); }
 
+  /* ── Simulatore voto di laurea ── */
+  .sim-laurea {
+    background: var(--card); border: 1px solid var(--border); border-radius: 12px;
+    padding: 16px 18px; margin-top: 16px;
+  }
+  .sim-laurea h3 { font-size: .95rem; font-weight: 700; margin-bottom: 14px; }
+  .sim-laurea h3 small { font-size: .74rem; font-weight: 400; color: var(--muted); margin-left: 6px; }
+  .sim-row {
+    display: flex; flex-wrap: wrap; gap: 14px; align-items: center;
+    margin-bottom: 12px; font-size: .9rem;
+  }
+  .sim-row label { display: flex; align-items: center; gap: 6px; cursor: pointer; user-select: none; }
+  .sim-row input[type="number"] {
+    width: 62px; padding: 5px 8px; border: 1px solid var(--border);
+    border-radius: 6px; font-size: .9rem; background: #fff; text-align: center;
+  }
+  .sim-lodi {
+    font-size: .82rem; padding: 4px 10px; border-radius: 8px;
+    background: #f9fafb; border: 1px solid var(--border); color: var(--muted);
+  }
+  .sim-lodi.ok { background: #d1fae5; border-color: #a7f3d0; color: var(--green); font-weight: 600; }
+  .sim-out {
+    display: flex; flex-wrap: wrap; gap: 8px 14px; align-items: center;
+    padding: 10px 14px; background: #f9fafb; border: 1px solid var(--border);
+    border-radius: 10px; font-size: .88rem; margin-top: 4px;
+  }
+  .sim-step { color: var(--muted); white-space: nowrap; }
+  .sim-step strong { color: var(--ink); }
+  .sim-arr { color: #d1d5db; margin: 0 2px; font-size: .7rem; }
+  .sim-eq { color: var(--muted); margin: 0 2px; }
+  .sim-finale {
+    margin-left: auto; font-size: 1.55rem; font-weight: 800;
+    padding: 4px 22px; border-radius: 10px; background: var(--accent); color: #fff;
+    white-space: nowrap;
+  }
+  .sim-finale.lode   { background: var(--green); }
+  .sim-finale.violet { background: #7c3aed; }
+  .sim-lode-hint { font-size: .8rem; color: var(--green); font-weight: 600; }
+  .sim-lode-hint.warn { color: var(--amber); }
+
   .note {
     margin-top: 18px; font-size: .82rem; color: var(--muted); line-height: 1.5;
     background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 12px 16px;
@@ -149,16 +189,37 @@
     <tbody id="tbody"></tbody>
   </table>
 
+  <!-- Simulatore voto di laurea -->
+  <div class="sim-laurea">
+    <h3>🎓 Simulatore voto di laurea
+      <small>Art. 4 Regolamento For.Psi.Com. — magistrale a ciclo unico SFP (max 6 pt tesi + 4 pt tirocinio)</small>
+    </h3>
+    <div class="sim-row">
+      <label>Punti tesi (0–6):
+        <input type="number" id="inPuntiTesi" min="0" max="6" value="6">
+      </label>
+      <label>Punti tirocinio (0–4):
+        <input type="number" id="inPuntiTirocinio" min="0" max="4" value="4">
+      </label>
+    </div>
+    <div class="sim-out" id="simOut"></div>
+  </div>
+
   <div class="note">
-    <strong>Come calcolo:</strong> aritmetica = somma voti ÷ numero esami · ponderata = somma (voto × CFU) ÷ somma CFU.
+    <strong>Come calcolo le medie:</strong> aritmetica = somma voti ÷ numero esami · ponderata = somma (voto × CFU) ÷ somma CFU.
     Le idoneità (IDO) e i tirocini non entrano mai nel calcolo. 30 e lode conta come 30 (attivabile l'ipotesi 31).<br>
+    <strong>Voto di partenza (Art. 4 Regolamento):</strong> media aritmetica × 11 ÷ 3, troncata a due cifre decimali;
+    il voto di <em>presentazione</em> si arrotonda all'unità se la parte decimale è ≥ 0,50 (es. 101,49 → 101; 101,51 → 102).
+    La media ponderata è riportata come informazione aggiuntiva ma <em>non</em> entra nel calcolo ufficiale.<br>
     <strong>Nota UNIBA:</strong> i valori ufficiali del portale corrispondono al calcolo <em>senza</em> le AD_INT —
     per questo l'interruttore parte spento.<br>
+    <strong>Punti aggiuntivi (magistrale a ciclo unico SFP, art. 4 regola 7):</strong>
+    fino a 6 pt per il lavoro di tesi + fino a 4 pt per la relazione finale del tirocinio.
+    Proposta di lode quando il voto di partenza è ≥ 104 e il voto finale raggiunge 110.<br>
     <strong>Dove vivono i dati:</strong> il libretto ufficiale è <code>libretto/voti.json</code> nel repository (uguale su ogni
     PC). Esami aggiunti, modifiche ed esclusioni sono simulazioni salvate solo in questo browser. Quando un voto diventa
     definitivo: sistema la tabella, premi <em>⬇ Esporta voti.json</em> e sostituisci il file su GitHub (anche dall'editor
-    web di github.com) — l'export include tutti gli esami in tabella; le esclusioni contano solo per il calcolo, quindi
-    elimina le ipotesi che non vuoi salvare. <em>Scarta simulazioni</em> riporta l'app al contenuto di <code>voti.json</code>.
+    web di github.com). <em>Scarta simulazioni</em> riporta l'app al contenuto di <code>voti.json</code>.
   </div>
 </div>
 
@@ -200,6 +261,9 @@ let baseline = [];          // libretto ufficiale (voti.json)
 let sim = loadSim();        // { aggiunti: [esame...], override: { id: {voto,lode,cfu,escluso} } }
 let includiAdint = false;
 let lodeBonus = false;
+// Simulatore voto di laurea (magistrale a ciclo unico SFP, art. 4 regola 7)
+let puntiTesi = 6;
+let puntiTirocinio = 4;
 
 function loadSim() {
   try {
@@ -231,6 +295,16 @@ function medie(list) {
   return { n, cfu, arit: somma / n, pond: pond / cfu };
 }
 
+// ── Calcolo voto di laurea (Art. 4 Regolamento For.Psi.Com.) ────────────────
+// Troncamento a 2 cifre decimali, poi arrotondamento se parte dec. ≥ 0,50.
+function votoPartenza(arit) {
+  return Math.floor(arit * 11 / 3 * 100) / 100;
+}
+function votoPresentazione(partenza) {
+  // Math.round arrotonda ≥0.50 verso l'alto, coerente col regolamento
+  return Math.round(partenza);
+}
+
 function render() {
   const list = working();
   const cur  = medie(list);
@@ -243,14 +317,20 @@ function render() {
     return `<div class="delta ${cls}">${sign}${d.toFixed(2)} rispetto a voti.json</div>`;
   };
 
+  const partenzaCur  = votoPartenza(cur.arit);
+  const partenzaBase = votoPartenza(base.arit);
+  const presCur      = votoPresentazione(partenzaCur);
+
   document.getElementById('stats').innerHTML = `
     <div class="stat"><div class="label">Media Aritmetica</div>
       <div class="value">${cur.arit.toFixed(2)}</div>${deltaHtml(cur.arit, base.arit)}</div>
     <div class="stat"><div class="label">Media Ponderata</div>
       <div class="value">${cur.pond.toFixed(2)}</div>${deltaHtml(cur.pond, base.pond)}</div>
-    <div class="stat"><div class="label">Base di laurea (×110/30)</div>
-      <div class="value">${(cur.pond / 30 * 110).toFixed(1)}</div>
-      <div class="delta flat">da media ponderata</div></div>
+    <div class="stat"><div class="label">Voto di partenza (art. 4, ×11/3)</div>
+      <div class="value">${partenzaCur.toFixed(2)}</div>
+      ${deltaHtml(partenzaCur, partenzaBase)}
+      <div class="delta flat" style="margin-top:4px">Presentazione: <strong>${presCur}</strong>/110</div>
+    </div>
     <div class="stat"><div class="label">Esami / CFU conteggiati</div>
       <div class="value">${cur.n} <span style="font-size:1rem;color:var(--muted)">/ ${cur.cfu} CFU</span></div></div>
   `;
@@ -283,6 +363,48 @@ function render() {
     `;
     tbody.appendChild(tr);
   });
+
+  renderSimulator(list, cur);
+}
+
+function renderSimulator(list, cur) {
+  // Magistrale a ciclo unico SFP (art. 4, regola 7):
+  // max 6 pt tesi + max 4 pt tirocinio; lode proposta se partenza ≥ 104 e finale = 110.
+  const totPunti = puntiTesi + puntiTirocinio;
+
+  const partenza = votoPartenza(cur.arit);
+  const pres     = votoPresentazione(partenza);
+  const finale   = Math.min(110, pres + totPunti);
+  const lodePos  = partenza >= 104 && finale >= 110;
+
+  // Blocchi punti
+  const ptBlock = (n, label) => n > 0
+    ? `<span class="sim-step"><strong>+${n}</strong> ${label}</span>`
+    : `<span class="sim-step" style="opacity:.35">+0 ${label}</span>`;
+
+  // Classe colore voto finale
+  const cls = lodePos ? 'lode' : finale === 110 ? 'violet' : '';
+  const lodeTxt = lodePos ? ' e lode' : '';
+
+  // Hint lode
+  let hintHtml = '';
+  if (lodePos) {
+    hintHtml = `<span class="sim-lode-hint">✓ 110 e lode (proposta)</span>`;
+  } else if (partenza >= 104) {
+    hintHtml = `<span class="sim-lode-hint warn">⚠ lode possibile se il voto finale raggiunge 110</span>`;
+  }
+
+  document.getElementById('simOut').innerHTML = `
+    <span class="sim-step">Partenza: <strong>${partenza.toFixed(2)}</strong></span>
+    <span class="sim-arr">▸</span>
+    <span class="sim-step">Presentazione: <strong>${pres}</strong></span>
+    <span class="sim-arr">▸</span>
+    ${ptBlock(puntiTesi, 'tesi')}
+    ${ptBlock(puntiTirocinio, 'tirocinio')}
+    <span class="sim-eq">=</span>
+    <span class="sim-finale ${cls}">${finale}${lodeTxt}</span>
+    ${hintHtml}
+  `;
 }
 
 // Applica una modifica a un esame: override se ufficiale, mutazione diretta se simulato.
@@ -368,6 +490,14 @@ document.getElementById('btnReset').addEventListener('click', () => {
   if (confirm('Scartare tutte le simulazioni e le modifiche locali? L\'app tornerà al contenuto di voti.json.')) {
     sim = { aggiunti: [], override: {} }; saveSim(); render();
   }
+});
+
+// Controlli simulatore voto di laurea
+document.getElementById('inPuntiTesi').addEventListener('input', ev => {
+  puntiTesi = Math.min(6, Math.max(0, +ev.target.value || 0)); render();
+});
+document.getElementById('inPuntiTirocinio').addEventListener('input', ev => {
+  puntiTirocinio = Math.min(4, Math.max(0, +ev.target.value || 0)); render();
 });
 
 async function init() {
