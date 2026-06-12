@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Quiz Didattica dell'Italiano</title>
+<title>Quiz Didattica dell'Italiano — Pagina Unica</title>
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body { font-family: 'Georgia', serif; background: #f0eef5; color: #1e1a2e; min-height: 100vh; }
@@ -78,80 +78,107 @@
   }
   #start-btn:hover { opacity: 0.88; }
 
-  /* ===== QUIZ ===== */
-  #quiz-container { max-width: 780px; margin: 36px auto; padding: 0 16px 60px; display: none; }
+  /* ===== QUIZ (pagina unica) ===== */
+  #quiz-container { max-width: 820px; margin: 16px auto; padding: 0 16px 32px; display: none; }
 
-  #question-counter {
-    font-size: 0.85rem; color: #6b6080; text-align: right;
-    margin-bottom: 10px; font-style: italic;
+  #quiz-meta {
+    font-size: 0.85rem; color: #5a5070; text-align: center;
+    margin-bottom: 12px; font-family: sans-serif; background: #f7f5ff;
+    border-radius: 8px; padding: 8px 14px;
+  }
+
+  .question-block { margin-bottom: 10px; }
+
+  .q-counter {
+    font-size: 0.72rem; color: #80868b; text-align: right;
+    margin-bottom: 2px; font-style: italic; font-family: sans-serif;
   }
 
   .card {
-    background: white; border-radius: 12px; padding: 32px 36px;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-    border-top: 4px solid #5b3fa0; animation: fadeIn 0.35s ease;
+    background: white; border-radius: 6px; padding: 12px 16px 12px 26px;
+    border: 1px solid #e3e5e8; box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    position: relative; overflow: hidden; animation: fadeIn 0.35s ease;
+  }
+  .card::before {
+    content: ''; position: absolute; top: 0; left: 0;
+    width: 0; height: 0;
+    border-style: solid; border-width: 16px 16px 0 0;
+    border-color: #2f6fed transparent transparent transparent;
   }
   @keyframes fadeIn { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:translateY(0); } }
 
   .source-tag {
-    display: inline-block; font-size: 0.72rem; background: #f0ecff; color: #5b3fa0;
-    border: 1px solid #c5b3f0; border-radius: 20px; padding: 3px 10px;
-    margin-bottom: 14px; font-family: sans-serif;
+    display: inline-block; font-size: 0.68rem; background: #eaf1fe; color: #2f6fed;
+    border: 1px solid #c8dafc; border-radius: 20px; padding: 2px 8px;
+    margin-bottom: 6px; font-family: sans-serif;
   }
 
   .question-text {
-    font-size: 1.13rem; line-height: 1.65; color: #1e1a2e;
-    margin-bottom: 24px; font-weight: bold;
+    font-family: -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    font-size: 0.92rem; line-height: 1.4; color: #202124;
+    margin-bottom: 8px; font-weight: 700;
   }
 
-  .options { display: flex; flex-direction: column; gap: 11px; }
+  .options { display: flex; flex-direction: column; gap: 1px; }
 
   .option-btn {
-    display: flex; align-items: flex-start; gap: 12px;
-    background: #faf9fd; border: 2px solid #ddd8ee; border-radius: 9px;
-    padding: 13px 16px; cursor: pointer; font-size: 1rem;
-    font-family: 'Georgia', serif; color: #1e1a2e; text-align: left;
-    transition: border-color 0.2s, background 0.2s; line-height: 1.5;
+    display: flex; align-items: flex-start; gap: 10px;
+    background: transparent; border: 1px solid transparent; border-radius: 6px;
+    padding: 4px 8px; cursor: pointer; font-size: 0.86rem;
+    font-family: -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    color: #3c4043; text-align: left;
+    transition: background 0.15s; line-height: 1.35; width: 100%;
   }
-  .option-btn:hover:not(:disabled) { border-color: #5b3fa0; background: #f0ecff; }
+  .option-btn:hover:not(:disabled) { background: #f1f5fe; }
   .option-btn .letter {
     display: inline-flex; align-items: center; justify-content: center;
-    min-width: 28px; height: 28px; border-radius: 50%; background: #ddd8ee;
-    color: #4a3d6e; font-size: 0.85rem; font-weight: bold; font-family: sans-serif;
-    flex-shrink: 0; margin-top: 1px; transition: background 0.2s, color 0.2s;
+    width: 15px; min-width: 15px; height: 15px; border-radius: 50%;
+    background: transparent; border: 2px solid #b0b4ba;
+    color: transparent; font-size: 0; line-height: 0;
+    flex-shrink: 0; margin-top: 2px; transition: background 0.2s, border-color 0.2s;
   }
-  .option-btn.correct { border-color: #2e7d32; background: #e8f5e9; }
-  .option-btn.correct .letter { background: #2e7d32; color: white; }
-  .option-btn.wrong { border-color: #c0392b; background: #fdf0ef; }
-  .option-btn.wrong .letter { background: #c0392b; color: white; }
+  .option-btn.selected { background: #eaf1fe; }
+  .option-btn.selected .letter { border-color: #2f6fed; background: #2f6fed; }
+  .option-btn.selected .letter::after,
+  .option-btn.correct .letter::after,
+  .option-btn.wrong .letter::after {
+    content: ''; display: block; width: 8px; height: 8px; border-radius: 50%; background: white;
+  }
+  .option-btn.correct { background: #e6f4ea; }
+  .option-btn.correct .letter { border-color: #1e8e3e; background: #1e8e3e; }
+  .option-btn.wrong { background: #fce8e6; }
+  .option-btn.wrong .letter { border-color: #d93025; background: #d93025; }
   .option-btn:disabled { cursor: default; }
 
-  #feedback {
-    margin-top: 18px; padding: 12px 16px; border-radius: 8px;
-    font-size: 0.93rem; line-height: 1.55; display: none; font-family: sans-serif;
+  .feedback {
+    margin-top: 8px; padding: 7px 12px; border-radius: 6px;
+    font-size: 0.82rem; line-height: 1.4; display: none; font-family: sans-serif;
   }
-  #feedback.correct-fb { background: #e8f5e9; color: #1b5e20; border-left: 4px solid #2e7d32; }
-  #feedback.wrong-fb   { background: #fdf0ef; color: #922b21; border-left: 4px solid #c0392b; }
+  .feedback.correct-fb { background: #e8f5e9; color: #1b5e20; border-left: 4px solid #2e7d32; }
+  .feedback.wrong-fb   { background: #fdf0ef; color: #922b21; border-left: 4px solid #c0392b; }
 
-  #next-btn {
-    display: none; margin-top: 22px;
+  #grade-bar {
+    position: sticky; bottom: 0; text-align: center;
+    padding: 20px 0 28px;
+    background: linear-gradient(180deg, rgba(240,238,245,0) 0%, #f0eef5 40%);
+  }
+  #grade-btn {
     background: linear-gradient(135deg, #2d1b69, #5b3fa0);
-    color: white; border: none; border-radius: 8px; padding: 12px 30px;
-    font-size: 1rem; cursor: pointer; font-family: 'Georgia', serif;
-    letter-spacing: 0.5px; float: right; transition: opacity 0.2s;
+    color: white; border: none; border-radius: 8px; padding: 15px 48px;
+    font-size: 1.05rem; cursor: pointer; font-family: 'Georgia', serif;
+    letter-spacing: 0.5px; transition: opacity 0.2s;
+    box-shadow: 0 4px 16px rgba(45,27,105,0.25);
   }
-  #next-btn:hover { opacity: 0.88; }
-  .clearfix::after { content: ''; display: table; clear: both; }
+  #grade-btn:hover:not(:disabled) { opacity: 0.88; }
+  #grade-btn:disabled { opacity: 0.6; cursor: default; }
 
-  /* ===== RESULTS ===== */
-  #results-container {
-    display: none; max-width: 780px; margin: 36px auto; padding: 0 16px 60px;
-    animation: fadeIn 0.5s ease;
-  }
+  /* ===== RIEPILOGO ===== */
   .results-card {
+    display: none;
     background: white; border-radius: 14px; padding: 40px;
     box-shadow: 0 4px 20px rgba(0,0,0,0.12); text-align: center;
-    border-top: 6px solid #5b3fa0;
+    border-top: 6px solid #5b3fa0; margin-bottom: 28px;
+    animation: fadeIn 0.5s ease;
   }
   .results-card h2 { font-size: 1.7rem; color: #2d1b69; margin-bottom: 8px; }
   .score-circle {
@@ -171,21 +198,6 @@
   .stat-correct .stat-val { color: #2e7d32; }
   .stat-wrong   .stat-val { color: #c0392b; }
   .stat-pct     .stat-val { color: #2d1b69; }
-
-  .results-breakdown { border-top: 1px solid #ddd8ee; padding-top: 28px; text-align: left; margin-top: 10px; }
-  .results-breakdown h3 { font-size: 1.1rem; margin-bottom: 16px; color: #2d1b69; }
-  .result-item {
-    display: flex; align-items: flex-start; gap: 10px;
-    padding: 10px 0; border-bottom: 1px solid #f0eef8; font-size: 0.92rem;
-  }
-  .result-item .ri-num { font-weight: bold; color: #7a7090; min-width: 28px; font-family: sans-serif; }
-  .result-item .ri-q { flex: 1; line-height: 1.45; }
-  .result-item .ri-icon { font-size: 1.1rem; flex-shrink: 0; }
-  .result-item .ri-answer {
-    font-size: 0.85rem; color: #3a6e3a; margin-top: 3px;
-    display: block; font-style: italic; font-family: sans-serif;
-  }
-  .result-item .ri-answer.ri-wrong-answer { color: #c0392b; }
 
   #retry-btn {
     margin-top: 28px; background: white; color: #5b3fa0;
@@ -213,7 +225,7 @@
 
 <header>
   <h1>Quiz Didattica dell&rsquo;Italiano</h1>
-  <p>Paniere completo &mdash; ~300 domande su 3 fonti</p>
+  <p>Versione a pagina unica &mdash; 30 domande, correzione tutta insieme alla fine</p>
 </header>
 <div id="progress-bar-container"><div id="progress-bar"></div></div>
 
@@ -221,7 +233,7 @@
 <div id="start-container">
   <div class="start-card">
     <h2>Scegli le fonti</h2>
-    <p class="start-subtitle">Verranno estratte 31 domande casuali dalle fonti selezionate</p>
+    <p class="start-subtitle">Verranno estratte 30 domande casuali dalle fonti selezionate, mostrate tutte insieme su un&rsquo;unica pagina</p>
 
     <div class="topic-section">
       <h3>Fonti del quiz</h3>
@@ -258,34 +270,24 @@
     </div>
 
     <div class="start-info" id="start-pool-info">
-      Pool disponibile: <span id="pool-size">300</span> domande &mdash; verranno estratte <span>31</span> casuali
+      Pool disponibile: <span id="pool-size">300</span> domande &mdash; verranno estratte <span>30</span> casuali
     </div>
 
     <div id="start-error">Seleziona almeno una fonte per iniziare.</div>
     <button id="start-btn">Inizia quiz &rarr;</button>
-    <p class="results-footer-note" style="margin-top:18px; text-align:center;">Preferisci vedere tutte le 30 domande su un&rsquo;unica pagina e correggere alla fine? <a href="quiz_completo.html" style="color:#5b3fa0;">Vai alla versione a pagina unica</a></p>
+    <p class="results-footer-note" style="margin-top:18px; text-align:center;">Preferisci rispondere a una domanda alla volta? <a href="index.html" style="color:#5b3fa0;">Vai al quiz classico</a></p>
   </div>
 </div>
 
-<!-- QUIZ -->
+<!-- QUIZ (tutte le domande su una pagina) -->
 <div id="quiz-container">
-  <div id="question-counter"></div>
-  <div class="card" id="question-card">
-    <span class="source-tag" id="source-tag"></span>
-    <p class="question-text" id="question-text"></p>
-    <div class="options" id="options"></div>
-    <div id="feedback"></div>
-    <div class="clearfix"><button id="next-btn">Prossima domanda &rarr;</button></div>
-  </div>
-</div>
 
-<!-- RESULTS -->
-<div id="results-container">
-  <div class="results-card">
+  <!-- RIEPILOGO (visibile dopo la correzione) -->
+  <div class="results-card" id="quiz-summary">
     <h2>Risultati</h2>
     <div class="score-circle" id="score-circle">
       <span class="score-num" id="score-num"></span>
-      <span class="score-den" id="score-den">/31</span>
+      <span class="score-den" id="score-den">/30</span>
     </div>
     <div class="stats-row">
       <div class="stat-box stat-correct"><div class="stat-val" id="stat-correct"></div><div class="stat-lab">Corrette</div></div>
@@ -299,10 +301,14 @@
       <button id="newquiz-btn">&#10133; Nuovo quiz</button>
     </div>
     <p class="results-footer-note" id="results-topics-note"></p>
-    <div class="results-breakdown">
-      <h3>Riepilogo domanda per domanda</h3>
-      <div id="breakdown-list"></div>
-    </div>
+  </div>
+
+  <div id="quiz-meta"></div>
+
+  <div id="questions-list"></div>
+
+  <div id="grade-bar">
+    <button id="grade-btn">Correggi le risposte &rarr;</button>
   </div>
 </div>
 
@@ -311,15 +317,12 @@
 /* ============================================================
    COSTANTI E STATO
    ============================================================ */
-var QUIZ_SIZE = 31;
+var QUIZ_SIZE = 30;
 var LETTERS = ['A', 'B', 'C', 'D'];
 
-var questions = [];      // le 31 domande estratte per questo quiz
-var current = 0;
-var score = 0;
-var answers = [];
-var shuffledOpts = [];
-var shuffledCorrect = 0;
+var questions = [];      // le 30 domande estratte per questo quiz (con opzioni già mescolate)
+var userAnswers = [];    // indice opzione scelta per ogni domanda (null se non risposta)
+var graded = false;      // true dopo aver premuto "Correggi le risposte"
 
 /* ============================================================
    UTILITY
@@ -392,8 +395,19 @@ function buildQuiz(selectedFonti) {
   var pool = window.PANIERE.filter(function(q) {
     return selectedFonti.indexOf(q.fonte) !== -1;
   });
-  var shuffled = shuffleArray(pool);
-  questions = shuffled.slice(0, QUIZ_SIZE);
+
+  // Estrae 30 domande casuali e pre-mescola le opzioni di ciascuna,
+  // così l'ordine resta stabile fino alla correzione finale.
+  questions = shuffleArray(pool).slice(0, QUIZ_SIZE).map(function(q) {
+    var indices = shuffleArray([0, 1, 2, 3]);
+    var shuffled = indices.map(function(i) { return { text: q.opts[i], orig: i }; });
+    var correctIdx = shuffled.findIndex(function(o) { return o.orig === q.correct; });
+    var copy = {};
+    for (var k in q) copy[k] = q[k];
+    copy.shuffled = shuffled;
+    copy.correctIdx = correctIdx;
+    return copy;
+  });
 
   // Nota fonti selezionate per la schermata risultati
   var fonteNames = {
@@ -410,117 +424,143 @@ function buildQuiz(selectedFonti) {
   // Mostra/nascondi schermate
   document.getElementById('start-container').style.display = 'none';
   document.getElementById('quiz-container').style.display = 'block';
-  document.getElementById('results-container').style.display = 'none';
 
-  init();
+  startQuiz();
 }
 
 /* ============================================================
-   ENGINE QUIZ
+   ENGINE QUIZ — pagina unica
    ============================================================ */
-function init() {
-  current = 0; score = 0; answers = [];
+function startQuiz() {
+  userAnswers = questions.map(function() { return null; });
+  graded = false;
+
+  document.getElementById('quiz-summary').style.display = 'none';
+  document.getElementById('grade-btn').disabled = false;
+  document.getElementById('grade-btn').textContent = 'Correggi le risposte →';
+  document.getElementById('quiz-meta').textContent =
+    questions.length + ' domande — rispondi a tutte, poi premi "Correggi le risposte" in fondo alla pagina.';
   document.getElementById('progress-bar').style.width = '0%';
-  document.getElementById('quiz-container').style.display = 'block';
-  document.getElementById('results-container').style.display = 'none';
-  showQuestion();
+
+  renderQuestions();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-function showQuestion() {
-  var q = questions[current];
-  document.getElementById('progress-bar').style.width = ((current / questions.length) * 100) + '%';
-  document.getElementById('question-counter').textContent = 'Domanda ' + (current + 1) + ' di ' + questions.length;
+function renderQuestions() {
+  var list = document.getElementById('questions-list');
+  list.innerHTML = '';
 
-  // Tag fonte: mostra source e capitolo (se presente)
-  var tag = q.source;
-  if (q.capitolo) tag += ' • ' + q.capitolo;
-  document.getElementById('source-tag').textContent = tag;
+  questions.forEach(function(q, qi) {
+    var block = document.createElement('div');
+    block.className = 'question-block';
 
-  document.getElementById('question-text').textContent = q.q;
+    var counter = document.createElement('div');
+    counter.className = 'q-counter';
+    counter.textContent = 'Domanda ' + (qi + 1) + ' di ' + questions.length;
+    block.appendChild(counter);
 
-  var optContainer = document.getElementById('options');
-  optContainer.innerHTML = '';
+    var card = document.createElement('div');
+    card.className = 'card';
 
-  var indices = shuffleArray([0, 1, 2, 3]);
-  shuffledOpts = indices.map(function(i) { return { text: q.opts[i], orig: i }; });
-  shuffledCorrect = shuffledOpts.findIndex(function(o) { return o.orig === q.correct; });
+    var tag = document.createElement('span');
+    tag.className = 'source-tag';
+    var tagText = q.source;
+    if (q.capitolo) tagText += ' • ' + q.capitolo;
+    tag.textContent = tagText;
+    card.appendChild(tag);
 
-  shuffledOpts.forEach(function(opt, i) {
-    var btn = document.createElement('button');
-    btn.className = 'option-btn';
-    btn.innerHTML = '<span class="letter">' + LETTERS[i] + '</span><span>' + opt.text + '</span>';
-    btn.onclick = (function(idx) { return function() { selectOption(idx); }; })(i);
-    optContainer.appendChild(btn);
+    var qtext = document.createElement('p');
+    qtext.className = 'question-text';
+    qtext.textContent = q.q;
+    card.appendChild(qtext);
+
+    var opts = document.createElement('div');
+    opts.className = 'options';
+    q.shuffled.forEach(function(opt, oi) {
+      var btn = document.createElement('button');
+      btn.className = 'option-btn';
+      btn.innerHTML = '<span class="letter">' + LETTERS[oi] + '</span><span>' + opt.text + '</span>';
+      btn.addEventListener('click', function() { selectAnswer(qi, oi); });
+      opts.appendChild(btn);
+    });
+    card.appendChild(opts);
+
+    var fb = document.createElement('div');
+    fb.className = 'feedback';
+    card.appendChild(fb);
+
+    block.appendChild(card);
+    list.appendChild(block);
+  });
+}
+
+function selectAnswer(qi, oi) {
+  if (graded) return;
+  userAnswers[qi] = oi;
+
+  var block = document.querySelectorAll('.question-block')[qi];
+  block.querySelectorAll('.option-btn').forEach(function(b, i) {
+    b.classList.toggle('selected', i === oi);
   });
 
-  var fb = document.getElementById('feedback');
-  fb.style.display = 'none'; fb.className = ''; fb.textContent = '';
-  var nextBtn = document.getElementById('next-btn');
-  nextBtn.style.display = 'none';
-  nextBtn.textContent = current === questions.length - 1 ? 'Vedi i risultati →' : 'Prossima domanda →';
+  updateProgress();
 }
 
-function selectOption(selected) {
-  var q = questions[current];
-  var btns = document.querySelectorAll('.option-btn');
-  btns.forEach(function(b) { b.disabled = true; });
-
-  var isCorrect = selected === shuffledCorrect;
-  if (isCorrect) score++;
-  answers.push({
-    qIdx: current,
-    isCorrect: isCorrect,
-    selectedLetter: LETTERS[selected],
-    correctLetter: LETTERS[shuffledCorrect],
-    selectedText: shuffledOpts[selected].text,
-    correctText: shuffledOpts[shuffledCorrect].text
-  });
-
-  btns[selected].classList.add(isCorrect ? 'correct' : 'wrong');
-  if (!isCorrect) btns[shuffledCorrect].classList.add('correct');
-
-  var fb = document.getElementById('feedback');
-  fb.style.display = 'block';
-  if (isCorrect) {
-    fb.className = 'correct-fb';
-    fb.textContent = '✓ Corretto! ' + q.explanation;
-  } else {
-    fb.className = 'wrong-fb';
-    fb.textContent = '✗ Risposta errata. ' + q.explanation;
-  }
-  document.getElementById('next-btn').style.display = 'block';
+function updateProgress() {
+  var answered = userAnswers.filter(function(a) { return a !== null; }).length;
+  document.getElementById('progress-bar').style.width = (answered / questions.length * 100) + '%';
 }
-
-document.getElementById('next-btn').addEventListener('click', function() {
-  current++;
-  if (current >= questions.length) showResults();
-  else showQuestion();
-});
-
-// Rifai: stesso set di domande (reinit senza rimescolare)
-document.getElementById('retry-btn').addEventListener('click', function() {
-  init();
-  document.getElementById('results-container').style.display = 'none';
-  document.getElementById('quiz-container').style.display = 'block';
-});
-
-// Nuovo quiz: torna alla start screen
-document.getElementById('newquiz-btn').addEventListener('click', function() {
-  document.getElementById('results-container').style.display = 'none';
-  document.getElementById('quiz-container').style.display = 'none';
-  document.getElementById('start-container').style.display = 'block';
-  document.getElementById('progress-bar').style.width = '0%';
-  updatePoolInfo();
-});
 
 /* ============================================================
-   RISULTATI
+   CORREZIONE FINALE
    ============================================================ */
-function showResults() {
+document.getElementById('grade-btn').addEventListener('click', gradeAll);
+
+function gradeAll() {
+  if (graded) return;
+  graded = true;
+
+  var score = 0;
+  var blocks = document.querySelectorAll('.question-block');
+
+  questions.forEach(function(q, qi) {
+    var btns = blocks[qi].querySelectorAll('.option-btn');
+    var fb = blocks[qi].querySelector('.feedback');
+    var sel = userAnswers[qi];
+    var isCorrect = sel === q.correctIdx;
+    if (isCorrect) score++;
+
+    btns.forEach(function(b, i) {
+      b.disabled = true;
+      b.classList.remove('selected');
+      if (i === q.correctIdx) b.classList.add('correct');
+      if (i === sel && !isCorrect) b.classList.add('wrong');
+    });
+
+    fb.style.display = 'block';
+    if (sel === null) {
+      fb.className = 'feedback wrong-fb';
+      fb.textContent = '✗ Nessuna risposta data. ' + q.explanation;
+    } else if (isCorrect) {
+      fb.className = 'feedback correct-fb';
+      fb.textContent = '✓ Corretto! ' + q.explanation;
+    } else {
+      fb.className = 'feedback wrong-fb';
+      fb.textContent = '✗ Risposta errata. ' + q.explanation;
+    }
+  });
+
   document.getElementById('progress-bar').style.width = '100%';
-  document.getElementById('quiz-container').style.display = 'none';
-  document.getElementById('results-container').style.display = 'block';
+  document.getElementById('grade-btn').disabled = true;
+  document.getElementById('grade-btn').textContent = '✓ Risposte corrette';
 
+  showSummary(score);
+}
+
+/* ============================================================
+   RIEPILOGO
+   ============================================================ */
+function showSummary(score) {
   var total = questions.length;
   var pct = Math.round((score / total) * 100);
   var wrong = total - score;
@@ -546,28 +586,23 @@ function showResults() {
   document.getElementById('vote-label').textContent = voteLabel;
   document.getElementById('vote-comment').textContent = voteComment;
 
-  var list = document.getElementById('breakdown-list');
-  list.innerHTML = '';
-  answers.forEach(function(a, i) {
-    var q = questions[a.qIdx];
-    var item = document.createElement('div');
-    item.className = 'result-item';
-    var icon = a.isCorrect ? '✅' : '❌';
-    var answerHTML;
-    if (a.isCorrect) {
-      answerHTML = '<span class="ri-answer">Risposta: ' + a.correctLetter + '. ' + a.correctText + '</span>';
-    } else {
-      answerHTML = '<span class="ri-answer ri-wrong-answer">Tua risposta: ' + a.selectedLetter + '. ' + a.selectedText + '<br>Risposta corretta: ' + a.correctLetter + '. ' + a.correctText + '</span>';
-    }
-    item.innerHTML =
-      '<span class="ri-num">' + (i + 1) + '.</span>' +
-      '<div class="ri-q">' + q.q + answerHTML + '</div>' +
-      '<span class="ri-icon">' + icon + '</span>';
-    list.appendChild(item);
-  });
-
-  document.getElementById('results-container').scrollIntoView({ behavior: 'smooth' });
+  document.getElementById('quiz-summary').style.display = 'block';
+  document.getElementById('quiz-summary').scrollIntoView({ behavior: 'smooth' });
 }
+
+/* Rifai: stesse 30 domande, reset risposte */
+document.getElementById('retry-btn').addEventListener('click', function() {
+  startQuiz();
+});
+
+/* Nuovo quiz: torna alla scelta fonti */
+document.getElementById('newquiz-btn').addEventListener('click', function() {
+  document.getElementById('quiz-container').style.display = 'none';
+  document.getElementById('start-container').style.display = 'block';
+  document.getElementById('progress-bar').style.width = '0%';
+  updatePoolInfo();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+});
 </script>
 </body>
 </html>
