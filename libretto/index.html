@@ -93,6 +93,7 @@
   .rowbtns button { padding: 4px 10px; font-size: .78rem; }
   .rowbtns .toggle { background: #f3f4f6; color: var(--ink); font-weight: 500; }
   .rowbtns .del { background: #fee2e2; color: var(--red); }
+  .rowbtns .conferma { background: #d1fae5; color: var(--green); }
 
   .note {
     margin-top: 18px; font-size: .82rem; color: var(--muted); line-height: 1.5;
@@ -115,7 +116,7 @@
     <label><input type="checkbox" id="chkAdint"> Includi AD_INT nelle medie</label>
     <label><input type="checkbox" id="chkLodeBonus"> 30L vale 31 (ipotesi)</label>
     <span class="spacer"></span>
-    <button class="ghost" id="btnReset">Ripristina voti originali</button>
+    <button class="ghost" id="btnReset">Ripristina libretto confermato</button>
   </div>
 
   <div class="addform">
@@ -146,12 +147,16 @@
     <strong>Come calcolo:</strong> aritmetica = somma voti ÷ numero esami · ponderata = somma (voto × CFU) ÷ somma CFU.
     Le idoneità (IDO) e i tirocini non entrano mai nel calcolo. 30 e lode conta come 30 (attivabile l'ipotesi 31).<br>
     <strong>Nota UNIBA:</strong> i valori ufficiali del portale (28.22 / 28.12) corrispondono al calcolo <em>senza</em> le AD_INT
-    (verifica: 28.17 / 28.16 con i voti trascritti) — per questo l'interruttore parte spento. Includendole si ottiene 28.44 / 28.33.
+    (verifica: 28.17 / 28.16 con i voti trascritti) — per questo l'interruttore parte spento. Includendole si ottiene 28.44 / 28.33.<br>
+    <strong>Simulazioni e conferme:</strong> gli esami aggiunti nascono come simulazione (etichetta NUOVO) e non entrano nella base
+    di confronto dei delta. Quando un voto diventa ufficiale premi <em>✓ Conferma</em>: entra nel libretto definitivo, fa da nuova
+    base per i delta e sopravvive al ripristino. <em>Ripristina libretto confermato</em> elimina solo le simulazioni non confermate.
   </div>
 </div>
 
 <script>
 const STORAGE_KEY = 'libretto-voti-v1';
+const BASE_KEY = 'libretto-base-v1'; // libretto definitivo: esami confermati dall'utente
 
 // Voti reali trascritti dal portale Esse3 (giugno 2026). lode = 30L sul libretto.
 const DEFAULT_ESAMI = [
@@ -197,6 +202,15 @@ function load() {
 }
 function save() { localStorage.setItem(STORAGE_KEY, JSON.stringify(esami)); }
 
+function loadBase() {
+  try {
+    const raw = localStorage.getItem(BASE_KEY);
+    if (raw) return JSON.parse(raw);
+  } catch (e) {}
+  return structuredClone(DEFAULT_ESAMI.filter(e => !e.nuovo));
+}
+function saveBase(base) { localStorage.setItem(BASE_KEY, JSON.stringify(base)); }
+
 function medie(list) {
   const inclusi = list.filter(e => !e.escluso && (includiAdint || !e.adint));
   const n = inclusi.length;
@@ -210,13 +224,13 @@ function medie(list) {
 
 function render() {
   const cur  = medie(esami);
-  const base = medie(esami.filter(e => !e.nuovo));
+  const base = medie(loadBase());
 
   const deltaHtml = (now, before) => {
     const d = now - before;
     const cls = Math.abs(d) < 0.005 ? 'flat' : d > 0 ? 'up' : 'down';
     const sign = d > 0 ? '+' : '';
-    return `<div class="delta ${cls}">${sign}${d.toFixed(2)} rispetto al libretto originale</div>`;
+    return `<div class="delta ${cls}">${sign}${d.toFixed(2)} rispetto al libretto confermato</div>`;
   };
 
   document.getElementById('stats').innerHTML = `
@@ -252,6 +266,7 @@ function render() {
       </td>
       <td class="num"><input type="number" min="1" max="30" value="${e.cfu}" data-i="${i}" data-f="cfu"></td>
       <td><div class="rowbtns">
+        ${e.nuovo ? `<button class="conferma" data-i="${i}" data-f="conferma" title="Salva nel libretto definitivo">✓ Conferma</button>` : ''}
         <button class="toggle" data-i="${i}" data-f="escluso">${e.escluso ? 'Riattiva' : 'Escludi'}</button>
         <button class="del" data-i="${i}" data-f="del">✕</button>
       </div></td>
@@ -279,6 +294,12 @@ document.getElementById('tbody').addEventListener('click', ev => {
     if (confirm(`Eliminare "${esami[i].nome}"?`)) { esami.splice(i, 1); save(); render(); }
   } else if (btn.dataset.f === 'escluso') {
     esami[i].escluso = !esami[i].escluso; save(); render();
+  } else if (btn.dataset.f === 'conferma') {
+    if (confirm(`Salvare "${esami[i].nome}" nel libretto definitivo?\nEntrerà nella base di confronto e sopravviverà al ripristino.`)) {
+      esami[i].nuovo = false;
+      saveBase(esami.filter(e => !e.nuovo).map(e => { const c = {...e}; delete c.escluso; return c; }));
+      save(); render();
+    }
   }
 });
 
@@ -300,8 +321,8 @@ document.getElementById('btnAdd').addEventListener('click', () => {
 document.getElementById('chkAdint').addEventListener('change', ev => { includiAdint = ev.target.checked; render(); });
 document.getElementById('chkLodeBonus').addEventListener('change', ev => { lodeBonus = ev.target.checked; render(); });
 document.getElementById('btnReset').addEventListener('click', () => {
-  if (confirm('Ripristinare i voti originali del libretto? Le modifiche andranno perse.')) {
-    esami = structuredClone(DEFAULT_ESAMI); save(); render();
+  if (confirm('Ripristinare il libretto confermato? Le simulazioni non confermate andranno perse.')) {
+    esami = loadBase(); save(); render();
   }
 });
 
