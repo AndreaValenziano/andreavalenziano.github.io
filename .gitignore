@@ -15,3 +15,7 @@ esame/.cache/
 
 # Risultati delle sessioni (contengono testo OCR delle domande)
 esame/risultati_*.md
+# esame2 — virtualenv e output delle sessioni (testo delle domande d'esame)
+esame2/.venv/
+**/esame2_domande_*
+**/esame2_risposte_*
