@@ -1,0 +1,108 @@
+<svg viewBox="0 0 980 860" xmlns="http://www.w3.org/2000/svg" font-family="system-ui, -apple-system, Segoe UI, sans-serif">
+<title>Mappa concettuale del capitolo 20: Nuove gerarchie economiche internazionali</title>
+<rect width="980" height="860" fill="#ffffff"/>
+<style>
+  .h1 { font-size: 21px; font-weight: 700; fill: #ffffff; }
+  .sub { font-size: 12.5px; fill: #ffffff; opacity:.92; }
+  .thesis { font-size: 12.5px; fill: #2C2C2A; }
+  .colh { font-size: 14px; font-weight: 700; fill: #ffffff; }
+  .grp { font-size: 11.5px; font-weight:700; fill: #2C2C2A; letter-spacing:.3px;}
+  .b { font-size: 11.5px; fill: #2C2C2A; }
+  .date { font-weight: 700; fill: #0F6E56; }
+</style>
+
+<rect x="20" y="18" width="940" height="64" rx="12" fill="#3C3489"/>
+<text x="40" y="46" class="h1">CAP. 20 — Nuove gerarchie economiche internazionali</text>
+<text x="40" y="68" class="sub">Fine XVII–XVIII secolo · l'Europa al centro del commercio mondiale</text>
+
+<rect x="20" y="96" width="940" height="62" rx="10" fill="#EEEDFE" stroke="#CECBF6"/>
+<text x="36" y="120" class="thesis"><tspan font-weight="700">Tesi:</tspan> Inghilterra e Francia sfidano il monopolio iberico → concorrenza che sfocia nella</text>
+<text x="36" y="139" class="thesis"><tspan class="date">Guerra dei Sette Anni (1756–63)</tspan>. Vince la Gran Bretagna, prima potenza commerciale e</text>
+<text x="36" y="151" class="thesis" font-size="11">navale → gerarchia mondiale con l'Europa al centro, premessa del colonialismo del XIX sec.</text>
+
+<rect x="20" y="176" width="222" height="664" rx="10" fill="#ffffff" stroke="#CECBF6"/>
+<rect x="20" y="176" width="222" height="40" rx="10" fill="#534AB7"/>
+<rect x="20" y="200" width="222" height="16" fill="#534AB7"/>
+<text x="33" y="201" class="colh">20.1 Portogallo &amp; Spagna</text>
+<text x="33" y="244" class="grp">PORTOGALLO ▸ declino</text>
+<text x="33" y="266" class="b">• <tspan class="date">1662</tspan> cede Bombay agli inglesi</text>
+<text x="33" y="286" class="b">• Brasile: zucchero + schiavi</text>
+<text x="33" y="306" class="b">• Oro <tspan class="date">1697</tspan>, diamanti <tspan class="date">1729</tspan></text>
+<text x="33" y="324" class="b">  → asse a sud (Rio); 2 mln coloni</text>
+<text x="33" y="344" class="b">• Traffici con la Gran Bretagna</text>
+<text x="33" y="384" class="grp">SPAGNA ▸ monopolio eroso</text>
+<text x="33" y="406" class="b">• America centro-meridionale</text>
+<text x="33" y="426" class="b">• Distanze, corsari, manifatture</text>
+<text x="33" y="444" class="b">  deboli → contrabbando</text>
+<text x="33" y="464" class="b">• <tspan font-style="italic">Asiento de negros</tspan> → Francia</text>
+<text x="33" y="482" class="b">  (<tspan class="date">1700</tspan>)</text>
+<text x="33" y="502" class="b">• <tspan class="date">Utrecht 1713</tspan>: alla GB</text>
+<text x="33" y="520" class="b">  esclusiva schiavi + merci</text>
+
+<rect x="254" y="176" width="222" height="664" rx="10" fill="#ffffff" stroke="#CECBF6"/>
+<rect x="254" y="176" width="222" height="40" rx="10" fill="#534AB7"/>
+<rect x="254" y="200" width="222" height="16" fill="#534AB7"/>
+<text x="267" y="201" class="colh">20.2 Gran Bretagna</text>
+<text x="267" y="244" class="grp">ASCESA IMPERIALE</text>
+<text x="267" y="266" class="b">• 1ª potenza commerciale</text>
+<text x="267" y="284" class="b">  e navale; batte gli olandesi</text>
+<text x="267" y="304" class="b">• Walpole (pace, 1721–42)</text>
+<text x="267" y="322" class="b">  → Pitt: espansione coloniale</text>
+<text x="267" y="350" class="grp">GUERRA DEI 7 ANNI</text>
+<text x="267" y="372" class="b">• GB + Prussia vs Francia,</text>
+<text x="267" y="390" class="b">  Austria, Russia</text>
+<text x="267" y="410" class="b">• Quebec, Montreal</text>
+<text x="267" y="430" class="b">• <tspan class="date">Pace di Parigi 1763</tspan>:</text>
+<text x="267" y="448" class="b">  Canada, est Mississippi, Florida</text>
+<text x="267" y="476" class="grp">COMMERCIO &amp; SCHIAVI</text>
+<text x="267" y="498" class="b">• Scambi su 4 continenti,</text>
+<text x="267" y="516" class="b">  cuore finanziario a Londra</text>
+<text x="267" y="536" class="b">• Tratta: <tspan class="date">6 mln</tspan> schiavi</text>
+<text x="267" y="554" class="b">  (1701–1800); GB al 1° posto</text>
+<text x="267" y="574" class="b">• Abolizione tratta <tspan class="date">1808</tspan></text>
+
+<rect x="488" y="176" width="222" height="664" rx="10" fill="#ffffff" stroke="#CECBF6"/>
+<rect x="488" y="176" width="222" height="40" rx="10" fill="#534AB7"/>
+<rect x="488" y="200" width="222" height="16" fill="#534AB7"/>
+<text x="501" y="201" class="colh">20.3 Commerci con l'Asia</text>
+<text x="501" y="244" class="grp">NUOVE MERCI</text>
+<text x="501" y="266" class="b">• Meno spezie, più tessuti</text>
+<text x="501" y="284" class="b">  (cotone indiano, seta cinese)</text>
+<text x="501" y="304" class="b">• Bengala = cotone</text>
+<text x="501" y="322" class="b">• EIC a Calcutta (<tspan class="date">1690</tspan>)</text>
+<text x="501" y="340" class="b">• Protezionismo → import</text>
+<text x="501" y="358" class="b">  di cotone grezzo</text>
+<text x="501" y="376" class="b">• Tè cinese pagato con oppio</text>
+<text x="501" y="394" class="b">  (prodotto in Bengala)</text>
+<text x="501" y="424" class="grp">EGEMONIA BRITANNICA</text>
+<text x="501" y="446" class="b">• 7 anni → GB domina il Bengala</text>
+<text x="501" y="464" class="b">• Compagnia fr. soppressa <tspan class="date">1790</tspan></text>
+<text x="501" y="482" class="b">• Monopolio salnitro; prestiti</text>
+<text x="501" y="500" class="b">  ai principi; controllo imposte</text>
+<text x="501" y="518" class="b">• <tspan class="date">1757–80</tspan>: 38 mln £ a Londra</text>
+<text x="501" y="536" class="b">• <tspan class="date">1773</tspan> governatore generale;</text>
+<text x="501" y="554" class="b">  fine del monopolio EIC</text>
+
+<rect x="722" y="176" width="238" height="664" rx="10" fill="#ffffff" stroke="#CECBF6"/>
+<rect x="722" y="176" width="238" height="40" rx="10" fill="#534AB7"/>
+<rect x="722" y="200" width="238" height="16" fill="#534AB7"/>
+<text x="735" y="201" class="colh">20.4 Il Mediterraneo</text>
+<text x="735" y="244" class="grp">PERDITA DI CENTRALITÀ</text>
+<text x="735" y="266" class="b">• Baricentro → Atlantico</text>
+<text x="735" y="284" class="b">• Italia e Spagna in declino</text>
+<text x="735" y="302" class="b">  manifatturiero</text>
+<text x="735" y="320" class="b">• Dominano flotte olandesi,</text>
+<text x="735" y="338" class="b">  inglesi e francesi</text>
+<text x="735" y="356" class="b">• Traffici brevi: Genova,</text>
+<text x="735" y="374" class="b">  Marsiglia, Barcellona</text>
+<text x="735" y="404" class="grp">ITALIA &amp; SETA</text>
+<text x="735" y="426" class="b">• Sud Italia: penetrazione</text>
+<text x="735" y="444" class="b">  economica britannica</text>
+<text x="735" y="462" class="b">• Sicilia esporta grano, vino,</text>
+<text x="735" y="480" class="b">  seta, sale</text>
+<text x="735" y="498" class="b">• Italia = <tspan class="date">75%</tspan> seta greggia eur.</text>
+<text x="735" y="516" class="b">• Nord: filato (semilavorato)</text>
+<text x="735" y="534" class="b">• Sud: seta greggia</text>
+
+<text x="20" y="856" font-size="10.5" fill="#5F5E5A">Le date in evidenza segnano gli snodi cronologici del capitolo.</text>
+</svg>

@@ -136,6 +136,13 @@ mark{background:#ffe89a;padding:0 2px;border-radius:3px}
 .fc-done{text-align:center;padding:30px}
 .fc-done .big{font-size:2.4rem}
 
+#mapTabs button.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+.map-frame{position:relative;margin-top:16px;border:1px solid var(--line);border-radius:12px;background:#fff;overflow:hidden}
+.map-frame img{display:block;width:100%;height:auto}
+.map-frame iframe{display:block;width:100%;height:1500px;border:0;background:#f4f1ea}
+.map-open{position:absolute;top:10px;right:10px;z-index:2;background:rgba(43,43,43,.85);color:#fff;font-size:.78rem;padding:5px 10px;border-radius:8px;text-decoration:none}
+.map-open:hover{background:var(--ink);text-decoration:none}
+
 .footer{text-align:center;color:var(--muted);font-size:.78rem;margin-top:30px}
 .backtop{position:fixed;right:20px;bottom:20px;background:var(--ink);color:#fff;border:none;width:42px;height:42px;border-radius:50%;cursor:pointer;font-size:1.1rem;box-shadow:var(--shadow);display:none}
 
@@ -165,6 +172,7 @@ mark{background:#ffe89a;padding:0 2px;border-radius:3px}
     <a data-view="home" class="active">🏠 Home</a>
     <div class="grp">Materiali</div>
     <a data-view="riassunto">📖 Riassunto · Mediterraneo</a>
+    <a data-view="mappe">🗺️ Mappe concettuali <span class="pill">3</span></a>
     <a data-view="timeline">🕒 Timeline <span class="pill" id="tlCount"></span></a>
     <a data-view="glossario">🔤 Glossario <span class="pill" id="glCount"></span></a>
     <div class="grp">Studio</div>
@@ -190,6 +198,7 @@ mark{background:#ffe89a;padding:0 2px;border-radius:3px}
       </div>
       <div class="grid">
         <div class="tile" data-go="riassunto"><div class="ico">📖</div><h4>Riassunto · Mediterraneo</h4><p>Sintesi dettagliata capitolo per capitolo del libro di Zingarelli, con tabelle e concetti-chiave.</p></div>
+        <div class="tile" data-go="mappe"><div class="ico">🗺️</div><h4>Mappe concettuali</h4><p>Mappe dei capitoli 18, 19 e 20 di Benigno: seconda rivoluzione inglese, politica europea del primo '700 e nuove gerarchie economiche.</p></div>
         <div class="tile" data-go="timeline"><div class="ico">🕒</div><h4>Timeline</h4><p>Cronologia integrata delle tre fonti, filtrabile per testo e per epoca.</p></div>
         <div class="tile" data-go="glossario"><div class="ico">🔤</div><h4>Glossario</h4><p>Definizioni dei concetti che potrebbero esserti chiesti all'orale.</p></div>
         <div class="tile" data-go="piano"><div class="ico">🗓️</div><h4>Piano di studio</h4><p>Calendario fino al 15 luglio con avanzamento salvato sul tuo browser.</p></div>
@@ -565,6 +574,31 @@ mark{background:#ffe89a;padding:0 2px;border-radius:3px}
 <h3>Autori più citati (collegamenti possibili)</h3>
 <p>Braudel, Pirenne, Guarracino (storia mediterranea) · Hegel, Feuerbach (riconoscimento) · Mounier, Maritain, Lahbabi, Habachi, Wojtyła (personalismo) · Karen Armstrong (fondamentalismo) · Massignon, Piero Coda (religioni abramitiche/mistica) · Taylor, Habermas, Apel, Popper (multiculturalismo/democrazia) · Lévinas, Papa Francesco (etica della responsabilità) · Fathi Triki, V.E. Parsi (interculturalità, vulnerabilità).</p>
 </div></section>
+
+    <!-- MAPPE -->
+    <section class="view" id="mappe">
+      <div class="card">
+        <h2 class="title">Mappe concettuali</h2>
+        <p class="lead">Mappe di sintesi dei capitoli di Benigno, <em>L'età moderna</em>. Scegli un capitolo; usa “Apri a tutto schermo” per ingrandire o stampare.</p>
+        <div class="fc-controls" id="mapTabs">
+          <button class="primary" data-map="cap18">Cap. 18 · Seconda rivoluzione inglese</button>
+          <button data-map="cap19">Cap. 19 · Politica europea primo '700</button>
+          <button data-map="cap20">Cap. 20 · Nuove gerarchie economiche</button>
+        </div>
+        <div class="map-frame" data-map="cap18">
+          <a class="map-open" href="mappe/cap18.svg" target="_blank" rel="noopener">Apri a tutto schermo ↗</a>
+          <img src="mappe/cap18.svg" alt="Mappa concettuale del capitolo 18: la seconda rivoluzione inglese e l'affermazione della potenza britannica" loading="lazy">
+        </div>
+        <div class="map-frame" data-map="cap19" hidden>
+          <a class="map-open" href="mappe/cap19.html" target="_blank" rel="noopener">Apri a tutto schermo ↗</a>
+          <iframe src="mappe/cap19.html" title="Mappa concettuale del capitolo 19: la politica europea nella prima metà del '700" loading="lazy"></iframe>
+        </div>
+        <div class="map-frame" data-map="cap20" hidden>
+          <a class="map-open" href="mappe/cap20.svg" target="_blank" rel="noopener">Apri a tutto schermo ↗</a>
+          <img src="mappe/cap20.svg" alt="Mappa concettuale del capitolo 20: nuove gerarchie economiche internazionali" loading="lazy">
+        </div>
+      </div>
+    </section>
 
     <!-- TIMELINE -->
     <section class="view" id="timeline">
@@ -965,6 +999,16 @@ $('#search').addEventListener('keydown',e=>{if(e.key==='Enter'){clearTimeout(sea
 const bt=$('#backtop');
 window.addEventListener('scroll',()=>{bt.style.display=window.scrollY>400?'block':'none';});
 bt.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
+
+// Mappe: tab switching + auto-resize iframe
+$$('#mapTabs button').forEach(b=>b.addEventListener('click',()=>{
+  const m=b.dataset.map;
+  $$('#mapTabs button').forEach(x=>x.classList.toggle('primary',x===b));
+  $$('.map-frame').forEach(f=>f.hidden=f.dataset.map!==m);
+}));
+$$('.map-frame iframe').forEach(f=>f.addEventListener('load',()=>{
+  try{ const h=f.contentWindow.document.documentElement.scrollHeight; if(h>200) f.style.height=h+40+'px'; }catch(e){}
+}));
 
 // Init
 renderTimeline(); renderGlossary(); renderPlan(); buildDeck();
