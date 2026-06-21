@@ -136,12 +136,24 @@ mark{background:#ffe89a;padding:0 2px;border-radius:3px}
 .fc-done{text-align:center;padding:30px}
 .fc-done .big{font-size:2.4rem}
 
-#mapTabs button.primary{background:var(--accent);border-color:var(--accent);color:#fff}
-.map-frame{position:relative;margin-top:16px;border:1px solid var(--line);border-radius:12px;background:#fff;overflow:hidden}
-.map-frame img{display:block;width:100%;height:auto}
-.map-frame iframe{display:block;width:100%;height:1500px;border:0;background:#f4f1ea}
-.map-open{position:absolute;top:10px;right:10px;z-index:2;background:rgba(43,43,43,.85);color:#fff;font-size:.78rem;padding:5px 10px;border-radius:8px;text-decoration:none}
-.map-open:hover{background:var(--ink);text-decoration:none}
+.book{border:1px solid var(--line);border-radius:12px;background:var(--paper);margin-top:14px;overflow:hidden}
+.book-head{width:100%;display:flex;align-items:center;justify-content:space-between;gap:10px;
+  background:none;border:none;cursor:pointer;padding:15px 16px;text-align:left;font:inherit;color:var(--ink)}
+.book-head .bk-tit{font-size:1rem;font-weight:600}
+.book-head .bk-meta{font-size:.74rem;color:var(--muted);background:#eae4d7;border-radius:10px;padding:2px 9px;white-space:nowrap}
+.book-head .bk-meta.soon{background:#f6e9d8;color:#9a6a1a}
+.book-head::after{content:"▸";color:var(--muted);margin-left:2px;transition:transform .2s}
+.book.open .book-head::after{transform:rotate(90deg)}
+.book-body{display:none;padding:0 12px 10px}
+.book.open .book-body{display:block}
+.chap{display:flex;align-items:center;gap:12px;padding:12px 12px;border-radius:9px;
+  color:var(--ink);text-decoration:none;border-top:1px solid var(--line)}
+.chap:hover{background:#fff;text-decoration:none}
+.chap .ch-n{flex:0 0 34px;height:34px;display:flex;align-items:center;justify-content:center;
+  background:var(--accent);color:#fff;border-radius:8px;font-weight:700;font-size:.9rem}
+.chap .ch-t{flex:1;font-size:.92rem;line-height:1.35}
+.chap .ch-go{color:var(--muted);font-size:1.3rem;line-height:1}
+.bk-empty{color:var(--muted);font-size:.86rem;padding:6px 8px 4px;margin:0}
 
 .footer{text-align:center;color:var(--muted);font-size:.78rem;margin-top:30px}
 .backtop{position:fixed;right:20px;bottom:20px;background:var(--ink);color:#fff;border:none;width:42px;height:42px;border-radius:50%;cursor:pointer;font-size:1.1rem;box-shadow:var(--shadow);display:none}
@@ -579,23 +591,25 @@ mark{background:#ffe89a;padding:0 2px;border-radius:3px}
     <section class="view" id="mappe">
       <div class="card">
         <h2 class="title">Mappe concettuali</h2>
-        <p class="lead">Mappe di sintesi dei capitoli di Benigno, <em>L'età moderna</em>. Scegli un capitolo; usa “Apri a tutto schermo” per ingrandire o stampare.</p>
-        <div class="fc-controls" id="mapTabs">
-          <button class="primary" data-map="cap18">Cap. 18 · Seconda rivoluzione inglese</button>
-          <button data-map="cap19">Cap. 19 · Politica europea primo '700</button>
-          <button data-map="cap20">Cap. 20 · Nuove gerarchie economiche</button>
+        <p class="lead">Mappe di sintesi per libro e capitolo. Tocca un capitolo per aprire la mappa a tutto schermo: si legge bene anche da cellulare e si può stampare.</p>
+
+        <div class="book open">
+          <button class="book-head"><span class="bk-tit">📕 Benigno · <em>L'età moderna</em></span><span class="bk-meta">3 mappe</span></button>
+          <div class="book-body">
+            <a class="chap" href="mappe/benigno-cap18.html"><span class="ch-n">18</span><span class="ch-t">La seconda rivoluzione inglese e la potenza britannica</span><span class="ch-go">›</span></a>
+            <a class="chap" href="mappe/benigno-cap19.html"><span class="ch-n">19</span><span class="ch-t">La politica europea nella prima metà del '700</span><span class="ch-go">›</span></a>
+            <a class="chap" href="mappe/benigno-cap20.html"><span class="ch-n">20</span><span class="ch-t">Nuove gerarchie economiche internazionali</span><span class="ch-go">›</span></a>
+          </div>
         </div>
-        <div class="map-frame" data-map="cap18">
-          <a class="map-open" href="mappe/cap18.svg" target="_blank" rel="noopener">Apri a tutto schermo ↗</a>
-          <img src="mappe/cap18.svg" alt="Mappa concettuale del capitolo 18: la seconda rivoluzione inglese e l'affermazione della potenza britannica" loading="lazy">
+
+        <div class="book">
+          <button class="book-head"><span class="bk-tit">📗 Zingarelli · <em>Il Mediterraneo</em></span><span class="bk-meta soon">in arrivo</span></button>
+          <div class="book-body"><p class="bk-empty">Mappe in preparazione.</p></div>
         </div>
-        <div class="map-frame" data-map="cap19" hidden>
-          <a class="map-open" href="mappe/cap19.html" target="_blank" rel="noopener">Apri a tutto schermo ↗</a>
-          <iframe src="mappe/cap19.html" title="Mappa concettuale del capitolo 19: la politica europea nella prima metà del '700" loading="lazy"></iframe>
-        </div>
-        <div class="map-frame" data-map="cap20" hidden>
-          <a class="map-open" href="mappe/cap20.svg" target="_blank" rel="noopener">Apri a tutto schermo ↗</a>
-          <img src="mappe/cap20.svg" alt="Mappa concettuale del capitolo 20: nuove gerarchie economiche internazionali" loading="lazy">
+
+        <div class="book">
+          <button class="book-head"><span class="bk-tit">📘 Pancino · <em>Metodi e strumenti di storia sociale</em></span><span class="bk-meta soon">in arrivo</span></button>
+          <div class="book-body"><p class="bk-empty">Mappe in preparazione.</p></div>
         </div>
       </div>
     </section>
@@ -963,6 +977,7 @@ function show(view){
   const el=$('#'+view); if(el)el.classList.add('show');
   $$('nav.side a').forEach(a=>a.classList.toggle('active',a.dataset.view===view));
   $('#side').classList.remove('open'); window.scrollTo({top:0,behavior:'smooth'});
+  if(view!=='home') history.replaceState(null,'','#'+view); else history.replaceState(null,'',location.pathname);
 }
 $$('nav.side a').forEach(a=>a.addEventListener('click',()=>show(a.dataset.view)));
 $$('.tile').forEach(t=>t.addEventListener('click',()=>show(t.dataset.go)));
@@ -1000,18 +1015,16 @@ const bt=$('#backtop');
 window.addEventListener('scroll',()=>{bt.style.display=window.scrollY>400?'block':'none';});
 bt.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
 
-// Mappe: tab switching + auto-resize iframe
-$$('#mapTabs button').forEach(b=>b.addEventListener('click',()=>{
-  const m=b.dataset.map;
-  $$('#mapTabs button').forEach(x=>x.classList.toggle('primary',x===b));
-  $$('.map-frame').forEach(f=>f.hidden=f.dataset.map!==m);
-}));
-$$('.map-frame iframe').forEach(f=>f.addEventListener('load',()=>{
-  try{ const h=f.contentWindow.document.documentElement.scrollHeight; if(h>200) f.style.height=h+40+'px'; }catch(e){}
-}));
+// Mappe: accordion libri
+$$('.book-head').forEach(b=>b.addEventListener('click',()=>b.parentElement.classList.toggle('open')));
 
 // Init
 renderTimeline(); renderGlossary(); renderPlan(); buildDeck();
+// Apri la sezione indicata nell'URL (es. #mappe) e reagisci ai cambi di hash
+const VIEWS=['home','riassunto','mappe','timeline','glossario','piano','flashcard','risultati'];
+function fromHash(){ const h=location.hash.replace('#',''); if(VIEWS.includes(h)) show(h); }
+window.addEventListener('hashchange',fromHash);
+fromHash();
 </script>
 </body>
 </html>
