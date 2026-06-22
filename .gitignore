@@ -1,6 +1,9 @@
 # File IDE JetBrains
 .idea/
 
+# Config locale di Claude Code
+.claude/
+
 # Chiave API Anthropic — NON committare mai
 esame/apikey.txt
 .env
