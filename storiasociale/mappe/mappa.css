@@ -3,7 +3,7 @@
 :root{
   --bg:#f4f1ea; --ink:#2b2b2b; --muted:#6b7280;
   --root:#7c2d12; --root2:#9a3412;
-  --n1:#1d4ed8; --n2:#047857; --n3:#b45309; --n4:#6d28d9;
+  --n1:#1d4ed8; --n2:#047857; --n3:#b45309; --n4:#6d28d9; --n5:#be123c;
   --card:#ffffff;
 }
 *{box-sizing:border-box}
@@ -32,6 +32,7 @@ h1{text-align:center;color:var(--root);font-size:22px;line-height:1.28;margin:4p
   display:flex;align-items:center;gap:9px}
 .b1 h2{background:var(--n1)} .b2 h2{background:var(--n2)}
 .b3 h2{background:var(--n3)} .b4 h2{background:var(--n4)}
+.b5 h2{background:var(--n5)}
 .num{background:rgba(255,255,255,.25);border-radius:50%;width:26px;height:26px;min-width:26px;
   display:inline-flex;align-items:center;justify-content:center;font-weight:800;font-size:14px}
 .branch .body{padding:13px 16px 18px}
