@@ -90,4 +90,27 @@ Non serve toccare `index.html`.
 - Grammature/quantità evidenziate.
 - Ricerca alimento tra tutte le voci (proposte, alternative, fisse): mostra
   in quali giorno/pasto compare; tap su un risultato porta a quel giorno.
+- Pulsante **"Azzera scelte (N)"** accanto al titolo del giorno: riporta tutte
+  le voci di quel giorno alle proposte originali (compare solo se hai fatto
+  almeno una scelta).
 - Nota fissa con i promemoria idratazione.
+
+## PWA (installabile + offline)
+
+L'app è una PWA: puoi installarla in home screen e usarla offline.
+
+- `manifest.webmanifest` — nome, colori, icone (`icon-192.png`,
+  `icon-512.png`, `icon-512-maskable.png`, `apple-touch-icon.png`). Le icone
+  sono generate come PNG (foglia bianca su verde).
+- `sw.js` — service worker. Strategia:
+  - **shell + CDN** (React, Babel, Tailwind): *cache-first*, così l'app parte
+    anche offline;
+  - **`dieta.md`**: *network-first* (quando sei online scarica sempre l'ultima
+    versione e la memorizza; offline usa l'ultima in cache).
+
+Il service worker si attiva solo via `http(s)` (non con `file://`) — quindi in
+locale usa il server statico, e su GitHub Pages funziona da subito.
+
+Dopo aver modificato `dieta.md`, apri l'app online almeno una volta per far
+aggiornare la copia in cache. Se cambi `index.html`/`sw.js`, incrementa
+`VERSION` in `sw.js` per invalidare la vecchia cache.

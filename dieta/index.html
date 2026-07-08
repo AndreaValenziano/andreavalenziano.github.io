@@ -3,6 +3,14 @@
 <title>La mia dieta</title>
 <meta name="theme-color" content="#059669" />
 
+<!-- PWA: installabile + funziona offline (vedi manifest.webmanifest e sw.js) -->
+<link rel="manifest" href="manifest.webmanifest" />
+<link rel="icon" href="favicon-32.png" sizes="32x32" />
+<link rel="apple-touch-icon" href="apple-touch-icon.png" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="default" />
+<meta name="apple-mobile-web-app-title" content="Dieta" />
+
 <!--
   App "La mia dieta" — singola pagina, mobile-first.
   Fonte dati UNICA: ./dieta.md (letto e parsato a runtime).
@@ -10,8 +18,8 @@
   Stack: React 18 + Tailwind (Play CDN) + Babel standalone. Nessun build step.
 -->
 
-<script src="https://unpkg.com/react@18.3.1/umd/react.production.min.js" crossorigin></script>
-<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js" crossorigin></script>
+<script src="https://unpkg.com/react@18.3.1/umd/react.production.min.js"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js"></script>
 <!-- Babel 7: JSX runtime "classic" (React.createElement). Babel 8 usa "automatic"
      che emette `import ... from "react/jsx-runtime"` e rompe in uno script classico. -->
 <script src="https://unpkg.com/@babel/standalone@7.25.6/babel.min.js"></script>
@@ -475,6 +483,21 @@ function App() {
     });
   };
 
+  // Quante voci del giorno corrente hanno una scelta diversa dalla proposta
+  const daySelectionCount = useMemo(
+    () => Object.keys(selections).filter((k) => k.startsWith(`${day}-`)).length,
+    [selections, day]
+  );
+
+  // Azzera tutte le scelte del giorno mostrato (torna alle proposte)
+  const resetDay = () => {
+    setSelections((prev) => {
+      const next = {};
+      for (const k of Object.keys(prev)) if (!k.startsWith(`${day}-`)) next[k] = prev[k];
+      return next;
+    });
+  };
+
   // Indice piatto per la ricerca (proposte + alternative + voci fisse)
   const searchResults = useMemo(() => {
     if (!data || !query.trim()) return [];
@@ -581,7 +604,19 @@ function App() {
           <SearchResults results={searchResults} query={query} onGoToDay={goToDay} />
         ) : (
           <>
-            <h2 className="text-2xl font-bold text-stone-900">{currentDay.name}</h2>
+            <div className="flex items-center justify-between gap-3">
+              <h2 className="text-2xl font-bold text-stone-900">{currentDay.name}</h2>
+              {daySelectionCount > 0 && (
+                <button
+                  onClick={resetDay}
+                  className="shrink-0 inline-flex items-center gap-1.5 rounded-full border border-stone-200 bg-white px-3 py-1.5 text-xs font-medium text-stone-600 hover:text-emerald-700 hover:border-emerald-200 hover:bg-emerald-50 transition-colors"
+                  title="Riporta tutte le voci del giorno alla proposta"
+                >
+                  <Icon.Reset size={14} />
+                  Azzera scelte ({daySelectionCount})
+                </button>
+              )}
+            </div>
             <div className="space-y-6">
               {currentDay.meals.map((meal, mi) => (
                 <MealCard
@@ -606,4 +641,13 @@ function App() {
 }
 
 ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+</script>
+
+<!-- Registrazione del service worker (PWA / offline). Richiede http(s): non attivo su file:// -->
+<script>
+  if ('serviceWorker' in navigator && location.protocol.startsWith('http')) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('sw.js').catch((e) => console.warn('SW non registrato:', e));
+    });
+  }
 </script>
