@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mappa di ripasso — Prussia (Brandeburgo-Prussia)</title>
+<style>
+  :root{
+    --bg:#f4f1ea; --paper:#fffdf8; --ink:#2b2620; --muted:#7a7165;
+    --line:#e2dccf; --accent:#5a7a4b; --accent2:#3b6b8a; --accent3:#8a5a3b;
+    --shadow:0 1px 3px rgba(0,0,0,.08),0 8px 24px rgba(0,0,0,.06);
+  }
+  *{box-sizing:border-box;}
+  html{-webkit-text-size-adjust:100%;}
+  body{
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    line-height:1.55; font-size:17px;
+  }
+  .wrap{max-width:1000px; margin:0 auto; padding:32px 18px 60px;}
+  header.title{ text-align:center; margin-bottom:26px; }
+  header.title h1{
+    font-size:2em; line-height:1.2; margin:0 0 6px; color:var(--ink);
+    letter-spacing:-.01em;
+  }
+  header.title .sub{ color:var(--muted); font-size:1.02em; margin:0; }
+  header.title .eyebrow{
+    display:inline-block; font-size:.78em; letter-spacing:.14em; text-transform:uppercase;
+    color:var(--accent); font-weight:700; margin-bottom:10px;
+  }
+  .card{
+    background:var(--paper); border:1px solid var(--line); border-radius:14px;
+    padding:24px; box-shadow:var(--shadow); margin-bottom:20px;
+  }
+  .card h2{
+    display:block; background:var(--accent); color:#fff; margin:-4px 0 18px;
+    padding:9px 16px; border-radius:9px; font-size:1.18em; letter-spacing:.01em;
+  }
+  .card h2 .n{ opacity:.72; font-weight:700; margin-right:8px; }
+  h3{ font-size:1.03em; margin:20px 0 8px; color:var(--accent3); }
+  p{ margin:10px 0; }
+  .lead{ font-size:1.05em; }
+  strong{ color:#1f1b16; }
+  em.rosso{ color:var(--accent); font-style:normal; font-weight:700; }
+  ul{ margin:10px 0; padding-left:20px; }
+  li{ margin:7px 0; }
+  .intest-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(210px,1fr)); gap:12px; margin:6px 0 4px; }
+  .fact{ background:#faf7f0; border:1px solid var(--line); border-radius:10px; padding:12px 14px; }
+  .fact .k{ font-size:.72em; text-transform:uppercase; letter-spacing:.1em; color:var(--muted); font-weight:700; }
+  .fact .v{ font-size:.98em; margin-top:2px; }
+  .filo{ background:#eef3ea; border-left:4px solid var(--accent); border-radius:8px; padding:12px 15px; margin-top:14px; }
+
+  /* Badge / pill */
+  .badge{ display:inline-block; font-size:.7em; font-weight:700; letter-spacing:.05em; text-transform:uppercase;
+    padding:2px 9px; border-radius:20px; color:#fff; vertical-align:middle; margin-right:5px; white-space:nowrap; }
+  .b-guerra{ background:var(--accent3); }
+  .b-riforma{ background:var(--accent2); }
+  .b-dinastia{ background:#6a5a8a; }
+  .b-religione{ background:#b0803a; }
+  .b-pace{ background:var(--accent); }
+  .b-istit{ background:#607080; }
+
+  /* Timeline */
+  .timeline{ position:relative; margin:6px 0 0; padding-left:30px; }
+  .timeline::before{ content:""; position:absolute; left:9px; top:6px; bottom:6px; width:2px; background:var(--accent); }
+  .tl{ position:relative; margin:0 0 18px; }
+  .tl::before{ content:""; position:absolute; left:-26px; top:4px; width:12px; height:12px; border-radius:50%;
+    background:var(--accent); border:2px solid var(--paper); box-shadow:0 0 0 2px var(--accent); }
+  .tl .yr{ font-weight:800; color:var(--accent); font-size:.95em; }
+  .tl .ev{ font-weight:700; }
+  .tl .ds{ color:var(--ink); }
+
+  /* Table */
+  .tbl-wrap{ overflow-x:auto; -webkit-overflow-scrolling:touch; margin:10px 0; border-radius:10px; border:1px solid var(--line); }
+  table{ border-collapse:collapse; width:100%; min-width:560px; font-size:.94em; }
+  th,td{ text-align:left; padding:9px 12px; border-bottom:1px solid var(--line); vertical-align:top; }
+  thead th{ background:#efe9dc; font-size:.86em; text-transform:uppercase; letter-spacing:.04em; color:#4a4238; }
+  tbody tr:nth-child(even){ background:#faf7f0; }
+  td .din{ font-size:.8em; color:var(--muted); display:block; }
+
+  .split{ display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+  .split .box{ background:#faf7f0; border:1px solid var(--line); border-radius:10px; padding:14px 16px; }
+  .split .box h4{ margin:0 0 6px; color:var(--accent2); font-size:1em; }
+
+  .evo{ display:flex; flex-wrap:wrap; align-items:center; gap:8px; margin:12px 0; font-weight:700; }
+  .evo .step{ background:#eef3ea; border:1px solid var(--line); border-radius:8px; padding:7px 12px; font-size:.9em; }
+  .evo .arr{ color:var(--accent); font-size:1.2em; }
+
+  .coll{ border-left:3px solid var(--accent2); padding:4px 0 4px 14px; margin:12px 0; }
+  .coll b{ color:var(--accent2); }
+
+  dl.key{ margin:6px 0; }
+  dl.key dt{ font-weight:700; color:var(--accent3); margin-top:12px; }
+  dl.key dd{ margin:2px 0 0; }
+
+  footer.src{ text-align:center; color:var(--muted); font-size:.82em; margin-top:26px; }
+
+  @media (max-width:620px){
+    body{ font-size:16px; }
+    .split{ grid-template-columns:1fr; }
+    .card{ padding:18px 15px; }
+    header.title h1{ font-size:1.55em; }
+  }
+  @media print{
+    body{ background:#fff; }
+    .card{ box-shadow:none; border:1px solid #ccc; break-inside:avoid; }
+    .card h2{ -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+  }
+
+/* barra di navigazione (aggiunta per il sito) */
+.map-top{position:sticky;top:0;z-index:50;display:flex;align-items:center;gap:10px;
+  background:#2b2620;color:#fff;padding:10px 14px;box-shadow:0 2px 8px rgba(0,0,0,.18);
+  margin:0;}
+.map-top a{color:#fff;text-decoration:none;font-weight:600;font-size:13.5px;
+  background:rgba(255,255,255,.16);padding:8px 12px;border-radius:9px;white-space:nowrap;}
+.map-top a:active{background:rgba(255,255,255,.32);}
+.map-top .loc{flex:1;text-align:center;font-size:13px;font-weight:600;opacity:.95;}
+@media print{.map-top{display:none}}
+</style>
+</head>
+<body>
+<header class="map-top">
+  <a class="back" href="../index.html#mappe">← Mappe</a>
+  <span class="loc">Mappe per nazione · Prussia</span>
+</header>
+
+<div class="wrap">
+
+  <header class="title">
+    <div class="eyebrow">Mappa tematica di ripasso · Età moderna 1492–1815</div>
+    <h1>Prussia (Brandeburgo-Prussia)</h1>
+    <p class="sub">Da potenza secondaria a grande potenza europea: uno Stato «fatto di esercito e burocrazia»</p>
+  </header>
+
+  <!-- 1. INTESTAZIONE -->
+  <section class="card">
+    <h2><span class="n">1</span> Intestazione</h2>
+    <div class="intest-grid">
+      <div class="fact"><div class="k">Nazione</div><div class="v">Brandeburgo-Prussia → Regno di Prussia</div></div>
+      <div class="fact"><div class="k">Arco cronologico</div><div class="v">fine '600 (il Grande Elettore) → 1701 (regno) → 1815 (Congresso di Vienna)</div></div>
+      <div class="fact"><div class="k">Dinastia</div><div class="v">Hohenzollern</div></div>
+      <div class="fact"><div class="k">Governo</div><div class="v">Monarchia assoluta → dispotismo riformatore (illuminato)</div></div>
+    </div>
+    <div class="filo">
+      <strong>Il filo rosso.</strong> Nel Settecento la Prussia degli <em class="rosso">Hohenzollern</em> compie la parabola più sorprendente d'Europa: da un insieme di <strong>territori distinti e distanti</strong> (il Brandeburgo e la Prussia orientale) diventa, in poche generazioni, una <strong>grande potenza militare continentale</strong>. La chiave è uno Stato <strong>«fatto di esercito e burocrazia»</strong>: il <em>Grande Elettore</em> Federico Guglielmo imita l'assolutismo francese; <strong>Federico I</strong> ottiene dall'imperatore il titolo di <em class="rosso">re di Prussia</em> (1701); <strong>Federico II «il Grande»</strong> ne fa la pietra di paragone del <em class="rosso">dispotismo illuminato</em>. Il banco di prova è la <strong>Slesia</strong>, strappata all'Austria di Maria Teresa e mai più restituita. Il sovrano non è più il padrone dei sudditi, ma «<strong>il primo servitore dello Stato</strong>»: attorno a questa idea nasce l'<strong>identità protonazionale prussiana</strong>.
+    </div>
+  </section>
+
+  <!-- 2. TIMELINE -->
+  <section class="card">
+    <h2><span class="n">2</span> Linea del tempo</h2>
+    <div class="timeline">
+      <div class="tl"><span class="yr">fine '600</span> · <span class="badge b-istit">istituzioni</span><span class="ev">Il Grande Elettore Federico Guglielmo.</span> <span class="ds">Guida il ducato di Brandeburgo-Prussia (due territori distinti e distanti) e intraprende «una strada molto simile a quella di Francia»: rafforzamento dell'autorità sovrana sul modello di Luigi XIV.</span></div>
+      <div class="tl"><span class="yr">1701</span> · <span class="badge b-dinastia">dinastia</span><span class="ev">Nasce il Regno di Prussia.</span> <span class="ds">Il successore ottiene <strong>dall'imperatore</strong> il titolo di <strong>re di Prussia</strong> e diventa <strong>Federico I</strong>: la promozione da duca a re sancisce l'ingresso tra le monarchie.</span></div>
+      <div class="tl"><span class="yr">1701–14</span> · <span class="badge b-guerra">guerra</span><span class="ev">Guerra di successione spagnola.</span> <span class="ds">La Prussia aderisce alla <strong>Grande coalizione dell'Aja</strong> (con Impero, Province Unite, Inghilterra, Savoia) contro Filippo V di Borbone e Luigi XIV.</span></div>
+      <div class="tl"><span class="yr">primo '700</span> · <span class="badge b-istit">istituzioni</span><span class="ev">La «giovane Prussia» tra le nuove potenze.</span> <span class="ds">È annoverata tra le potenze aggressive emergenti (con Inghilterra, Province Unite, Russia, Svezia) in competizione per il controllo del <strong>Mar Baltico</strong>.</span></div>
+      <div class="tl"><span class="yr">1740</span> · <span class="badge b-dinastia">dinastia</span><span class="ev">Federico II sale al trono.</span> <span class="ds">Alla morte di Carlo VI approfitta subito della crisi di successione austriaca per invadere la <strong>Slesia</strong>.</span></div>
+      <div class="tl"><span class="yr">1740–48</span> · <span class="badge b-guerra">guerra</span><span class="ev">Guerra di successione austriaca.</span> <span class="ds">Prussia, Baviera, Francia, Spagna e Sardegna contestano la <strong>Prammatica Sanzione</strong>. Maria Teresa <em>spacca la coalizione</em> facendo pace proprio con Federico II e cedendogli la Slesia.</span></div>
+      <div class="tl"><span class="yr">1748</span> · <span class="badge b-pace">pace</span><span class="ev">Pace di Aquisgrana.</span> <span class="ds">Chiude la guerra di successione austriaca e <strong>sancisce la conquista prussiana della Slesia</strong>.</span></div>
+      <div class="tl"><span class="yr">1756–63</span> · <span class="badge b-guerra">guerra</span><span class="ev">Guerra dei Sette anni.</span> <span class="ds">Federico II muove guerra all'Impero (con la sola Gran Bretagna) contro Francia, Russia, Svezia e Impero. Vittorie tattiche, ma poi <strong>invasione della Prussia e occupazione di Berlino (1760)</strong>.</span></div>
+      <div class="tl"><span class="yr">1762</span> · <span class="badge b-guerra">guerra</span><span class="ev">Il «miracolo»: si ritirano Svezia e Russia.</span> <span class="ds">Con l'uscita di due nemici dal conflitto, Federico II riesce a <strong>ricacciare l'esercito imperiale</strong> e a salvare la Prussia.</span></div>
+      <div class="tl"><span class="yr">1763</span> · <span class="badge b-pace">pace</span><span class="ev">Pace di Parigi.</span> <span class="ds">La <strong>Slesia resta alla Prussia</strong>. Nascono <em>due nuove supremazie</em>: la Prussia come prima potenza <strong>militare continentale</strong>, la Gran Bretagna come prima potenza navale e coloniale.</span></div>
+      <div class="tl"><span class="yr">dopo il 1760</span> · <span class="badge b-riforma">riforma</span><span class="ev">Il dispotismo riformatore di Federico II.</span> <span class="ds">Rafforzamento di economia, esercito e fisco; il sovrano si professa «<strong>il primo servitore dello Stato</strong>» e coltiva la fama del re tollerante e illuminato.</span></div>
+      <div class="tl"><span class="yr">1791</span> · <span class="badge b-guerra">guerra</span><span class="ev">Dichiarazione di Pillnitz.</span> <span class="ds"><strong>Federico Guglielmo II</strong> re di Prussia e l'imperatore Leopoldo II invitano le potenze a intervenire contro la Rivoluzione francese per restituire i pieni poteri a Luigi XVI.</span></div>
+      <div class="tl"><span class="yr">1792</span> · <span class="badge b-guerra">guerra</span><span class="ev">Guerra alla Francia rivoluzionaria.</span> <span class="ds">La Prussia si allea a Francesco II d'Asburgo, ma imperiali e prussiani vengono sconfitti dai rivoluzionari giacobini.</span></div>
+      <div class="tl"><span class="yr">1806</span> · <span class="badge b-guerra">guerra</span><span class="ev">Sconfitta contro Napoleone.</span> <span class="ds">La Prussia anima la <strong>quarta coalizione</strong> antifrancese, ma Napoleone batte prima i prussiani e poi i russi, creando Stati satelliti. Stesso anno: fine del Sacro Romano Impero.</span></div>
+      <div class="tl"><span class="yr">1815</span> · <span class="badge b-guerra">guerra</span><span class="ev">Waterloo.</span> <span class="ds">Le forze britanniche, con l'<strong>appoggio decisivo dell'esercito prussiano</strong>, hanno la meglio nella battaglia che chiude l'epopea napoleonica (18 giugno 1815).</span></div>
+      <div class="tl"><span class="yr">1814–15</span> · <span class="badge b-pace">pace</span><span class="ev">Congresso di Vienna.</span> <span class="ds">La Prussia (tra le quattro potenze vincitrici) acquisisce parte della <strong>Sassonia, la Vestfalia e Colonia</strong>, ed entra nella <strong>Santa Alleanza</strong> con Russia e Austria.</span></div>
+    </div>
+  </section>
+
+  <!-- 3. SOVRANI -->
+  <section class="card">
+    <h2><span class="n">3</span> Sovrani e dinastie</h2>
+    <p>Tutti <strong>Hohenzollern</strong>. La linea porta dal <em>ducato</em> di Brandeburgo-Prussia al <em>regno</em> di Prussia grande potenza. (Benigno nomina esplicitamente il Grande Elettore, Federico I, Federico II e Federico Guglielmo II.)</p>
+    <div class="tbl-wrap">
+      <table>
+        <thead>
+          <tr><th>Sovrano</th><th>Regno</th><th>Caratterizzazione (secondo Benigno)</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>Federico Guglielmo</strong><span class="din">il «Grande Elettore» · Hohenzollern</span></td><td>fine '600</td><td>Duca di Brandeburgo-Prussia: unisce e rafforza territori distinti e distanti «lungo una strada molto simile a quella di Francia», imitando l'assolutismo di Luigi XIV.</td></tr>
+          <tr><td><strong>Federico I</strong><span class="din">Hohenzollern</span></td><td>dal 1701</td><td>Il successore che <strong>ottiene dall'imperatore il titolo di re di Prussia</strong> (1701): il ducato diventa regno.</td></tr>
+          <tr><td><strong>Federico II «il Grande»</strong><span class="din">Hohenzollern</span></td><td>1740–1786</td><td>Modello del <strong>sovrano assolutistico sensibile ai lumi</strong>. Conquista la Slesia, la difende nei Sette anni, riforma esercito, fisco ed economia; si dice «il primo servitore dello Stato» e fonda l'identità protonazionale prussiana.</td></tr>
+          <tr><td><strong>Federico Guglielmo II</strong><span class="din">Hohenzollern</span></td><td>1786–1797</td><td>Firma con Leopoldo II la <strong>Dichiarazione di Pillnitz</strong> (1791) contro la Rivoluzione francese; guida la Prussia nella guerra del 1792 al fianco dell'Austria.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="font-size:.85em;color:var(--muted)">Nota: le date di regno di Federico II (1740–1786) e Federico Guglielmo II (1786–1797) integrano minimamente la fonte per orientare la successione; Benigno fissa con certezza il <strong>1701</strong> (titolo regale) e il <strong>1740</strong> (avvento di Federico II con la conquista della Slesia).</p>
+  </section>
+
+  <!-- 4. FORMA DI GOVERNO -->
+  <section class="card">
+    <h2><span class="n">4</span> Forma di governo e istituzioni</h2>
+    <div class="evo">
+      <span class="step">Ducato composito (2 territori distanti)</span><span class="arr">→</span>
+      <span class="step">Assolutismo «alla francese»</span><span class="arr">→</span>
+      <span class="step">Regno di Prussia (1701)</span><span class="arr">→</span>
+      <span class="step">Dispotismo riformatore</span>
+    </div>
+
+    <h3>La chiave: uno Stato di esercito e burocrazia</h3>
+    <div class="split">
+      <div class="box">
+        <h4>Il modello assolutistico</h4>
+        <p>Il Brandeburgo-Prussia segue «una strada molto simile a quella di <strong>Francia</strong>»: come Luigi XIV a Versailles, gli Hohenzollern eliminano i poteri concorrenti e <strong>accentrano</strong> l'autorità nel sovrano.</p>
+        <ul>
+          <li>Rafforzamento dell'<strong>esercito</strong> → «uno dei più efficienti d'Europa».</li>
+          <li>Rafforzamento del <strong>prelievo fiscale</strong> e delle finanze.</li>
+          <li>Una <strong>burocrazia</strong> statale al servizio del re.</li>
+        </ul>
+      </div>
+      <div class="box">
+        <h4>«Il primo servitore dello Stato»</h4>
+        <p>La novità di Federico II: la vecchia <strong>fedeltà personale al sovrano</strong> si trasforma in <strong>devozione a un'entità impersonale, lo Stato</strong>.</p>
+        <ul>
+          <li>Il re stesso si dice «il primo servitore dello Stato».</li>
+          <li>Su questa idea nasce l'<strong>identità protonazionale</strong> prussiana.</li>
+          <li>Legittimità non solo dinastica ma <em>protonazionale</em>: il sovrano risponde alla sensibilità del suo popolo.</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3>Rapporto sovrano–Stato</h3>
+    <p>La Prussia è l'esempio più puro del <strong>dispotismo riformatore</strong>: un potere assoluto che riforma dall'alto, seguendo gli ideali illuministi, ma con lo scopo prevalente di <strong>rendere lo Stato più efficiente ai fini bellici</strong> e di ingrandire i domini della dinastia. Non c'è parlamento che limiti il re: le riforme scendono dal vertice.</p>
+  </section>
+
+  <!-- 5. POLITICA INTERNA -->
+  <section class="card">
+    <h2><span class="n">5</span> Politica interna</h2>
+
+    <h3>Le direttrici di Federico II</h3>
+    <p><span class="badge b-riforma">riforma</span>Divenuto sovrano, Federico procede «lungo le tradizionali direttrici assolutistiche», concentrandosi su alcuni assi:</p>
+    <ul>
+      <li>il <strong>rafforzamento dell'economia</strong> prussiana e il miglioramento della vita economica;</li>
+      <li>il <strong>rafforzamento dell'esercito</strong>, presto tra i più efficienti d'Europa;</li>
+      <li>l'<strong>ottimizzazione del prelievo fiscale</strong>;</li>
+      <li>la <strong>protezione della produzione agricola</strong>.</li>
+    </ul>
+
+    <h3>La «leggenda» del re illuminato</h3>
+    <p><span class="badge b-istit">immagine</span>Federico costruisce attorno a sé la fama di un sovrano <strong>tollerante</strong>: protettore dei commerci e delle manifatture, permissivo verso la stampa, promotore dell'istruzione, <strong>nemico della tortura e della pena di morte</strong>. Benigno la presenta come una <em>leggenda</em> coltivata dal sovrano stesso, parte della sua immagine pubblica.</p>
+
+    <h3>La questione religiosa</h3>
+    <p><span class="badge b-religione">religione</span>La tolleranza prussiana ha un risvolto concreto: quando la <strong>Compagnia di Gesù</strong> viene espulsa dagli Stati borbonici e poi soppressa dal papa (1773), l'Ordine trova rifugio — insieme che in Austria — proprio <strong>in Prussia, sotto la protezione di Federico II</strong>. Anche il filosofo perseguitato può trovarvi asilo: Federico II è tra i protettori dei <em>philosophes</em>.</p>
+  </section>
+
+  <!-- 6. POLITICA ESTERA -->
+  <section class="card">
+    <h2><span class="n">6</span> Politica estera e guerre</h2>
+
+    <h3>Contro chi si combatte (e con chi ci si allea)</h3>
+    <ul>
+      <li><strong>Austria / Impero</strong> (Asburgo): la rivale-madre del '700, per il possesso della <strong>Slesia</strong>. Federico II è l'antagonista diretto di Maria Teresa.</li>
+      <li><strong>Gran Bretagna</strong>: l'<em>alleata</em> nella guerra dei Sette anni (fronte anglo-prussiano) e a Waterloo.</li>
+      <li><strong>Francia, Russia, Svezia</strong>: nemici nella guerra dei Sette anni; la Francia è invece <em>alleata</em> nella successione austriaca.</li>
+      <li><strong>Francia napoleonica</strong>: nemica dal 1792; sconfigge la Prussia nel 1806, che si riscatta a Waterloo (1815).</li>
+    </ul>
+
+    <h3>Le guerre e le paci principali</h3>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>Conflitto</th><th>Con chi / contro chi</th><th>Pace / esito</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Successione spagnola</strong><br>(1701–1714)</td><td>Prussia nella <strong>Grande coalizione dell'Aja</strong> (Impero, Province Unite, Inghilterra, Savoia) <em>vs</em> Borbone (Filippo V, Luigi XIV)</td><td>Utrecht + Rastadt (1714); la Prussia è ormai tra le potenze del sistema europeo</td></tr>
+          <tr><td><strong>Successione austriaca</strong><br>(1740–1748)</td><td><strong>Prussia</strong>, Baviera, Francia, Spagna, Sardegna <em>vs</em> Maria Teresa (con GB, Province Unite, Sardegna)</td><td><strong>Pace di Aquisgrana (1748)</strong>: la Slesia passa alla Prussia</td></tr>
+          <tr><td><strong>Sette anni</strong><br>(1756–1763)</td><td><strong>Prussia + Gran Bretagna</strong> <em>vs</em> Francia, Russia, Svezia, Impero</td><td>Occupazione di Berlino (1760); ritiro di Svezia e Russia (1762); <strong>Pace di Parigi (1763)</strong>: la Slesia resta prussiana</td></tr>
+          <tr><td><strong>Guerre rivoluzionarie</strong><br>(dal 1792)</td><td>Prussia + Impero (Francesco II) <em>vs</em> Francia rivoluzionaria</td><td>Dichiarazione di Pillnitz (1791); imperiali e prussiani sconfitti dai giacobini</td></tr>
+          <tr><td><strong>Guerre napoleoniche</strong><br>(IV coalizione, 1806)</td><td><strong>Prussia</strong> (poi con la Russia) <em>vs</em> Napoleone</td><td>Sconfitta prussiana e Stati satelliti francesi; riscatto a <strong>Waterloo (1815)</strong> a fianco della GB</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p><span class="badge b-guerra">guerra</span>Nella guerra dei Sette anni Federico II «muove guerra all'Impero»: le sue doti tattiche gli danno molte vittorie, ma la superiorità numerica dei nemici porta all'<strong>invasione della Prussia e all'occupazione di Berlino</strong>. Lo salva la defezione di Svezia e Russia nel 1762, che gli permette di ricacciare l'esercito imperiale — episodio che consacra il mito della resistenza prussiana.</p>
+  </section>
+
+  <!-- 7. ECONOMIA E SOCIETÀ -->
+  <section class="card">
+    <h2><span class="n">7</span> Economia e società</h2>
+    <ul>
+      <li><strong>Uno Stato dai territori sparsi.</strong> Il punto di partenza è la debolezza geografica: il Brandeburgo-Prussia è formato da <strong>due territori distinti e distanti</strong>. La coesione la dà lo Stato — esercito, fisco, amministrazione — non la geografia.</li>
+      <li><strong>Economia al servizio della potenza.</strong> Federico II lega crescita economica e forza militare: rafforza le manifatture e i commerci, ottimizza il prelievo fiscale, <strong>protegge la produzione agricola</strong> (logica sostanzialmente mercantilistica).</li>
+      <li><strong>L'esercito come architrave.</strong> Il vero «prodotto» dello Stato prussiano è un esercito «uno dei più efficienti d'Europa»: è lo strumento con cui una potenza secondaria si fa grande potenza.</li>
+      <li><strong>Espansione a Oriente.</strong> Le riforme permettono a Federico II di <strong>allargare a Oriente i confini prussiani</strong>; ma — nota Benigno — non è l'espansione la ragione principale del suo epiteto «il Grande».</li>
+      <li><strong>Identità protonazionale.</strong> Alla base della fama di Federico II c'è soprattutto la <strong>costruzione di un'identità protonazionale prussiana</strong>: un popolo che si riconosce nello Stato più che nella sola persona del re.</li>
+    </ul>
+  </section>
+
+  <!-- 8. COLLEGAMENTI -->
+  <section class="card">
+    <h2><span class="n">8</span> Collegamenti con le altre nazioni e i grandi temi</h2>
+    <div class="coll"><b>Francia (modello).</b> La Prussia nasce come <em>imitazione</em> dell'assolutismo di Luigi XIV: come la Russia di Pietro il Grande, applica alla propria realtà gli strumenti della «nuova monarchia» francese.</div>
+    <div class="coll"><b>Austria / Impero (rivale).</b> Il grande antagonista del Settecento: la <strong>Slesia</strong> è il nodo che attraversa la successione austriaca e i Sette anni. Federico II è lo specchio-concorrente di Maria Teresa e Giuseppe II.</div>
+    <div class="coll"><b>Dispotismo illuminato (confronto a tre).</b> Federico II è il modello del <strong>sovrano illuminato</strong> accanto a <strong>Caterina II</strong> di Russia («la Grande», tedesca d'origine) e ai riformatori asburgici: tutti riformano dall'alto per rendere più efficiente e potente lo Stato.</div>
+    <div class="coll"><b>Gran Bretagna (alleato/gemello).</b> Nei Sette anni Prussia e Gran Bretagna combattono insieme e ne escono come <strong>le due nuove supremazie</strong>: militare-continentale l'una, navale-coloniale l'altra. Si ritrovano alleate a Waterloo.</div>
+    <div class="coll"><b>Illuminismo e Stato.</b> La formula del re «primo servitore dello Stato» e l'<strong>identità protonazionale</strong> anticipano un rapporto nuovo fra potere e collettività, oltre la pura fedeltà dinastica.</div>
+    <div class="coll"><b>Rivoluzione e Restaurazione.</b> Da Pillnitz (1791) alla sconfitta del 1806 fino a Waterloo, la Prussia è tra i protagonisti della lotta anti-francese; al <strong>Congresso di Vienna</strong> guadagna Sassonia, Vestfalia e Colonia ed entra nella <strong>Santa Alleanza</strong>: è ormai una delle quattro grandi potenze.</div>
+  </section>
+
+  <!-- 9. CONCETTI CHIAVE -->
+  <section class="card">
+    <h2><span class="n">9</span> Concetti-chiave per l'orale</h2>
+    <dl class="key">
+      <dt>Brandeburgo-Prussia</dt>
+      <dd>Ducato formato da due territori distinti e distanti, guidato dagli Hohenzollern: il punto di partenza dell'ascesa prussiana.</dd>
+      <dt>Re di Prussia (1701)</dt>
+      <dd>Titolo regale ottenuto dall'imperatore: il duca diventa re (Federico I). La «promozione» che apre l'età delle grandi potenze.</dd>
+      <dt>«Esercito e burocrazia»</dt>
+      <dd>La formula della potenza prussiana: uno Stato accentrato che compensa la debolezza territoriale con un esercito efficientissimo e un solido apparato fiscale-amministrativo.</dd>
+      <dt>Slesia</dt>
+      <dd>Regione storica dell'Europa centrale (oggi in gran parte polacca): conquistata da Federico II nella successione austriaca (1740), confermata prussiana dalle paci di Aquisgrana (1748) e Parigi (1763). La posta del duello con l'Austria.</dd>
+      <dt>Dispotismo riformatore (illuminato)</dt>
+      <dd>Sovrano assoluto che riforma dall'alto seguendo gli ideali illuministi, per rendere più efficiente lo Stato ai fini bellici: Federico II ne è il modello.</dd>
+      <dt>«Il primo servitore dello Stato»</dt>
+      <dd>Autodefinizione di Federico II: la fedeltà personale al re si trasforma in devozione allo Stato come entità impersonale.</dd>
+      <dt>Identità protonazionale</dt>
+      <dd>La vera base della fama di Federico II «il Grande»: un legame tra sovrano e popolo fondato sulla sensibilità e i costumi comuni, non solo sulla legittimità dinastica.</dd>
+      <dt>Guerra dei Sette anni (1756–63)</dt>
+      <dd>Primo conflitto planetario: Prussia + GB contro Francia, Russia, Svezia, Impero. Consacra la Prussia come prima potenza militare continentale.</dd>
+      <dt>Pace di Parigi (1763)</dt>
+      <dd>Chiude i Sette anni: la Slesia resta alla Prussia; sanciti i due modelli di supremazia (prussiana continentale, britannica navale-coloniale).</dd>
+      <dt>Dichiarazione di Pillnitz (1791)</dt>
+      <dd>Appello di Federico Guglielmo II e Leopoldo II alle potenze perché intervengano contro la Rivoluzione francese: interpretato in Francia come dichiarazione di guerra.</dd>
+    </dl>
+  </section>
+
+  <footer class="src">Fonte: F. Benigno, <em>L'età moderna</em> — mappa di ripasso</footer>
+
+</div>
+</body>
+</html>

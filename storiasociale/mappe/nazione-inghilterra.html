@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mappa Nazione — Inghilterra / Gran Bretagna (età moderna)</title>
+<style>
+  :root{
+    --bg:#f4f1ea; --paper:#fffdf8; --ink:#2b2620; --muted:#7a7165;
+    --line:#e2dccf; --accent:#5a7a4b; --accent2:#3b6b8a; --accent3:#8a5a3b;
+    --shadow:0 1px 3px rgba(0,0,0,.08),0 8px 24px rgba(0,0,0,.06);
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--bg); color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    line-height:1.55; font-size:16px;
+    padding:28px 16px 60px;
+  }
+  .wrap{max-width:1000px; margin:0 auto;}
+
+  /* Header */
+  header.hero{
+    background:var(--paper); border:1px solid var(--line); border-radius:14px;
+    padding:28px 26px; box-shadow:var(--shadow); margin-bottom:22px;
+    border-top:6px solid var(--accent);
+  }
+  header.hero h1{
+    margin:0 0 6px; font-size:2.05rem; letter-spacing:-.5px; line-height:1.15;
+  }
+  header.hero .flag{color:var(--accent); font-weight:800;}
+  header.hero .arc{color:var(--muted); font-size:1.02rem; font-weight:600; margin:0 0 14px;}
+  header.hero .filo{
+    background:#f0f4ec; border-left:4px solid var(--accent);
+    padding:12px 16px; border-radius:0 10px 10px 0; margin:14px 0 0; font-size:1rem;
+  }
+  header.hero .filo b{color:var(--accent);}
+  .dyn-row{display:flex; flex-wrap:wrap; gap:8px; margin:16px 0 0;}
+
+  /* Cards */
+  section.card{
+    background:var(--paper); border:1px solid var(--line); border-radius:14px;
+    padding:24px; box-shadow:var(--shadow); margin-bottom:20px;
+  }
+  section.card > h2{
+    background:var(--accent); color:#fff; margin:-24px -24px 18px;
+    padding:14px 24px; border-radius:14px 14px 0 0;
+    font-size:1.2rem; letter-spacing:.3px; display:flex; align-items:center; gap:10px;
+  }
+  section.card > h2 .num{
+    background:rgba(255,255,255,.22); border-radius:8px; padding:1px 9px;
+    font-size:.95rem; font-weight:700;
+  }
+  h3{color:var(--accent3); font-size:1.05rem; margin:22px 0 8px; border-bottom:1px dashed var(--line); padding-bottom:4px;}
+  p{margin:8px 0;}
+  ul{margin:8px 0; padding-left:22px;}
+  li{margin:5px 0;}
+  .lead{color:var(--muted); font-size:.97rem;}
+
+  /* Badges / pills */
+  .pill{
+    display:inline-block; font-size:.72rem; font-weight:700; letter-spacing:.3px;
+    padding:2px 9px; border-radius:999px; text-transform:uppercase; white-space:nowrap;
+    vertical-align:middle;
+  }
+  .p-guerra{background:#f6e4dc; color:#8a3b2b;}
+  .p-riforma{background:#e2ecdc; color:#3f6a33;}
+  .p-dinastia{background:#e4e9f1; color:#345a7c;}
+  .p-religione{background:#efe6d3; color:#8a6a2b;}
+  .p-rivolta{background:#f1e0ea; color:#8a3b6a;}
+  .p-trattato{background:#dceaea; color:#2b6a6a;}
+
+  /* Timeline */
+  .timeline{position:relative; margin:8px 0 0; padding:0 0 0 30px;}
+  .timeline::before{
+    content:""; position:absolute; left:9px; top:6px; bottom:6px; width:3px;
+    background:linear-gradient(var(--accent),#b7c9ac); border-radius:3px;
+  }
+  .tl{position:relative; margin:0 0 16px;}
+  .tl::before{
+    content:""; position:absolute; left:-27px; top:4px; width:13px; height:13px;
+    background:var(--paper); border:3px solid var(--accent); border-radius:50%;
+  }
+  .tl.big::before{background:var(--accent); box-shadow:0 0 0 4px #dfe8d6;}
+  .tl .yr{font-weight:800; color:var(--accent2); margin-right:8px;}
+  .tl .ev{font-weight:700;}
+  .tl .ds{display:block; color:var(--muted); font-size:.93rem; margin-top:2px;}
+  .era-label{
+    margin:22px 0 12px; font-weight:800; color:var(--accent3); font-size:.85rem;
+    letter-spacing:1px; text-transform:uppercase;
+  }
+
+  /* Table */
+  .tbl-wrap{overflow-x:auto; -webkit-overflow-scrolling:touch; margin:6px 0; border-radius:10px; border:1px solid var(--line);}
+  table{border-collapse:collapse; width:100%; min-width:560px; font-size:.93rem;}
+  th,td{padding:9px 12px; text-align:left; vertical-align:top; border-bottom:1px solid var(--line);}
+  thead th{background:#efe9dc; color:var(--ink); font-weight:700; position:sticky; top:0;}
+  tbody tr:nth-child(even){background:#faf7f0;}
+  td .role{color:var(--muted); font-size:.85rem;}
+
+  /* Evolution flow */
+  .evo{display:flex; flex-wrap:wrap; align-items:stretch; gap:8px; margin:12px 0 6px;}
+  .evo .step{
+    flex:1 1 130px; background:#f0f4ec; border:1px solid var(--line); border-radius:10px;
+    padding:10px 12px; font-size:.88rem; position:relative;
+  }
+  .evo .step b{display:block; color:var(--accent); font-size:.95rem; margin-bottom:2px;}
+  .evo .arrow{align-self:center; color:var(--accent); font-weight:800; font-size:1.2rem;}
+
+  /* Two-col grid for concepts / links */
+  .grid{display:grid; grid-template-columns:1fr; gap:12px; margin-top:6px;}
+  @media(min-width:640px){.grid{grid-template-columns:1fr 1fr;}}
+  .box{background:#faf7f0; border:1px solid var(--line); border-radius:10px; padding:12px 14px;}
+  .box b{color:var(--accent3);}
+  .box.link b{color:var(--accent2);}
+
+  .callout{background:#f0f4ec; border-left:4px solid var(--accent); padding:10px 14px; border-radius:0 8px 8px 0; margin:12px 0; font-size:.95rem;}
+
+  footer{color:var(--muted); font-size:.82rem; text-align:center; margin-top:26px; padding-top:14px; border-top:1px solid var(--line);}
+
+  @media(max-width:520px){
+    header.hero h1{font-size:1.6rem;}
+    section.card{padding:20px 16px;}
+    section.card > h2{margin:-20px -16px 16px; padding:12px 16px;}
+  }
+  @media print{
+    body{background:#fff; padding:0; font-size:12px;}
+    section.card,header.hero{box-shadow:none; break-inside:avoid;}
+    section.card > h2{-webkit-print-color-adjust:exact; print-color-adjust:exact;}
+  }
+
+/* barra di navigazione (aggiunta per il sito) */
+.map-top{position:sticky;top:0;z-index:50;display:flex;align-items:center;gap:10px;
+  background:#2b2620;color:#fff;padding:10px 14px;box-shadow:0 2px 8px rgba(0,0,0,.18);
+  margin:-28px -16px 24px;}
+.map-top a{color:#fff;text-decoration:none;font-weight:600;font-size:13.5px;
+  background:rgba(255,255,255,.16);padding:8px 12px;border-radius:9px;white-space:nowrap;}
+.map-top a:active{background:rgba(255,255,255,.32);}
+.map-top .loc{flex:1;text-align:center;font-size:13px;font-weight:600;opacity:.95;}
+@media print{.map-top{display:none}}
+</style>
+</head>
+<body>
+<header class="map-top">
+  <a class="back" href="../index.html#mappe">← Mappe</a>
+  <span class="loc">Mappe per nazione · Inghilterra / Gran Bretagna</span>
+</header>
+
+<div class="wrap">
+
+  <!-- 1. INTESTAZIONE -->
+  <header class="hero">
+    <h1><span class="flag">INGHILTERRA / GRAN BRETAGNA</span> — la via alla monarchia parlamentare</h1>
+    <p class="arc">Età moderna · dallo scisma anglicano di Enrico VIII (1534) al Congresso di Vienna (1815) · Tudor → Stuart → Commonwealth → Restaurazione Stuart → Orange → Hannover</p>
+    <div class="dyn-row">
+      <span class="pill p-dinastia">Tudor</span>
+      <span class="pill p-dinastia">Stuart</span>
+      <span class="pill p-rivolta">Commonwealth</span>
+      <span class="pill p-dinastia">Orange</span>
+      <span class="pill p-dinastia">Hannover</span>
+    </div>
+    <p class="filo"><b>Il filo rosso:</b> mentre il continente marcia verso l'<b>assolutismo</b> (culmine con Luigi XIV), l'Inghilterra imbocca un cammino <b>unico e opposto</b>: dalla monarchia Tudor si passa allo scontro tra corona Stuart e Parlamento, che sfocia in due rivoluzioni. La <b>prima</b> (1642–49) decapita il re e proclama la repubblica; la <b>seconda</b>, la «Gloriosa» del 1688, fonda con il <b>Bill of Rights</b> la <b>monarchia parlamentare e costituzionale</b> — «il re regna ma non governa». Sul piano economico è la culla della <b>rivoluzione agricola e industriale</b> e la prima potenza navale e coloniale del mondo. Un ciclo: <b>monarchia → repubblica → monarchia costituzionale-parlamentare</b>.</p>
+  </header>
+
+  <!-- 2. LINEA DEL TEMPO -->
+  <section class="card">
+    <h2><span class="num">2</span> Linea del tempo</h2>
+    <p class="lead">Gli avvenimenti principali in ordine cronologico. I pallini pieni segnano le svolte decisive.</p>
+
+    <div class="era-label">La riforma Tudor e l'età di Elisabetta</div>
+    <div class="timeline">
+      <div class="tl big"><span class="yr">1534</span><span class="ev">Atto di Supremazia: nasce lo scisma anglicano <span class="pill p-religione">religione</span></span><span class="ds">Enrico VIII Tudor, negatogli da Clemente VII il divorzio da Caterina d'Aragona, si proclama con l'appoggio del Parlamento «unico e supremo capo della Chiesa d'Inghilterra»: secessione da Roma. Mantiene però gerarchia e clero, utili al rafforzamento della monarchia.</span></div>
+      <div class="tl"><span class="yr">1547–53</span><span class="ev">Edoardo VI e il <em>Book of Common Prayer</em> (1549)</span><span class="ds">Il nuovo re avvicina lentamente la Chiesa d'Inghilterra al protestantesimo, con la Bibbia in inglese e un nuovo libro di preghiere.</span></div>
+      <div class="tl"><span class="yr">1553–58</span><span class="ev">Maria Tudor, «Bloody Mary» <span class="pill p-religione">reazione cattolica</span></span><span class="ds">Figlia di Caterina d'Aragona e moglie di <b>Filippo II di Spagna</b>: tenta il ritorno al cattolicesimo con dura repressione. Fa rinchiudere la sorella Elisabetta nella Torre di Londra.</span></div>
+      <div class="tl big"><span class="yr">1558</span><span class="ev">Elisabetta I regina d'Inghilterra e d'Irlanda <span class="pill p-dinastia">Tudor</span></span><span class="ds">Il Parlamento risolve a suo favore la crisi di successione (contro la cattolica Maria Stuart). Atto di uniformità + Atto di supremazia: Chiesa anglicana protestante nella dottrina ma cattolica nella liturgia, saldamente controllata dalla corona.</span></div>
+      <div class="tl"><span class="yr">1581 · 1600</span><span class="ev">Compagnie commerciali</span><span class="ds">Nasce la Compagnia del Levante (1581) per i traffici mediterranei e la <b>Compagnia inglese delle Indie orientali</b> (1600): l'espansione marittima elisabettiana.</span></div>
+      <div class="tl"><span class="yr">1587</span><span class="ev">Esecuzione di Maria Stuart</span><span class="ds">Scoperta l'ennesima congiura cattolica, Elisabetta fa processare e giustiziare la cugina, regina di Scozia: culmine dell'«antispagnolismo».</span></div>
+      <div class="tl big"><span class="yr">1588</span><span class="ev">Sconfitta dell'Invincibile Armada <span class="pill p-guerra">guerra</span></span><span class="ds">Filippo II lancia contro l'isola la <em>Invencible Armada</em>: la flotta inglese, più piccola ma meglio organizzata e spalleggiata dagli olandesi, la distrugge nella Manica. Ascesa della potenza navale inglese.</span></div>
+
+      <div class="era-label">Gli Stuart e la prima rivoluzione inglese</div>
+      <div class="tl big"><span class="yr">1603</span><span class="ev">Giacomo I Stuart: fine dei Tudor <span class="pill p-dinastia">nuova dinastia</span></span><span class="ds">Morta senza eredi Elisabetta, sale il cugino Giacomo Stuart, già re di Scozia e figlio di Maria Stuart. Per la prima volta un unico sovrano su Inghilterra anglicana, Irlanda cattolica e Scozia calvinista: <b>unione dinastica</b> (non ancora dei regni).</span></div>
+      <div class="tl"><span class="yr">1605</span><span class="ev">Complotto delle polveri</span><span class="ds">Congiura cattolica sventata, volta a far saltare il re e il Parlamento. Giacomo I resta comunque relativamente tollerante (solo multe ai cattolici).</span></div>
+      <div class="tl"><span class="yr">1625</span><span class="ev">Carlo I Stuart; il favorito Buckingham</span><span class="ds">Sposa la cattolica Enrichetta Maria (figlia di Enrico IV di Francia). Il potere del favorito duca di Buckingham suscita l'avversione del Parlamento, sciolto nel 1626; Buckingham è assassinato (1628) tra la gioia del paese.</span></div>
+      <div class="tl"><span class="yr">1629–40</span><span class="ev">Il «governo personale» di Carlo I <span class="pill p-rivolta">assolutismo tentato</span></span><span class="ds">Undici anni senza Parlamento: dazi e prestiti forzosi, egemonia arminiana nella Chiesa (arcivescovo William Laud), politica filospagnola. Crescente scollamento tra corte e paese.</span></div>
+      <div class="tl"><span class="yr">1638–40</span><span class="ev">La «guerra dei vescovi» in Scozia <span class="pill p-rivolta">rivolta</span></span><span class="ds">L'imposizione della liturgia anglicana provoca la ribellione scozzese: nasce il <em>National Covenant</em>. Sconfitto, Carlo I è costretto a riconvocare il Parlamento.</span></div>
+      <div class="tl"><span class="yr">1640</span><span class="ev">Il «Lungo Parlamento» e l'Atto triennale</span><span class="ds">Impone la convocazione regolare dell'assemblea; condanna a morte il ministro conte di Strafford. Nel 1641 scoppia la rivolta cattolica in Irlanda.</span></div>
+      <div class="tl big"><span class="yr">1642</span><span class="ev">Scoppia la guerra civile (prima rivoluzione inglese) <span class="pill p-guerra">guerra civile</span></span><span class="ds">Fallito il colpo di mano contro alcuni deputati, il re fugge a York e recluta un esercito. Paese spaccato: nord e sud-ovest col re (e la Scozia); Londra, est e sud-est col Parlamento.</span></div>
+      <div class="tl"><span class="yr">1645</span><span class="ev">Oliver Cromwell sconfigge il re</span><span class="ds">Cromwell forgia un nuovo, potente esercito (<em>New Model Army</em>) che annienta le truppe regie: Carlo I si arrende.</span></div>
+      <div class="tl big"><span class="yr">1649</span><span class="ev">Esecuzione di Carlo I → nasce il Commonwealth <span class="pill p-rivolta">repubblica</span></span><span class="ds">Il Parlamento processa il re per alto tradimento e lo fa decapitare. Abolita la Camera dei Lord, è proclamata la repubblica. Cromwell diventa <b>lord protettore</b> dopo aver represso nel sangue l'insurrezione cattolico-monarchica in Irlanda.</span></div>
+      <div class="tl"><span class="yr">1651</span><span class="ev">Navigation Act <span class="pill p-riforma">mercantilismo</span></span><span class="ds">Legge navale contro l'egemonia commerciale olandese: le merci devono viaggiare su navi inglesi. Innesca le guerre anglo-olandesi.</span></div>
+
+      <div class="era-label">Restaurazione e seconda rivoluzione (la «Gloriosa»)</div>
+      <div class="tl big"><span class="yr">1660</span><span class="ev">Restaurazione degli Stuart: Carlo II <span class="pill p-dinastia">Restaurazione</span></span><span class="ds">Ripristina monarchia, Camera dei Lord e Chiesa anglicana (Atto di uniformità), ma conserva il ruolo di garanzia, controllo e competenza fiscale conquistato dal Parlamento: una <b>diarchia</b> re–Parlamento.</span></div>
+      <div class="tl"><span class="yr">1673</span><span class="ev">Test Act; nascono Tories e Whigs</span><span class="ds">Legge che esclude i cattolici dalle cariche civili e militari, per timore del filocattolicesimo Stuart. La vita politica si polarizza: <b>Tories</b> (partito di corte) contro <b>Whigs</b> (mercanti e aristocratici puritani).</span></div>
+      <div class="tl"><span class="yr">1685</span><span class="ev">Giacomo II: la rottura definitiva <span class="pill p-religione">crisi religiosa</span></span><span class="ds">Re dichiaratamente cattolico: viola il Test Act nominando ufficiali cattolici, abolisce la legge e impone la Dichiarazione di indulgenza. Al rifiuto del Parlamento, lo scioglie.</span></div>
+      <div class="tl big"><span class="yr">1688</span><span class="ev">Gloriosa Rivoluzione <span class="pill p-rivolta">rivoluzione «pacifica»</span></span><span class="ds">Whigs e Tories chiamano lo stadhouder d'Olanda <b>Guglielmo III d'Orange</b>, marito di Maria (figlia protestante di Giacomo II). Sbarca in Inghilterra, è accolto a Londra; Giacomo II fugge in Francia. Cambio di dinastia relativamente consensuale.</span></div>
+      <div class="tl big"><span class="yr">1689</span><span class="ev">Guglielmo III e Maria II sovrani; Bill of Rights <span class="pill p-riforma">costituzione</span></span><span class="ds">Accettano il <b>Bill of Rights</b>: il Parlamento è organo rappresentativo della nazione, detentore del potere legislativo e dell'esclusiva fiscale; il re non può sospendere le leggi senza il suo consenso. Nasce la <b>monarchia parlamentare</b>.</span></div>
+
+      <div class="era-label">Gran Bretagna: potenza mondiale e governo di gabinetto</div>
+      <div class="tl big"><span class="yr">1707</span><span class="ev">Atto di Unione → Gran Bretagna <span class="pill p-dinastia">unione dei regni</span></span><span class="ds">Sotto la regina <b>Anna Stuart</b> Inghilterra e Scozia si fondono in un unico regno, la Gran Bretagna, con un solo Parlamento a Londra (malcontento scozzese per la scarsa rappresentanza).</span></div>
+      <div class="tl"><span class="yr">1701–14</span><span class="ev">Guerra di Successione spagnola <span class="pill p-guerra">guerra</span></span><span class="ds">La Gran Bretagna guida la Grande coalizione dell'Aia contro l'asse franco-spagnolo. Con la Pace di <b>Utrecht (1713)</b> ottiene l'<em>asiento de negros</em> (monopolio del commercio di schiavi con l'America spagnola) e posizioni strategiche.</span></div>
+      <div class="tl big"><span class="yr">1714</span><span class="ev">Giorgio I di Hannover: predominio whig <span class="pill p-dinastia">Hannover</span></span><span class="ds">Esclusi i cattolici dalla successione, la corona passa alla casa di Hannover. Re «straniero» che ignora la lingua: delega l'esecutivo ai ministri whig. Emerge <b>Robert Walpole</b>, primo <em>primo ministro</em> moderno; il gabinetto si riunisce anche senza il re.</span></div>
+      <div class="tl"><span class="yr">1740–48</span><span class="ev">Guerra di Successione austriaca</span><span class="ds">La Gran Bretagna a fianco di Maria Teresa d'Austria contro Francia, Spagna e Prussia. Pace di Aquisgrana (1748) senza esiti decisivi.</span></div>
+      <div class="tl big"><span class="yr">1756–63</span><span class="ev">Guerra dei Sette anni: trionfo coloniale <span class="pill p-guerra">guerra mondiale</span></span><span class="ds">Gran Bretagna + Prussia contro Francia + Austria + Russia. William Pitt spinge alla guerra coloniale. Con la <b>Pace di Parigi (1763)</b> Londra strappa alla Francia il <b>Canada</b> e le terre a est del Mississippi, alla Spagna la Florida: è la prima potenza mondiale.</span></div>
+
+      <div class="era-label">La perdita delle colonie e le due rivoluzioni economiche</div>
+      <div class="tl"><span class="yr">dal 1760</span><span class="ev">Inizia la prima rivoluzione industriale <span class="pill p-riforma">economia</span></span><span class="ds">Prima nazione al mondo a trasformare le strutture produttive: cotonifici, siderurgia al coke, poi la macchina a vapore. (vedi Economia)</span></div>
+      <div class="tl"><span class="yr">1765</span><span class="ev">Stamp Act: «No taxation without representation» <span class="pill p-rivolta">tensione coloniale</span></span><span class="ds">Per ripianare i costi della Guerra dei Sette anni, Londra tassa le colonie americane senza il loro consenso. Proteste; l'abrogazione (1766) non spegne il conflitto.</span></div>
+      <div class="tl"><span class="yr">1773–74</span><span class="ev">Boston Tea Party e Quebec Act</span><span class="ds">Monopolio del tè alla Compagnia delle Indie → i coloni gettano il carico nel porto di Boston. La dura reazione britannica (Quebec Act) accende la rivoluzione.</span></div>
+      <div class="tl big"><span class="yr">1775</span><span class="ev">James Watt: la macchina a vapore</span><span class="ds">Il simbolo stesso della rivoluzione industriale: in tre decenni si diffonde in tutte le industrie.</span></div>
+      <div class="tl big"><span class="yr">1776–83</span><span class="ev">Rivoluzione americana: la Gran Bretagna perde le 13 colonie <span class="pill p-guerra">guerra d'indipendenza</span></span><span class="ds">Dichiarazione d'indipendenza (4 luglio 1776). Con l'appoggio militare della <b>Francia</b>, i ribelli vincono; col <b>trattato di Versailles (1783)</b> Londra riconosce gli Stati Uniti d'America.</span></div>
+      <div class="tl"><span class="yr">1814–15</span><span class="ev">Congresso di Vienna <span class="pill p-trattato">trattato</span></span><span class="ds">Tra le potenze vincitrici di Napoleone, la Gran Bretagna ottiene possedimenti coloniali francesi e <b>Malta</b>, snodo del Mediterraneo. Resta il <b>modello di riferimento dei liberali europei</b>.</span></div>
+    </div>
+  </section>
+
+  <!-- 3. SOVRANI E DINASTIE -->
+  <section class="card">
+    <h2><span class="num">3</span> Sovrani e dinastie</h2>
+    <p class="lead">Successione dei sovrani (e del regime repubblicano) inglesi/britannici nel periodo, con dinastia e tratto caratterizzante.</p>
+    <div class="tbl-wrap">
+      <table>
+        <thead>
+          <tr><th>Sovrano / regime</th><th>Regno</th><th>Dinastia</th><th>Cosa lo caratterizza</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><b>Enrico VIII</b></td><td>fino al 1547</td><td>Tudor</td><td>Con l'<b>Atto di Supremazia (1534)</b> stacca la Chiesa d'Inghilterra da Roma: nasce l'anglicanesimo, sotto il controllo della corona.</td></tr>
+          <tr><td>Edoardo VI</td><td>1547–1553</td><td>Tudor</td><td>Avvicina l'anglicanesimo al protestantesimo (Bibbia in inglese, <em>Book of Common Prayer</em> 1549).</td></tr>
+          <tr><td>Maria Tudor «Bloody Mary»</td><td>1553–1558</td><td>Tudor</td><td>Regina cattolica, moglie di Filippo II di Spagna; dura repressione per riportare il paese a Roma.</td></tr>
+          <tr><td><b>Elisabetta I</b></td><td>1558–1603</td><td>Tudor</td><td>La «regina vergine»: riforma e stabilizza la Chiesa anglicana, sviluppa la marina, sconfigge l'Armada (1588); largo consenso popolare.</td></tr>
+          <tr><td>Giacomo I</td><td>1603–1625</td><td>Stuart</td><td>Primo Stuart: unione dinastica di Inghilterra, Scozia e Irlanda. Sovrano spendaccione, in tensione col Parlamento sulle tasse.</td></tr>
+          <tr><td><b>Carlo I</b></td><td>1625–1649</td><td>Stuart</td><td>«Governo personale» senza Parlamento; guerra civile; <b>decapitato nel 1649</b>: unico re inglese giustiziato.</td></tr>
+          <tr><td><b>Commonwealth · O. Cromwell</b></td><td>1649–1660</td><td><em>Repubblica</em></td><td>Repubblica retta dal Parlamento (legislativo) e dal <b>lord protettore</b> Cromwell (esecutivo, fondato sull'esercito).</td></tr>
+          <tr><td>Carlo II</td><td>1660–1685</td><td>Stuart (Rest.)</td><td>Restaurazione: ripristina monarchia, Lord e Chiesa anglicana, ma non cancella il ruolo del Parlamento. Simpatie filocattoliche; Test Act; nascita di Tories e Whigs.</td></tr>
+          <tr><td>Giacomo II</td><td>1685–1688</td><td>Stuart</td><td>Re cattolico: viola il Test Act e forza la libertà di culto → deposto dalla Gloriosa Rivoluzione, fugge in Francia.</td></tr>
+          <tr><td><b>Guglielmo III d'Orange</b> e Maria II</td><td>1689–1702</td><td>Orange</td><td>Chiamati dal Parlamento, accettano il <b>Bill of Rights</b>: nasce la monarchia parlamentare. Guglielmo porta l'Inghilterra nella coalizione anti-francese.</td></tr>
+          <tr><td>Anna</td><td>1702–1714</td><td>Stuart</td><td>Sotto di lei l'<b>Atto di Unione (1707)</b> fonde Inghilterra e Scozia nella Gran Bretagna. Senza eredi: la corona passa agli Hannover.</td></tr>
+          <tr><td>Giorgio I</td><td>1714–1727</td><td>Hannover</td><td>Re «straniero» che ignora la lingua: delega l'esecutivo ai ministri whig. Con <b>Walpole</b> nasce la figura del primo ministro e il governo di gabinetto.</td></tr>
+          <tr><td>Giorgio III</td><td>dal 1760</td><td>Hannover</td><td>Sotto il suo regno la Gran Bretagna vince la Guerra dei Sette anni ma <b>perde le colonie americane</b> (1776–83). <span class="lead">(regno oltre l'arco, come esito)</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- 4. FORMA DI GOVERNO E ISTITUZIONI -->
+  <section class="card">
+    <h2><span class="num">4</span> Forma di governo e istituzioni · l'evoluzione</h2>
+    <div class="evo">
+      <div class="step"><b>Monarchia Tudor</b>Corona forte che agisce <em>con</em> il Parlamento (scisma, riforma religiosa)</div>
+      <div class="arrow">→</div>
+      <div class="step"><b>Monarchia composita Stuart</b>3 regni sotto un re; tensione con il Parlamento sulle tasse e la religione</div>
+      <div class="arrow">→</div>
+      <div class="step"><b>Assolutismo tentato</b>Carlo I: «governo personale» senza Parlamento → guerra civile</div>
+      <div class="arrow">→</div>
+      <div class="step"><b>Repubblica</b>1649–60: Commonwealth, Parlamento + lord protettore Cromwell</div>
+      <div class="arrow">→</div>
+      <div class="step"><b>Diarchia (Restaurazione)</b>Carlo II: re e Parlamento condividono il potere</div>
+      <div class="arrow">→</div>
+      <div class="step"><b>Monarchia parlamentare</b>1689 Bill of Rights: «il re regna ma non governa»; poi governo di gabinetto</div>
+    </div>
+
+    <h3>Istituzioni-chiave e rapporto sovrano–Parlamento</h3>
+    <ul>
+      <li><b>Parlamento (Comuni + Lord):</b> con solida tradizione d'intervento politico, unico a poter autorizzare le tasse. È il vero protagonista della storia inglese: dallo scontro con gli Stuart emerge come <b>cuore del potere legislativo</b> e organo rappresentativo della nazione.</li>
+      <li><b>Chiesa anglicana:</b> il sovrano ne è capo supremo → caposaldo del potere della corona. La questione religiosa è però anche la miccia dei conflitti (arminianesimo, filocattolicesimo Stuart).</li>
+      <li><b>Bill of Rights (1689):</b> la «costituzione» della monarchia parlamentare — il re non può sospendere le leggi né imporre tasse senza il Parlamento, non può sciogliere le Camere; mantiene veto (controllato dal bilancio), politica estera e nomina dei ministri (soggetti al giudizio parlamentare).</li>
+      <li><b>Test Act (1673):</b> esclude i cattolici dalle cariche pubbliche; sancisce l'identità protestante dello Stato.</li>
+      <li><b>Tories e Whigs:</b> i primi due «partiti» della politica moderna — corte contro opposizione mercantile-puritana; nel Settecento imparano ad <b>alternarsi al governo</b> come avversari, non come nemici.</li>
+      <li><b>Gabinetto e primo ministro:</b> con Giorgio I di Hannover il governo diventa un'istituzione distinta dalla corona; <b>Walpole</b> è il primo capo della maggioranza parlamentare e ponte tra re e ministri.</li>
+    </ul>
+    <div class="callout"><b>Il contrasto con Luigi XIV:</b> nello stesso momento in cui in Francia il Re Sole abolisce di fatto gli Stati generali e concentra tutto nella «volontà sovrana», in Inghilterra il potere si <b>divide</b> tra corona e Parlamento. Sono le <b>due strade opposte</b> dell'Europa moderna: assolutismo continentale vs monarchia parlamentare.</div>
+  </section>
+
+  <!-- 5. POLITICA INTERNA -->
+  <section class="card">
+    <h2><span class="num">5</span> Politica interna · religione, conflitti, riforme</h2>
+
+    <h3>La questione religiosa <span class="pill p-religione">religione</span></h3>
+    <ul>
+      <li><b>Anglicanesimo (dal 1534):</b> Chiesa nazionale col re a capo; strumento politico della monarchia. Con Elisabetta assume la fisionomia definitiva: protestante nella dottrina, cattolica nella liturgia e nell'organizzazione (vescovi e parrocchie).</li>
+      <li><b>Puritani:</b> calvinisti che giudicano l'anglicanesimo troppo vicino al papato; forte componente dello schieramento parlamentare e whig, e dei coloni del New England.</li>
+      <li><b>Cattolici:</b> minoranza temuta (complotto delle polveri 1605); le simpatie filocattoliche degli Stuart sono la causa ricorrente della rottura con il Parlamento (Test Act, Gloriosa Rivoluzione).</li>
+      <li><b>Arminianesimo:</b> versione moderata del protestantesimo scelta da Carlo I e da W. Laud per rafforzare gerarchia episcopale e autorità regia; percepita come «criptocattolicesimo».</li>
+    </ul>
+
+    <h3>Conflitti interni e rivolte <span class="pill p-rivolta">rivolte</span></h3>
+    <ul>
+      <li><b>Corona vs Parlamento:</b> il grande conflitto del Seicento, su tasse e religione; genera le due rivoluzioni.</li>
+      <li><b>Guerra dei vescovi (Scozia, 1638–40):</b> reazione al tentativo di imporre la liturgia anglicana; <em>National Covenant</em>.</li>
+      <li><b>Rivolta cattolica in Irlanda (1641):</b> accresce il sospetto reciproco tra re e Parlamento sull'uso dell'esercito.</li>
+      <li><b>Guerra civile (1642–49):</b> la prima rivoluzione; divisioni anche interne al fronte parlamentare (puritani, presbiteriani, separatisti).</li>
+      <li><b>Rivolte giacobite:</b> i seguaci di Giacomo II insorgono in Scozia e Irlanda dopo il 1689 e ancora nel 1714, contro la nuova dinastia.</li>
+    </ul>
+
+    <h3>Riforme e vita politica <span class="pill p-riforma">riforme</span></h3>
+    <ul>
+      <li><b>Atto triennale (1640):</b> convocazione regolare del Parlamento.</li>
+      <li><b>Navigation Act (1651):</b> pilastro del mercantilismo inglese (vedi Economia).</li>
+      <li><b>Bill of Rights (1689):</b> fondamento della monarchia parlamentare.</li>
+      <li><b>Atto di Unione (1707):</b> nasce la Gran Bretagna.</li>
+      <li><b>Opinione pubblica:</b> nel Settecento la partecipazione politica passa per gazzette, <em>pamphlets</em>, caffè e salotti; nel 1717 nasce a Londra la <b>Massoneria</b> (Constitutions del 1723).</li>
+    </ul>
+  </section>
+
+  <!-- 6. POLITICA ESTERA E GUERRE -->
+  <section class="card">
+    <h2><span class="num">6</span> Politica estera e guerre · con chi, e come finisce</h2>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>Conflitto</th><th>Contro chi / con chi</th><th>Esito · trattato</th></tr></thead>
+        <tbody>
+          <tr><td><b>Invincibile Armada</b> (1588)</td><td>Contro la <b>Spagna</b> di Filippo II; a fianco degli olandesi</td><td>Distruzione della flotta spagnola: ascesa della potenza navale inglese</td></tr>
+          <tr><td><b>Guerre anglo-olandesi</b> (dal 1652)</td><td>Contro le <b>Province Unite</b> (rivalità commerciale, dopo il Navigation Act)</td><td>Erosione progressiva del primato marittimo olandese</td></tr>
+          <tr><td><b>Coalizione anti-francese</b> (dal 1689)</td><td>Guglielmo III porta l'Inghilterra contro la <b>Francia</b> di Luigi XIV (Lega di Augusta)</td><td>Contenimento dell'egemonia francese sul continente</td></tr>
+          <tr><td><b>Successione spagnola</b> (1701–14)</td><td>Guida la Grande coalizione dell'Aia (con Impero, PV Unite) contro <b>Francia + Spagna</b></td><td><b>Utrecht (1713)</b>: la GB ottiene l'<em>asiento</em> e posizioni strategiche</td></tr>
+          <tr><td><b>Successione austriaca</b> (1740–48)</td><td>Con <b>Maria Teresa d'Austria</b> contro Francia, Spagna, Prussia</td><td><b>Aquisgrana (1748)</b>: senza esiti decisivi</td></tr>
+          <tr><td><b>Guerra dei Sette anni</b> (1756–63)</td><td><b>Gran Bretagna + Prussia</b> contro Francia + Austria + Russia</td><td><b>Pace di Parigi (1763)</b>: dalla Francia <b>Canada</b> e terre a est del Mississippi; dalla Spagna la <b>Florida</b></td></tr>
+          <tr><td><b>Rivoluzione americana</b> (1776–83)</td><td>Contro le 13 colonie ribelli, sostenute militarmente dalla <b>Francia</b></td><td><b>Trattato di Versailles (1783)</b>: la GB perde le colonie → nascono gli USA</td></tr>
+          <tr><td><b>Guerre napoleoniche</b> (fino al 1815)</td><td>Anima delle coalizioni contro la <b>Francia</b> di Napoleone (bloccata dal <em>blocco continentale</em>)</td><td><b>Congresso di Vienna (1815)</b>: colonie francesi e <b>Malta</b>; egemonia navale mondiale</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout"><b>La costante geopolitica:</b> superata la <b>Spagna</b> (1588) e insidiate le <b>Province Unite</b> sul mare, il grande rivale diventa la <b>Francia</b> — di terra e di colonie. È il «secondo centenario duello»: la Gran Bretagna vince quasi sempre sul mare (Sette anni, Napoleone), ma perde le colonie americane proprio perché la Francia le arma. La politica estera è al servizio dell'<b>impero commerciale</b>.</div>
+  </section>
+
+  <!-- 7. ECONOMIA E SOCIETÀ -->
+  <section class="card">
+    <h2><span class="num">7</span> Economia e società</h2>
+
+    <h3>Ascesa commerciale e mercantilismo</h3>
+    <ul>
+      <li><b>Crescita manifatturiera (fine '500–'600):</b> panni di <b>lana leggeri e a basso costo</b> conquistano i mercati mediterranei, spiazzando le città manifatturiere italiane; l'Inghilterra beneficia della fuga di capitali e manodopera dai Paesi Bassi meridionali in guerra.</li>
+      <li><b>Compagnie e Navigation Act:</b> Compagnia del Levante (1581), Compagnia delle Indie orientali (1600); il <b>Navigation Act (1651)</b> colpisce l'egemonia olandese. Nel Settecento la GB diventa la <b>prima potenza commerciale del globo</b>, erodendo il primato olandese.</li>
+      <li><b>Impero e schiavi:</b> con Utrecht (1713) ottiene l'<em>asiento de negros</em>; l'America iberica diventa di fatto una colonia commerciale inglese.</li>
+    </ul>
+
+    <h3>Rivoluzione agricola: le <em>enclosures</em> <span class="pill p-riforma">agricoltura</span></h3>
+    <ul>
+      <li><b>Enclosures:</b> recinzione dei campi comuni (<em>open fields</em>) in aziende private orientate al mercato; il «sistema di Norfolk» (rotazione continua) fa dell'Inghilterra una grande esportatrice di cereali.</li>
+      <li><b>Effetti sociali:</b> nascono grandi aziende agricole efficienti, ma si riduce il ceto dei piccoli proprietari: i senza-terra diventano braccianti o <b>migrano verso le città</b> — la manodopera della futura industria.</li>
+    </ul>
+
+    <h3>Prima rivoluzione industriale (dal 1760) <span class="pill p-riforma">industria</span></h3>
+    <ul>
+      <li><b>Cotone:</b> il settore-guida — navetta volante (Kay), filatoi <em>jenny</em>, idraulico e <em>mule jenny</em>: filati migliori e a basso prezzo sostituiscono seta e lino.</li>
+      <li><b>Siderurgia e vapore:</b> la ghisa al <em>coke</em> (1709) e soprattutto la <b>macchina a vapore di James Watt (1775)</b>, simbolo della rivoluzione. Poi locomotiva (1804) e prima rete ferroviaria del mondo.</li>
+      <li><b>Nuovo paesaggio:</b> crescono città industriali come <b>Birmingham, Liverpool, Manchester</b>; declinano vecchi centri come York e Norwich.</li>
+    </ul>
+
+    <h3>La società: dai ceti alla società industriale</h3>
+    <ul>
+      <li><b>Struttura tardo-seicentesca:</b> nobiltà articolata (cavalieri, scudieri, gentiluomini), proprietari non nobili (<em>yeomen</em>) e piccoli (<em>husbandmen</em>), lavoratori agricoli, e forti comunità mercantili e professionali in ascesa nelle città portuali.</li>
+      <li><b>Classe operaia:</b> nasce con l'industria, fortemente stratificata (qualificati, manovali, donne, bambini); condizioni dure alla base.</li>
+      <li><b>Reazioni:</b> il <b>luddismo</b> (distruzione delle macchine) tra gli artigiani minacciati; solo nel <b>1824</b> sono autorizzate le <b>Trade Unions</b>.</li>
+    </ul>
+  </section>
+
+  <!-- 8. COLLEGAMENTI -->
+  <section class="card">
+    <h2><span class="num">8</span> Collegamenti · l'Inghilterra e i grandi temi del corso</h2>
+    <div class="grid">
+      <div class="box link"><b>Assolutismo &amp; il «modello alternativo».</b> È l'<b>anti-Francia</b>: mentre <b>Luigi XIV</b> incarna l'assolutismo compiuto, l'Inghilterra costruisce la monarchia parlamentare. Le due strade opposte dell'Europa moderna.</div>
+      <div class="box link"><b>Confessionalizzazione.</b> Lo scisma anglicano (1534) fa della religione uno strumento del potere regio; ma la questione religiosa (puritani vs anglicani vs cattolici) resta il detonatore dei conflitti politici per tutto il Seicento.</div>
+      <div class="box link"><b>Crisi del Seicento.</b> La <b>rivoluzione inglese</b> (1642–49) è parte del «terremoto politico» europeo di metà secolo, in parallelo con la <b>Fronda</b> francese e con le rivolte contro la <b>Spagna</b> (Catalogna, Portogallo, Napoli).</div>
+      <div class="box link"><b>Modello olandese e inglese.</b> Con le <b>Province Unite</b>, l'Inghilterra rappresenta il modello di società fondata su divisione dei poteri, libertà e ricchezza commerciale; ne è insieme ammiratrice (invidia) e rivale (guerre anglo-olandesi).</div>
+      <div class="box link"><b>Illuminismo e «anglomania».</b> Nel Settecento il sistema politico britannico è ammirato in tutta Europa: Montesquieu vi trova la divisione dei poteri, Voltaire scrive le <em>Lettere inglesi</em>. È il <b>modello di riferimento dei Lumi</b> e dei liberali.</div>
+      <div class="box link"><b>Rivoluzioni atlantiche.</b> La perdita delle 13 colonie dà vita alla <b>rivoluzione americana</b> e all'idea di <b>popolo-nazione</b> («We, the nation»); il debito francese per sostenerla innesca, a sua volta, la Rivoluzione del 1789.</div>
+    </div>
+  </section>
+
+  <!-- 9. CONCETTI-CHIAVE -->
+  <section class="card">
+    <h2><span class="num">9</span> Concetti-chiave per l'orale</h2>
+    <div class="grid">
+      <div class="box"><b>Atto di Supremazia (1534).</b> Enrico VIII si proclama capo della Chiesa d'Inghilterra: nasce lo scisma anglicano, la corona controlla la religione.</div>
+      <div class="box"><b>Anglicanesimo.</b> Chiesa nazionale col re a capo: protestante nella dottrina, cattolica nella liturgia. Caposaldo del potere regio.</div>
+      <div class="box"><b>Puritani.</b> Calvinisti inglesi che vogliono una Chiesa «purificata» dai residui cattolici; base del fronte parlamentare-whig e dei coloni americani.</div>
+      <div class="box"><b>Commonwealth.</b> La repubblica inglese (1649–60): Parlamento come legislativo, Cromwell lord protettore come esecutivo.</div>
+      <div class="box"><b>Glorious Revolution (1688).</b> Il cambio di dinastia «pacifico» che depone Giacomo II e chiama Guglielmo III d'Orange: la seconda rivoluzione inglese.</div>
+      <div class="box"><b>Bill of Rights (1689).</b> Il Parlamento diventa organo sovrano della nazione: potere legislativo ed esclusiva fiscale, limiti alla corona.</div>
+      <div class="box"><b>«Il re regna ma non governa».</b> Formula della monarchia parlamentare e costituzionale: il potere reale passa a Parlamento e governo.</div>
+      <div class="box"><b>Tories e Whigs.</b> I primi partiti moderni (corte vs opposizione mercantile-puritana), destinati ad alternarsi al governo.</div>
+      <div class="box"><b>Gabinetto / primo ministro.</b> Con Walpole nasce l'esecutivo come istituzione distinta dal re, guidata dal capo della maggioranza.</div>
+      <div class="box"><b>Navigation Act (1651).</b> Il mercantilismo inglese: le merci su navi inglesi, contro l'egemonia commerciale olandese.</div>
+      <div class="box"><b>Enclosures.</b> Recinzione dei campi comuni: rivoluzione agricola, aziende per il mercato e manodopera espulsa verso le città.</div>
+      <div class="box"><b>Rivoluzione industriale.</b> Prima al mondo (dal 1760): cotone, siderurgia al coke, macchina a vapore di Watt; nasce la società industriale.</div>
+      <div class="box"><b>No taxation without representation.</b> Il principio della rivolta americana: niente tasse senza rappresentanza in Parlamento.</div>
+      <div class="box"><b>Atto di Unione (1707).</b> Fusione di Inghilterra e Scozia in un unico regno: nasce la Gran Bretagna.</div>
+    </div>
+  </section>
+
+  <footer>Fonte: F. Benigno, <em>L'età moderna</em> — mappa di ripasso</footer>
+
+</div>
+</body>
+</html>

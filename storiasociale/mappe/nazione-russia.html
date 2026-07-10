@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mappa Nazione — Russia (età moderna)</title>
+<style>
+  :root{
+    --bg:#f4f1ea; --paper:#fffdf8; --ink:#2b2620; --muted:#7a7165;
+    --line:#e2dccf; --accent:#5a7a4b; --accent2:#3b6b8a; --accent3:#8a5a3b;
+    --shadow:0 1px 3px rgba(0,0,0,.08),0 8px 24px rgba(0,0,0,.06);
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--bg); color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    line-height:1.55; font-size:16px;
+    padding:28px 16px 60px;
+  }
+  .wrap{max-width:1000px; margin:0 auto;}
+
+  /* Header */
+  header.hero{
+    background:var(--paper); border:1px solid var(--line); border-radius:14px;
+    padding:28px 26px; box-shadow:var(--shadow); margin-bottom:22px;
+    border-top:6px solid var(--accent);
+  }
+  header.hero h1{
+    margin:0 0 6px; font-size:2.05rem; letter-spacing:-.5px; line-height:1.15;
+  }
+  header.hero .flag{color:var(--accent); font-weight:800;}
+  header.hero .arc{color:var(--muted); font-size:1.02rem; font-weight:600; margin:0 0 14px;}
+  header.hero .filo{
+    background:#f0f4ec; border-left:4px solid var(--accent);
+    padding:12px 16px; border-radius:0 10px 10px 0; margin:14px 0 0; font-size:1rem;
+  }
+  header.hero .filo b{color:var(--accent);}
+  .dyn-row{display:flex; flex-wrap:wrap; gap:8px; margin:16px 0 0;}
+
+  /* Cards */
+  section.card{
+    background:var(--paper); border:1px solid var(--line); border-radius:14px;
+    padding:24px; box-shadow:var(--shadow); margin-bottom:20px;
+  }
+  section.card > h2{
+    background:var(--accent); color:#fff; margin:-24px -24px 18px;
+    padding:14px 24px; border-radius:14px 14px 0 0;
+    font-size:1.2rem; letter-spacing:.3px; display:flex; align-items:center; gap:10px;
+  }
+  section.card > h2 .num{
+    background:rgba(255,255,255,.22); border-radius:8px; padding:1px 9px;
+    font-size:.95rem; font-weight:700;
+  }
+  h3{color:var(--accent3); font-size:1.05rem; margin:22px 0 8px; border-bottom:1px dashed var(--line); padding-bottom:4px;}
+  p{margin:8px 0;}
+  ul{margin:8px 0; padding-left:22px;}
+  li{margin:5px 0;}
+  .lead{color:var(--muted); font-size:.97rem;}
+
+  /* Badges / pills */
+  .pill{
+    display:inline-block; font-size:.72rem; font-weight:700; letter-spacing:.3px;
+    padding:2px 9px; border-radius:999px; text-transform:uppercase; white-space:nowrap;
+    vertical-align:middle;
+  }
+  .p-guerra{background:#f6e4dc; color:#8a3b2b;}
+  .p-riforma{background:#e2ecdc; color:#3f6a33;}
+  .p-dinastia{background:#e4e9f1; color:#345a7c;}
+  .p-religione{background:#efe6d3; color:#8a6a2b;}
+  .p-rivolta{background:#f1e0ea; color:#8a3b6a;}
+  .p-trattato{background:#dceaea; color:#2b6a6a;}
+  .p-economia{background:#e0ece4; color:#2b6a4b;}
+
+  /* Timeline */
+  .timeline{position:relative; margin:8px 0 0; padding:0 0 0 30px;}
+  .timeline::before{
+    content:""; position:absolute; left:9px; top:6px; bottom:6px; width:3px;
+    background:linear-gradient(var(--accent),#b7c9ac); border-radius:3px;
+  }
+  .tl{position:relative; margin:0 0 16px;}
+  .tl::before{
+    content:""; position:absolute; left:-27px; top:4px; width:13px; height:13px;
+    background:var(--paper); border:3px solid var(--accent); border-radius:50%;
+  }
+  .tl.big::before{background:var(--accent); box-shadow:0 0 0 4px #dfe8d6;}
+  .tl .yr{font-weight:800; color:var(--accent2); margin-right:8px;}
+  .tl .ev{font-weight:700;}
+  .tl .ds{display:block; color:var(--muted); font-size:.93rem; margin-top:2px;}
+  .era-label{
+    margin:22px 0 12px; font-weight:800; color:var(--accent3); font-size:.85rem;
+    letter-spacing:1px; text-transform:uppercase;
+  }
+
+  /* Table */
+  .tbl-wrap{overflow-x:auto; -webkit-overflow-scrolling:touch; margin:6px 0; border-radius:10px; border:1px solid var(--line);}
+  table{border-collapse:collapse; width:100%; min-width:560px; font-size:.93rem;}
+  th,td{padding:9px 12px; text-align:left; vertical-align:top; border-bottom:1px solid var(--line);}
+  thead th{background:#efe9dc; color:var(--ink); font-weight:700; position:sticky; top:0;}
+  tbody tr:nth-child(even){background:#faf7f0;}
+  td .role{color:var(--muted); font-size:.85rem;}
+
+  /* Evolution flow */
+  .evo{display:flex; flex-wrap:wrap; align-items:stretch; gap:8px; margin:12px 0 6px;}
+  .evo .step{
+    flex:1 1 130px; background:#f0f4ec; border:1px solid var(--line); border-radius:10px;
+    padding:10px 12px; font-size:.88rem; position:relative;
+  }
+  .evo .step b{display:block; color:var(--accent); font-size:.95rem; margin-bottom:2px;}
+  .evo .arrow{align-self:center; color:var(--accent); font-weight:800; font-size:1.2rem;}
+
+  /* Two-col grid for concepts / links */
+  .grid{display:grid; grid-template-columns:1fr; gap:12px; margin-top:6px;}
+  @media(min-width:640px){.grid{grid-template-columns:1fr 1fr;}}
+  .box{background:#faf7f0; border:1px solid var(--line); border-radius:10px; padding:12px 14px;}
+  .box b{color:var(--accent3);}
+  .box.link b{color:var(--accent2);}
+
+  .callout{background:#f0f4ec; border-left:4px solid var(--accent); padding:10px 14px; border-radius:0 8px 8px 0; margin:12px 0; font-size:.95rem;}
+
+  footer{color:var(--muted); font-size:.82rem; text-align:center; margin-top:26px; padding-top:14px; border-top:1px solid var(--line);}
+
+  @media(max-width:520px){
+    header.hero h1{font-size:1.6rem;}
+    section.card{padding:20px 16px;}
+    section.card > h2{margin:-20px -16px 16px; padding:12px 16px;}
+  }
+  @media print{
+    body{background:#fff; padding:0; font-size:12px;}
+    section.card,header.hero{box-shadow:none; break-inside:avoid;}
+    section.card > h2{-webkit-print-color-adjust:exact; print-color-adjust:exact;}
+  }
+
+/* barra di navigazione (aggiunta per il sito) */
+.map-top{position:sticky;top:0;z-index:50;display:flex;align-items:center;gap:10px;
+  background:#2b2620;color:#fff;padding:10px 14px;box-shadow:0 2px 8px rgba(0,0,0,.18);
+  margin:-28px -16px 24px;}
+.map-top a{color:#fff;text-decoration:none;font-weight:600;font-size:13.5px;
+  background:rgba(255,255,255,.16);padding:8px 12px;border-radius:9px;white-space:nowrap;}
+.map-top a:active{background:rgba(255,255,255,.32);}
+.map-top .loc{flex:1;text-align:center;font-size:13px;font-weight:600;opacity:.95;}
+@media print{.map-top{display:none}}
+</style>
+</head>
+<body>
+<header class="map-top">
+  <a class="back" href="../index.html#mappe">← Mappe</a>
+  <span class="loc">Mappe per nazione · Russia</span>
+</header>
+
+<div class="wrap">
+
+  <!-- 1. INTESTAZIONE -->
+  <header class="hero">
+    <h1><span class="flag">RUSSIA</span> — da potenza periferica a grande potenza europea</h1>
+    <p class="arc">Regno russo / Impero degli zar · dall'adozione del titolo di <b>czar</b> (1493) all'età di Caterina II (fine XVIII sec.) · dinastia dei <b>Romanov</b></p>
+    <div class="dyn-row">
+      <span class="pill p-dinastia">Dinastia Romanov</span>
+      <span class="pill p-riforma">Zarismo / autocrazia</span>
+      <span class="pill p-riforma">Dispotismo riformatore</span>
+      <span class="pill p-guerra">Guerre del Nord</span>
+    </div>
+    <p class="filo"><b>Il filo rosso:</b> la trasformazione della Russia da <b>potenza periferica</b> dell'Europa orientale a <b>grande potenza continentale</b>, ottenuta attraverso una <b>modernizzazione autoritaria «dall'alto»</b>. Erede autoproclamata dell'Impero bizantino (Mosca «terza Roma»), la Russia resta a lungo un colosso ai margini, gravato da debolezze strutturali (vastità del territorio, popoli e fedi diverse). Con <b>Pietro I «il Grande»</b> imita gli strumenti della monarchia assoluta francese e, vincendo la <b>Svezia</b> nelle guerre del Nord, entra «a pieno titolo» tra le grandi potenze. Con <b>Caterina II «la Grande»</b> adotta il linguaggio del <b>dispotismo illuminato</b>, affiancandosi a <b>Prussia</b> e <b>Austria</b> nel gioco delle riforme e nelle grandi guerre di successione. Un percorso: <b>periferia → occidentalizzazione (Pietro I) → grande potenza baltica → dispotismo riformatore (Caterina II)</b>.</p>
+  </header>
+
+  <!-- 2. LINEA DEL TEMPO -->
+  <section class="card">
+    <h2><span class="num">2</span> Linea del tempo</h2>
+    <p class="lead">Gli avvenimenti principali in ordine cronologico. I pallini pieni segnano le svolte decisive. (Riferimenti: cap. 8, 17, 19, 24 di Benigno.)</p>
+
+    <div class="era-label">Le radici: il regno degli zar (cap. 8)</div>
+    <div class="timeline">
+      <div class="tl"><span class="yr">1453</span><span class="ev">Caduta di Costantinopoli <span class="pill p-religione">religione</span></span><span class="ds">Gli Ottomani conquistano l'Impero romano d'Oriente (bizantino). Da questa eredità interrotta i sovrani russi trarranno la propria pretesa imperiale.</span></div>
+      <div class="tl big"><span class="yr">dal 1493</span><span class="ev">Il titolo di «czar» <span class="pill p-dinastia">dinastia</span></span><span class="ds">I sovrani russi assumono il titolo di <b>czar</b> (dal latino <i>Caesar</i>): si proclamano <b>legittimi eredi dell'impero romano</b> e indicano nella capitale <b>Mosca</b> la «<b>terza Roma</b>», erede dell'Impero d'Oriente caduto nel 1453.</span></div>
+    </div>
+
+    <div class="era-label">Pietro I e l'occidentalizzazione (cap. 17 · fine '600 – inizio '700)</div>
+    <div class="timeline">
+      <div class="tl big"><span class="yr">a cavallo tra '600 e '700</span><span class="ev">Pietro I «il Grande» avvia la modernizzazione <span class="pill p-riforma">riforma</span></span><span class="ds">Lo zar <b>Pietro I Romanov</b>, <b>dopo aver visitato la Francia</b>, si sforza di applicare alla realtà russa gli <b>strumenti della nuova monarchia assoluta francese</b> di Luigi XIV: rafforzamento dell'autorità sovrana e riorganizzazione dello Stato. La Russia è, con la Prussia, uno dei principali <b>imitatori del modello di Versailles</b>. <span class="lead">(Nota funzionale: è in questa fase che sorge la nuova capitale <b>San Pietroburgo</b>, «finestra sull'Europa» e simbolo dell'occidentalizzazione.)</span></span></div>
+    </div>
+
+    <div class="era-label">Le guerre del Nord e l'ingresso tra le grandi potenze (cap. 19)</div>
+    <div class="timeline">
+      <div class="tl"><span class="yr">1702</span><span class="ev">Coalizione anti-svedese <span class="pill p-guerra">guerra</span></span><span class="ds">La <b>Russia</b>, insieme a <b>Danimarca</b> e <b>Polonia</b> — tutte ostili all'egemonia svedese sul Baltico — si allea e <b>attacca la Svezia</b>. Il re svedese, abile stratega, con l'appoggio di Gran Bretagna e Province Unite costringe però la Danimarca alla pace.</span></div>
+      <div class="tl big"><span class="yr">anni 1700–1710</span><span class="ev">La Russia sconfigge la Svezia <span class="pill p-guerra">guerra</span></span><span class="ds">Quando la Svezia invade la Polonia, trova la resistenza della <b>nascente potenza militare russa capeggiata da Pietro il Grande</b>. Il <b>monarca svedese</b> (Carlo XII) <b>muore</b> in una campagna contro la Russia. Esito: la <b>Svezia declina</b> sul Baltico, la <b>Russia entra «a pieno titolo» tra le grandi potenze europee</b>.</span></div>
+      <div class="tl"><span class="yr">1733–1738</span><span class="ev">Guerra di successione polacca <span class="pill p-guerra">guerra</span></span><span class="ds">La Russia, insieme all'<b>Impero</b>, sostiene <b>Augusto III Wettin</b> contro <b>Stanislao Leszczyński</b> (appoggiato dalla nobiltà polacca e dalla Francia). La <b>pace di Vienna (1738)</b> assegna il trono polacco ad Augusto III: la Russia si conferma arbitro degli affari polacchi.</span></div>
+    </div>
+
+    <div class="era-label">La guerra dei Sette anni (cap. 20 e 24 · 1756–1763)</div>
+    <div class="timeline">
+      <div class="tl"><span class="yr">1756–1763</span><span class="ev">Russia nello schieramento anti-prussiano <span class="pill p-guerra">guerra</span></span><span class="ds">La Russia combatte a fianco di <b>Francia, Svezia e Impero (Austria)</b> contro <b>Prussia e Gran Bretagna</b>. La pressione russo-austriaca porta all'<b>occupazione di Berlino (1760)</b>: la potenza militare russa mette in ginocchio Federico II.</span></div>
+      <div class="tl big"><span class="yr">1762</span><span class="ev">Il ritiro russo salva la Prussia <span class="pill p-trattato">svolta</span></span><span class="ds"><b>Svezia e Russia si ritirano dal conflitto</b>: solo allora Federico II riesce a ricacciare l'esercito imperiale. Il ribaltamento coincide con l'avvento in Russia di <b>Pietro III</b> (ammiratore di Federico II), presto deposto dalla moglie. La <b>pace di Parigi (1763)</b> chiude la guerra.</span></div>
+    </div>
+
+    <div class="era-label">Caterina II e il dispotismo riformatore (cap. 24 · seconda metà '700)</div>
+    <div class="timeline">
+      <div class="tl big"><span class="yr">1762</span><span class="ev">Caterina II «la Grande» al potere <span class="pill p-dinastia">dinastia</span></span><span class="ds">Tedesca d'origine, aveva assunto il nome di <b>Caterina</b> sposando l'erede al trono <b>Pietro III</b>; questi viene <b>deposto dalla moglie e ucciso poco dopo da un favorito della zarina</b>. Educata alla cultura illuminista, guarda a Occidente per imitarne i modelli di governo.</span></div>
+      <div class="tl"><span class="yr">dagli anni 1760</span><span class="ev">Le riforme di Caterina II <span class="pill p-riforma">riforma</span></span><span class="ds">Confisca dei beni della <b>Chiesa ortodossa</b> e clero reso stipendiato dello Stato; rafforzamento del potere nobiliare sui contadini; istruzione elementare statale e gratuita nelle città; una certa libertà di stampa; autogoverno locale.</span></div>
+      <div class="tl"><span class="yr">seconda metà '700</span><span class="ev">Espansione verso sud-est <span class="pill p-guerra">guerra</span></span><span class="ds">Caterina punta all'espansione verso <b>sud-est, a spese del decadente Impero ottomano</b>, con la giustificazione ideologica di «restaurare l'Impero romano d'Oriente» di cui gli zar si proclamano eredi.</span></div>
+    </div>
+  </section>
+
+  <!-- 3. SOVRANI E DINASTIE -->
+  <section class="card">
+    <h2><span class="num">3</span> Sovrani e dinastie</h2>
+    <p class="lead">Successione dei sovrani citati nella fonte. La dinastia dei <b>Romanov</b> regna dalla prima metà del Seicento; qui compaiono i protagonisti del racconto di Benigno.</p>
+    <div class="tbl-wrap">
+      <table>
+        <thead>
+          <tr><th>Sovrano</th><th>Regno</th><th>Dinastia</th><th>Cosa lo caratterizza</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><b>Gli zar di Mosca</b><br><span class="role">dal 1493 (titolo di czar)</span></td>
+            <td>fine XV sec.</td>
+            <td>—</td>
+            <td>Adottano il titolo di <b>czar</b> (Caesar); si proclamano eredi dell'impero romano e fanno di <b>Mosca</b> la «terza Roma».</td>
+          </tr>
+          <tr>
+            <td><b>Pietro I «il Grande»</b><br><span class="role">Romanov</span></td>
+            <td>a cavallo tra '600 e '700</td>
+            <td>Romanov</td>
+            <td>Il <b>modernizzatore</b>: dopo aver visitato la Francia, importa gli strumenti dell'assolutismo francese; guida la Russia alla vittoria sulla Svezia e all'ingresso tra le grandi potenze.</td>
+          </tr>
+          <tr>
+            <td><b>Pietro III</b><br><span class="role">Romanov</span></td>
+            <td>1762 (breve)</td>
+            <td>Romanov</td>
+            <td>Marito di Caterina, ammiratore di Federico II di Prussia. <b>Deposto dalla moglie</b> e ucciso poco dopo da un favorito della zarina.</td>
+          </tr>
+          <tr>
+            <td><b>Caterina II «la Grande»</b><br><span class="role">di origine tedesca</span></td>
+            <td>dal 1762</td>
+            <td>Romanov (per matrimonio)</td>
+            <td>La <b>zarina illuminata</b>: educata ai <i>lumi</i>, come Federico II attua riforme religiose, economiche e sociali; espande verso sud contro gli Ottomani.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="lead">N.B. Benigno nomina esplicitamente Pietro I, Pietro III e Caterina II; le date di regno precise dei singoli zar non sono al centro del suo racconto, focalizzato sulle svolte politiche.</p>
+  </section>
+
+  <!-- 4. FORMA DI GOVERNO E ISTITUZIONI -->
+  <section class="card">
+    <h2><span class="num">4</span> Forma di governo e istituzioni</h2>
+    <p>La Russia è una <b>autocrazia</b> (zarismo): il potere è concentrato nella persona dello zar, senza i contrappesi rappresentativi tipici delle monarchie composite occidentali. La sua evoluzione nel Settecento non va verso il parlamentarismo (come in Inghilterra) ma verso un <b>assolutismo rafforzato</b>, prima imitando la Francia, poi vestendosi da <b>dispotismo riformatore</b>.</p>
+
+    <div class="evo">
+      <div class="step"><b>Regno degli zar</b>Sovranità di tipo imperiale (Mosca «terza Roma»), gravata da debolezze strutturali.</div>
+      <div class="arrow">→</div>
+      <div class="step"><b>Assolutismo alla francese</b>Pietro I importa gli strumenti della monarchia di Luigi XIV: rafforzamento dell'autorità sovrana.</div>
+      <div class="arrow">→</div>
+      <div class="step"><b>Dispotismo riformatore</b>Caterina II riforma «dall'alto» ispirandosi all'Illuminismo, senza cedere potere ai ceti.</div>
+    </div>
+
+    <h3>Il carattere del potere</h3>
+    <ul>
+      <li><b>Autocrazia sacra:</b> lo zar è erede autoproclamato dell'imperatore romano-bizantino; il legame con la <b>Chiesa ortodossa</b> è parte della legittimazione.</li>
+      <li><b>Debolezze strutturali</b> (le stesse dei grandi imperi, come l'Ottomano): difficoltà a governare <b>estensioni territoriali enormi</b>, spesso non contigue e con istituzioni diverse; coesistenza di <b>popoli, lingue e fedi differenti</b>.</li>
+      <li><b>Riforma «dall'alto»:</b> le trasformazioni non nascono da assemblee o rivolte, ma dalla volontà del sovrano che aggira i corpi intermedi — cifra del <b>dispotismo illuminato</b>.</li>
+      <li><b>Autogoverno locale</b> concesso da Caterina II: un decentramento amministrativo controllato, non una limitazione dell'autocrazia.</li>
+    </ul>
+  </section>
+
+  <!-- 5. POLITICA INTERNA -->
+  <section class="card">
+    <h2><span class="num">5</span> Politica interna</h2>
+
+    <h3>La modernizzazione di Pietro I</h3>
+    <p>Il nucleo dell'azione interna di Pietro il Grande è il <b>rafforzamento dell'autorità sovrana</b> sul modello francese: applicare «gli strumenti della nuova monarchia francese alla realtà russa». È l'avvio dell'<b>occidentalizzazione</b>, di cui la nuova capitale <b>San Pietroburgo</b> è il simbolo urbanistico e politico.</p>
+
+    <h3>Le riforme di Caterina II <span class="pill p-riforma">riforma</span></h3>
+    <p>Educata all'Illuminismo, Caterina si rivolge a Occidente per imitarne i modelli e vara un programma di riforme:</p>
+    <ul>
+      <li><b>Questione religiosa:</b> smantellamento del potere e della ricchezza della <b>Chiesa ortodossa</b> — decreto di <b>confisca delle proprietà ecclesiastiche</b> e <b>assoggettamento del clero</b>, trasformato in <b>stipendiati dello Stato</b>. È il modello che ispirerà <b>Giuseppe II d'Austria</b>.</li>
+      <li><b>Nobiltà e contadini:</b> <b>rafforzamento del potere nobiliare sulle popolazioni rurali</b> — il volto contraddittorio del riformismo russo, che «libera» dall'alto ma inasprisce la dipendenza dei contadini dai signori.</li>
+      <li><b>Istruzione:</b> introduzione dell'<b>istruzione elementare statale e gratuita</b>, però <b>solo nelle città</b>.</li>
+      <li><b>Stampa:</b> garanzia di <b>una certa libertà di stampa</b>.</li>
+      <li><b>Amministrazione:</b> <b>autogoverno locale</b>.</li>
+    </ul>
+    <div class="callout"><b>La contraddizione del riformismo russo:</b> mentre in Austria Giuseppe II abolisce la servitù della gleba, in Russia Caterina II <b>rafforza</b> la presa della nobiltà sui contadini. Le riforme «illuminate» convivono con un consolidamento del servaggio: modernizzazione dello Stato ≠ emancipazione sociale.</div>
+  </section>
+
+  <!-- 6. POLITICA ESTERA E GUERRE -->
+  <section class="card">
+    <h2><span class="num">6</span> Politica estera e guerre</h2>
+    <p class="lead">Con chi combatte la Russia e per che cosa. Il filo conduttore: il controllo del <b>Baltico</b> a nord, la spinta contro gli <b>Ottomani</b> a sud, il ruolo di arbitro sulla <b>Polonia</b>.</p>
+
+    <h3>Le guerre del Nord — contro la Svezia <span class="pill p-guerra">guerra</span></h3>
+    <p>Il grande conflitto per l'<b>egemonia sul Mar Baltico</b>, snodo dei traffici nord-orientali (grani polacchi, <b>pellami russi</b>). Alleata di <b>Danimarca</b> e <b>Polonia</b> contro la <b>Svezia</b> (1702), la Russia di Pietro il Grande spezza la potenza militare svedese: il re di Svezia muore in campagna contro di lei. <b>Esito:</b> la Svezia declina, la <b>Russia entra tra le grandi potenze europee</b>.</p>
+
+    <h3>Guerra di successione polacca (1733–1738) — con l'Impero <span class="pill p-guerra">guerra</span></h3>
+    <p>Russia e <b>Impero (Austria)</b> sostengono <b>Augusto III</b> contro <b>Stanislao Leszczyński</b> (appoggiato da <b>Francia</b> e nobiltà polacca). La <b>pace di Vienna (1738)</b> premia il candidato russo-imperiale: la Russia si afferma come potenza tutrice della Polonia.</p>
+
+    <h3>Guerra dei Sette anni (1756–1763) — con Francia e Austria contro la Prussia <span class="pill p-guerra">guerra</span></h3>
+    <p>Schieramenti: <b>Francia, Russia, Svezia, Impero</b> contro <b>Prussia e Gran Bretagna</b>. La Russia contribuisce a piegare Federico II fino all'<b>occupazione di Berlino (1760)</b>; ma nel <b>1762 si ritira</b> dal conflitto (insieme alla Svezia), permettendo alla Prussia di risollevarsi. <b>Pace di Parigi (1763).</b></p>
+
+    <h3>La spinta a sud — contro gli Ottomani <span class="pill p-guerra">guerra</span></h3>
+    <p>Con Caterina II, la Russia attua l'<b>espansione verso sud-est a spese del decadente Impero ottomano</b>, sotto la bandiera ideologica della «restaurazione dell'Impero romano d'Oriente».</p>
+
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>Conflitto</th><th>La Russia con…</th><th>…contro</th><th>Trattato / esito</th></tr></thead>
+        <tbody>
+          <tr><td>Guerre del Nord</td><td>Danimarca, Polonia</td><td>Svezia</td><td>Crollo svedese; Russia grande potenza</td></tr>
+          <tr><td>Succ. polacca (1733–38)</td><td>Impero (Austria)</td><td>Francia, nobiltà polacca</td><td>Pace di Vienna (1738): trono ad Augusto III</td></tr>
+          <tr><td>Sette anni (1756–63)</td><td>Francia, Austria, Svezia</td><td>Prussia, Gran Bretagna</td><td>Berlino occupata (1760); ritiro russo (1762); pace di Parigi (1763)</td></tr>
+          <tr><td>Espansione a sud</td><td>—</td><td>Impero ottomano</td><td>Avanzata verso sud-est</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- 7. ECONOMIA E SOCIETÀ -->
+  <section class="card">
+    <h2><span class="num">7</span> Economia e società</h2>
+    <h3>Struttura economica e commercio</h3>
+    <ul>
+      <li><b>Il Baltico come sbocco:</b> la Russia esporta i <b>pellami</b> (insieme ai grani polacchi) attraverso l'area baltica, cuore dei traffici dell'Europa nord-orientale. Il controllo di questo mare è la vera posta delle guerre del Nord.</li>
+      <li><b>Economia agraria e servile:</b> la ricchezza poggia sulle campagne e su una massa di <b>contadini asserviti</b>. Il rafforzamento del potere nobiliare voluto da Caterina II consolida questa struttura.</li>
+    </ul>
+    <h3>Ceti sociali</h3>
+    <ul>
+      <li><b>Nobiltà:</b> pilastro dello Stato, rafforzata da Caterina II nel suo dominio sulle popolazioni rurali; in cambio sostiene l'autocrazia.</li>
+      <li><b>Clero ortodosso:</b> da potenza autonoma a <b>corpo stipendiato dallo Stato</b> dopo la confisca dei beni ecclesiastici — subordinazione della Chiesa al sovrano.</li>
+      <li><b>Popolazioni rurali:</b> il ceto più numeroso, che paga il prezzo del riformismo «dall'alto» con un servaggio inasprito.</li>
+      <li><b>Città:</b> destinatarie delle novità (istruzione elementare gratuita, autogoverno locale), in un paese però ancora largamente rurale.</li>
+    </ul>
+    <h3>Ascesa</h3>
+    <p>La parabola russa è di <b>netta ascesa</b>: da realtà periferica dell'Europa orientale a potenza militare e diplomatica di primo piano. La modernizzazione economico-militare serve esattamente al fine indicato da Benigno per i sovrani riformatori: <b>accrescere l'efficienza dello Stato «ai fini bellici»</b> e la gloria della dinastia.</p>
+  </section>
+
+  <!-- 8. COLLEGAMENTI -->
+  <section class="card">
+    <h2><span class="num">8</span> Collegamenti con le altre nazioni e i grandi temi</h2>
+    <div class="grid">
+      <div class="box link"><b>↔ Francia (modello assolutista)</b><br>Pietro I visita la Francia e importa «gli strumenti della nuova monarchia francese»: la Russia è, con la Prussia, il grande <b>imitatore di Versailles</b> a Oriente.</div>
+      <div class="box link"><b>↔ Svezia (rivale baltica)</b><br>La sconfitta della Svezia nelle <b>guerre del Nord</b> è l'atto di nascita della Russia come grande potenza: rovescio esatto del declino svedese sul Baltico.</div>
+      <div class="box link"><b>↔ Prussia e Austria (dispotismo illuminato)</b><br>Caterina II sta a Federico II e a Giuseppe II come un membro dello stesso club di <b>sovrani riformatori</b>: il clero-stipendiato russo diventa <b>modello per Giuseppe II</b>.</div>
+      <div class="box link"><b>↔ Polonia (arbitro)</b><br>Nella successione polacca la Russia impone (con l'Impero) il proprio candidato: prova del suo peso decisivo sugli assetti dell'Europa orientale.</div>
+      <div class="box link"><b>↔ Impero ottomano (nemico a sud)</b><br>L'espansione verso sud-est «a spese del decadente Impero ottomano» oppone due imperi entrambi eredi di Bisanzio e afflitti da simili <b>debolezze strutturali</b>.</div>
+      <div class="box link"><b>↔ Il tema: crisi dell'equilibrio settecentesco</b><br>La Russia è una delle «<b>nuove aggressive potenze</b>» che, insieme a Inghilterra, Province Unite, Svezia e Prussia, destabilizza il vecchio ordine e alimenta le guerre di successione.</div>
+    </div>
+  </section>
+
+  <!-- 9. CONCETTI-CHIAVE PER L'ORALE -->
+  <section class="card">
+    <h2><span class="num">9</span> Concetti-chiave per l'orale</h2>
+    <div class="grid">
+      <div class="box"><b>Czar / zar</b> — titolo (dal latino <i>Caesar</i>) adottato dai sovrani russi dal 1493: rivendicazione dell'eredità imperiale romano-bizantina.</div>
+      <div class="box"><b>Mosca «terza Roma»</b> — la capitale russa presentata come erede dell'Impero d'Oriente, caduto nel 1453.</div>
+      <div class="box"><b>Occidentalizzazione</b> — l'importazione, avviata da Pietro I dopo il viaggio in Francia, degli strumenti della monarchia assoluta occidentale (San Pietroburgo ne è il simbolo).</div>
+      <div class="box"><b>Guerre del Nord</b> — conflitti per l'egemonia sul Mar Baltico: la vittoria sulla Svezia fa della Russia una grande potenza.</div>
+      <div class="box"><b>Autocrazia / zarismo</b> — forma di governo a potere concentrato e non limitato da assemblee rappresentative.</div>
+      <div class="box"><b>Dispotismo illuminato (riformatore)</b> — riforme «dall'alto» ispirate ai <i>lumi</i>, volte soprattutto all'efficienza dello Stato ai fini bellici: Caterina II ne è esempio con Federico II e Giuseppe II.</div>
+      <div class="box"><b>Confisca dei beni ecclesiastici</b> — provvedimento di Caterina II contro la Chiesa ortodossa, con clero reso stipendiato dello Stato (modello per Giuseppe II).</div>
+      <div class="box"><b>Rafforzamento del servaggio</b> — la nobiltà accresce il potere sulle popolazioni rurali: il limite «reazionario» del riformismo di Caterina.</div>
+      <div class="box"><b>Legittimità protonazionale</b> — nuovo criterio settecentesco (un sovrano deve rispondere ai costumi del popolo): utile per collocare «i Grandi» Federico II e Caterina II.</div>
+      <div class="box"><b>Debolezze strutturali dell'impero</b> — vastità territoriale e pluralità di popoli/lingue/fedi: fragilità che la Russia condivide con l'Impero ottomano.</div>
+    </div>
+  </section>
+
+  <footer>Fonte: F. Benigno, <i>L'età moderna</i> — mappa di ripasso</footer>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mappa di ripasso — Spagna (1492–1714)</title>
+<style>
+  :root{
+    --bg:#f4f1ea; --paper:#fffdf8; --ink:#2b2620; --muted:#7a7165;
+    --line:#e2dccf; --accent:#5a7a4b; --accent2:#3b6b8a; --accent3:#8a5a3b;
+    --shadow:0 1px 3px rgba(0,0,0,.08),0 8px 24px rgba(0,0,0,.06);
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--bg); color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    line-height:1.55; -webkit-font-smoothing:antialiased;
+    padding:28px 16px 60px;
+  }
+  .wrap{max-width:1000px; margin:0 auto;}
+
+  /* Intestazione pagina */
+  .page-head{
+    text-align:center; margin-bottom:26px;
+  }
+  .page-head .kicker{
+    display:inline-block; font-size:.78rem; letter-spacing:.12em; text-transform:uppercase;
+    color:var(--accent); font-weight:700; margin-bottom:8px;
+  }
+  .page-head h1{
+    font-size:2.1rem; margin:.1em 0 .15em; line-height:1.15;
+  }
+  .page-head .sub{
+    color:var(--muted); font-size:1.02rem; max-width:720px; margin:0 auto;
+  }
+
+  /* Card */
+  .card{
+    background:var(--paper); border:1px solid var(--line); border-radius:14px;
+    padding:24px; box-shadow:var(--shadow); margin-bottom:20px;
+  }
+  .card h2{
+    background:var(--accent); color:#fff; font-size:1.12rem; margin:-4px 0 18px;
+    padding:10px 16px; border-radius:10px; display:flex; align-items:center; gap:10px;
+  }
+  .card h2 .num{
+    background:rgba(255,255,255,.22); border-radius:6px; padding:1px 9px; font-size:.9rem; font-weight:700;
+  }
+  .card h3{
+    font-size:1rem; color:var(--accent3); margin:20px 0 8px; letter-spacing:.01em;
+  }
+  .card p{margin:.5em 0;}
+  .lead{font-size:1.02rem;}
+
+  /* filo rosso box */
+  .filo{
+    border-left:4px solid var(--accent); background:#f2f5ee; padding:12px 16px;
+    border-radius:0 10px 10px 0; margin-top:14px;
+  }
+  .filo strong{color:var(--accent);}
+
+  /* meta grid intestazione */
+  .meta{
+    display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:12px; margin-top:6px;
+  }
+  .meta .box{
+    background:#faf7f0; border:1px solid var(--line); border-radius:10px; padding:12px 14px;
+  }
+  .meta .box .lbl{font-size:.72rem; text-transform:uppercase; letter-spacing:.08em; color:var(--muted); font-weight:700;}
+  .meta .box .val{font-size:.98rem; margin-top:2px;}
+
+  /* Badge / pill */
+  .pill{
+    display:inline-block; font-size:.7rem; font-weight:700; letter-spacing:.03em;
+    padding:2px 9px; border-radius:999px; text-transform:uppercase; vertical-align:middle;
+    white-space:nowrap;
+  }
+  .p-guerra{background:#f2ddd3; color:#8a4326;}
+  .p-riforma{background:#dbe7d2; color:#3f5e2c;}
+  .p-dinastia{background:#d7e3ec; color:#2c526b;}
+  .p-religione{background:#efe3c6; color:#8a6a1f;}
+  .p-econ{background:#e4dcc9; color:#6f5a2c;}
+  .p-rivolta{background:#ecd3d3; color:#8a2f2f;}
+
+  /* Timeline */
+  .timeline{position:relative; margin:8px 0 0; padding-left:34px;}
+  .timeline::before{
+    content:""; position:absolute; left:11px; top:6px; bottom:6px; width:3px;
+    background:linear-gradient(var(--accent),#c3d3b6);
+  }
+  .tl-item{position:relative; margin-bottom:18px;}
+  .tl-item::before{
+    content:""; position:absolute; left:-27px; top:4px; width:14px; height:14px;
+    border-radius:50%; background:var(--accent); border:3px solid var(--paper);
+    box-shadow:0 0 0 2px var(--accent);
+  }
+  .tl-item .yr{font-weight:800; color:var(--accent2); margin-right:6px;}
+  .tl-item .ev{font-weight:700;}
+  .tl-item .ds{display:block; color:var(--ink); font-size:.95rem; margin-top:2px;}
+
+  /* Tabelle */
+  .table-scroll{overflow-x:auto; -webkit-overflow-scrolling:touch; margin-top:6px;}
+  table{border-collapse:collapse; width:100%; min-width:560px; font-size:.94rem;}
+  th,td{border:1px solid var(--line); padding:8px 11px; text-align:left; vertical-align:top;}
+  thead th{background:#efe9dc; font-size:.82rem; text-transform:uppercase; letter-spacing:.04em;}
+  tbody tr:nth-child(even){background:#faf7f0;}
+  td .din{font-size:.72rem; color:var(--muted);}
+
+  /* liste */
+  ul.clean{margin:.4em 0; padding-left:1.2em;}
+  ul.clean li{margin:.35em 0;}
+  .conn li{margin:.5em 0;}
+  .conn li strong{color:var(--accent2);}
+
+  /* concetti chiave */
+  .keys{display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:12px;}
+  .key{background:#faf7f0; border:1px solid var(--line); border-left:4px solid var(--accent3); border-radius:0 10px 10px 0; padding:11px 13px;}
+  .key .term{font-weight:800; color:var(--accent3); display:block; margin-bottom:2px;}
+  .key .def{font-size:.92rem;}
+
+  footer{text-align:center; color:var(--muted); font-size:.8rem; margin-top:8px;}
+
+  @media (max-width:560px){
+    .page-head h1{font-size:1.6rem;}
+    .card{padding:18px 15px;}
+  }
+  @media print{
+    body{background:#fff; padding:0;}
+    .card{box-shadow:none; border-color:#ccc; break-inside:avoid;}
+    .card h2{background:#5a7a4b !important; -webkit-print-color-adjust:exact; print-color-adjust:exact;}
+    .pill,.key,.meta .box,thead th,tbody tr:nth-child(even){-webkit-print-color-adjust:exact; print-color-adjust:exact;}
+  }
+
+/* barra di navigazione (aggiunta per il sito) */
+.map-top{position:sticky;top:0;z-index:50;display:flex;align-items:center;gap:10px;
+  background:#2b2620;color:#fff;padding:10px 14px;box-shadow:0 2px 8px rgba(0,0,0,.18);
+  margin:-28px -16px 24px;}
+.map-top a{color:#fff;text-decoration:none;font-weight:600;font-size:13.5px;
+  background:rgba(255,255,255,.16);padding:8px 12px;border-radius:9px;white-space:nowrap;}
+.map-top a:active{background:rgba(255,255,255,.32);}
+.map-top .loc{flex:1;text-align:center;font-size:13px;font-weight:600;opacity:.95;}
+@media print{.map-top{display:none}}
+</style>
+</head>
+<body>
+<header class="map-top">
+  <a class="back" href="../index.html#mappe">← Mappe</a>
+  <span class="loc">Mappe per nazione · Spagna</span>
+</header>
+
+<div class="wrap">
+
+  <div class="page-head">
+    <span class="kicker">Mappa tematica di ripasso · Storia moderna</span>
+    <h1>SPAGNA — La Monarchia cattolica (ispanica)</h1>
+    <p class="sub">Dall'apogeo imperiale di Carlo V e Filippo II al lungo declino del Seicento, fino al cambio di dinastia con i Borbone (1492–1714).</p>
+  </div>
+
+  <!-- 1. INTESTAZIONE -->
+  <section class="card">
+    <h2><span class="num">1</span> Intestazione &amp; filo rosso</h2>
+    <div class="meta">
+      <div class="box"><div class="lbl">Nazione</div><div class="val">Monarchia di Spagna / <em>Monarchia cattolica</em> (o ispanica)</div></div>
+      <div class="box"><div class="lbl">Arco coperto</div><div class="val">1492 (presa di Granada) → 1714 (pace di Utrecht/Rastadt)</div></div>
+      <div class="box"><div class="lbl">Dinastie</div><div class="val">Trastámara (Re Cattolici) → Asburgo di Spagna → Borbone</div></div>
+      <div class="box"><div class="lbl">Natura dello Stato</div><div class="val">Monarchia composita e cattolica; potenza egemone europea, poi in declino</div></div>
+    </div>
+    <div class="filo">
+      <strong>Il filo rosso.</strong> La Spagna è la grande <em>monarchia composita</em> dell'età moderna: un mosaico di regni diversi (Castiglia, Aragona, Napoli, Sicilia, Milano, Paesi Bassi, colonie americane) tenuti insieme dalla persona del sovrano e dalla fede cattolica. Nasce dall'unione dei Re Cattolici, raggiunge l'apogeo imperiale con Carlo V e Filippo II (argento americano, difesa della fede, egemonia su Italia e Fiandre), ma il peso delle guerre confessionali, le bancarotte e le rivolte la trascinano nel <strong>declino del Seicento</strong>; l'estinzione degli Asburgo con Carlo II apre la Guerra di successione, che consegna il trono ai <strong>Borbone</strong> e riduce la Spagna a potenza di secondo piano.
+    </div>
+  </section>
+
+  <!-- 2. LINEA DEL TEMPO -->
+  <section class="card">
+    <h2><span class="num">2</span> Linea del tempo</h2>
+    <div class="timeline">
+      <div class="tl-item"><span class="pill p-religione">religione</span>
+        <div><span class="yr">1478</span><span class="ev">Istituzione dell'Inquisizione spagnola</span>
+        <span class="ds">Tribunale ecclesiastico voluto dai Re Cattolici per imporre l'uniformità religiosa: espulsione degli ebrei e conversione forzata dei musulmani.</span></div></div>
+
+      <div class="tl-item"><span class="pill p-dinastia">svolta</span>
+        <div><span class="yr">1492</span><span class="ev">Presa di Granada &amp; viaggio di Colombo</span>
+        <span class="ds">Fine della <em>reconquista</em> (ultimo regno arabo) e sbarco di Cristoforo Colombo a San Salvador per conto della corona di Castiglia: si apre l'impero atlantico.</span></div></div>
+
+      <div class="tl-item"><span class="pill p-guerra">conquista</span>
+        <div><span class="yr">1519–1532</span><span class="ev">Conquista di Messico e Perù</span>
+        <span class="ds">Hernán Cortés abbatte l'impero azteco (1519–21), Francisco Pizarro l'impero inca (1532): nasce la società coloniale e il flusso di metalli preziosi.</span></div></div>
+
+      <div class="tl-item"><span class="pill p-guerra">guerra</span>
+        <div><span class="yr">1527</span><span class="ev">Sacco di Roma</span>
+        <span class="ds">I lanzichenecchi di Carlo V saccheggiano Roma: estrema affermazione dell'egemonia ispano-imperiale in Italia.</span></div></div>
+
+      <div class="tl-item"><span class="pill p-dinastia">dinastia</span>
+        <div><span class="yr">1530</span><span class="ev">Carlo V incoronato imperatore a Bologna</span>
+        <span class="ds">Papa Clemente VII lo incorona: apice del sogno di <em>restauratio imperii</em> e monarchia universale asburgica.</span></div></div>
+
+      <div class="tl-item"><span class="pill p-guerra">pace</span>
+        <div><span class="yr">1559</span><span class="ev">Pace di Cateau-Cambrésis</span>
+        <span class="ds">Fine delle guerre d'Italia: i francesi sono espulsi dalla penisola, la Spagna vi consolida un'egemonia lunga quasi due secoli (Milano, Napoli, Sicilia, Sardegna).</span></div></div>
+
+      <div class="tl-item"><span class="pill p-dinastia">dinastia</span>
+        <div><span class="yr">1556</span><span class="ev">Abdicazione di Carlo V — nasce la Spagna asburgica</span>
+        <span class="ds">L'eredità è divisa in due rami: a Filippo II i domini "occidentali" (Spagna, Paesi Bassi, Italia, colonie); a Ferdinando l'Austria e l'Impero.</span></div></div>
+
+      <div class="tl-item"><span class="pill p-rivolta">rivolta</span>
+        <div><span class="yr">1566–1648</span><span class="ev">Rivolta dei Paesi Bassi</span>
+        <span class="ds">La repressione del calvinismo (duca d'Alba) innesca la lunga guerra che porta all'indipendenza delle Province Unite, sancita dal trattato di Münster (1648).</span></div></div>
+
+      <div class="tl-item"><span class="pill p-guerra">battaglia</span>
+        <div><span class="yr">1571</span><span class="ev">Battaglia di Lepanto</span>
+        <span class="ds">La Lega santa (papa Pio V, Venezia, Filippo II) sconfigge la flotta ottomana: mito del trionfo dell'Europa cristiana, più che svolta epocale.</span></div></div>
+
+      <div class="tl-item"><span class="pill p-dinastia">dinastia</span>
+        <div><span class="yr">1580</span><span class="ev">Filippo II re di Portogallo</span>
+        <span class="ds">Crisi dinastica portoghese: Filippo II eredita la corona (unione delle corone iberiche, ma istituzioni e imperi coloniali restano distinti).</span></div></div>
+
+      <div class="tl-item"><span class="pill p-guerra">sconfitta</span>
+        <div><span class="yr">1588</span><span class="ev">Disfatta dell'Invencible Armada</span>
+        <span class="ds">La flotta inviata contro l'Inghilterra di Elisabetta I è battuta nella Manica, spalleggiata dagli olandesi: prima grande incrinatura della potenza spagnola.</span></div></div>
+
+      <div class="tl-item"><span class="pill p-guerra">guerra</span>
+        <div><span class="yr">1618–1648</span><span class="ev">Guerra dei Trent'anni</span>
+        <span class="ds">La Spagna asburgica combatte accanto all'Impero (vittoria alla Montagna Bianca, 1620); l'intervento francese (1635) le è fatale. La pace di Vestfalia chiude il disegno egemonico asburgico.</span></div></div>
+
+      <div class="tl-item"><span class="pill p-rivolta">crisi</span>
+        <div><span class="yr">1640</span><span class="ev">Rivolte di Catalogna e Portogallo</span>
+        <span class="ds">La pressione fiscale del <em>valido</em> Olivares scatena le secessioni: il Portogallo riconquista l'indipendenza (Braganza), seguono le rivolte di Palermo e Napoli (1647).</span></div></div>
+
+      <div class="tl-item"><span class="pill p-guerra">pace</span>
+        <div><span class="yr">1659</span><span class="ev">Pace dei Pirenei</span>
+        <span class="ds">Sconfitta finale contro la Francia: fine dell'egemonia spagnola e inizio del predominio continentale francese.</span></div></div>
+
+      <div class="tl-item"><span class="pill p-dinastia">svolta</span>
+        <div><span class="yr">1700</span><span class="ev">Morte di Carlo II — fine degli Asburgo di Spagna</span>
+        <span class="ds">Senza eredi, designa Filippo d'Angiò (nipote di Luigi XIV): il trono passa ai Borbone e si apre la guerra europea.</span></div></div>
+
+      <div class="tl-item"><span class="pill p-guerra">guerra</span>
+        <div><span class="yr">1701–1714</span><span class="ev">Guerra di successione spagnola</span>
+        <span class="ds">La Grande coalizione dell'Aja contro l'asse franco-spagnolo. I trattati di Utrecht (1713) e Rastadt (1714) confermano Filippo V ma smembrano i possedimenti europei.</span></div></div>
+    </div>
+  </section>
+
+  <!-- 3. SOVRANI E DINASTIE -->
+  <section class="card">
+    <h2><span class="num">3</span> Sovrani e dinastie</h2>
+    <div class="table-scroll">
+    <table>
+      <thead><tr><th>Sovrano</th><th>Regno</th><th>Dinastia</th><th>Cosa lo caratterizza</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>Ferdinando II d'Aragona &amp; Isabella di Castiglia <span class="din">(Re Cattolici)</span></td>
+          <td>1479–1516 / 1474–1504</td>
+          <td>Trastámara</td>
+          <td>Uniscono Castiglia e Aragona (leggi distinte), completano la reconquista (1492), fondano l'Inquisizione e finanziano Colombo.</td>
+        </tr>
+        <tr>
+          <td>Carlo V <span class="din">(Carlos I di Spagna)</span></td>
+          <td>1516–1556</td>
+          <td>Asburgo</td>
+          <td>Erede di quattro eredità (Asburgo, Borgogna, Castiglia-Aragona, colonie) + imperatore: sogno di monarchia universale. Abdica dividendo l'eredità.</td>
+        </tr>
+        <tr>
+          <td>Filippo II <span class="din">(el rey prudente)</span></td>
+          <td>1556–1598</td>
+          <td>Asburgo</td>
+          <td>Simbolo della monarchia cattolica: capitale a Madrid (1561), governo per <em>consejos</em>, Lepanto, rivolta dei Paesi Bassi, Armada, unione col Portogallo.</td>
+        </tr>
+        <tr>
+          <td>Filippo III</td>
+          <td>1598–1621</td>
+          <td>Asburgo</td>
+          <td>Primo sovrano a governare tramite un <em>valido</em>, il duca di Lerma (Francisco Gómez de Sandoval); tregua con le Province Unite.</td>
+        </tr>
+        <tr>
+          <td>Filippo IV</td>
+          <td>1621–1665</td>
+          <td>Asburgo</td>
+          <td>Il <em>valido</em> Olivares tenta di salvare la monarchia con guerra e fisco: ne derivano le rivolte del 1640 e la lunga sconfitta militare.</td>
+        </tr>
+        <tr>
+          <td>Carlo II <span class="din">(l'ammaliato)</span></td>
+          <td>1665–1700</td>
+          <td>Asburgo</td>
+          <td>Ultimo Asburgo di Spagna, senza eredi: la sua morte apre la Guerra di successione. Designa erede Filippo d'Angiò.</td>
+        </tr>
+        <tr>
+          <td>Filippo V</td>
+          <td>1700–1746</td>
+          <td>Borbone</td>
+          <td>Nipote di Luigi XIV; confermato a Utrecht. Avvia l'unificazione giuridico-amministrativa di Castiglia e Aragona sul modello francese.</td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+  </section>
+
+  <!-- 4. FORMA DI GOVERNO E ISTITUZIONI -->
+  <section class="card">
+    <h2><span class="num">4</span> Forma di governo e istituzioni</h2>
+    <p class="lead">La Spagna è il modello per eccellenza della <strong>«monarchia composita»</strong> (definizione di John H. Elliott): un agglomerato di territori vasti, non contigui, con leggi, lingue e tradizioni diverse, tenuto insieme <em>solo</em> dalla persona del sovrano — e, nel caso spagnolo, dalla comune fede cattolica (da cui <strong>«monarchia cattolica»</strong>).</p>
+
+    <h3>Evoluzione dello Stato</h3>
+    <ul class="clean">
+      <li><strong>Unione dinastica (Re Cattolici):</strong> Castiglia e Aragona restano distinte per leggi e istituzioni, unite solo dai sovrani e da un esercito comune.</li>
+      <li><strong>Impero universale (Carlo V):</strong> tentativo di <em>restauratio imperii</em> asburgica, presto rivelatosi ingovernabile e diviso in due rami.</li>
+      <li><strong>Monarchia composita centralizzata (Filippo II):</strong> governo per <em>consejos</em>, capitale fissa a Madrid, ma rispetto delle autonomie dei singoli regni.</li>
+      <li><strong>Governo dei <em>validos</em> (Seicento):</strong> il potere reale è delegato a un favorito onnipotente — deriva assolutistica/dispotica che genera opposizione e rivolte.</li>
+      <li><strong>Accentramento borbonico (Filippo V):</strong> abolizione delle autonomie di Aragona sul modello francese: dalla monarchia composita verso lo Stato unitario.</li>
+    </ul>
+
+    <h3>Istituzioni chiave</h3>
+    <ul class="clean">
+      <li><strong>I <em>consejos</em>:</strong> organi consultivi per materia e territorio (Consejo de Estado, de Guerra, de Castilla, de Italia…), composti da aristocratici, ecclesiastici e giuristi.</li>
+      <li><strong>L'Inquisizione spagnola (1478):</strong> strumento di uniformità religiosa e di controllo, sotto la corona.</li>
+      <li><strong>Il <em>valido</em>:</strong> ministro-favorito che diventa <em>alter ego</em> del re e dirige di fatto la politica (Lerma, Olivares).</li>
+      <li><strong>Rapporto sovrano–ceti:</strong> nei regni periferici (Aragona, Catalogna, Italia, Paesi Bassi) restano forti assemblee di ceto e privilegi locali (<em>fueros</em>), che frenano il potere regio — fonte di attriti e rivolte.</li>
+    </ul>
+  </section>
+
+  <!-- 5. POLITICA INTERNA -->
+  <section class="card">
+    <h2><span class="num">5</span> Politica interna</h2>
+
+    <h3>La questione religiosa <span class="pill p-religione">religione</span></h3>
+    <p>La difesa della fede cattolica è il collante dello Stato. L'<strong>Inquisizione</strong> reprime l'eresia; la questione dei <strong>moriscos</strong> (musulmani convertiti a forza, di cui si sospetta la mancata assimilazione) porta Filippo II a vietarne lingua e usi, scatenando la <strong>rivolta di Granada (1568–70)</strong> e la loro deportazione nella Castiglia.</p>
+
+    <h3>Le riforme e il governo <span class="pill p-riforma">riforma</span></h3>
+    <p>Filippo II fissa la capitale a <strong>Madrid (1561)</strong> e struttura l'amministrazione per <em>consejos</em>. Nel Seicento il potere si concentra nei <strong>validos</strong>: il duca di <strong>Lerma</strong> (Filippo III) e soprattutto il conte di <strong>Olivares</strong> (Filippo IV), che tenta di uniformare fiscalmente e militarmente la monarchia per salvarla dal declino. Con i Borbone, <strong>Filippo V</strong> riorganizza lo Stato unificando Castiglia e Aragona.</p>
+
+    <h3>Conflitti interni e rivolte <span class="pill p-rivolta">rivolta</span></h3>
+    <ul class="clean">
+      <li><strong>Rivolta delle città castigliane (comuneros)</strong> all'ascesa di Carlo V: guerra civile contro il nuovo sovrano "straniero".</li>
+      <li><strong>Bancarotte statali ripetute:</strong> il peso delle guerre porta più volte la Castiglia alla dichiarazione di fallimento (già sotto Filippo II).</li>
+      <li><strong>Crisi generale del 1640:</strong> l'ostilità verso Olivares e la pressione fiscale generano le secessioni di <strong>Catalogna</strong> e <strong>Portogallo</strong>, poi le rivolte di <strong>Palermo, Sicilia e Napoli (1647)</strong>.</li>
+    </ul>
+  </section>
+
+  <!-- 6. POLITICA ESTERA E GUERRE -->
+  <section class="card">
+    <h2><span class="num">6</span> Politica estera e guerre <span class="pill p-guerra">con chi?</span></h2>
+
+    <h3>Contro la Francia — l'egemonia sull'Italia</h3>
+    <p>Le <strong>guerre d'Italia (1494–1559)</strong> oppongono Asburgo e Valois: sacco di Roma (1527), trattato di Madrid (1526) e infine la <strong>pace di Cateau-Cambrésis (1559)</strong> che espelle i francesi e consegna alla Spagna Milano, Napoli, Sicilia, Sardegna. La rivalità franco-spagnola riesplode nella Guerra dei Trent'anni e si chiude con la <strong>pace dei Pirenei (1659)</strong>, sfavorevole alla Spagna.</p>
+
+    <h3>Contro l'Impero ottomano — la frontiera mediterranea</h3>
+    <p>Filippo II difende il Mediterraneo occidentale dall'espansione ottomana e dalla pirateria barbaresca. Dopo la caduta di Cipro (veneziana), nasce la <strong>Lega santa</strong> (papa Pio V, <strong>Venezia</strong>, Spagna, con Genova, Savoia, Toscana, Malta) che vince a <strong>Lepanto (1571)</strong>; segue una tregua col sultano (1581).</p>
+
+    <h3>Contro l'Inghilterra e i ribelli olandesi</h3>
+    <p>Ostilità con l'<strong>Inghilterra di Elisabetta I</strong> (antispagnolismo, pirateria, sostegno inglese ai ribelli): la <strong>Invencible Armada</strong> è distrutta nel 1588. Nei <strong>Paesi Bassi</strong>, la rivolta calvinista (duca d'Alba, Alessandro Farnese) sfocia nella nascita delle <strong>Province Unite</strong>, riconosciute indipendenti col trattato di Münster (1648).</p>
+
+    <h3>Guerra dei Trent'anni e successione</h3>
+    <p>Accanto all'Impero contro i protestanti (vittoria alla Montagna Bianca, 1620), la Spagna cede all'intervento francese (<strong>Vestfalia 1648</strong>). Infine la <strong>Guerra di successione spagnola (1701–1714)</strong>: asse franco-spagnolo (Borbone) contro la <strong>Grande coalizione dell'Aja</strong> (Impero, Province Unite, Inghilterra, Prussia, Portogallo, Savoia).</p>
+
+    <h3>Principali trattati di pace</h3>
+    <div class="table-scroll">
+    <table>
+      <thead><tr><th>Trattato</th><th>Anno</th><th>Esito per la Spagna</th></tr></thead>
+      <tbody>
+        <tr><td>Cateau-Cambrésis</td><td>1559</td><td>Egemonia spagnola sull'Italia; espulsione dei francesi.</td></tr>
+        <tr><td>Münster (nella pace di Vestfalia)</td><td>1648</td><td>Rinuncia alla sovranità sulle sette Province Unite; tramonto del disegno asburgico.</td></tr>
+        <tr><td>Pace dei Pirenei</td><td>1659</td><td>Fine dell'egemonia spagnola; inizio del predominio francese.</td></tr>
+        <tr><td>Utrecht &amp; Rastadt</td><td>1713–1714</td><td>Filippo V confermato in Spagna e colonie; ceduti Napoli, Milano, Sardegna, Paesi Bassi merid. all'Impero, Sicilia ai Savoia, Gibilterra e Minorca all'Inghilterra.</td></tr>
+      </tbody>
+    </table>
+    </div>
+  </section>
+
+  <!-- 7. ECONOMIA E SOCIETÀ -->
+  <section class="card">
+    <h2><span class="num">7</span> Economia e società <span class="pill p-econ">economia</span></h2>
+
+    <h3>L'impero coloniale e l'argento</h3>
+    <p>La corona di Castiglia impone un <strong>regime monopolistico</strong> sul commercio con le colonie: <strong>Siviglia</strong> è lo snodo dei traffici. Dopo l'esaurimento dell'oro, dal 1570 l'<strong>argento del Messico e del Perù</strong> diventa la principale merce d'importazione, alimentando finanze e guerre. La società coloniale si regge sull'<strong>encomienda</strong> (indios affidati a un colono in cambio di lavoro), che declina col tracollo demografico degli indigeni.</p>
+
+    <h3>Finanza dell'impero: il «secolo dei Genovesi»</h3>
+    <p>Le enormi spese militari costringono la corona a un indebitamento massiccio tramite gli <strong>asientos</strong> (prestiti) con banchieri tedeschi (Fugger), <strong>genovesi</strong> e portoghesi. Dopo il 1528 Genova abbandona la Francia per legarsi a Carlo V: si apre il <strong>«secolo dei Genovesi»</strong>, primato genovese nel commercio del denaro europeo — fino al ridimensionamento a metà Seicento, quando l'indebitamento e le bancarotte castigliane li espongono a gravi perdite.</p>
+
+    <h3>Ascesa e declino</h3>
+    <p>Il flusso di metalli preziosi contribuisce alla <strong>«rivoluzione dei prezzi»</strong> cinquecentesca (tesi poi ridimensionata: la crescita dei prezzi dipende soprattutto dall'aumento demografico). Ma la ricchezza americana finanzia le guerre senza sviluppare l'economia produttiva interna: da qui il <strong>lungo declino del Seicento</strong>, fatto di bancarotte, pressione fiscale, rivolte e perdita di terre — culminato nella riduzione a potenza di secondo piano.</p>
+  </section>
+
+  <!-- 8. COLLEGAMENTI -->
+  <section class="card">
+    <h2><span class="num">8</span> Collegamenti con le altre nazioni e i grandi temi</h2>
+    <ul class="clean conn">
+      <li><strong>Spagna ↔ Impero &amp; Italia:</strong> l'eredità di Carlo V lega la Spagna al Sacro romano impero e a mezza Italia (Milano, Napoli, Sicilia, Sardegna); l'egemonia sulla penisola dura quasi due secoli.</li>
+      <li><strong>Spagna ↔ Paesi Bassi:</strong> la rivolta anti-spagnola genera le Province Unite, futura potenza commerciale e marittima rivale: caso-chiave della <em>crisi del Seicento</em>.</li>
+      <li><strong>Spagna ↔ Francia:</strong> rivalità secolare (guerre d'Italia → Trent'anni → Pirenei) che si rovescia con la successione, quando un Borbone francese sale sul trono spagnolo.</li>
+      <li><strong>Assolutismo &amp; confessionalizzazione:</strong> la monarchia cattolica è il modello di Stato che fonde potere regio e difesa della fede; i <em>validos</em> ne sono la variante iberica del favorito onnipotente (come Buckingham in Inghilterra, Richelieu/Mazzarino in Francia).</li>
+      <li><strong>Crisi del Seicento:</strong> le rivolte del 1640 (Catalogna, Portogallo, Sicilia, Napoli) sono il capitolo spagnolo del "terremoto politico" europeo, parallele alla Fronda francese e alla rivoluzione inglese.</li>
+      <li><strong>Espansione atlantica:</strong> con il Portogallo, la Spagna inaugura gli imperi coloniali europei e l'economia-mondo dell'argento, ridisegnando le gerarchie economiche del continente.</li>
+    </ul>
+  </section>
+
+  <!-- 9. CONCETTI-CHIAVE -->
+  <section class="card">
+    <h2><span class="num">9</span> Concetti-chiave per l'orale</h2>
+    <div class="keys">
+      <div class="key"><span class="term">Monarchia composita</span><span class="def">Aggregato di territori vasti e diversi tenuti insieme solo dalla persona del sovrano (Elliott): il caso spagnolo per eccellenza.</span></div>
+      <div class="key"><span class="term">Monarchia cattolica</span><span class="def">La Spagna definita dalla fede: la difesa del cattolicesimo è collante dello Stato e programma politico-dinastico di Filippo II.</span></div>
+      <div class="key"><span class="term">Re Cattolici</span><span class="def">Ferdinando e Isabella: unione Castiglia-Aragona, reconquista (1492), Inquisizione, uniformità religiosa.</span></div>
+      <div class="key"><span class="term">Consejos</span><span class="def">Organi consultivi per materia e territorio con cui Filippo II governa la monarchia (de Estado, de Guerra, de Italia…).</span></div>
+      <div class="key"><span class="term">Valido</span><span class="def">Il ministro-favorito onnipotente (Lerma, Olivares), <em>alter ego</em> del re; deriva dispotica del potere seicentesco.</span></div>
+      <div class="key"><span class="term">Encomienda</span><span class="def">Istituto coloniale: indios affidati a un <em>encomendero</em> in cambio di lavoro e cristianizzazione. Asse della società coloniale.</span></div>
+      <div class="key"><span class="term">Asientos</span><span class="def">Prestiti della corona ai banchieri (tedeschi, genovesi): la finanza che regge — e indebita — l'impero.</span></div>
+      <div class="key"><span class="term">Secolo dei Genovesi</span><span class="def">Primato genovese nel commercio del denaro grazie al legame privilegiato con la corona castigliana (dal 1528).</span></div>
+      <div class="key"><span class="term">Moriscos</span><span class="def">Musulmani convertiti a forza, sospettati di non-assimilazione: repressi e deportati (rivolta di Granada, 1568–70).</span></div>
+      <div class="key"><span class="term">Invencible Armada</span><span class="def">La flotta di Filippo II contro l'Inghilterra, distrutta nel 1588: prima grande incrinatura della potenza spagnola.</span></div>
+    </div>
+  </section>
+
+  <footer>Fonte: F. Benigno, <em>L'età moderna</em> — mappa di ripasso</footer>
+
+</div>
+</body>
+</html>
