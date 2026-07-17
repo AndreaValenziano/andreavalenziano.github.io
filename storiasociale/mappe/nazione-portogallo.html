@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mappa di ripasso — Portogallo (1415–1822)</title>
+<style>
+  :root{
+    --bg:#f4f1ea; --paper:#fffdf8; --ink:#2b2620; --muted:#7a7165;
+    --line:#e2dccf; --accent:#5a7a4b; --accent2:#3b6b8a; --accent3:#8a5a3b;
+    --shadow:0 1px 3px rgba(0,0,0,.08),0 8px 24px rgba(0,0,0,.06);
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--bg); color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    line-height:1.55; -webkit-font-smoothing:antialiased;
+    padding:28px 16px 60px;
+  }
+  .wrap{max-width:1000px; margin:0 auto;}
+
+  /* Intestazione pagina */
+  .page-head{
+    text-align:center; margin-bottom:26px;
+  }
+  .page-head .kicker{
+    display:inline-block; font-size:.78rem; letter-spacing:.12em; text-transform:uppercase;
+    color:var(--accent); font-weight:700; margin-bottom:8px;
+  }
+  .page-head h1{
+    font-size:2.1rem; margin:.1em 0 .15em; line-height:1.15;
+  }
+  .page-head .sub{
+    color:var(--muted); font-size:1.02rem; max-width:720px; margin:0 auto;
+  }
+
+  /* Card */
+  .card{
+    background:var(--paper); border:1px solid var(--line); border-radius:14px;
+    padding:24px; box-shadow:var(--shadow); margin-bottom:20px;
+  }
+  .card h2{
+    background:var(--accent); color:#fff; font-size:1.12rem; margin:-4px 0 18px;
+    padding:10px 16px; border-radius:10px; display:flex; align-items:center; gap:10px;
+  }
+  .card h2 .num{
+    background:rgba(255,255,255,.22); border-radius:6px; padding:1px 9px; font-size:.9rem; font-weight:700;
+  }
+  .card h3{
+    font-size:1rem; color:var(--accent3); margin:20px 0 8px; letter-spacing:.01em;
+  }
+  .card p{margin:.5em 0;}
+  .lead{font-size:1.02rem;}
+
+  /* filo rosso box */
+  .filo{
+    border-left:4px solid var(--accent); background:#f2f5ee; padding:12px 16px;
+    border-radius:0 10px 10px 0; margin-top:14px;
+  }
+  .filo strong{color:var(--accent);}
+
+  /* meta grid intestazione */
+  .meta{
+    display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:12px; margin-top:6px;
+  }
+  .meta .box{
+    background:#faf7f0; border:1px solid var(--line); border-radius:10px; padding:12px 14px;
+  }
+  .meta .box .lbl{font-size:.72rem; text-transform:uppercase; letter-spacing:.08em; color:var(--muted); font-weight:700;}
+  .meta .box .val{font-size:.98rem; margin-top:2px;}
+
+  /* Badge / pill */
+  .pill{
+    display:inline-block; font-size:.7rem; font-weight:700; letter-spacing:.03em;
+    padding:2px 9px; border-radius:999px; text-transform:uppercase; vertical-align:middle;
+    white-space:nowrap;
+  }
+  .p-guerra{background:#f2ddd3; color:#8a4326;}
+  .p-riforma{background:#dbe7d2; color:#3f5e2c;}
+  .p-dinastia{background:#d7e3ec; color:#2c526b;}
+  .p-religione{background:#efe3c6; color:#8a6a1f;}
+  .p-econ{background:#e4dcc9; color:#6f5a2c;}
+  .p-rivolta{background:#ecd3d3; color:#8a2f2f;}
+
+  /* Timeline */
+  .timeline{position:relative; margin:8px 0 0; padding-left:34px;}
+  .timeline::before{
+    content:""; position:absolute; left:11px; top:6px; bottom:6px; width:3px;
+    background:linear-gradient(var(--accent),#c3d3b6);
+  }
+  .tl-item{position:relative; margin-bottom:18px;}
+  .tl-item::before{
+    content:""; position:absolute; left:-27px; top:4px; width:14px; height:14px;
+    border-radius:50%; background:var(--accent); border:3px solid var(--paper);
+    box-shadow:0 0 0 2px var(--accent);
+  }
+  .tl-item .yr{font-weight:800; color:var(--accent2); margin-right:6px;}
+  .tl-item .ev{font-weight:700;}
+  .tl-item .ds{display:block; color:var(--ink); font-size:.95rem; margin-top:2px;}
+
+  /* Tabelle */
+  .table-scroll{overflow-x:auto; -webkit-overflow-scrolling:touch; margin-top:6px;}
+  table{border-collapse:collapse; width:100%; min-width:560px; font-size:.94rem;}
+  th,td{border:1px solid var(--line); padding:8px 11px; text-align:left; vertical-align:top;}
+  thead th{background:#efe9dc; font-size:.82rem; text-transform:uppercase; letter-spacing:.04em;}
+  tbody tr:nth-child(even){background:#faf7f0;}
+  td .din{font-size:.72rem; color:var(--muted);}
+
+  /* liste */
+  ul.clean{margin:.4em 0; padding-left:1.2em;}
+  ul.clean li{margin:.35em 0;}
+  .conn li{margin:.5em 0;}
+  .conn li strong{color:var(--accent2);}
+
+  /* concetti chiave */
+  .keys{display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:12px;}
+  .key{background:#faf7f0; border:1px solid var(--line); border-left:4px solid var(--accent3); border-radius:0 10px 10px 0; padding:11px 13px;}
+  .key .term{font-weight:800; color:var(--accent3); display:block; margin-bottom:2px;}
+  .key .def{font-size:.92rem;}
+
+  footer{text-align:center; color:var(--muted); font-size:.8rem; margin-top:8px;}
+
+  @media (max-width:560px){
+    .page-head h1{font-size:1.6rem;}
+    .card{padding:18px 15px;}
+  }
+  @media print{
+    body{background:#fff; padding:0;}
+    .card{box-shadow:none; border-color:#ccc; break-inside:avoid;}
+    .card h2{background:#5a7a4b !important; -webkit-print-color-adjust:exact; print-color-adjust:exact;}
+    .pill,.key,.meta .box,thead th,tbody tr:nth-child(even){-webkit-print-color-adjust:exact; print-color-adjust:exact;}
+  }
+
+/* barra di navigazione (aggiunta per il sito) */
+.map-top{position:sticky;top:0;z-index:50;display:flex;align-items:center;gap:10px;
+  background:#2b2620;color:#fff;padding:10px 14px;box-shadow:0 2px 8px rgba(0,0,0,.18);
+  margin:-28px -16px 24px;}
+.map-top a{color:#fff;text-decoration:none;font-weight:600;font-size:13.5px;
+  background:rgba(255,255,255,.16);padding:8px 12px;border-radius:9px;white-space:nowrap;}
+.map-top a:active{background:rgba(255,255,255,.32);}
+.map-top .loc{flex:1;text-align:center;font-size:13px;font-weight:600;opacity:.95;}
+@media print{.map-top{display:none}}
+</style>
+</head>
+<body>
+<header class="map-top">
+  <a class="back" href="../index.html#mappe">← Mappe</a>
+  <span class="loc">Mappe per nazione · Portogallo</span>
+</header>
+
+<div class="wrap">
+
+  <div class="page-head">
+    <span class="kicker">Mappa tematica di ripasso · Storia moderna</span>
+    <h1>PORTOGALLO — Il primo impero oceanico</h1>
+    <p class="sub">Dall'espansione atlantica degli Aviz e la rotta delle spezie, all'unione con la Spagna (1580–1640) e alla restaurazione dell'indipendenza con i Braganza, fino all'indipendenza del Brasile.</p>
+  </div>
+
+  <!-- 1. INTESTAZIONE -->
+  <section class="card">
+    <h2><span class="num">1</span> Intestazione &amp; filo rosso</h2>
+    <div class="meta">
+      <div class="box"><div class="lbl">Nazione</div><div class="val">Regno di Portogallo (potenze lusitane)</div></div>
+      <div class="box"><div class="lbl">Arco coperto</div><div class="val">1415 (Ceuta) → 1580 unione con la Spagna → 1640 restaurazione → 1822</div></div>
+      <div class="box"><div class="lbl">Dinastie</div><div class="val">Aviz → Asburgo di Spagna (unione 1580–1640) → Braganza</div></div>
+      <div class="box"><div class="lbl">Natura dello Stato</div><div class="val">Monarchia; primo impero commerciale e coloniale su scala globale</div></div>
+    </div>
+    <div class="filo">
+      <strong>Il filo rosso.</strong> Il Portogallo è il pioniere dell'<em>espansione europea</em>: piccolo regno atlantico, sotto la dinastia degli <strong>Aviz</strong> costruisce fra Quattro e Cinquecento il <strong>primo impero commerciale globale</strong>, fondato non sulla conquista di terre ma sul <strong>controllo delle rotte oceaniche</strong> e sul monopolio delle spezie (rotta del Capo → India, con Goa capitale dell'impero d'Oriente; poi il Brasile). La sua storia è segnata dal <strong>rapporto ambivalente con la Spagna</strong>: rivale nella spartizione degli oceani, poi legata a essa dall'<strong>unione delle corone iberiche (1580–1640)</strong> sotto Filippo II, infine <strong>separata</strong> con la secessione del 1640 che porta al trono i <strong>Braganza</strong>. Nel Sei-Settecento, sotto la pressione di Olanda, Francia e Inghilterra, l'asse dell'impero si sposta dall'Asia all'<strong>Atlantico</strong> (Brasile: zucchero, oro, diamanti), sempre più dipendente dall'alleanza con l'Inghilterra.
+    </div>
+  </section>
+
+  <!-- 2. LINEA DEL TEMPO -->
+  <section class="card">
+    <h2><span class="num">2</span> Linea del tempo</h2>
+    <div class="timeline">
+      <div class="tl-item"><span class="pill p-econ">espansione</span>
+        <div><span class="yr">1415</span><span class="ev">Presa di Ceuta &amp; prime colonie atlantiche</span>
+        <span class="ds">Le forze lusitane occupano Ceuta (Nordafrica, di fronte a Gibilterra) e colonizzano Madera, Porto Santo e le Azzorre. A Madera si introduce la canna da zucchero (allora spezia preziosa). Inizio dell'espansione atlantica sotto gli Aviz.</span></div></div>
+
+      <div class="tl-item"><span class="pill p-econ">esplorazione</span>
+        <div><span class="yr">metà '400</span><span class="ev">Discesa lungo la costa africana</span>
+        <span class="ds">I portoghesi si spingono a sud (Capo Verde, Sierra Leone, Golfo di Guinea) costruendo basi commerciali costiere per l'oro e gli schiavi africani, utili anche a rifornirsi d'acqua e cibo.</span></div></div>
+
+      <div class="tl-item"><span class="pill p-econ">svolta</span>
+        <div><span class="yr">1487</span><span class="ev">Bartolomeo Diaz doppia il Capo di Buona Speranza</span>
+        <span class="ds">La spedizione raggiunge la punta estrema dell'Africa: si apre la possibilità di arrivare in India circumnavigando il continente.</span></div></div>
+
+      <div class="tl-item"><span class="pill p-econ">svolta</span>
+        <div><span class="yr">1497–98</span><span class="ev">Vasco da Gama raggiunge l'India</span>
+        <span class="ds">Circumnaviga l'Africa, attraversa l'Oceano Indiano e approda a Calicut (1498): nasce la rotta oceanica delle spezie, alternativa alle vie mediterranee.</span></div></div>
+
+      <div class="tl-item"><span class="pill p-guerra">conquista</span>
+        <div><span class="yr">dal 1500</span><span class="ev">L'impero delle spezie e Goa</span>
+        <span class="ds">Atteggiamento aggressivo: insediamento a Cochin (rivale di Calicut), bombardamento di Calicut, catena di stazioni commerciali fra Africa orientale e India. <strong>Goa</strong> diventa il cuore dell'impero, sede del viceré.</span></div></div>
+
+      <div class="tl-item"><span class="pill p-dinastia">rivalità</span>
+        <div><span class="yr">1494 ca.</span><span class="ev">Spartizione degli oceani con la Spagna</span>
+        <span class="ds">Il ritorno di Colombo apre il problema della delimitazione delle terre tra Spagna e Portogallo (linea di Tordesillas): le due corone impongono la sovranità sulle terre raggiunte in nome della diffusione della fede cristiana.</span></div></div>
+
+      <div class="tl-item"><span class="pill p-econ">esplorazione</span>
+        <div><span class="yr">1519–22</span><span class="ev">Magellano circumnaviga il globo</span>
+        <span class="ds">Il navigatore portoghese Ferdinando Magellano (al servizio della Castiglia) circumnaviga il continente americano e raggiunge l'arcipelago poi detto Filippine: prima circumnavigazione del mondo.</span></div></div>
+
+      <div class="tl-item"><span class="pill p-econ">colonie</span>
+        <div><span class="yr">dal '500</span><span class="ev">Colonizzazione del Brasile</span>
+        <span class="ds">Inizialmente il Portogallo usa solo le coste per raggiungere l'India; poi, di fronte all'interesse di mercanti castigliani, fiamminghi, veneziani e francesi, il re avvia la colonizzazione del Brasile per allontanare i rivali.</span></div></div>
+
+      <div class="tl-item"><span class="pill p-dinastia">dinastia</span>
+        <div><span class="yr">1580</span><span class="ev">Unione delle corone iberiche sotto Filippo II</span>
+        <span class="ds">Grave crisi dinastica in Portogallo: Filippo II di Spagna — figlio di una principessa portoghese e cugino del defunto re — ne eredita il trono. Ma nessuna unificazione: le istituzioni portoghesi restano distinte, senza apertura reciproca dei mercati coloniali.</span></div></div>
+
+      <div class="tl-item"><span class="pill p-guerra">colonie</span>
+        <div><span class="yr">1621–ca.</span><span class="ev">Penetrazione olandese in Brasile</span>
+        <span class="ds">La Compagnia olandese delle Indie occidentali attacca la corona spagnola (di cui il Portogallo fa parte) conquistando buona parte delle colonie portoghesi in Brasile e possedimenti in Africa.</span></div></div>
+
+      <div class="tl-item"><span class="pill p-rivolta">rivolta</span>
+        <div><span class="yr">1640</span><span class="ev">Restaurazione dell'indipendenza — i Braganza</span>
+        <span class="ds">Nel quadro della crisi della monarchia di Filippo IV (fisco del <em>valido</em> Olivares) e dopo l'incapacità asburgica di difendere il Brasile, il Portogallo dichiara la secessione e affida il trono al duca <strong>Giovanni di Braganza</strong>. Seguirà la Catalogna.</span></div></div>
+
+      <div class="tl-item"><span class="pill p-econ">colonie</span>
+        <div><span class="yr">dopo il 1640</span><span class="ev">Riconquista delle colonie</span>
+        <span class="ds">Separatosi dalla Spagna, il Portogallo riconquista tutte le colonie perse: la Compagnia olandese delle Indie occidentali entra in declino e viene sciolta nel 1674.</span></div></div>
+
+      <div class="tl-item"><span class="pill p-dinastia">alleanza</span>
+        <div><span class="yr">1662</span><span class="ev">Alleanza con l'Inghilterra — Bombay in dote</span>
+        <span class="ds">La corona conclude un'alleanza politica ed economica con l'Inghilterra: la base indiana di <strong>Bombay</strong> è ceduta agli inglesi come dote della principessa lusitana che sposa Carlo II Stuart.</span></div></div>
+
+      <div class="tl-item"><span class="pill p-econ">economia</span>
+        <div><span class="yr">'600–'700</span><span class="ev">Dall'Asia all'Atlantico: zucchero, oro e diamanti</span>
+        <span class="ds">Ridotta la presenza in Asia, il Portogallo rafforza il controllo su Brasile e Angola: colonizza i territori (non più solo stazioni costiere). Zucchero nel Nord, poi oro e diamanti nel Sud spostano l'asse economico e attirano coloni.</span></div></div>
+
+      <div class="tl-item"><span class="pill p-guerra">guerra</span>
+        <div><span class="yr">1701</span><span class="ev">Grande coalizione dell'Aja</span>
+        <span class="ds">Il Portogallo aderisce alla coalizione anti-francese (con Impero, Province Unite, Inghilterra, Prussia, Savoia) contro l'asse franco-spagnolo dei Borbone nella guerra di successione spagnola.</span></div></div>
+
+      <div class="tl-item"><span class="pill p-riforma">riforma</span>
+        <div><span class="yr">1759</span><span class="ev">Prima espulsione dei gesuiti</span>
+        <span class="ds">Il Portogallo è il <strong>primo</strong> Stato a espellere la Compagnia di Gesù, provvedimento poi imitato dai Borbone (Francia, Spagna, Napoli…): apertura della stagione riformatrice illuministica anti-gesuita.</span></div></div>
+
+      <div class="tl-item"><span class="pill p-dinastia">dinastia</span>
+        <div><span class="yr">1815</span><span class="ev">Restaurazione dei Braganza</span>
+        <span class="ds">Con il Congresso di Vienna, Spagna e Portogallo vedono la restaurazione delle rispettive dinastie (Borbone e <strong>Braganza</strong>) nell'ordine europeo post-napoleonico.</span></div></div>
+
+      <div class="tl-item"><span class="pill p-rivolta">rivoluzione</span>
+        <div><span class="yr">1820–22</span><span class="ev">Rivoluzione liberale e indipendenza del Brasile</span>
+        <span class="ds">Una sollevazione militare (1820) proclama la costituzione spagnola del 1812 e richiama il re Giovanni VI di Braganza; caduto il regime costituzionale, il figlio Michele restaura l'assolutismo. Il primogenito <strong>Pietro</strong>, rimasto in Brasile, ne proclama l'indipendenza e assume il titolo di imperatore (1822).</span></div></div>
+    </div>
+  </section>
+
+  <!-- 3. SOVRANI E DINASTIE -->
+  <section class="card">
+    <h2><span class="num">3</span> Sovrani e dinastie</h2>
+    <div class="table-scroll">
+    <table>
+      <thead><tr><th>Sovrano / fase</th><th>Periodo</th><th>Dinastia</th><th>Cosa la caratterizza</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>Dinastia degli <strong>Aviz</strong> <span class="din">(re del Portogallo)</span></td>
+          <td>fine '300 – 1580</td>
+          <td>Aviz</td>
+          <td>Nuova dinastia sorta dopo la crisi demografica e le guerre civili del Trecento: sostiene i ceti mercantili (spirito di crociata + interessi economici) e promuove l'espansione atlantica e la rotta delle spezie.</td>
+        </tr>
+        <tr>
+          <td><strong>Filippo II</strong> di Spagna <span class="din">(Filippo I di Portogallo)</span></td>
+          <td>1580–1598</td>
+          <td>Asburgo di Spagna</td>
+          <td>Eredita il trono per legittimità dinastica (figlio di principessa portoghese, cugino del re defunto): unione delle corone iberiche, ma istituzioni e imperi coloniali restano separati.</td>
+        </tr>
+        <tr>
+          <td><strong>Filippo III e Filippo IV</strong> <span class="din">(re di Spagna e Portogallo)</span></td>
+          <td>1598–1640</td>
+          <td>Asburgo di Spagna</td>
+          <td>Prosegue l'unione. La politica fiscale del <em>valido</em> Olivares (Filippo IV) e l'incapacità di difendere il Brasile dagli olandesi preparano la rottura.</td>
+        </tr>
+        <tr>
+          <td><strong>Giovanni di Braganza</strong> (Giovanni IV)</td>
+          <td>dal 1640</td>
+          <td>Braganza</td>
+          <td>Duca portato al trono dalla secessione del 1640: fondatore della dinastia dei Braganza e della restaurata indipendenza portoghese.</td>
+        </tr>
+        <tr>
+          <td><strong>Giovanni VI</strong> di Braganza</td>
+          <td>primo '800</td>
+          <td>Braganza</td>
+          <td>Re durante le guerre napoleoniche e la rivoluzione liberale del 1820; rifugiatosi in Brasile, richiamato in patria, accetta poi la costituzione.</td>
+        </tr>
+        <tr>
+          <td><strong>Pietro</strong> (Pedro) — poi <strong>Michele</strong></td>
+          <td>dal 1822</td>
+          <td>Braganza</td>
+          <td>Pietro, primogenito rimasto in Brasile, ne proclama l'indipendenza e si fa imperatore (1822); in patria il fratello Michele restaura il regime assolutistico.</td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+    <p style="font-size:.85rem;color:var(--muted);margin-top:10px;">La fonte (Benigno) nomina i singoli sovrani portoghesi solo nei passaggi-chiave (unione, restaurazione, indipendenza del Brasile); la dinastia degli Aviz è trattata come soggetto collettivo dell'espansione.</p>
+  </section>
+
+  <!-- 4. FORMA DI GOVERNO E ISTITUZIONI -->
+  <section class="card">
+    <h2><span class="num">4</span> Forma di governo e istituzioni</h2>
+    <p class="lead">Il Portogallo è una <strong>monarchia</strong> il cui tratto distintivo non è la vastità del territorio metropolitano, ma un <strong>impero costruito sul mare</strong>: la sua "forma di Stato" coincide in larga parte con l'organizzazione delle rotte e degli scali oceanici.</p>
+
+    <h3>Evoluzione dello Stato</h3>
+    <ul class="clean">
+      <li><strong>Monarchia mercantile degli Aviz (sec. XV):</strong> la crisi demografica trecentesca e le guerre civili favoriscono l'ascesa dei <em>ceti mercantili</em> a danno dell'aristocrazia feudale; la corona sostiene i mercanti e ne guida l'espansione atlantica.</li>
+      <li><strong>Impero delle rotte (sec. XVI):</strong> non conquista di territori ma controllo delle vie del commercio; catena di <em>stazioni commerciali</em> costiere fra Africa e India, con Goa capitale d'Oriente.</li>
+      <li><strong>Unione dinastica con la Spagna (1580–1640):</strong> la corona passa a Filippo II, ma <em>senza unificazione politica</em>: le istituzioni portoghesi restano distinte da quelle castigliane.</li>
+      <li><strong>Monarchia dei Braganza (dal 1640):</strong> con la restaurazione dell'indipendenza si ricostituisce una monarchia autonoma, sempre più orientata sull'Atlantico e legata all'Inghilterra.</li>
+      <li><strong>Monarchia coloniale-territoriale (sec. XVII–XVIII):</strong> nel Brasile si passa dalle stazioni costiere alla vera colonizzazione e allo sfruttamento di ampi territori (piantagioni, miniere).</li>
+    </ul>
+
+    <h3>Istituzioni e figure chiave</h3>
+    <ul class="clean">
+      <li><strong>Il viceré di Goa:</strong> massima autorità civile e militare dell'impero commerciale d'Oriente, affiancato da una figura preposta al controllo di merci e traffici.</li>
+      <li><strong>Le stazioni commerciali (<em>feitorias</em>):</strong> basi costiere fortificate per l'oro, l'acqua, il cibo e il monopolio delle spezie: il vero "ossatura" dell'impero.</li>
+      <li><strong>Rapporto corona–ceti:</strong> alleanza fra monarchia Aviz e ceti mercantili (a differenza delle monarchie fondate sull'aristocrazia feudale); nel Seicento la disaffezione verso il governo asburgico spinge alla secessione.</li>
+    </ul>
+  </section>
+
+  <!-- 5. POLITICA INTERNA -->
+  <section class="card">
+    <h2><span class="num">5</span> Politica interna</h2>
+
+    <h3>Dinastia e ceti <span class="pill p-dinastia">società</span></h3>
+    <p>La forza degli <strong>Aviz</strong> nasce dall'appoggio ai <strong>ceti mercantili</strong>, cresciuti dopo la crisi demografica e le guerre civili del Trecento a scapito dell'aristocrazia feudale. La corona ne sostiene gli interessi economici, saldandoli con lo <strong>spirito di crociata</strong> contro i musulmani: le due motivazioni si intrecciano nell'espansione oltremare.</p>
+
+    <h3>Questione religiosa <span class="pill p-religione">religione</span></h3>
+    <p>L'espansione è legittimata come <strong>diffusione della fede cristiana</strong> (motivazione ufficiale, condivisa con la Spagna). Nel Settecento la questione religiosa si rovescia in chiave riformatrice: il Portogallo è il <strong>primo</strong> Stato a <strong>espellere i gesuiti (1759)</strong>, accusati di doppia fedeltà (al re e al papa) e bersaglio delle politiche illuministiche; l'esempio è poi imitato dai Borbone.</p>
+
+    <h3>Conflitti e rivolte <span class="pill p-rivolta">rivolta</span></h3>
+    <ul class="clean">
+      <li><strong>Rivolta e secessione del 1640:</strong> nel quadro della crisi della monarchia asburgica (fisco di Olivares), l'incapacità di difendere il Brasile dagli olandesi spinge il Portogallo a proclamare l'indipendenza e a darsi un re proprio, Giovanni di Braganza.</li>
+      <li><strong>Rivoluzione liberale del 1820:</strong> una sollevazione militare proclama la costituzione spagnola del 1812 e richiama in patria Giovanni VI; il ritorno dell'assolutismo (Michele) e la frattura con il Brasile chiudono l'età moderna portoghese.</li>
+    </ul>
+  </section>
+
+  <!-- 6. POLITICA ESTERA E GUERRE -->
+  <section class="card">
+    <h2><span class="num">6</span> Politica estera e guerre <span class="pill p-guerra">con chi?</span></h2>
+
+    <h3>Contro i mercanti arabi e gli Ottomani — la guerra delle spezie</h3>
+    <p>In Oriente i portoghesi non riescono a scavalcare la <strong>mediazione dei mercanti arabi</strong>, che controllano il commercio delle spezie via Mar Rosso e Golfo Persico. Reagiscono con la forza (bombardamento di Calicut, presa di Cochin) e cercano di bloccare le vie tradizionali, ma la strategia fallisce per l'<strong>alleanza fra l'impero ottomano e Venezia</strong> e per il contrabbando: devono rinunciare al controllo del Golfo Persico.</p>
+
+    <h3>Rivalità e spartizione con la Spagna</h3>
+    <p>Il rapporto con la <strong>Spagna</strong> è il perno della politica estera lusitana: rivalità nella spartizione delle terre oceaniche (<em>linea di Tordesillas</em>), poi <strong>unione delle corone (1580–1640)</strong> sotto gli Asburgo, infine la rottura del 1640. Da rivale, la Spagna diventa la corona di cui il Portogallo è parte — e quindi bersaglio, per interposta corona, degli attacchi olandesi.</p>
+
+    <h3>Contro le Province Unite — la lotta per il Brasile</h3>
+    <p>Durante l'unione iberica, la <strong>Compagnia olandese delle Indie occidentali</strong> conquista buona parte delle colonie portoghesi in Brasile e in Africa (colpendo la corona spagnola). Con la separazione del 1640 la situazione si rovescia: i portoghesi <strong>riconquistano le colonie</strong> e la Compagnia olandese, in declino, è sciolta nel 1674.</p>
+
+    <h3>Alleanza strutturale con l'Inghilterra</h3>
+    <p>Dal Seicento il Portogallo si lega stabilmente all'<strong>Inghilterra</strong> (poi Gran Bretagna): alleanza politico-economica del <strong>1662</strong> (cessione di Bombay in dote con il matrimonio della principessa lusitana e Carlo II Stuart), adesione alla <strong>Grande coalizione dell'Aja (1701)</strong> nella guerra di successione spagnola, e dipendenza commerciale (l'Inghilterra è il "maggior alleato politico e principale alleato commerciale").</p>
+  </section>
+
+  <!-- 7. ECONOMIA E SOCIETÀ -->
+  <section class="card">
+    <h2><span class="num">7</span> Economia e società <span class="pill p-econ">economia</span></h2>
+
+    <h3>Il monopolio delle spezie e l'oro africano</h3>
+    <p>Il motore dell'espansione è duplice: l'<strong>oro e gli schiavi africani</strong> (per le piantagioni di canna da zucchero delle isole atlantiche) e soprattutto il <strong>monopolio delle spezie</strong> d'Oriente. Il pepe e le altre merci si pagano solo in <strong>argento</strong>, che i portoghesi hanno in scarsità: da qui l'atteggiamento aggressivo e la rete di scali che fa di <strong>Goa</strong> il cuore dell'impero commerciale.</p>
+
+    <h3>L'economia atlantica: zucchero, oro, diamanti</h3>
+    <p>Dal Seicento l'asse si sposta sull'Atlantico. Nel Brasile la <strong>canna da zucchero</strong> del Nord diventa l'attività principale, fondata sullo sfruttamento di indigeni e di <strong>schiavi importati dall'Africa occidentale e dall'Angola</strong>. La scoperta di <strong>oro e diamanti</strong> nel Sud sposta l'asse economico verso meridione e attira coloni; il calo dell'oro rilancia poi l'agricoltura (tabacco, cotone), alimentando i traffici con la Gran Bretagna.</p>
+
+    <h3>Ascesa e declino</h3>
+    <p>Il Portogallo inaugura, con la Spagna, gli <strong>imperi coloniali europei</strong> e l'economia-mondo oceanica. Ma nella seconda metà del Seicento è tra i <strong>più antichi imperi in declino</strong>, eroso dalla concorrenza di Francia e Inghilterra: l'America portoghese finisce per diventare, di fatto, una <strong>colonia commerciale inglese</strong>, dipendente dall'alleato britannico.</p>
+  </section>
+
+  <!-- 8. COLLEGAMENTI -->
+  <section class="card">
+    <h2><span class="num">8</span> Collegamenti con le altre nazioni e i grandi temi</h2>
+    <ul class="clean conn">
+      <li><strong>Portogallo ↔ Spagna:</strong> spartizione degli oceani (Tordesillas), <em>unione delle corone iberiche</em> (1580–1640) e secessione (1640): il rapporto ambivalente rivale/partner è il filo conduttore della vicenda lusitana.</li>
+      <li><strong>Portogallo ↔ Province Unite:</strong> la guerra per il Brasile e le colonie è un episodio dell'ascesa marittima olandese e della <em>crisi del Seicento</em>: la separazione dalla Spagna permette al Portogallo di riprendersi le colonie.</li>
+      <li><strong>Portogallo ↔ Inghilterra:</strong> alleanza strutturale (1662, Bombay; coalizione dell'Aja 1701): il Portogallo entra nell'orbita commerciale e politica britannica.</li>
+      <li><strong>Espansione europea &amp; economia-mondo:</strong> con la rotta del Capo e il monopolio delle spezie, il Portogallo apre l'età delle scoperte e ridisegna le gerarchie economiche, spostando i traffici dal Mediterraneo all'Atlantico.</li>
+      <li><strong>Illuminismo &amp; riforme:</strong> la prima espulsione dei gesuiti (1759) fa del Portogallo l'apripista delle politiche riformatrici anti-ecclesiastiche imitate dai Borbone.</li>
+      <li><strong>Restaurazione &amp; rivoluzioni:</strong> restaurazione dei Braganza (1815) e rivoluzione liberale del 1820, con l'indipendenza del Brasile (1822): il Portogallo dentro la crisi degli imperi coloniali e l'onda costituzionale post-napoleonica.</li>
+    </ul>
+  </section>
+
+  <!-- 9. CONCETTI-CHIAVE -->
+  <section class="card">
+    <h2><span class="num">9</span> Concetti-chiave per l'orale</h2>
+    <div class="keys">
+      <div class="key"><span class="term">Dinastia Aviz</span><span class="def">La casa regnante che, appoggiando i ceti mercantili, guida l'espansione atlantica portoghese fra Quattro e Cinquecento (fino al 1580).</span></div>
+      <div class="key"><span class="term">Rotta del Capo</span><span class="def">La via oceanica per l'India aperta da Diaz (Capo di Buona Speranza, 1487) e Vasco da Gama (Calicut, 1498): alternativa alle vie mediterranee delle spezie.</span></div>
+      <div class="key"><span class="term">Impero delle rotte</span><span class="def">Impero fondato sul controllo delle vie commerciali e su una catena di stazioni costiere, non sulla conquista di vasti territori.</span></div>
+      <div class="key"><span class="term">Goa</span><span class="def">Cuore dell'impero commerciale portoghese in Oriente, sede del viceré (massima autorità civile e militare).</span></div>
+      <div class="key"><span class="term">Monopolio delle spezie</span><span class="def">Obiettivo strategico dell'espansione: controllare il commercio del pepe e delle spezie scavalcando i mercanti arabi (pagati solo in argento).</span></div>
+      <div class="key"><span class="term">Linea di Tordesillas</span><span class="def">Delimitazione delle terre oceaniche fra Spagna e Portogallo dopo il viaggio di Colombo: base giuridica della spartizione del mondo.</span></div>
+      <div class="key"><span class="term">Unione delle corone iberiche</span><span class="def">1580–1640: Filippo II eredita il Portogallo, ma senza unificazione politica; le istituzioni restano distinte.</span></div>
+      <div class="key"><span class="term">Restaurazione / Braganza</span><span class="def">Secessione del 1640: il Portogallo riacquista l'indipendenza affidando il trono al duca Giovanni di Braganza.</span></div>
+      <div class="key"><span class="term">Economia atlantica</span><span class="def">Lo spostamento dell'asse imperiale sul Brasile: zucchero, poi oro e diamanti, con largo uso di schiavi africani.</span></div>
+      <div class="key"><span class="term">Alleanza anglo-portoghese</span><span class="def">Legame politico-commerciale strutturale con l'Inghilterra (1662, Bombay in dote): il Portogallo nell'orbita britannica.</span></div>
+    </div>
+  </section>
+
+  <footer>Fonte: F. Benigno, <em>L'età moderna</em> — mappa di ripasso</footer>
+
+</div>
+</body>
+</html>

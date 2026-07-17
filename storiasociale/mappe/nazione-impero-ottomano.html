@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mappa di ripasso — Impero ottomano (1453–1581)</title>
+<style>
+  :root{
+    --bg:#f4f1ea; --paper:#fffdf8; --ink:#2b2620; --muted:#7a7165;
+    --line:#e2dccf; --accent:#5a7a4b; --accent2:#3b6b8a; --accent3:#8a5a3b;
+    --shadow:0 1px 3px rgba(0,0,0,.08),0 8px 24px rgba(0,0,0,.06);
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--bg); color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    line-height:1.55; -webkit-font-smoothing:antialiased;
+    padding:28px 16px 60px;
+  }
+  .wrap{max-width:1000px; margin:0 auto;}
+
+  /* Intestazione pagina */
+  .page-head{
+    text-align:center; margin-bottom:26px;
+  }
+  .page-head .kicker{
+    display:inline-block; font-size:.78rem; letter-spacing:.12em; text-transform:uppercase;
+    color:var(--accent); font-weight:700; margin-bottom:8px;
+  }
+  .page-head h1{
+    font-size:2.1rem; margin:.1em 0 .15em; line-height:1.15;
+  }
+  .page-head .sub{
+    color:var(--muted); font-size:1.02rem; max-width:720px; margin:0 auto;
+  }
+
+  /* Card */
+  .card{
+    background:var(--paper); border:1px solid var(--line); border-radius:14px;
+    padding:24px; box-shadow:var(--shadow); margin-bottom:20px;
+  }
+  .card h2{
+    background:var(--accent); color:#fff; font-size:1.12rem; margin:-4px 0 18px;
+    padding:10px 16px; border-radius:10px; display:flex; align-items:center; gap:10px;
+  }
+  .card h2 .num{
+    background:rgba(255,255,255,.22); border-radius:6px; padding:1px 9px; font-size:.9rem; font-weight:700;
+  }
+  .card h3{
+    font-size:1rem; color:var(--accent3); margin:20px 0 8px; letter-spacing:.01em;
+  }
+  .card p{margin:.5em 0;}
+  .lead{font-size:1.02rem;}
+
+  /* filo rosso box */
+  .filo{
+    border-left:4px solid var(--accent); background:#f2f5ee; padding:12px 16px;
+    border-radius:0 10px 10px 0; margin-top:14px;
+  }
+  .filo strong{color:var(--accent);}
+
+  /* nota / avvertenza */
+  .note{
+    border-left:4px solid var(--accent3); background:#f7f0e8; padding:10px 14px;
+    border-radius:0 10px 10px 0; margin-top:14px; font-size:.9rem; color:var(--muted);
+  }
+
+  /* meta grid intestazione */
+  .meta{
+    display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:12px; margin-top:6px;
+  }
+  .meta .box{
+    background:#faf7f0; border:1px solid var(--line); border-radius:10px; padding:12px 14px;
+  }
+  .meta .box .lbl{font-size:.72rem; text-transform:uppercase; letter-spacing:.08em; color:var(--muted); font-weight:700;}
+  .meta .box .val{font-size:.98rem; margin-top:2px;}
+
+  /* Badge / pill */
+  .pill{
+    display:inline-block; font-size:.7rem; font-weight:700; letter-spacing:.03em;
+    padding:2px 9px; border-radius:999px; text-transform:uppercase; vertical-align:middle;
+    white-space:nowrap;
+  }
+  .p-guerra{background:#f2ddd3; color:#8a4326;}
+  .p-riforma{background:#dbe7d2; color:#3f5e2c;}
+  .p-dinastia{background:#d7e3ec; color:#2c526b;}
+  .p-religione{background:#efe3c6; color:#8a6a1f;}
+  .p-econ{background:#e4dcc9; color:#6f5a2c;}
+  .p-rivolta{background:#ecd3d3; color:#8a2f2f;}
+
+  /* Timeline */
+  .timeline{position:relative; margin:8px 0 0; padding-left:34px;}
+  .timeline::before{
+    content:""; position:absolute; left:11px; top:6px; bottom:6px; width:3px;
+    background:linear-gradient(var(--accent),#c3d3b6);
+  }
+  .tl-item{position:relative; margin-bottom:18px;}
+  .tl-item::before{
+    content:""; position:absolute; left:-27px; top:4px; width:14px; height:14px;
+    border-radius:50%; background:var(--accent); border:3px solid var(--paper);
+    box-shadow:0 0 0 2px var(--accent);
+  }
+  .tl-item .yr{font-weight:800; color:var(--accent2); margin-right:6px;}
+  .tl-item .ev{font-weight:700;}
+  .tl-item .ds{display:block; color:var(--ink); font-size:.95rem; margin-top:2px;}
+
+  /* Tabelle */
+  .table-scroll{overflow-x:auto; -webkit-overflow-scrolling:touch; margin-top:6px;}
+  table{border-collapse:collapse; width:100%; min-width:560px; font-size:.94rem;}
+  th,td{border:1px solid var(--line); padding:8px 11px; text-align:left; vertical-align:top;}
+  thead th{background:#efe9dc; font-size:.82rem; text-transform:uppercase; letter-spacing:.04em;}
+  tbody tr:nth-child(even){background:#faf7f0;}
+  td .din{font-size:.72rem; color:var(--muted);}
+
+  /* liste */
+  ul.clean{margin:.4em 0; padding-left:1.2em;}
+  ul.clean li{margin:.35em 0;}
+  .conn li{margin:.5em 0;}
+  .conn li strong{color:var(--accent2);}
+
+  /* concetti chiave */
+  .keys{display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:12px;}
+  .key{background:#faf7f0; border:1px solid var(--line); border-left:4px solid var(--accent3); border-radius:0 10px 10px 0; padding:11px 13px;}
+  .key .term{font-weight:800; color:var(--accent3); display:block; margin-bottom:2px;}
+  .key .def{font-size:.92rem;}
+
+  footer{text-align:center; color:var(--muted); font-size:.8rem; margin-top:8px;}
+
+  @media (max-width:560px){
+    .page-head h1{font-size:1.6rem;}
+    .card{padding:18px 15px;}
+  }
+  @media print{
+    body{background:#fff; padding:0;}
+    .card{box-shadow:none; border-color:#ccc; break-inside:avoid;}
+    .card h2{background:#5a7a4b !important; -webkit-print-color-adjust:exact; print-color-adjust:exact;}
+    .pill,.key,.meta .box,thead th,tbody tr:nth-child(even){-webkit-print-color-adjust:exact; print-color-adjust:exact;}
+  }
+
+/* barra di navigazione (aggiunta per il sito) */
+.map-top{position:sticky;top:0;z-index:50;display:flex;align-items:center;gap:10px;
+  background:#2b2620;color:#fff;padding:10px 14px;box-shadow:0 2px 8px rgba(0,0,0,.18);
+  margin:-28px -16px 24px;}
+.map-top a{color:#fff;text-decoration:none;font-weight:600;font-size:13.5px;
+  background:rgba(255,255,255,.16);padding:8px 12px;border-radius:9px;white-space:nowrap;}
+.map-top a:active{background:rgba(255,255,255,.32);}
+.map-top .loc{flex:1;text-align:center;font-size:13px;font-weight:600;opacity:.95;}
+@media print{.map-top{display:none}}
+</style>
+</head>
+<body>
+<header class="map-top">
+  <a class="back" href="../index.html#mappe">← Mappe</a>
+  <span class="loc">Mappe per nazione · Impero Ottomano</span>
+</header>
+
+<div class="wrap">
+
+  <div class="page-head">
+    <span class="kicker">Mappa tematica di ripasso · Storia moderna</span>
+    <h1>IMPERO OTTOMANO — La frontiera mediterranea</h1>
+    <p class="sub">Il grande antagonista islamico del Cinquecento europeo: dall'espansione di Solimano il Magnifico allo scontro navale con la Spagna di Filippo II e all'equilibrio del Mediterraneo dopo Lepanto.</p>
+  </div>
+
+  <!-- 1. INTESTAZIONE -->
+  <section class="card">
+    <h2><span class="num">1</span> Intestazione &amp; filo rosso</h2>
+    <div class="meta">
+      <div class="box"><div class="lbl">Nazione</div><div class="val">Impero ottomano (la «Porta» / il sultano di Istanbul)</div></div>
+      <div class="box"><div class="lbl">Arco coperto dalla fonte</div><div class="val">1453 (presa di Costantinopoli) → 1581 (tregua con Filippo II)</div></div>
+      <div class="box"><div class="lbl">Dinastia</div><div class="val">Osmanli (Ottomani), con al vertice il <em>sultano</em></div></div>
+      <div class="box"><div class="lbl">Natura dello Stato</div><div class="val">Sultanato: monarchia teocratico-militare a forte organizzazione amministrativa</div></div>
+    </div>
+    <div class="filo">
+      <strong>Il filo rosso.</strong> Nella fonte l'Impero ottomano è soprattutto il grande <em>antagonista mediterraneo</em> e la <strong>«frontiera» della Cristianità</strong> nel Cinquecento. Potenza vastissima e ben organizzata, dopo la presa di Costantinopoli (1453) dilaga nel Mediterraneo con una duplice offensiva (Balcani ed Oriente) e la pirateria barbaresca, minacciando la «monarchia universale» degli Asburgo. L'urto culmina nello scontro navale con la Spagna di <strong>Filippo II</strong>: caduta di Cipro (1570), <strong>Lega santa</strong> e <strong>battaglia di Lepanto (1571)</strong>. Ma Lepanto non è una svolta epocale: dopo la tregua del 1581 si assesta un <strong>equilibrio</strong>, e il Mediterraneo torna ad essere un mare di commerci, pirateria e frontiera religiosa permeabile fra Islam e Cristianità.
+    </div>
+    <div class="note"><strong>Nota d'uso.</strong> Benigno tratta l'Ottomano quasi solo come controparte del mondo europeo (cap. 6): la mappa è perciò concentrata sul Cinquecento e sul Mediterraneo, e valorizza i collegamenti con Spagna, Venezia e Francia. Le date di regno dei sultani e i termini <em>giannizzeri/timar</em> sono aggiunte minime, funzionali al ripasso.</div>
+  </section>
+
+  <!-- 2. LINEA DEL TEMPO -->
+  <section class="card">
+    <h2><span class="num">2</span> Linea del tempo</h2>
+    <div class="timeline">
+      <div class="tl-item"><span class="pill p-dinastia">svolta</span>
+        <div><span class="yr">1453</span><span class="ev">Presa di Costantinopoli</span>
+        <span class="ds">Gli ottomani conquistano la capitale bizantina: fine dell'Impero romano d'Oriente e inizio della grande espansione ottomana nel Mediterraneo. (Da qui i sovrani di Mosca rivendicheranno l'eredità di Bisanzio come «terza Roma».)</span></div></div>
+
+      <div class="tl-item"><span class="pill p-dinastia">apogeo</span>
+        <div><span class="yr">1ª metà del '500</span><span class="ev">Apogeo sotto Solimano il Magnifico</span>
+        <span class="ds">L'organizzazione amministrativa e militare, consolidata fra Quattro e Cinquecento, tocca il culmine con Solimano: l'impero si estende dalle frontiere del Marocco alla Persia, dai Balcani al Mar Nero. Duplice offensiva nei Balcani e nel Mediterraneo orientale, appoggiata dalla pirateria barbaresca.</span></div></div>
+
+      <div class="tl-item"><span class="pill p-guerra">frontiera</span>
+        <div><span class="yr">1535 · 1551</span><span class="ev">Tripoli: la partita nordafricana</span>
+        <span class="ds">Carlo V conquista Tripoli (1535), ma la piazza è perduta nel 1551: la costa barbaresca (Nord Africa) resta base di corsa a danno dei cristiani, sotto l'ombrello ottomano.</span></div></div>
+
+      <div class="tl-item"><span class="pill p-guerra">guerra</span>
+        <div><span class="yr">~1560</span><span class="ev">Il fallimento di Filippo II a Tripoli</span>
+        <span class="ds">Primo passo di Filippo II nel Mediterraneo: una controffensiva contro le basi della pirateria per riprendere Tripoli. La spedizione si rivela «un vero fallimento».</span></div></div>
+
+      <div class="tl-item"><span class="pill p-guerra">conquista</span>
+        <div><span class="yr">1570</span><span class="ev">Conquista ottomana di Cipro</span>
+        <span class="ds">Le forze ottomane strappano Cipro a Venezia: perdita di un possedimento strategico ed economico. Allarme in tutta l'Europa cristiana e nella Santa Sede, che vede nell'avanzata turca una minaccia mortale.</span></div></div>
+
+      <div class="tl-item"><span class="pill p-religione">alleanza</span>
+        <div><span class="yr">1571</span><span class="ev">La Lega santa</span>
+        <span class="ds">Papa Pio V spinge alla crociata: nasce l'alleanza fra Santa Sede, Venezia e Filippo II (con Genova, Savoia, Toscana e l'Ordine di Malta). La Francia, tradizionale alleata europea del sultano, ne resta fuori.</span></div></div>
+
+      <div class="tl-item"><span class="pill p-guerra">battaglia</span>
+        <div><span class="yr">1571</span><span class="ev">Battaglia di Lepanto</span>
+        <span class="ds">Primo scontro fra Lega santa e ottomani: vittoria della flotta cristiana. Non un evento epocale, ma un <em>mito</em> del trionfo dell'Europa cristiana sull'«invasione» turca.</span></div></div>
+
+      <div class="tl-item"><span class="pill p-guerra">pace</span>
+        <div><span class="yr">1581</span><span class="ev">Tregua con Filippo II — l'equilibrio mediterraneo</span>
+        <span class="ds">Dieci anni dopo Lepanto, Filippo II e il sultano siglano una tregua, poi sempre rinnovata. Il Mediterraneo smette di essere teatro di grandi conflitti e torna mare dei commerci e della pirateria (cristiana e musulmana).</span></div></div>
+
+      <div class="tl-item"><span class="pill p-dinastia">contesto</span>
+        <div><span class="yr">dal 1588</span><span class="ev">Filippo II guarda al Nord</span>
+        <span class="ds">Con la frontiera turca stabilizzata, la Spagna concentra le energie nei conflitti dell'Europa settentrionale (Francia, Fiandre, Inghilterra: l'<em>Invencible Armada</em>, 1588). Il Mediterraneo si «smilitarizza».</span></div></div>
+    </div>
+  </section>
+
+  <!-- 3. SOVRANI E DINASTIE -->
+  <section class="card">
+    <h2><span class="num">3</span> Sovrani e dinastie</h2>
+    <div class="table-scroll">
+    <table>
+      <thead><tr><th>Sultano</th><th>Regno</th><th>Dinastia</th><th>Cosa lo caratterizza</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>Maometto II <span class="din">(«il Conquistatore»)</span></td>
+          <td>1451–1481</td>
+          <td>Osmanli</td>
+          <td>Conquista Costantinopoli (1453): avvia l'espansione ottomana nel Mediterraneo e chiude la storia dell'Impero bizantino.</td>
+        </tr>
+        <tr>
+          <td>Solimano il Magnifico <span class="din">(Solimano I)</span></td>
+          <td>1520–1566</td>
+          <td>Osmanli</td>
+          <td>Figura-chiave della fonte: sotto di lui l'apparato militare-amministrativo si consolida e l'impero tocca la massima espansione (Marocco→Persia, Balcani→Mar Nero).</td>
+        </tr>
+        <tr>
+          <td>Selim II <span class="din">(la fonte scrive «Selim»)</span></td>
+          <td>1566–1574</td>
+          <td>Osmanli</td>
+          <td>Regna nella fase della conquista di Cipro (1570) e di Lepanto (1571). Sotto i suoi successori matura la tregua/equilibrio con la Spagna (1581).</td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+    <div class="note">La fonte nomina esplicitamente solo <strong>Solimano il Magnifico</strong> e un <em>«sultano Selim»</em>; le date di regno sono aggiunte minime per orientarsi. All'orale conviene ancorare tutto alla coppia <strong>Solimano (apogeo) → Lepanto/Selim (1571)</strong>.</div>
+  </section>
+
+  <!-- 4. FORMA DI GOVERNO E ISTITUZIONI -->
+  <section class="card">
+    <h2><span class="num">4</span> Forma di governo e istituzioni</h2>
+    <p class="lead">L'Ottomano è un <strong>sultanato</strong>: la forza dell'impero — sottolinea Benigno — sta nella sua <strong>solida organizzazione amministrativa e militare</strong>, consolidata fra Quattro e Cinquecento. Non un mosaico di corone come la «monarchia composita» spagnola, ma un apparato centralizzato che governa popoli diversissimi per lingua e tradizione, uniti solo dalla fede musulmana.</p>
+
+    <h3>Il vertice e l'amministrazione</h3>
+    <ul class="clean">
+      <li><strong>Il sultano:</strong> capo supremo con autorità <em>assoluta</em> in ogni ambito, tranne quello religioso, dove vige la legge del Corano.</li>
+      <li><strong>Il gran visir e il Gran consiglio centrale:</strong> il gran visir detiene un potere <em>pari</em> a quello del sovrano, ma può essere destituito in qualsiasi momento; è affiancato da funzionari a capo dei singoli settori di governo.</li>
+      <li><strong>Amministrazione capillare:</strong> si estende a tutte le province, rette da <em>governatori</em> e, sotto di loro, dai responsabili dei distretti.</li>
+    </ul>
+
+    <h3>La società divisa in due gruppi</h3>
+    <ul class="clean">
+      <li><strong><em>'askeri</em> (i «soldati»):</strong> chi svolge una funzione militare, civile o religiosa al servizio del sultano — la classe di servizio, esente da imposte.</li>
+      <li><strong><em>re'aya</em> (i «sudditi»):</strong> contadini, artigiani, mercanti e i non-musulmani; sono coloro che <em>pagano le tasse</em>.</li>
+    </ul>
+
+    <h3>Autorità religiosa e apparato militare</h3>
+    <ul class="clean">
+      <li><strong>Müfti di Istanbul:</strong> massima autorità religiosa dell'impero.</li>
+      <li><strong><em>Qadi</em> (i giudici):</strong> fanno rispettare la legge coranica e vigilano sulla sfera civile — legalità del commercio, mercati, moralità.</li>
+      <li><strong>Apparato militare-amministrativo</strong> <span class="pill p-guerra">integrazione minima</span>: al servizio del sultano stanno i <em>giannizzeri</em> (fanteria scelta) e il <em>sistema dei timar</em> (concessioni di terra in cambio di servizio militare della cavalleria), spina dorsale della macchina ottomana.</li>
+    </ul>
+  </section>
+
+  <!-- 5. POLITICA INTERNA -->
+  <section class="card">
+    <h2><span class="num">5</span> Politica interna &amp; questione religiosa</h2>
+
+    <h3>La tolleranza religiosa <span class="pill p-religione">religione</span></h3>
+    <p>La religione ufficiale è quella <strong>musulmana</strong>, ma nell'impero vige una <strong>grande tolleranza religiosa</strong>: i governanti ottomani non nutrirono mai alcun interesse a cancellare la fede o le peculiarità delle diverse popolazioni. Convivono cospicue minoranze (<strong>ebrei, cristiani cattolici e ortodossi</strong>), e ciascun popolo conserva le proprie tradizioni. È un tratto opposto alla logica confessionale-inquisitoriale della «monarchia cattolica» spagnola.</p>
+
+    <h3>Un impero multietnico</h3>
+    <p>Un territorio vastissimo, abitato da popolazioni assai diverse per lingua e costumi, <strong>unite solo dalla fede musulmana</strong>. La coesione non nasce da un'identità comune ma dall'efficienza dell'apparato di governo e dalla legittimità religiosa del sultano.</p>
+
+    <div class="note">Benigno accenna anche a una fragilità di fondo comune ai grandi imperi (come la Russia): la difficoltà di governare estensioni enormi, discontinue e abitate da popoli di lingua, cultura e fede diverse. La fonte non sviluppa però conflitti interni o rivolte ottomane: l'attenzione resta sul fronte mediterraneo.</div>
+  </section>
+
+  <!-- 6. POLITICA ESTERA E GUERRE -->
+  <section class="card">
+    <h2><span class="num">6</span> Politica estera e guerre <span class="pill p-guerra">con chi?</span></h2>
+
+    <h3>L'espansione e la frontiera mediterranea</h3>
+    <p>Dopo il 1453, l'espansionismo ottomano realizza una <strong>duplice offensiva</strong>: una nei <strong>Balcani</strong>, l'altra nel <strong>Mediterraneo orientale</strong>. È una delle grandi minacce al sogno di «monarchia universale» di <strong>Carlo V</strong>, insieme alla Riforma protestante e alla Lega di Smalcalda (che con la Francia si appoggiava anch'essa al sultano).</p>
+
+    <h3>Contro la Spagna di Filippo II</h3>
+    <p>Lo scontro-cardine è con la <strong>monarchia cattolica di Filippo II</strong>, che difende il Mediterraneo occidentale. Sequenza: fallita spedizione spagnola su <strong>Tripoli</strong> (~1560) → conquista ottomana di <strong>Cipro</strong> a danno di Venezia (1570) → <strong>Lega santa</strong> (1571) → <strong>Lepanto</strong> (1571) → <strong>tregua</strong> del 1581, poi sempre rinnovata.</p>
+
+    <h3>La Lega santa — con chi?</h3>
+    <ul class="clean">
+      <li><strong>Santa Sede</strong> (papa Pio V, promotore), <strong>Repubblica di Venezia</strong> (colpita nella perdita di Cipro) e <strong>Filippo II di Spagna</strong>, nucleo dell'alleanza.</li>
+      <li>Aderiscono <strong>Genova, i duchi di Savoia e di Toscana</strong> e l'<strong>Ordine di Malta</strong>.</li>
+      <li>Ne resta fuori la <strong>Francia</strong>, «tradizionale alleata europea del sultano di Istanbul».</li>
+    </ul>
+
+    <h3>La corsa barbaresca e la guerriglia</h3>
+    <p>Accanto alle grandi battaglie, la guerra di frontiera è fatta di <strong>piccole scorrerie</strong>: la <strong>pirateria barbaresca</strong> del Nord Africa, sostenuta dall'Impero ottomano, colpisce le popolazioni cristiane. Dopo il 1571 il Mediterraneo torna mare della <strong>pirateria</strong> praticata da cristiani e musulmani con gli stessi scopi: bottino e <strong>prigionieri</strong> da usare come schiavi, rematori sulle galere o merce da riscatto.</p>
+
+    <h3>Rapporti con Venezia (commercio)</h3>
+    <p>Non solo guerra: la fonte ricorda l'<strong>alleanza commerciale tra l'impero ottomano e Venezia</strong>, che (insieme al contrabbando di spezie) contribuì a far fallire il tentativo portoghese di bloccare le vie tradizionali del commercio delle spezie tra Levante e Oriente. L'Ottomano controllava i territori-cerniera fra Mediterraneo e Oceano Indiano.</p>
+
+    <div class="table-scroll">
+    <table>
+      <thead><tr><th>Evento</th><th>Anno</th><th>Contro chi / con chi</th><th>Esito</th></tr></thead>
+      <tbody>
+        <tr><td>Presa di Costantinopoli</td><td>1453</td><td>vs Impero bizantino</td><td>Nasce la potenza mediterranea ottomana.</td></tr>
+        <tr><td>Spedizione su Tripoli</td><td>~1560</td><td>Filippo II vs basi barbaresche</td><td>Fallimento spagnolo.</td></tr>
+        <tr><td>Conquista di Cipro</td><td>1570</td><td>Ottomani vs Venezia</td><td>Allarme dell'Europa cristiana; spinta alla Lega.</td></tr>
+        <tr><td>Battaglia di Lepanto</td><td>1571</td><td>Lega santa vs Ottomani</td><td>Vittoria cristiana (mito più che svolta).</td></tr>
+        <tr><td>Tregua ispano-ottomana</td><td>1581</td><td>Filippo II ↔ sultano</td><td>Equilibrio nel Mediterraneo, poi rinnovato.</td></tr>
+      </tbody>
+    </table>
+    </div>
+  </section>
+
+  <!-- 7. ECONOMIA E SOCIETÀ -->
+  <section class="card">
+    <h2><span class="num">7</span> Economia e società <span class="pill p-econ">economia</span></h2>
+
+    <h3>Una potenza commerciale-cerniera</h3>
+    <p>La forza economica dell'impero sta nella sua <strong>posizione geografica</strong>: comprende i territori che mettono in contatto il <strong>Mediterraneo e l'Oceano Indiano</strong> e le grandi vie del commercio orientale (spezie, pepe, stoffe). Da qui l'importanza dei mercanti che attraversano Mar Rosso e Golfo Persico e l'<strong>alleanza con Venezia</strong>, principale interlocutore commerciale cristiano nel Levante.</p>
+
+    <h3>La società di servizio e i sudditi</h3>
+    <p>La struttura sociale ricalca la divisione istituzionale: gli <strong><em>'askeri</em></strong> (classe di servizio militare-civile-religiosa, esente) e i <strong><em>re'aya</em></strong> (contadini, artigiani, mercanti, non-musulmani), su cui grava il carico fiscale. La legalità di mercati e commerci è vigilata dai <em>qadi</em>.</p>
+
+    <h3>Schiavi, riscatti e «rinnegati»</h3>
+    <p>L'economia di frontiera vive di <strong>prigionieri</strong>: schiavi per i lavori forzati e i remi delle galere, ostaggi per il riscatto. Si diffonde il fenomeno dei <strong>«rinnegati»</strong>: schiavi cristiani che, per sfuggire alla miseria, si convertono all'islam e intraprendono una carriera al servizio dei sultani — segno di una frontiera religiosa e culturale <em>permeabile</em>.</p>
+  </section>
+
+  <!-- 8. COLLEGAMENTI -->
+  <section class="card">
+    <h2><span class="num">8</span> Collegamenti con le altre nazioni e i grandi temi</h2>
+    <ul class="clean conn">
+      <li><strong>Ottomani ↔ Spagna:</strong> è il duello centrale del capitolo. La difesa del Mediterraneo occidentale è una delle priorità di Filippo II (accanto ai moriscos e ai costi di guerra); Lepanto e la tregua del 1581 definiscono l'<em>equilibrio</em> fra le due potenze.</li>
+      <li><strong>Ottomani ↔ Venezia:</strong> rapporto ambivalente — <em>alleata commerciale</em> nel Levante ma <em>vittima</em> della conquista di Cipro, che la spinge nella Lega santa.</li>
+      <li><strong>Ottomani ↔ Francia:</strong> la Francia è la «tradizionale alleata europea del sultano»: contro l'egemonia asburgica, i re francesi (come la Lega di Smalcalda) si appoggiano alla Porta. Perciò resta fuori dalla Lega santa.</li>
+      <li><strong>Ottomani ↔ Impero/Asburgo:</strong> il blocco asburgico d'Europa centro-orientale (carica imperiale quasi-ereditaria dal 1438) serve ad <em>arginare</em> l'espansione ottomana a Oriente.</li>
+      <li><strong>Confessionalizzazione (per contrasto):</strong> alla logica europea di uniformità religiosa (Inquisizione, guerre di religione) l'Ottomano oppone una <em>tolleranza</em> pragmatica verso ebrei e cristiani: utile termine di paragone all'orale.</li>
+      <li><strong>Mediterraneo come frontiera:</strong> l'Ottomano incarna il «confine» fra Islam e Cristianità — non muro invalicabile ma zona porosa di corsa, commercio, schiavitù e conversioni (i rinnegati).</li>
+    </ul>
+  </section>
+
+  <!-- 9. CONCETTI-CHIAVE -->
+  <section class="card">
+    <h2><span class="num">9</span> Concetti-chiave per l'orale</h2>
+    <div class="keys">
+      <div class="key"><span class="term">Sultano</span><span class="def">Capo supremo con autorità assoluta in ogni ambito, salvo quello religioso (legge del Corano).</span></div>
+      <div class="key"><span class="term">Gran visir</span><span class="def">Capo del Gran consiglio centrale, con potere pari al sovrano ma destituibile in qualsiasi momento.</span></div>
+      <div class="key"><span class="term">'askeri / re'aya</span><span class="def">I due grandi gruppi sociali: la classe di servizio (esente) e i sudditi che pagano le tasse.</span></div>
+      <div class="key"><span class="term">Müfti e qadi</span><span class="def">Il müfti di Istanbul è la massima autorità religiosa; i qadi (giudici) applicano la legge coranica e vigilano su commercio e moralità.</span></div>
+      <div class="key"><span class="term">Giannizzeri / timar</span><span class="def">Fanteria scelta e sistema di concessioni di terra per il servizio militare: l'apparato militare che regge l'impero.</span></div>
+      <div class="key"><span class="term">Corsa barbaresca</span><span class="def">Pirateria nordafricana sostenuta dagli ottomani: scorrerie contro i cristiani, bottino e prigionieri.</span></div>
+      <div class="key"><span class="term">Lega santa</span><span class="def">Alleanza del 1571 (Pio V, Venezia, Filippo II + Genova, Savoia, Toscana, Malta) contro gli ottomani.</span></div>
+      <div class="key"><span class="term">Battaglia di Lepanto</span><span class="def">Vittoria cristiana del 1571: non svolta epocale ma mito del trionfo dell'Europa cristiana.</span></div>
+      <div class="key"><span class="term">Rinnegati</span><span class="def">Cristiani convertiti all'islam per fare carriera al servizio dei sultani: segno della frontiera permeabile.</span></div>
+      <div class="key"><span class="term">Frontiera mediterranea</span><span class="def">Il Mediterraneo come confine poroso fra Islam e Cristianità: guerra, commercio, schiavitù, conversioni.</span></div>
+    </div>
+  </section>
+
+  <footer>Fonte: F. Benigno, <em>L'età moderna</em> — mappa di ripasso</footer>
+
+</div>
+</body>
+</html>

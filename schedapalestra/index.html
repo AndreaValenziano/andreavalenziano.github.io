@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#ff5722">
+<title>Scheda Palestra</title>
+<style>
+  /* ===== Reset & base ===== */
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html, body { margin: 0; padding: 0; }
+  :root {
+    --bg: #f3f4f6;
+    --card: #ffffff;
+    --text: #14171a;
+    --muted: #6b7280;
+    --border: #e5e7eb;
+    --accent: #ff5722;
+    --accent-soft: #fff1ec;
+    --accent-dark: #e64a19;
+    --warm: #fff8e6;
+    --warm-border: #ffe3a3;
+    --ok: #16a34a;
+    --shadow: 0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.04);
+    --radius: 16px;
+    --safe-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0f1215;
+      --card: #1a1e23;
+      --text: #f2f4f6;
+      --muted: #9aa3ad;
+      --border: #2a2f36;
+      --accent: #ff7043;
+      --accent-soft: #2a1c16;
+      --accent-dark: #ff8a65;
+      --warm: #241f12;
+      --warm-border: #4a3d1a;
+      --shadow: 0 1px 3px rgba(0,0,0,.4);
+    }
+  }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    font-size: 16px;
+    line-height: 1.4;
+    -webkit-font-smoothing: antialiased;
+    padding-bottom: calc(24px + var(--safe-bottom));
+  }
+  button { font-family: inherit; cursor: pointer; border: none; background: none; color: inherit; }
+  input, textarea { font-family: inherit; font-size: 16px; color: var(--text); }
+  .hidden { display: none !important; }
+
+  /* ===== App shell ===== */
+  header.appbar {
+    position: sticky; top: 0; z-index: 30;
+    background: var(--card);
+    border-bottom: 1px solid var(--border);
+    padding: calc(env(safe-area-inset-top, 0px) + 10px) 16px 0;
+  }
+  .appbar-row {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 8px; padding-bottom: 10px;
+  }
+  .brand { display: flex; align-items: center; gap: 8px; font-weight: 800; font-size: 19px; }
+  .brand .dot { width: 12px; height: 12px; border-radius: 50%; background: var(--accent); }
+  .iconbtn {
+    width: 40px; height: 40px; border-radius: 12px;
+    display: grid; place-items: center; font-size: 20px;
+    background: var(--bg); color: var(--text);
+  }
+  .iconbtn:active { background: var(--border); }
+  .appbar-actions { display: flex; gap: 8px; position: relative; }
+
+  /* dropdown menu */
+  .menu {
+    position: absolute; right: 0; top: 48px;
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 14px; box-shadow: var(--shadow);
+    min-width: 200px; overflow: hidden; z-index: 40;
+  }
+  .menu button {
+    display: block; width: 100%; text-align: left;
+    padding: 14px 16px; font-size: 15px; border-bottom: 1px solid var(--border);
+  }
+  .menu button:last-child { border-bottom: none; }
+  .menu button:active { background: var(--bg); }
+
+  /* tabs */
+  .tabs { display: flex; gap: 6px; }
+  .tab {
+    flex: 1; padding: 12px 6px; text-align: center;
+    font-weight: 700; font-size: 15px; color: var(--muted);
+    border-bottom: 3px solid transparent; margin-bottom: -1px;
+  }
+  .tab.active { color: var(--accent); border-bottom-color: var(--accent); }
+
+  /* ===== Content ===== */
+  main { max-width: 640px; margin: 0 auto; padding: 16px; }
+
+  .warmup {
+    background: var(--warm); border: 1px solid var(--warm-border);
+    border-radius: var(--radius); padding: 14px 16px; margin-bottom: 16px;
+    display: flex; gap: 12px; align-items: flex-start;
+  }
+  .warmup .emoji { font-size: 24px; line-height: 1; }
+  .warmup h3 { margin: 0 0 3px; font-size: 14px; text-transform: uppercase; letter-spacing: .5px; }
+  .warmup textarea {
+    width: 100%; border: none; background: transparent; resize: none;
+    font-size: 15px; line-height: 1.45; padding: 0; margin-top: 2px;
+  }
+  .warmup textarea:focus { outline: none; }
+
+  .card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: var(--radius); box-shadow: var(--shadow);
+    padding: 16px; margin-bottom: 14px;
+  }
+  .card-head { display: flex; align-items: baseline; gap: 8px; }
+  .card-num {
+    flex: none; width: 26px; height: 26px; border-radius: 8px;
+    background: var(--accent-soft); color: var(--accent-dark);
+    font-weight: 800; font-size: 13px; display: grid; place-items: center;
+    position: relative; top: 2px;
+  }
+  .card-name { font-weight: 700; font-size: 18px; flex: 1; }
+  .ref {
+    color: var(--muted); font-size: 13.5px; margin: 8px 0 0;
+    line-height: 1.4;
+  }
+
+  /* weight block (the hero) */
+  .weightbox {
+    margin-top: 14px; background: var(--accent-soft);
+    border-radius: 14px; padding: 12px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .stepbtn {
+    flex: none; width: 52px; height: 52px; border-radius: 14px;
+    background: var(--card); border: 1px solid var(--border);
+    font-size: 28px; font-weight: 700; color: var(--accent-dark);
+    display: grid; place-items: center; line-height: 1;
+  }
+  .stepbtn:active { background: var(--border); transform: scale(.96); }
+  .weight-center { flex: 1; text-align: center; min-width: 0; }
+  .weight-val {
+    display: inline-flex; align-items: baseline; gap: 4px;
+    justify-content: center;
+  }
+  .weight-input {
+    width: 4ch; border: none; background: transparent;
+    font-size: 34px; font-weight: 800; color: var(--accent-dark);
+    text-align: right; padding: 0;
+    -moz-appearance: textfield;
+  }
+  .weight-input::-webkit-outer-spin-button,
+  .weight-input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+  .weight-input:focus { outline: none; }
+  .weight-unit { font-size: 20px; font-weight: 700; color: var(--accent-dark); }
+  .perbraccio { display: block; font-size: 12px; color: var(--muted); margin-top: 2px; font-weight: 600; }
+  .corpolibero {
+    margin-top: 14px; background: var(--bg); border-radius: 14px;
+    padding: 14px; text-align: center; color: var(--muted);
+    font-weight: 700; font-size: 15px;
+  }
+
+  /* series / reps + notes */
+  .fields { display: flex; gap: 10px; margin-top: 12px; }
+  .field { flex: 1; }
+  .field label { display: block; font-size: 12px; color: var(--muted); font-weight: 600; margin-bottom: 4px; }
+  .field input {
+    width: 100%; padding: 10px; border: 1px solid var(--border);
+    border-radius: 10px; background: var(--bg);
+  }
+  .note-personal { margin-top: 12px; }
+  .note-personal label { display: block; font-size: 12px; color: var(--muted); font-weight: 600; margin-bottom: 4px; }
+  .note-personal textarea {
+    width: 100%; min-height: 44px; padding: 10px; border: 1px solid var(--border);
+    border-radius: 10px; background: var(--bg); resize: vertical; line-height: 1.4;
+  }
+  input:focus, textarea:focus { outline: 2px solid var(--accent); outline-offset: -1px; border-color: transparent; }
+
+  /* big primary button */
+  .btn-primary {
+    display: block; width: 100%; padding: 16px;
+    background: var(--accent); color: #fff; font-weight: 800; font-size: 16px;
+    border-radius: 14px; margin-top: 6px; box-shadow: var(--shadow);
+  }
+  .btn-primary:active { background: var(--accent-dark); }
+  .btn-primary:disabled { opacity: .6; }
+
+  /* save toast */
+  .toast {
+    position: fixed; left: 50%; bottom: calc(20px + var(--safe-bottom));
+    transform: translateX(-50%) translateY(20px);
+    background: var(--text); color: var(--bg);
+    padding: 12px 20px; border-radius: 999px; font-weight: 700; font-size: 14px;
+    opacity: 0; transition: all .25s; z-index: 60; pointer-events: none;
+    box-shadow: 0 4px 16px rgba(0,0,0,.25);
+  }
+  .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+  /* sync indicator */
+  .sync { font-size: 12px; color: var(--muted); display: flex; align-items: center; gap: 5px; }
+  .sync .led { width: 8px; height: 8px; border-radius: 50%; background: var(--ok); }
+  .sync.saving .led { background: var(--accent); animation: pulse 1s infinite; }
+  @keyframes pulse { 50% { opacity: .3; } }
+
+  /* ===== Storico ===== */
+  .storico-select {
+    width: 100%; padding: 14px; border: 1px solid var(--border);
+    border-radius: 12px; background: var(--card); font-size: 16px; font-weight: 600;
+    margin-bottom: 16px;
+  }
+  .hist-row {
+    display: flex; align-items: center; gap: 12px;
+    padding: 12px 4px; border-bottom: 1px solid var(--border);
+  }
+  .hist-date { flex: none; width: 92px; font-size: 14px; color: var(--muted); font-weight: 600; }
+  .hist-bar-wrap { flex: 1; height: 22px; background: var(--bg); border-radius: 6px; overflow: hidden; }
+  .hist-bar { height: 100%; background: var(--accent); border-radius: 6px; min-width: 3px; }
+  .hist-val { flex: none; width: 74px; text-align: right; font-weight: 800; color: var(--accent-dark); }
+  .empty { text-align: center; color: var(--muted); padding: 40px 20px; }
+
+  /* ===== Login ===== */
+  .login-wrap {
+    min-height: 100vh; display: flex; align-items: center; justify-content: center;
+    padding: 24px;
+  }
+  .login-card {
+    width: 100%; max-width: 380px; background: var(--card);
+    border: 1px solid var(--border); border-radius: 20px; box-shadow: var(--shadow);
+    padding: 28px 24px;
+  }
+  .login-card .logo {
+    width: 56px; height: 56px; border-radius: 16px; background: var(--accent);
+    display: grid; place-items: center; font-size: 30px; margin: 0 auto 16px;
+  }
+  .login-card h1 { text-align: center; font-size: 22px; margin: 0 0 4px; }
+  .login-card p.sub { text-align: center; color: var(--muted); margin: 0 0 22px; font-size: 14px; }
+  .login-card label { display: block; font-size: 13px; font-weight: 600; color: var(--muted); margin: 14px 0 6px; }
+  .login-card input {
+    width: 100%; padding: 14px; border: 1px solid var(--border);
+    border-radius: 12px; background: var(--bg);
+  }
+  .login-error {
+    background: #fee2e2; color: #b91c1c; border-radius: 10px;
+    padding: 10px 12px; font-size: 14px; margin-top: 16px; font-weight: 600;
+  }
+  @media (prefers-color-scheme: dark) { .login-error { background: #3b1414; color: #fca5a5; } }
+  .config-warn {
+    background: var(--warm); border: 1px solid var(--warm-border);
+    border-radius: 12px; padding: 14px; font-size: 13.5px; margin-top: 20px; line-height: 1.5;
+  }
+  .config-warn code { background: rgba(0,0,0,.08); padding: 1px 5px; border-radius: 5px; font-size: 12.5px; }
+  @media (prefers-color-scheme: dark) { .config-warn code { background: rgba(255,255,255,.12); } }
+</style>
+</head>
+<body>
+
+<!-- LOGIN VIEW -->
+<div id="loginView" class="login-wrap">
+  <div class="login-card">
+    <div class="logo">🏋️</div>
+    <h1>Scheda Palestra</h1>
+    <p class="sub">Accedi per vedere la tua scheda</p>
+    <form id="loginForm">
+      <label for="email">Email</label>
+      <input id="email" type="email" autocomplete="username" inputmode="email" placeholder="tuamail@esempio.it" required>
+      <label for="password">Password</label>
+      <input id="password" type="password" autocomplete="current-password" placeholder="••••••••" required>
+      <button type="submit" class="btn-primary" style="margin-top:22px">Accedi</button>
+      <div id="loginError" class="login-error hidden"></div>
+    </form>
+    <div id="configWarn" class="config-warn hidden">
+      ⚠️ <strong>App non ancora configurata.</strong><br>
+      Apri <code>index.html</code> e inserisci <code>SUPABASE_URL</code> e <code>SUPABASE_ANON_KEY</code>.
+      Segui la <strong>GUIDA.md</strong> per i passaggi.
+    </div>
+  </div>
+</div>
+
+<!-- APP VIEW -->
+<div id="appView" class="hidden">
+  <header class="appbar">
+    <div class="appbar-row">
+      <div class="brand"><span class="dot"></span> Scheda Palestra</div>
+      <div class="appbar-actions">
+        <div id="sync" class="sync"><span class="led"></span><span id="syncText">Salvato</span></div>
+        <button class="iconbtn" id="menuBtn" aria-label="Menu">⋯</button>
+        <div id="menu" class="menu hidden">
+          <button data-act="storico">📈 Storico progressione</button>
+          <button data-act="export">⬇️ Esporta dati (JSON)</button>
+          <button data-act="import">⬆️ Importa dati (JSON)</button>
+          <button data-act="logout">🚪 Esci</button>
+        </div>
+      </div>
+    </div>
+    <div class="tabs">
+      <div class="tab active" data-view="A">Scheda A</div>
+      <div class="tab" data-view="B">Scheda B</div>
+      <div class="tab" data-view="storico">Storico</div>
+    </div>
+  </header>
+  <main id="content"></main>
+</div>
+
+<div id="toast" class="toast"></div>
+<input type="file" id="importFile" accept="application/json,.json" class="hidden">
+
+<script type="module">
+import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
+
+/* ============================================================
+   CONFIGURAZIONE — inserisci qui le tue chiavi Supabase
+   (le trovi in: Project Settings → API). Vedi GUIDA.md
+   ============================================================ */
+const SUPABASE_URL = 'https://hkporomgwfdyriihwiil.supabase.co';
+const SUPABASE_ANON_KEY = 'sb_publishable_nyZ7pjV4dpTqWVpRldOdVQ_mKEIkJau';
+
+/* ===== Dati predefiniti ===== */
+const RISCALDAMENTO = 'Glidex (ellittica/cardio) — inclinazione max, velocità 3,5.';
+
+const DEFAULT_STATE = {
+  schede: {
+    A: {
+      titolo: 'Scheda A — Parte alta',
+      riscaldamento: RISCALDAMENTO,
+      esercizi: [
+        { id:'a1', nome:'Incline press', gruppo:'pettorali', peso:6.25, step:1.25, perBraccio:true,
+          note_riferimento:'Manubri "braccia rosse", zona pesi davanti alla finestra.' },
+        { id:'a2', nome:'Pectoral fly', peso:28, step:1,
+          note_riferimento:'Macchina dietro il tapis roulant.' },
+        { id:'a3', nome:'Lat pulldown', peso:35, step:5,
+          note_riferimento:'Macchina dietro il tapis; scendendo, gomiti avanti e giù.' },
+        { id:'a4', nome:'Pulley basso / low row', peso:26, step:1,
+          note_riferimento:'Ai cavi, da seduto, impugnatura a triangolo.' },
+        { id:'a5', nome:'Alzate laterali con manubri', peso:2.5, step:0.5, perBraccio:true,
+          note_riferimento:'' },
+        { id:'a6', nome:'Alzate frontali con disco', peso:5, step:1.25,
+          note_riferimento:'Disco all’altezza degli occhi, tenere qualche secondo.' },
+        { id:'a7', nome:'Crunch alla panca', corpoLibero:true,
+          note_riferimento:'A corpo libero.' },
+      ]
+    },
+    B: {
+      titolo: 'Scheda B — Parte bassa e braccia',
+      riscaldamento: RISCALDAMENTO,
+      esercizi: [
+        { id:'b1', nome:'Squat con manubrio', peso:10, step:1,
+          note_riferimento:'Un manubrio tenuto tra le mani, esegui lo squat.' },
+        { id:'b2', nome:'Leg curl', peso:21, step:1, note_riferimento:'' },
+        { id:'b3', nome:'Leg extension', peso:28, step:1, note_riferimento:'' },
+        { id:'b4', nome:'Curl bicipiti con manubri', peso:5, step:1, perBraccio:true,
+          note_riferimento:'' },
+        { id:'b5', nome:'Push down tricipiti alla colonna (cavo)', peso:13, step:1,
+          note_riferimento:'Da aumentare, tieni i gomiti fermi.' },
+        { id:'b6', nome:'Calf all’hack squat', peso:23, step:1,
+          note_riferimento:'Macchina calf squat vicino allo specchio, ingresso zona libera.' },
+        { id:'b7', nome:'Crunch in sospensione', corpoLibero:true,
+          note_riferimento:'Porta le gambe/addome al petto.' },
+      ]
+    }
+  },
+  storico: []   // [{ data:ISO, scheda:'A', pesi:{ id:peso, ... } }]
+};
+
+/* ===== Stato runtime ===== */
+let supabase = null;
+let userId = null;
+let state = null;
+let currentView = 'A';
+let saveTimer = null;
+
+/* ===== Utility ===== */
+const $ = (s, r=document) => r.querySelector(s);
+const fmtPeso = n => Number(n).toLocaleString('it-IT', { maximumFractionDigits: 2 });
+const clone = o => JSON.parse(JSON.stringify(o));
+function esc(s){ return String(s??'').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+
+function fmtData(iso){
+  const d = new Date(iso);
+  return d.toLocaleDateString('it-IT', { day:'2-digit', month:'short', year:'2-digit' });
+}
+
+/* ===== Merge dati caricati con i default (metadati sempre aggiornati) ===== */
+function normalize(loaded){
+  const base = clone(DEFAULT_STATE);
+  if (!loaded || typeof loaded !== 'object') return base;
+  base.storico = Array.isArray(loaded.storico) ? loaded.storico : [];
+  for (const sk of ['A','B']) {
+    const ls = loaded.schede?.[sk];
+    if (!ls) continue;
+    if (typeof ls.riscaldamento === 'string') base.schede[sk].riscaldamento = ls.riscaldamento;
+    for (const ex of base.schede[sk].esercizi) {
+      const le = ls.esercizi?.find(e => e.id === ex.id);
+      if (!le) continue;
+      if (le.peso != null && !ex.corpoLibero) ex.peso = le.peso;
+      if (le.note_personali != null) ex.note_personali = le.note_personali;
+      if (le.serie != null) ex.serie = le.serie;
+      if (le.ripetizioni != null) ex.ripetizioni = le.ripetizioni;
+    }
+  }
+  return base;
+}
+
+/* ===== Salvataggio su Supabase (con debounce) ===== */
+function setSync(status){ // 'saved' | 'saving' | 'error'
+  const el = $('#sync'), t = $('#syncText');
+  el.classList.toggle('saving', status === 'saving');
+  t.textContent = status === 'saving' ? 'Salvo…' : status === 'error' ? 'Errore' : 'Salvato';
+  el.style.color = status === 'error' ? '#b91c1c' : '';
+}
+
+function scheduleSave(){
+  setSync('saving');
+  clearTimeout(saveTimer);
+  saveTimer = setTimeout(saveNow, 800);
+}
+
+async function saveNow(){
+  if (!userId) return;
+  try {
+    const { error } = await supabase.from('app_state').upsert({
+      user_id: userId, data: state, updated_at: new Date().toISOString()
+    });
+    setSync(error ? 'error' : 'saved');
+    if (error) console.error('Salvataggio fallito:', error);
+  } catch (e) {
+    setSync('error'); console.error(e);
+  }
+}
+
+/* ===== Toast ===== */
+let toastTimer;
+function toast(msg){
+  const t = $('#toast');
+  t.textContent = msg; t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove('show'), 1800);
+}
+
+/* ============================================================
+   RENDER
+   ============================================================ */
+function render(){
+  document.querySelectorAll('.tab').forEach(t =>
+    t.classList.toggle('active', t.dataset.view === currentView));
+  const c = $('#content');
+  if (currentView === 'storico') { renderStorico(c); return; }
+  renderScheda(c, currentView);
+}
+
+function renderScheda(c, sk){
+  const sch = state.schede[sk];
+  c.innerHTML = '';
+
+  // Riscaldamento
+  const w = document.createElement('div');
+  w.className = 'warmup';
+  w.innerHTML = `<span class="emoji">🔥</span>
+    <div style="flex:1">
+      <h3>Riscaldamento</h3>
+      <textarea rows="2" id="warmup">${esc(sch.riscaldamento)}</textarea>
+    </div>`;
+  c.appendChild(w);
+  const wt = $('#warmup', w);
+  wt.addEventListener('input', () => { sch.riscaldamento = wt.value; scheduleSave(); });
+  autogrow(wt);
+
+  // Esercizi
+  sch.esercizi.forEach((ex, i) => c.appendChild(cardEsercizio(ex, i + 1)));
+
+  // Salva sessione
+  const btn = document.createElement('button');
+  btn.className = 'btn-primary';
+  btn.textContent = '💾 Salva sessione';
+  btn.addEventListener('click', () => salvaSessione(sk));
+  c.appendChild(btn);
+}
+
+function cardEsercizio(ex, num){
+  const card = document.createElement('div');
+  card.className = 'card';
+
+  const ref = ex.note_riferimento
+    ? `<p class="ref">📍 ${esc(ex.note_riferimento)}</p>` : '';
+
+  card.innerHTML = `
+    <div class="card-head">
+      <span class="card-num">${num}</span>
+      <span class="card-name">${esc(ex.nome)}${ex.gruppo ? ` <span style="font-weight:500;color:var(--muted);font-size:14px">(${esc(ex.gruppo)})</span>` : ''}</span>
+    </div>
+    ${ref}
+  `;
+
+  if (ex.corpoLibero) {
+    const cl = document.createElement('div');
+    cl.className = 'corpolibero';
+    cl.textContent = '🧍 A corpo libero';
+    card.appendChild(cl);
+  } else {
+    card.appendChild(weightBox(ex));
+  }
+
+  // Serie / ripetizioni
+  const fields = document.createElement('div');
+  fields.className = 'fields';
+  fields.innerHTML = `
+    <div class="field">
+      <label>Serie</label>
+      <input type="text" inputmode="numeric" value="${esc(ex.serie ?? '')}" placeholder="—" data-f="serie">
+    </div>
+    <div class="field">
+      <label>Ripetizioni</label>
+      <input type="text" inputmode="numeric" value="${esc(ex.ripetizioni ?? '')}" placeholder="—" data-f="ripetizioni">
+    </div>`;
+  fields.querySelectorAll('input').forEach(inp => {
+    inp.addEventListener('input', () => { ex[inp.dataset.f] = inp.value; scheduleSave(); });
+  });
+  card.appendChild(fields);
+
+  // Note personali
+  const np = document.createElement('div');
+  np.className = 'note-personal';
+  np.innerHTML = `<label>Note personali</label>
+    <textarea rows="1" placeholder="Aggiungi una nota…">${esc(ex.note_personali ?? '')}</textarea>`;
+  const ta = $('textarea', np);
+  ta.addEventListener('input', () => { ex.note_personali = ta.value; scheduleSave(); });
+  autogrow(ta);
+  card.appendChild(np);
+
+  return card;
+}
+
+function weightBox(ex){
+  const box = document.createElement('div');
+  box.className = 'weightbox';
+  const step = ex.step || 1;
+  box.innerHTML = `
+    <button class="stepbtn" aria-label="Diminuisci">−</button>
+    <div class="weight-center">
+      <span class="weight-val">
+        <input class="weight-input" type="text" inputmode="decimal" value="${fmtPeso(ex.peso)}">
+        <span class="weight-unit">kg</span>
+      </span>
+      ${ex.perBraccio ? '<span class="perbraccio">per braccio</span>' : ''}
+    </div>
+    <button class="stepbtn" aria-label="Aumenta">+</button>`;
+
+  const input = $('.weight-input', box);
+  const [minus, plus] = box.querySelectorAll('.stepbtn');
+
+  function set(v){
+    v = Math.max(0, Math.round(v * 100) / 100);
+    ex.peso = v;
+    input.value = fmtPeso(v);
+    scheduleSave();
+  }
+  minus.addEventListener('click', () => set((Number(ex.peso) || 0) - step));
+  plus.addEventListener('click', () => set((Number(ex.peso) || 0) + step));
+  input.addEventListener('change', () => {
+    const v = parseFloat(input.value.replace(',', '.'));
+    if (isNaN(v)) { input.value = fmtPeso(ex.peso); return; }
+    set(v);
+  });
+  input.addEventListener('focus', () => input.select());
+  return box;
+}
+
+/* ===== Storico ===== */
+function renderStorico(c){
+  c.innerHTML = '';
+  const all = [...state.schede.A.esercizi, ...state.schede.B.esercizi]
+    .filter(e => !e.corpoLibero);
+
+  const sel = document.createElement('select');
+  sel.className = 'storico-select';
+  sel.innerHTML = all.map(e =>
+    `<option value="${e.id}">${esc(e.nome)}</option>`).join('');
+  c.appendChild(sel);
+
+  const list = document.createElement('div');
+  c.appendChild(list);
+
+  function drawFor(id){
+    const points = state.storico
+      .filter(s => s.pesi && s.pesi[id] != null)
+      .map(s => ({ data: s.data, peso: s.pesi[id] }));
+    if (!points.length) {
+      list.innerHTML = `<div class="empty">Nessuno storico per questo esercizio.<br>
+        Premi <strong>“Salva sessione”</strong> per registrare i pesi di oggi.</div>`;
+      return;
+    }
+    const max = Math.max(...points.map(p => p.peso)) || 1;
+    list.innerHTML = points.map(p => `
+      <div class="hist-row">
+        <span class="hist-date">${fmtData(p.data)}</span>
+        <span class="hist-bar-wrap"><span class="hist-bar" style="width:${Math.max(3, p.peso / max * 100)}%"></span></span>
+        <span class="hist-val">${fmtPeso(p.peso)} kg</span>
+      </div>`).join('');
+  }
+  sel.addEventListener('change', () => drawFor(sel.value));
+  drawFor(all[0]?.id);
+}
+
+function salvaSessione(sk){
+  const sch = state.schede[sk];
+  const pesi = {};
+  sch.esercizi.forEach(e => { if (!e.corpoLibero) pesi[e.id] = Number(e.peso) || 0; });
+  state.storico.push({ data: new Date().toISOString(), scheda: sk, pesi });
+  scheduleSave();
+  toast('✅ Sessione salvata nello storico');
+}
+
+/* autoresize textarea */
+function autogrow(el){
+  const fit = () => { el.style.height = 'auto'; el.style.height = el.scrollHeight + 'px'; };
+  el.addEventListener('input', fit);
+  requestAnimationFrame(fit);
+}
+
+/* ============================================================
+   BACKUP: esporta / importa
+   ============================================================ */
+function esporta(){
+  const blob = new Blob([JSON.stringify(state, null, 2)], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `scheda-palestra-${new Date().toISOString().slice(0,10)}.json`;
+  a.click();
+  URL.revokeObjectURL(url);
+  toast('⬇️ Dati esportati');
+}
+
+function importa(file){
+  const reader = new FileReader();
+  reader.onload = () => {
+    try {
+      const parsed = JSON.parse(reader.result);
+      state = normalize(parsed);
+      scheduleSave();
+      render();
+      toast('⬆️ Dati importati');
+    } catch (e) {
+      alert('File non valido: ' + e.message);
+    }
+  };
+  reader.readAsText(file);
+}
+
+/* ============================================================
+   AUTENTICAZIONE
+   ============================================================ */
+async function loadState(){
+  const { data, error } = await supabase
+    .from('app_state').select('data').eq('user_id', userId).maybeSingle();
+  if (error) { console.error(error); }
+  if (data && data.data) {
+    state = normalize(data.data);
+  } else {
+    state = clone(DEFAULT_STATE);
+    await supabase.from('app_state').upsert({
+      user_id: userId, data: state, updated_at: new Date().toISOString()
+    });
+  }
+}
+
+async function enterApp(session){
+  userId = session.user.id;
+  await loadState();
+  $('#loginView').classList.add('hidden');
+  $('#appView').classList.remove('hidden');
+  setSync('saved');
+  render();
+}
+
+function showLogin(){
+  $('#appView').classList.add('hidden');
+  $('#loginView').classList.remove('hidden');
+}
+
+/* ============================================================
+   BOOT
+   ============================================================ */
+function wireUI(){
+  // tabs
+  document.querySelectorAll('.tab').forEach(t =>
+    t.addEventListener('click', () => { currentView = t.dataset.view; render(); }));
+
+  // menu
+  const menu = $('#menu');
+  $('#menuBtn').addEventListener('click', e => { e.stopPropagation(); menu.classList.toggle('hidden'); });
+  document.addEventListener('click', () => menu.classList.add('hidden'));
+  menu.addEventListener('click', async e => {
+    const act = e.target.closest('button')?.dataset.act;
+    if (!act) return;
+    menu.classList.add('hidden');
+    if (act === 'storico') { currentView = 'storico'; render(); }
+    else if (act === 'export') esporta();
+    else if (act === 'import') $('#importFile').click();
+    else if (act === 'logout') { await supabase.auth.signOut(); state = null; userId = null; showLogin(); }
+  });
+
+  $('#importFile').addEventListener('change', e => {
+    if (e.target.files[0]) importa(e.target.files[0]);
+    e.target.value = '';
+  });
+
+  // login form
+  $('#loginForm').addEventListener('submit', async e => {
+    e.preventDefault();
+    const err = $('#loginError');
+    err.classList.add('hidden');
+    const btn = e.target.querySelector('button[type=submit]');
+    btn.disabled = true; btn.textContent = 'Accesso…';
+    const { error } = await supabase.auth.signInWithPassword({
+      email: $('#email').value.trim(), password: $('#password').value
+    });
+    btn.disabled = false; btn.textContent = 'Accedi';
+    if (error) {
+      err.textContent = error.message === 'Invalid login credentials'
+        ? 'Email o password non corretti.' : error.message;
+      err.classList.remove('hidden');
+    }
+  });
+}
+
+async function boot(){
+  wireUI();
+
+  if (!SUPABASE_URL || !SUPABASE_ANON_KEY) {
+    $('#configWarn').classList.remove('hidden');
+    $('#loginForm').querySelector('button').disabled = true;
+    return;
+  }
+
+  supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+  supabase.auth.onAuthStateChange((_event, session) => {
+    if (session) enterApp(session);
+    else showLogin();
+  });
+
+  const { data: { session } } = await supabase.auth.getSession();
+  if (session) enterApp(session);
+  else showLogin();
+}
+
+boot();
+</script>
+</body>
+</html>

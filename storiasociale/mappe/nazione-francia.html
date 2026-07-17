@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mappa Nazione — Francia (età moderna)</title>
+<style>
+  :root{
+    --bg:#f4f1ea; --paper:#fffdf8; --ink:#2b2620; --muted:#7a7165;
+    --line:#e2dccf; --accent:#5a7a4b; --accent2:#3b6b8a; --accent3:#8a5a3b;
+    --shadow:0 1px 3px rgba(0,0,0,.08),0 8px 24px rgba(0,0,0,.06);
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--bg); color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    line-height:1.55; font-size:16px;
+    padding:28px 16px 60px;
+  }
+  .wrap{max-width:1000px; margin:0 auto;}
+
+  /* Header */
+  header.hero{
+    background:var(--paper); border:1px solid var(--line); border-radius:14px;
+    padding:28px 26px; box-shadow:var(--shadow); margin-bottom:22px;
+    border-top:6px solid var(--accent);
+  }
+  header.hero h1{
+    margin:0 0 6px; font-size:2.05rem; letter-spacing:-.5px; line-height:1.15;
+  }
+  header.hero .flag{color:var(--accent); font-weight:800;}
+  header.hero .arc{color:var(--muted); font-size:1.02rem; font-weight:600; margin:0 0 14px;}
+  header.hero .filo{
+    background:#f0f4ec; border-left:4px solid var(--accent);
+    padding:12px 16px; border-radius:0 10px 10px 0; margin:14px 0 0; font-size:1rem;
+  }
+  header.hero .filo b{color:var(--accent);}
+  .dyn-row{display:flex; flex-wrap:wrap; gap:8px; margin:16px 0 0;}
+
+  /* Cards */
+  section.card{
+    background:var(--paper); border:1px solid var(--line); border-radius:14px;
+    padding:24px; box-shadow:var(--shadow); margin-bottom:20px;
+  }
+  section.card > h2{
+    background:var(--accent); color:#fff; margin:-24px -24px 18px;
+    padding:14px 24px; border-radius:14px 14px 0 0;
+    font-size:1.2rem; letter-spacing:.3px; display:flex; align-items:center; gap:10px;
+  }
+  section.card > h2 .num{
+    background:rgba(255,255,255,.22); border-radius:8px; padding:1px 9px;
+    font-size:.95rem; font-weight:700;
+  }
+  h3{color:var(--accent3); font-size:1.05rem; margin:22px 0 8px; border-bottom:1px dashed var(--line); padding-bottom:4px;}
+  p{margin:8px 0;}
+  ul{margin:8px 0; padding-left:22px;}
+  li{margin:5px 0;}
+  .lead{color:var(--muted); font-size:.97rem;}
+
+  /* Badges / pills */
+  .pill{
+    display:inline-block; font-size:.72rem; font-weight:700; letter-spacing:.3px;
+    padding:2px 9px; border-radius:999px; text-transform:uppercase; white-space:nowrap;
+    vertical-align:middle;
+  }
+  .p-guerra{background:#f6e4dc; color:#8a3b2b;}
+  .p-riforma{background:#e2ecdc; color:#3f6a33;}
+  .p-dinastia{background:#e4e9f1; color:#345a7c;}
+  .p-religione{background:#efe6d3; color:#8a6a2b;}
+  .p-rivolta{background:#f1e0ea; color:#8a3b6a;}
+  .p-trattato{background:#dceaea; color:#2b6a6a;}
+
+  /* Timeline */
+  .timeline{position:relative; margin:8px 0 0; padding:0 0 0 30px;}
+  .timeline::before{
+    content:""; position:absolute; left:9px; top:6px; bottom:6px; width:3px;
+    background:linear-gradient(var(--accent),#b7c9ac); border-radius:3px;
+  }
+  .tl{position:relative; margin:0 0 16px;}
+  .tl::before{
+    content:""; position:absolute; left:-27px; top:4px; width:13px; height:13px;
+    background:var(--paper); border:3px solid var(--accent); border-radius:50%;
+  }
+  .tl.big::before{background:var(--accent); box-shadow:0 0 0 4px #dfe8d6;}
+  .tl .yr{font-weight:800; color:var(--accent2); margin-right:8px;}
+  .tl .ev{font-weight:700;}
+  .tl .ds{display:block; color:var(--muted); font-size:.93rem; margin-top:2px;}
+  .era-label{
+    margin:22px 0 12px; font-weight:800; color:var(--accent3); font-size:.85rem;
+    letter-spacing:1px; text-transform:uppercase;
+  }
+
+  /* Table */
+  .tbl-wrap{overflow-x:auto; -webkit-overflow-scrolling:touch; margin:6px 0; border-radius:10px; border:1px solid var(--line);}
+  table{border-collapse:collapse; width:100%; min-width:560px; font-size:.93rem;}
+  th,td{padding:9px 12px; text-align:left; vertical-align:top; border-bottom:1px solid var(--line);}
+  thead th{background:#efe9dc; color:var(--ink); font-weight:700; position:sticky; top:0;}
+  tbody tr:nth-child(even){background:#faf7f0;}
+  td .role{color:var(--muted); font-size:.85rem;}
+
+  /* Evolution flow */
+  .evo{display:flex; flex-wrap:wrap; align-items:stretch; gap:8px; margin:12px 0 6px;}
+  .evo .step{
+    flex:1 1 130px; background:#f0f4ec; border:1px solid var(--line); border-radius:10px;
+    padding:10px 12px; font-size:.88rem; position:relative;
+  }
+  .evo .step b{display:block; color:var(--accent); font-size:.95rem; margin-bottom:2px;}
+  .evo .arrow{align-self:center; color:var(--accent); font-weight:800; font-size:1.2rem;}
+
+  /* Two-col grid for concepts / links */
+  .grid{display:grid; grid-template-columns:1fr; gap:12px; margin-top:6px;}
+  @media(min-width:640px){.grid{grid-template-columns:1fr 1fr;}}
+  .box{background:#faf7f0; border:1px solid var(--line); border-radius:10px; padding:12px 14px;}
+  .box b{color:var(--accent3);}
+  .box.link b{color:var(--accent2);}
+
+  .callout{background:#f0f4ec; border-left:4px solid var(--accent); padding:10px 14px; border-radius:0 8px 8px 0; margin:12px 0; font-size:.95rem;}
+
+  footer{color:var(--muted); font-size:.82rem; text-align:center; margin-top:26px; padding-top:14px; border-top:1px solid var(--line);}
+
+  @media(max-width:520px){
+    header.hero h1{font-size:1.6rem;}
+    section.card{padding:20px 16px;}
+    section.card > h2{margin:-20px -16px 16px; padding:12px 16px;}
+  }
+  @media print{
+    body{background:#fff; padding:0; font-size:12px;}
+    section.card,header.hero{box-shadow:none; break-inside:avoid;}
+    section.card > h2{-webkit-print-color-adjust:exact; print-color-adjust:exact;}
+  }
+
+/* barra di navigazione (aggiunta per il sito) */
+.map-top{position:sticky;top:0;z-index:50;display:flex;align-items:center;gap:10px;
+  background:#2b2620;color:#fff;padding:10px 14px;box-shadow:0 2px 8px rgba(0,0,0,.18);
+  margin:-28px -16px 24px;}
+.map-top a{color:#fff;text-decoration:none;font-weight:600;font-size:13.5px;
+  background:rgba(255,255,255,.16);padding:8px 12px;border-radius:9px;white-space:nowrap;}
+.map-top a:active{background:rgba(255,255,255,.32);}
+.map-top .loc{flex:1;text-align:center;font-size:13px;font-weight:600;opacity:.95;}
+@media print{.map-top{display:none}}
+</style>
+</head>
+<body>
+<header class="map-top">
+  <a class="back" href="../index.html#mappe">← Mappe</a>
+  <span class="loc">Mappe per nazione · Francia</span>
+</header>
+
+<div class="wrap">
+
+  <!-- 1. INTESTAZIONE -->
+  <header class="hero">
+    <h1><span class="flag">FRANCIA</span> — laboratorio dell'assolutismo e della rivoluzione</h1>
+    <p class="arc">Età moderna · dalle guerre di religione (metà XVI sec.) al Congresso di Vienna e alla Restaurazione (1815)</p>
+    <div class="dyn-row">
+      <span class="pill p-dinastia">Valois</span>
+      <span class="pill p-dinastia">Borbone</span>
+      <span class="pill p-rivolta">Repubblica</span>
+      <span class="pill p-dinastia">Impero napoleonico</span>
+      <span class="pill p-dinastia">Restaurazione borbonica</span>
+    </div>
+    <p class="filo"><b>Il filo rosso:</b> la Francia è il grande <b>laboratorio dell'assolutismo</b> europeo — dal caos delle guerre di religione (fine ultimo dei Valois) si passa alla ricostruzione dello Stato con Enrico IV, Richelieu e Mazzarino, fino allo <b>Stato-Sole di Luigi XIV</b>, modello imitato da Prussia e Russia. Poi la stessa monarchia assoluta diventa il bersaglio della <b>Rivoluzione del 1789</b>, che abbatte l'antico regime; da lì repubblica, impero napoleonico e infine la restaurazione dei Borbone. Un ciclo completo: <b>assoluto → repubblica → impero → restaurazione</b>.</p>
+  </header>
+
+  <!-- 2. LINEA DEL TEMPO -->
+  <section class="card">
+    <h2><span class="num">2</span> Linea del tempo</h2>
+    <p class="lead">Gli avvenimenti principali in ordine cronologico. I pallini pieni segnano le svolte decisive.</p>
+
+    <div class="era-label">Guerre di religione &amp; ricostruzione dello Stato (Valois → Borbone)</div>
+    <div class="timeline">
+      <div class="tl"><span class="yr">1559</span><span class="ev">Pace di Cateau-Cambrésis</span><span class="ds">Fine delle guerre d'Italia; alla morte di Enrico II si apre una grave crisi politica. Reggenza di Caterina de' Medici per i figli minorenni.</span></div>
+      <div class="tl"><span class="yr">1562</span><span class="ev">Scoppiano le guerre di religione <span class="pill p-religione">religione</span></span><span class="ds">Lo scontro cattolici–ugonotti (calvinisti) si intreccia con la rivalità tra grandi famiglie nobili: Borbone e Montmorency (ugonotti) contro i duchi di Guisa (cattolici).</span></div>
+      <div class="tl big"><span class="yr">1572</span><span class="ev">Notte di San Bartolomeo (23 agosto) <span class="pill p-rivolta">massacro</span></span><span class="ds">A Parigi Carlo IX e Caterina fanno massacrare ~2.300 ugonotti (dopo il fallito attentato a Coligny). Inizia la fase più violenta della guerra civile; nascono le dottrine <em>monarcomache</em>.</span></div>
+      <div class="tl"><span class="yr">1584–89</span><span class="ev">Crisi dinastica e Lega cattolica</span><span class="ds">Enrico III senza eredi; per la legge salica l'erede è Enrico di Borbone (ugonotto). La Lega cattolica, appoggiata dalla Spagna, sostiene i Guisa. Enrico III fa uccidere Carlo di Guisa e designa Enrico di Borbone, poi è assassinato.</span></div>
+      <div class="tl big"><span class="yr">1589</span><span class="ev">Enrico IV di Borbone re <span class="pill p-dinastia">nuova dinastia</span></span><span class="ds">Fine dei Valois, inizio dei Borbone. «Paris vaut bien une messe»: si converte al cattolicesimo per essere accolto a Parigi (1594).</span></div>
+      <div class="tl big"><span class="yr">1598</span><span class="ev">Editto di Nantes <span class="pill p-religione">tolleranza</span></span><span class="ds">Il cattolicesimo resta religione ufficiale, ma agli ugonotti sono garantite libertà di coscienza/culto e il controllo di numerose piazzeforti. Fine delle guerre di religione; ripristino dell'autorità della corona.</span></div>
+      <div class="tl"><span class="yr">1610</span><span class="ev">Assassinio di Enrico IV</span><span class="ds">Ucciso da un fanatico cattolico. Reggenza di Maria de' Medici per il figlio Luigi XIII; potere al favorito Concino Concini, poi eliminato dal re.</span></div>
+      <div class="tl big"><span class="yr">1624–42</span><span class="ev">Cardinale Richelieu, ministro-favorito</span><span class="ds">Rafforza l'autorità sovrana, toglie agli ugonotti le piazzeforti (mantenendo la libertà di culto), reprime l'aristocrazia ostile e sorveglia i governatori delle province.</span></div>
+      <div class="tl"><span class="yr">1635</span><span class="ev">La Francia entra nella Guerra dei Trent'anni <span class="pill p-guerra">guerra</span></span><span class="ds">Intervento decisivo contro gli Asburgo (scelta di <em>ragion di Stato</em>: cattolici, ma contro l'egemonia asburgica). L'esercito spagnolo è sconfitto.</span></div>
+      <div class="tl"><span class="yr">1648</span><span class="ev">Pace di Vestfalia <span class="pill p-trattato">trattato</span></span><span class="ds">Tramonta il disegno egemonico asburgico; la Francia emerge come potenza continentale. Ministro-favorito è ora il cardinale Mazzarino.</span></div>
+
+      <div class="era-label">L'assolutismo di Luigi XIV, il Re Sole</div>
+      <div class="tl"><span class="yr">1643</span><span class="ev">Sale al trono Luigi XIV (a 5 anni)</span><span class="ds">Regnerà 72 anni (fino al 1715). Reggenza della madre Anna d'Austria, governo di Mazzarino.</span></div>
+      <div class="tl big"><span class="yr">1648–53</span><span class="ev">La Fronda <span class="pill p-rivolta">rivolta</span></span><span class="ds">La più grave crisi politica europea del tempo: il Parlamento di Parigi e settori della nobiltà si ribellano a Mazzarino, accusato di dispotismo e di violare l'«antica costituzione». Guerra civile vinta da Mazzarino (1653).</span></div>
+      <div class="tl"><span class="yr">1659</span><span class="ev">Pace dei Pirenei con la Spagna <span class="pill p-trattato">trattato</span></span><span class="ds">Fine definitiva dell'egemonia spagnola; inizia il predominio continentale francese (restano fuori Province Unite e Inghilterra).</span></div>
+      <div class="tl big"><span class="yr">1661</span><span class="ev">Governo personale del Re Sole <span class="pill p-riforma">assolutismo</span></span><span class="ds">Morto Mazzarino, Luigi XIV governa senza ministro-favorito: potenza assoluta della volontà sovrana. Colbert alle finanze, Louvois alla guerra.</span></div>
+      <div class="tl"><span class="yr">1667–68</span><span class="ev">Guerra di Devoluzione <span class="pill p-guerra">guerra</span></span><span class="ds">Occupa Paesi Bassi spagnoli e Franca Contea rivendicando l'eredità della moglie; la Triplice (PV Unite, Inghilterra, Svezia) lo ferma. Pace di Aquisgrana.</span></div>
+      <div class="tl"><span class="yr">1672–78</span><span class="ev">Guerra d'Olanda</span><span class="ds">Contro le Province Unite (rivalità commerciale). Pace di Nimega (1678): le PV salvano l'indipendenza, la Spagna cede la Franca Contea alla Francia.</span></div>
+      <div class="tl"><span class="yr">1682</span><span class="ev">Reggia di Versailles <span class="pill p-dinastia">corte</span></span><span class="ds">La corte diventa polo di attrazione e di addomesticamento della nobiltà, cui restano cariche cortigiane, militari e amministrative ma non il potere.</span></div>
+      <div class="tl"><span class="yr">1688–97</span><span class="ev">Guerra della Lega di Augusta</span><span class="ds">Dopo il bombardamento di Genova (1684), una vasta coalizione antifrancese (Impero, Spagna, PV Unite, Inghilterra, Savoia, principi tedeschi). Pace di Rijswijk (1697): Francia costretta a restituire.</span></div>
+      <div class="tl big"><span class="yr">1685</span><span class="ev">Editto di Fontainebleau: revoca dell'Editto di Nantes <span class="pill p-religione">intolleranza</span></span><span class="ds">Vieta ogni culto protestante. Esodo di artigiani e professionisti ugonotti verso Olanda, Svizzera, Inghilterra, Germania: grave perdita di competenze. Lotta anche al giansenismo.</span></div>
+      <div class="tl big"><span class="yr">1701–14</span><span class="ev">Guerra di Successione spagnola <span class="pill p-guerra">guerra</span></span><span class="ds">Il nipote di Luigi XIV, Filippo d'Angiò, diventa Filippo V di Spagna: asse franco-spagnolo. Grande coalizione dell'Aia contro. Paci di Utrecht/Rastadt (1714): Filippo V tiene la Spagna, ma senza unione delle corone.</span></div>
+      <div class="tl"><span class="yr">1715</span><span class="ev">Morte di Luigi XIV → Luigi XV</span><span class="ds">Reggenza di Filippo d'Orléans (apertura alle élites), poi ritorno all'autocrazia con Luigi XV. Cessa la convocazione degli Stati generali.</span></div>
+
+      <div class="era-label">Illuminismo, riforme, declino coloniale</div>
+      <div class="tl"><span class="yr">metà '700</span><span class="ev">Illuminismo francese <span class="pill p-riforma">idee</span></span><span class="ds">Massimo sviluppo dei Lumi: Montesquieu (<em>Lo spirito delle leggi</em>), Voltaire (<em>Lettere inglesi</em>), Rousseau, l'<em>Encyclopédie</em> di Diderot e d'Alembert. Ammirazione per il modello inglese.</span></div>
+      <div class="tl"><span class="yr">1740–48</span><span class="ev">Guerra di Successione austriaca</span><span class="ds">La Francia (con Spagna, Prussia, Sardegna) contro Maria Teresa. Pace di Aquisgrana (1748) senza vantaggi decisivi per Parigi.</span></div>
+      <div class="tl big"><span class="yr">1756–63</span><span class="ev">Guerra dei Sette anni <span class="pill p-guerra">guerra mondiale</span></span><span class="ds">Primo conflitto planetario. Francia + Austria/Russia/Svezia contro Prussia + Gran Bretagna. Pace di Parigi (1763): la Francia perde il Canada, i territori a est del Mississippi e posizioni in India a vantaggio britannico.</span></div>
+      <div class="tl"><span class="yr">1774</span><span class="ev">Luigi XVI</span><span class="ds">Ripristina i poteri dei Parlamenti, rinuncia alle misure autoritarie; cresce l'opinione pubblica. L'appoggio ai ribelli americani (contro la Gran Bretagna) fa esplodere il debito.</span></div>
+
+      <div class="era-label">La Rivoluzione francese (1789–1799)</div>
+      <div class="tl big"><span class="yr">1789</span><span class="ev">Stati generali → Assemblea nazionale; presa della Bastiglia (14 luglio) <span class="pill p-rivolta">rivoluzione</span></span><span class="ds">Crisi finanziaria: convocati gli Stati generali a Versailles. Il Terzo stato si proclama Assemblea nazionale (giuramento della Pallacorda). Insurrezione di Parigi, «grande paura» nelle campagne, <em>Dichiarazione dei diritti dell'uomo e del cittadino</em>.</span></div>
+      <div class="tl"><span class="yr">1791</span><span class="ev">Costituzione: monarchia costituzionale</span><span class="ds">Al re il potere esecutivo, a una Camera eletta il legislativo. Legge Le Chapelier (abolizione corporazioni). Fuga fallita del re a Varennes.</span></div>
+      <div class="tl big"><span class="yr">1792</span><span class="ev">Guerra e caduta della monarchia <span class="pill p-guerra">guerra</span></span><span class="ds">Dichiarazione di Pillnitz → guerra contro Austria e Prussia. Il 10 agosto la folla assale le Tuileries: Luigi XVI deposto e arrestato. Suffragio universale maschile: eletta la Convenzione.</span></div>
+      <div class="tl big"><span class="yr">1793</span><span class="ev">Prima Repubblica; esecuzione di Luigi XVI; il Terrore <span class="pill p-rivolta">Terrore</span></span><span class="ds">Coalizione antifrancese. Al potere il Comitato di salute pubblica (Robespierre): eliminazione degli avversari politici (Maria Antonietta, duca d'Orléans).</span></div>
+      <div class="tl"><span class="yr">1794</span><span class="ev">Caduta di Robespierre → «Terrore bianco»</span><span class="ds">Colpo di Stato della Convenzione: Robespierre ghigliottinato; vendette antigiacobine.</span></div>
+      <div class="tl"><span class="yr">1795</span><span class="ev">Costituzione dell'anno III: il Direttorio</span><span class="ds">Orientamento moderato: legislativo bicamerale, esecutivo a un Direttorio di 5 membri. Instabilità e guerra continuano.</span></div>
+
+      <div class="era-label">Da Napoleone alla Restaurazione</div>
+      <div class="tl"><span class="yr">1796–97</span><span class="ev">Campagna d'Italia di Bonaparte</span><span class="ds">Straordinari successi; pace di Campoformio (1797). Nascono le repubbliche «sorelle» (Cisalpina, Ligure, Romana, Partenopea).</span></div>
+      <div class="tl big"><span class="yr">1799</span><span class="ev">Colpo di Stato del 18 brumaio → Consolato</span><span class="ds">Sciolto il Direttorio, tre consoli (Sieyès, Bonaparte, Ducos). Napoleone primo console. Costituzione dell'anno VIII.</span></div>
+      <div class="tl big"><span class="yr">1804</span><span class="ev">Impero: Napoleone I; Codice civile <span class="pill p-dinastia">Impero</span></span><span class="ds">Da console a vita (1802) a imperatore dei francesi (consacrato da Pio VII). <em>Cesarismo</em>: potere autoritario legittimato dal consenso. Concordato (1801), Codice civile, licei statali, «monarchia amministrativa».</span></div>
+      <div class="tl"><span class="yr">1805–07</span><span class="ev">Le grandi coalizioni <span class="pill p-guerra">guerra</span></span><span class="ds">Sconfigge Austria, Prussia e Russia; Stati satelliti. 1806: fine del Sacro romano impero e <em>blocco continentale</em> contro la Gran Bretagna.</span></div>
+      <div class="tl big"><span class="yr">1812</span><span class="ev">Campagna di Russia: la svolta</span><span class="ds">Occupa Mosca (incendiata); ritirata disastrosa della Grande Armée. Prima vera sconfitta.</span></div>
+      <div class="tl big"><span class="yr">1814</span><span class="ev">Lipsia, abdicazione, Elba → Restaurazione dei Borbone <span class="pill p-dinastia">restaurazione</span></span><span class="ds">Sesta coalizione, occupazione di Parigi. Napoleone all'Elba. Torna sul trono Luigi XVIII (fratello di Luigi XVI); concede la <em>charte octroyée</em>.</span></div>
+      <div class="tl"><span class="yr">1815</span><span class="ev">I Cento giorni e Waterloo (18 giugno)</span><span class="ds">Napoleone fugge dall'Elba; settima coalizione; sconfitto a Waterloo da inglesi e prussiani. Esilio a Sant'Elena (†1821). Il Congresso di Vienna riporta la Francia ai confini del 1792.</span></div>
+      <div class="tl"><span class="yr">1824–30</span><span class="ev">Carlo X e la rivoluzione orléanista <span class="pill p-rivolta">epilogo</span></span><span class="ds">Svolta reazionaria; il colpo di Stato del 1830 (le «quattro ordinanze») fa insorgere Parigi: sale Luigi Filippo d'Orléans, «re dei francesi per volontà della nazione», col tricolore.</span></div>
+    </div>
+  </section>
+
+  <!-- 3. SOVRANI E DINASTIE -->
+  <section class="card">
+    <h2><span class="num">3</span> Sovrani e dinastie</h2>
+    <p class="lead">Successione dei capi di Stato francesi nel periodo, con dinastia e tratto caratterizzante.</p>
+    <div class="tbl-wrap">
+      <table>
+        <thead>
+          <tr><th>Sovrano / regime</th><th>Regno</th><th>Dinastia</th><th>Cosa lo caratterizza</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Enrico II</td><td>†1559</td><td>Valois</td><td>Sua morte apre la crisi delle guerre di religione; la vedova <b>Caterina de' Medici</b> è di fatto reggente.</td></tr>
+          <tr><td>Francesco II · Carlo IX · Enrico III</td><td>1559–1589</td><td>Valois</td><td>Regni deboli sotto la reggenza materna. Carlo IX responsabile della notte di San Bartolomeo; con Enrico III (senza eredi) si estinguono i Valois.</td></tr>
+          <tr><td><b>Enrico IV</b></td><td>1589–1610</td><td>Borbone</td><td>Ex capo ugonotto convertitosi; Editto di Nantes (1598); pacifica il Paese e ricostruisce l'autorità regia. Assassinato.</td></tr>
+          <tr><td>Luigi XIII</td><td>1610–1643</td><td>Borbone</td><td>Regno segnato dai ministri-favoriti: prima Concini, poi il <b>cardinale Richelieu</b>, artefice del rafforzamento dello Stato.</td></tr>
+          <tr><td><b>Luigi XIV</b>, il Re Sole</td><td>1643–1715</td><td>Borbone</td><td>Il regno più lungo (72 anni). Assolutismo compiuto, Versailles, Colbert, guerre continue, revoca di Nantes. Modello per Prussia e Russia.</td></tr>
+          <tr><td>Luigi XV</td><td>1715–1774</td><td>Borbone</td><td>Dopo la reggenza aperta di Filippo d'Orléans, ritorno all'autocrazia. Sconfitte nella Guerra dei Sette anni; smette di convocare gli Stati generali.</td></tr>
+          <tr><td>Luigi XVI</td><td>1774–1792</td><td>Borbone</td><td>Crisi finanziaria e politica; convoca gli Stati generali (1789). Deposto nel 1792, giustiziato nel 1793.</td></tr>
+          <tr><td>Convenzione · Direttorio</td><td>1792–1799</td><td><em>Repubblica</em></td><td>Prima Repubblica: fase del Terrore (Robespierre, Comitato di salute pubblica), poi il Direttorio moderato.</td></tr>
+          <tr><td>Napoleone Bonaparte</td><td>1799–1804</td><td><em>Consolato</em></td><td>Primo console dopo il 18 brumaio; riforme, Concordato, Codice civile.</td></tr>
+          <tr><td><b>Napoleone I</b></td><td>1804–1814/15</td><td>Impero</td><td>Imperatore dei francesi; egemonia continentale, blocco continentale; crolla con Russia, Lipsia e Waterloo.</td></tr>
+          <tr><td>Luigi XVIII</td><td>1814–1824</td><td>Borbone (Rest.)</td><td>Fratello di Luigi XVI; concede la <em>charte octroyée</em> moderatamente liberale: non un puro ritorno all'antico regime.</td></tr>
+          <tr><td>Carlo X</td><td>1824–1830</td><td>Borbone (Rest.)</td><td>Altro fratello di Luigi XVI; svolta reazionaria e clericale; il colpo di Stato del 1830 lo travolge.</td></tr>
+          <tr><td>Luigi Filippo d'Orléans</td><td>dal 1830</td><td>Orléans</td><td>«Re dei francesi per volontà della nazione»; monarchia liberale col tricolore. <span class="lead">(oltre l'arco 1815, come esito)</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- 4. FORMA DI GOVERNO E ISTITUZIONI -->
+  <section class="card">
+    <h2><span class="num">4</span> Forma di governo e istituzioni · l'evoluzione</h2>
+    <div class="evo">
+      <div class="step"><b>Monarchia in crisi</b>Guerre di religione: autorità regia debole, faziosità nobiliare</div>
+      <div class="arrow">→</div>
+      <div class="step"><b>Assolutismo in costruzione</b>Enrico IV, Richelieu, Mazzarino: ministri-favoriti e ragion di Stato</div>
+      <div class="arrow">→</div>
+      <div class="step"><b>Assolutismo compiuto</b>Luigi XIV: «Stato-Sole», governo personale</div>
+      <div class="arrow">→</div>
+      <div class="step"><b>Repubblica</b>1792: sovranità popolare, Convenzione, Direttorio</div>
+      <div class="arrow">→</div>
+      <div class="step"><b>Impero</b>Napoleone: cesarismo e monarchia amministrativa</div>
+      <div class="arrow">→</div>
+      <div class="step"><b>Restaurazione</b>Borbone + <em>charte</em>: monarchia (semi)costituzionale</div>
+    </div>
+
+    <h3>Istituzioni-chiave e rapporto sovrano–ceti</h3>
+    <ul>
+      <li><b>Legge salica:</b> esclude le donne dalla successione — decisiva nel far passare la corona dai Valois ai Borbone (Enrico IV).</li>
+      <li><b>Ministro-favorito:</b> l'<em>alter ego</em> del sovrano che dirige di fatto la politica (Concini, poi i cardinali Richelieu e Mazzarino). Concentra il potere ma genera le rivolte di chi ne è escluso (la Fronda).</li>
+      <li><b>Governatori e intendenti:</b> Richelieu invia uomini di fiducia a sorvegliare i governatori delle province, cardine del controllo centrale.</li>
+      <li><b>Parlamenti (di Parigi e provinciali):</b> corti di giustizia con potere di registrare le leggi. Guidano la Fronda; cessati gli Stati generali, assumono un ruolo di «rappresentanza morale» del Paese e ostacolano le nuove tasse.</li>
+      <li><b>Stati generali:</b> unica assemblea capace di autorizzare nuove imposte; <b>non più convocati da Luigi XIV fino al 1789</b> — la loro riconvocazione è la scintilla della Rivoluzione.</li>
+      <li><b>Versailles:</b> strumento politico che «addomestica» la nobiltà offrendole servizio e prestigio in cambio della rinuncia a compartecipare al potere.</li>
+      <li><b>Assemblee rivoluzionarie:</b> Assemblea nazionale/costituente → Legislativa → Convenzione → Direttorio; poi Consolato e Impero. Codificazione napoleonica (Codice civile 1804).</li>
+    </ul>
+    <div class="callout"><b>Il paradosso istituzionale:</b> proprio i due «limiti» del sistema di Luigi XIV — l'abbandono degli Stati generali e l'impossibilità di aumentare il prelievo senza il consenso di nobiltà, Parlamenti e Chiesa — nel Settecento diventano le crepe da cui esce la Rivoluzione.</div>
+  </section>
+
+  <!-- 5. POLITICA INTERNA -->
+  <section class="card">
+    <h2><span class="num">5</span> Politica interna · riforme, conflitti, religione</h2>
+
+    <h3>La questione religiosa <span class="pill p-religione">religione</span></h3>
+    <ul>
+      <li><b>Ugonotti (calvinisti):</b> minoranza radicata tra artigiani, professioni liberali e parte dell'aristocrazia. La loro presenza scatena le guerre civili di religione.</li>
+      <li><b>San Bartolomeo (1572)</b> e la <b>Lega cattolica</b>: il conflitto religioso si salda alla lotta tra famiglie nobili (Guisa vs Borbone/Montmorency).</li>
+      <li><b>Editto di Nantes (1598):</b> compromesso di Enrico IV — cattolicesimo ufficiale, ma libertà di culto e piazzeforti agli ugonotti.</li>
+      <li><b>Richelieu</b> toglie loro le piazzeforti (mantenendo la libertà di culto): lo Stato non tollera «Stati nello Stato».</li>
+      <li><b>Revoca di Nantes (Editto di Fontainebleau, 1685):</b> Luigi XIV vieta il protestantesimo → esodo e danno economico. Insieme alla lotta al <b>gallicanesimo/giansenismo</b>, mira a fare del re il capo della Chiesa francese (scontro con papa Innocenzo XI, scomunica, compromesso 1692).</li>
+    </ul>
+
+    <h3>Rivolte e conflitti interni <span class="pill p-rivolta">rivolte</span></h3>
+    <ul>
+      <li><b>Guerre di religione (1562–1598):</b> guerra civile prolungata; teorie <em>monarcomache</em> (legittimità di opporsi/uccidere il tiranno) contro i <em>politiques</em> (autorità regia sopra le fazioni).</li>
+      <li><b>La Fronda (1648–1653):</b> Parlamento di Parigi + nobiltà contro Mazzarino; guerra civile domata dal cardinale.</li>
+      <li><b>Rivoluzione (1789):</b> presa della Bastiglia, «grande paura» contadina, <em>journées</em> dei sanculotti, Terrore, guerra civile interna alla Convenzione (Montagna vs Girondini).</li>
+    </ul>
+
+    <h3>Le grandi riforme <span class="pill p-riforma">riforme</span></h3>
+    <ul>
+      <li><b>Colbertismo</b> (Luigi XIV): mercantilismo, manifatture regie, marina, compagnie coloniali (vedi Economia).</li>
+      <li><b>Rivoluzione:</b> Dichiarazione dei diritti (1789), uguaglianza di fronte alla legge, abolizione dei privilegi e del feudalesimo, legge Le Chapelier (fine corporazioni).</li>
+      <li><b>Napoleone:</b> Concordato (1801), Codice civile/commercio/penale, licei e «grandi scuole», riforma delle finanze e dell'amministrazione, potente polizia.</li>
+    </ul>
+  </section>
+
+  <!-- 6. POLITICA ESTERA E GUERRE -->
+  <section class="card">
+    <h2><span class="num">6</span> Politica estera e guerre · con chi, e come finisce</h2>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>Conflitto</th><th>Contro chi / con chi</th><th>Esito · trattato</th></tr></thead>
+        <tbody>
+          <tr><td><b>Guerra dei Trent'anni</b> (intervento 1635)</td><td>Contro gli <b>Asburgo</b> (Spagna + Impero); di fatto a fianco dei protestanti per ragion di Stato</td><td><b>Pace di Vestfalia (1648)</b>: fine dell'egemonia asburgica</td></tr>
+          <tr><td>Coda della guerra con la Spagna</td><td>Contro la <b>Spagna</b></td><td><b>Pace dei Pirenei (1659)</b>: predominio continentale francese</td></tr>
+          <tr><td><b>Guerra di Devoluzione</b> (1667–68)</td><td>Contro la <b>Spagna</b>; fermato da Province Unite, Inghilterra, Svezia</td><td><b>Pace di Aquisgrana (1668)</b>: guadagni limitati nelle Fiandre</td></tr>
+          <tr><td><b>Guerra d'Olanda</b> (1672–78)</td><td>Contro le <b>Province Unite</b> (rivalità commerciale)</td><td><b>Pace di Nimega (1678)</b>: la Francia ottiene la Franca Contea dalla Spagna</td></tr>
+          <tr><td><b>Guerra della Lega di Augusta</b> (1688–97)</td><td>Contro Impero, Spagna, PV Unite, Inghilterra, Savoia, principi tedeschi (dopo il bombardamento di <b>Genova</b>)</td><td><b>Pace di Rijswijk (1697)</b>: Francia costretta a restituire</td></tr>
+          <tr><td><b>Successione spagnola</b> (1701–14)</td><td>Asse franco-spagnolo (Filippo V) contro la <b>Grande coalizione dell'Aia</b> (Impero, Inghilterra, PV Unite, Prussia, Portogallo, Savoia)</td><td><b>Utrecht/Rastadt (1714)</b>: Filippo V tiene la Spagna, ma niente unione delle corone</td></tr>
+          <tr><td><b>Successione austriaca</b> (1740–48)</td><td>Francia + Spagna, Prussia, Sardegna contro <b>Maria Teresa</b> (con GB, PV Unite)</td><td><b>Aquisgrana (1748)</b>: nessun vantaggio decisivo per la Francia</td></tr>
+          <tr><td><b>Guerra dei Sette anni</b> (1756–63)</td><td>Francia + Austria, Russia, Svezia contro <b>Prussia + Gran Bretagna</b></td><td><b>Pace di Parigi (1763)</b>: la Francia perde <b>Canada, terre a est del Mississippi, posizioni in India</b></td></tr>
+          <tr><td>Sostegno alla Rivoluzione americana</td><td>A fianco dei ribelli, contro la <b>Gran Bretagna</b></td><td>Rivincita coloniale, ma esplosione del <b>debito pubblico</b> → crisi del 1789</td></tr>
+          <tr><td><b>Guerre rivoluzionarie</b> (dal 1792)</td><td>Contro <b>Austria e Prussia</b>, poi coalizioni antifrancesi; campagna d'Italia</td><td><b>Campoformio (1797)</b>; repubbliche «sorelle» in Italia</td></tr>
+          <tr><td><b>Guerre napoleoniche</b></td><td>Contro le <b>7 coalizioni</b> (GB sempre presente; Austria, Prussia, Russia, ecc.)</td><td>Egemonia fino al 1812; poi Russia, <b>Lipsia (1814)</b>, <b>Waterloo (1815)</b></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout"><b>La costante geopolitica:</b> per due secoli la politica continentale ruota sulla rivalità <b>Francia (Valois → Borbone) vs Asburgo</b> (Spagna + Austria). Superata la Spagna (1659), l'avversario irriducibile diventa la <b>Gran Bretagna</b>, potenza navale e commerciale che la Francia non riesce mai a battere sul mare.</div>
+  </section>
+
+  <!-- 7. ECONOMIA E SOCIETÀ -->
+  <section class="card">
+    <h2><span class="num">7</span> Economia e società</h2>
+
+    <h3>Struttura e politica economica</h3>
+    <ul>
+      <li><b>Colbertismo / mercantilismo</b> (Luigi XIV): fiducia nel commercio internazionale, importazione di materie prime a basso dazio da rilavorare ed <b>riesportare</b>; obiettivo l'<b>autosufficienza</b> e lo scardinamento dell'egemonia olandese.</li>
+      <li><b>Manifatture regie</b> per evitare le importazioni; sviluppo di <b>marina</b> mercantile e militare (competitiva con olandesi e inglesi) e delle <b>compagnie coloniali</b> (Indie orientali e occidentali).</li>
+      <li><b>Limiti:</b> le guerre continue di Luigi XIV divorano le finanze; nonostante Colbert, ritorno all'<b>indebitamento</b>. Il debito è il tallone d'Achille anche di Luigi XV e Luigi XVI.</li>
+      <li><b>Napoleone:</b> riordino delle finanze pubbliche; il <b>blocco continentale</b> (1806) tenta la guerra economica alla GB ma fallisce (contrabbando; l'industria francese non sostituisce quella britannica).</li>
+    </ul>
+
+    <h3>Società di ceti → società di cittadini</h3>
+    <ul>
+      <li><b>Antico regime:</b> società di ordini/ceti e di privilegi (nobiltà, clero, terzo stato); la tassazione è vincolata al consenso dei ceti privilegiati.</li>
+      <li><b>Sanculotti:</b> il nuovo soggetto popolare urbano protagonista delle <em>journées</em> rivoluzionarie.</li>
+      <li><b>1789:</b> abolizione dei privilegi, <b>uguaglianza di tutti i cittadini davanti alla legge</b>, idea di <b>popolo-nazione</b>. La legge Le Chapelier abolisce le corporazioni e sancisce la libertà d'iniziativa (vietando però lo sciopero).</li>
+      <li><b>Napoleone:</b> etica del servizio pubblico e principio del <b>merito</b> (carriere aperte al talento, non alla nascita).</li>
+    </ul>
+  </section>
+
+  <!-- 8. COLLEGAMENTI -->
+  <section class="card">
+    <h2><span class="num">8</span> Collegamenti · la Francia e i grandi temi del corso</h2>
+    <div class="grid">
+      <div class="box link"><b>Assolutismo &amp; modello europeo.</b> Il modello di Luigi XIV è <em>esportato</em>: imitato dalla <b>Prussia</b> (Federico Guglielmo, poi Federico I) e dalla <b>Russia</b> di Pietro il Grande, che visita la Francia. La Francia è il paradigma dello Stato assoluto continentale.</div>
+      <div class="box link"><b>Confessionalizzazione.</b> Le guerre di religione francesi e la revoca di Nantes sono un capitolo dello scontro europeo cattolici–protestanti; ma con i <em>politiques</em> e la ragion di Stato la Francia inaugura la <b>separazione tra politica e appartenenza confessionale</b> (interviene contro gli Asburgo cattolici).</div>
+      <div class="box link"><b>Crisi del Seicento.</b> La <b>Fronda</b> (1648–53) è parte del «terremoto politico generale» di metà secolo, in parallelo con la rivolta contro gli Asburgo in <b>Spagna</b> (Catalogna, Portogallo, Napoli) e con la <b>rivoluzione inglese</b> — tutti moti contro i metodi assolutistici e i ministri-favoriti.</div>
+      <div class="box link"><b>Illuminismo.</b> La Francia è l'epicentro dei Lumi (Montesquieu, Voltaire, Rousseau, <em>Encyclopédie</em>). Modello di riferimento è però l'<b>Inghilterra</b> costituzionale; le idee illuministe nutrono il <b>dispotismo riformatore</b> altrui e, in patria, la critica all'antico regime.</div>
+      <div class="box link"><b>Rivoluzioni atlantiche.</b> Il debito per l'appoggio alla <b>Rivoluzione americana</b> innesca la crisi del 1789; a sua volta la Rivoluzione francese esporta il concetto di <b>popolo-nazione</b> e di sovranità popolare in tutta Europa (Italia, Spagna, Grecia, Russia decabrista).</div>
+      <div class="box link"><b>Restaurazione &amp; eredità.</b> Al Congresso di Vienna <b>Talleyrand</b> reintegra la Francia tra le potenze. Ma la <em>charte</em> di Luigi XVIII e la rivoluzione del 1830 mostrano che l'antico regime non è più restaurabile: l'eredità rivoluzionaria è irreversibile.</div>
+    </div>
+  </section>
+
+  <!-- 9. CONCETTI-CHIAVE -->
+  <section class="card">
+    <h2><span class="num">9</span> Concetti-chiave per l'orale</h2>
+    <div class="grid">
+      <div class="box"><b>Assolutismo.</b> Sistema fondato sulla potenza assoluta della volontà sovrana; culmine con Luigi XIV, il «Re Sole».</div>
+      <div class="box"><b>Ministro-favorito.</b> <em>Alter ego</em> del re che governa di fatto (Richelieu, Mazzarino); genera opposizione e rivolte.</div>
+      <div class="box"><b>Ragion di Stato.</b> L'interesse dello Stato prevale sulla fede: la Francia cattolica combatte gli Asburgo cattolici.</div>
+      <div class="box"><b>Editto di Nantes / Fontainebleau.</b> Tolleranza agli ugonotti (1598) e sua revoca (1685): parabola della politica religiosa francese.</div>
+      <div class="box"><b>Monarcomachi / politiques.</b> Chi teorizza il diritto di uccidere il tiranno vs chi mette l'autorità regia sopra le fazioni religiose.</div>
+      <div class="box"><b>Fronda.</b> Rivolta di Parlamento e nobiltà (1648–53) contro il dispotismo di Mazzarino: la più grave crisi europea del tempo.</div>
+      <div class="box"><b>Colbertismo.</b> Il mercantilismo francese: manifatture regie, marina, compagnie, autosufficienza contro l'Olanda.</div>
+      <div class="box"><b>Stati generali.</b> Assemblea dei tre ordini; unica a poter autorizzare nuove tasse: non convocata dal '600 al 1789 — scintilla della Rivoluzione.</div>
+      <div class="box"><b>Sanculotti / journées.</b> Popolo minuto di Parigi e le sue insurrezioni, motore radicale della Rivoluzione.</div>
+      <div class="box"><b>Terrore.</b> Fase (1793–94) del Comitato di salute pubblica e di Robespierre: eliminazione degli avversari politici.</div>
+      <div class="box"><b>Cesarismo.</b> Potere autoritario napoleonico fondato sull'esercito ma legittimato dal consenso popolare.</div>
+      <div class="box"><b>Popolo-nazione.</b> Idea forgiata dalla Rivoluzione: la sovranità risiede nel popolo → rappresentanza e autodeterminazione nazionale.</div>
+    </div>
+  </section>
+
+  <footer>Fonte: F. Benigno, <em>L'età moderna</em> — mappa di ripasso</footer>
+
+</div>
+</body>
+</html>

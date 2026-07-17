@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mappa Nazione — Stati Uniti d'America (nascita, 1607–1791)</title>
+<style>
+  :root{
+    --bg:#f4f1ea; --paper:#fffdf8; --ink:#2b2620; --muted:#7a7165;
+    --line:#e2dccf; --accent:#5a7a4b; --accent2:#3b6b8a; --accent3:#8a5a3b;
+    --shadow:0 1px 3px rgba(0,0,0,.08),0 8px 24px rgba(0,0,0,.06);
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--bg); color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    line-height:1.55; font-size:16px;
+    padding:28px 16px 60px;
+  }
+  .wrap{max-width:1000px; margin:0 auto;}
+
+  /* Header */
+  header.hero{
+    background:var(--paper); border:1px solid var(--line); border-radius:14px;
+    padding:28px 26px; box-shadow:var(--shadow); margin-bottom:22px;
+    border-top:6px solid var(--accent);
+  }
+  header.hero h1{
+    margin:0 0 6px; font-size:2.05rem; letter-spacing:-.5px; line-height:1.15;
+  }
+  header.hero .flag{color:var(--accent); font-weight:800;}
+  header.hero .arc{color:var(--muted); font-size:1.02rem; font-weight:600; margin:0 0 14px;}
+  header.hero .filo{
+    background:#f0f4ec; border-left:4px solid var(--accent);
+    padding:12px 16px; border-radius:0 10px 10px 0; margin:14px 0 0; font-size:1rem;
+  }
+  header.hero .filo b{color:var(--accent);}
+  .dyn-row{display:flex; flex-wrap:wrap; gap:8px; margin:16px 0 0;}
+
+  /* Cards */
+  section.card{
+    background:var(--paper); border:1px solid var(--line); border-radius:14px;
+    padding:24px; box-shadow:var(--shadow); margin-bottom:20px;
+  }
+  section.card > h2{
+    background:var(--accent); color:#fff; margin:-24px -24px 18px;
+    padding:14px 24px; border-radius:14px 14px 0 0;
+    font-size:1.2rem; letter-spacing:.3px; display:flex; align-items:center; gap:10px;
+  }
+  section.card > h2 .num{
+    background:rgba(255,255,255,.22); border-radius:8px; padding:1px 9px;
+    font-size:.95rem; font-weight:700;
+  }
+  h3{color:var(--accent3); font-size:1.05rem; margin:22px 0 8px; border-bottom:1px dashed var(--line); padding-bottom:4px;}
+  p{margin:8px 0;}
+  ul{margin:8px 0; padding-left:22px;}
+  li{margin:5px 0;}
+  .lead{color:var(--muted); font-size:.97rem;}
+
+  /* Badges / pills */
+  .pill{
+    display:inline-block; font-size:.72rem; font-weight:700; letter-spacing:.3px;
+    padding:2px 9px; border-radius:999px; text-transform:uppercase; white-space:nowrap;
+    vertical-align:middle;
+  }
+  .p-guerra{background:#f6e4dc; color:#8a3b2b;}
+  .p-riforma{background:#e2ecdc; color:#3f6a33;}
+  .p-dinastia{background:#e4e9f1; color:#345a7c;}
+  .p-religione{background:#efe6d3; color:#8a6a2b;}
+  .p-rivolta{background:#f1e0ea; color:#8a3b6a;}
+  .p-trattato{background:#dceaea; color:#2b6a6a;}
+  .p-economia{background:#e0ece4; color:#2b6a4b;}
+  .p-idea{background:#e4e9f1; color:#345a7c;}
+
+  /* Timeline */
+  .timeline{position:relative; margin:8px 0 0; padding:0 0 0 30px;}
+  .timeline::before{
+    content:""; position:absolute; left:9px; top:6px; bottom:6px; width:3px;
+    background:linear-gradient(var(--accent),#b7c9ac); border-radius:3px;
+  }
+  .tl{position:relative; margin:0 0 16px;}
+  .tl::before{
+    content:""; position:absolute; left:-27px; top:4px; width:13px; height:13px;
+    background:var(--paper); border:3px solid var(--accent); border-radius:50%;
+  }
+  .tl.big::before{background:var(--accent); box-shadow:0 0 0 4px #dfe8d6;}
+  .tl .yr{font-weight:800; color:var(--accent2); margin-right:8px;}
+  .tl .ev{font-weight:700;}
+  .tl .ds{display:block; color:var(--muted); font-size:.93rem; margin-top:2px;}
+  .era-label{
+    margin:22px 0 12px; font-weight:800; color:var(--accent3); font-size:.85rem;
+    letter-spacing:1px; text-transform:uppercase;
+  }
+
+  /* Table */
+  .tbl-wrap{overflow-x:auto; -webkit-overflow-scrolling:touch; margin:6px 0; border-radius:10px; border:1px solid var(--line);}
+  table{border-collapse:collapse; width:100%; min-width:560px; font-size:.93rem;}
+  th,td{padding:9px 12px; text-align:left; vertical-align:top; border-bottom:1px solid var(--line);}
+  thead th{background:#efe9dc; color:var(--ink); font-weight:700; position:sticky; top:0;}
+  tbody tr:nth-child(even){background:#faf7f0;}
+  td .role{color:var(--muted); font-size:.85rem;}
+
+  /* Evolution flow */
+  .evo{display:flex; flex-wrap:wrap; align-items:stretch; gap:8px; margin:12px 0 6px;}
+  .evo .step{
+    flex:1 1 130px; background:#f0f4ec; border:1px solid var(--line); border-radius:10px;
+    padding:10px 12px; font-size:.88rem; position:relative;
+  }
+  .evo .step b{display:block; color:var(--accent); font-size:.95rem; margin-bottom:2px;}
+  .evo .arrow{align-self:center; color:var(--accent); font-weight:800; font-size:1.2rem;}
+
+  /* Two-col grid for concepts / links */
+  .grid{display:grid; grid-template-columns:1fr; gap:12px; margin-top:6px;}
+  @media(min-width:640px){.grid{grid-template-columns:1fr 1fr;}}
+  .box{background:#faf7f0; border:1px solid var(--line); border-radius:10px; padding:12px 14px;}
+  .box b{color:var(--accent3);}
+  .box.link b{color:var(--accent2);}
+
+  .callout{background:#f0f4ec; border-left:4px solid var(--accent); padding:10px 14px; border-radius:0 8px 8px 0; margin:12px 0; font-size:.95rem;}
+
+  footer{color:var(--muted); font-size:.82rem; text-align:center; margin-top:26px; padding-top:14px; border-top:1px solid var(--line);}
+
+  @media(max-width:520px){
+    header.hero h1{font-size:1.6rem;}
+    section.card{padding:20px 16px;}
+    section.card > h2{margin:-20px -16px 16px; padding:12px 16px;}
+  }
+  @media print{
+    body{background:#fff; padding:0; font-size:12px;}
+    section.card,header.hero{box-shadow:none; break-inside:avoid;}
+    section.card > h2{-webkit-print-color-adjust:exact; print-color-adjust:exact;}
+  }
+
+/* barra di navigazione (aggiunta per il sito) */
+.map-top{position:sticky;top:0;z-index:50;display:flex;align-items:center;gap:10px;
+  background:#2b2620;color:#fff;padding:10px 14px;box-shadow:0 2px 8px rgba(0,0,0,.18);
+  margin:-28px -16px 24px;}
+.map-top a{color:#fff;text-decoration:none;font-weight:600;font-size:13.5px;
+  background:rgba(255,255,255,.16);padding:8px 12px;border-radius:9px;white-space:nowrap;}
+.map-top a:active{background:rgba(255,255,255,.32);}
+.map-top .loc{flex:1;text-align:center;font-size:13px;font-weight:600;opacity:.95;}
+@media print{.map-top{display:none}}
+</style>
+</head>
+<body>
+<header class="map-top">
+  <a class="back" href="../index.html#mappe">← Mappe</a>
+  <span class="loc">Mappe per nazione · Stati Uniti</span>
+</header>
+
+<div class="wrap">
+
+  <!-- 1. INTESTAZIONE -->
+  <header class="hero">
+    <h1><span class="flag">STATI UNITI D'AMERICA</span> — la nascita: la prima grande repubblica moderna</h1>
+    <p class="arc">Dalle tredici colonie inglesi del Nord America alla repubblica federale · c. 1607–1791 · da <b>colonie della corona britannica</b> a <b>repubblica presidenziale e federale</b> · protagonisti i «padri fondatori» (<b>Washington</b>, <b>Jefferson</b>)</p>
+    <div class="dyn-row">
+      <span class="pill p-rivolta">Rivoluzione americana</span>
+      <span class="pill p-idea">Repubblica federale</span>
+      <span class="pill p-riforma">Costituzione scritta</span>
+      <span class="pill p-idea">Diritti dell'uomo</span>
+    </div>
+    <p class="filo"><b>Il filo rosso:</b> per la <b>seconda volta nella storia moderna</b> (dopo la rivolta dei Paesi Bassi contro la Spagna) un popolo conduce una <b>guerra vincente per l'autodeterminazione</b> e sceglie da sé il proprio governo. Ma qui la posta è nuova: la rivolta è condotta su <b>princìpi repubblicani e illuministici</b> e sfocia in un assetto <b>liberal-democratico</b> — diritti inalienabili dell'uomo, uguaglianza di fronte alla legge (per i soli maschi bianchi), <b>costituzione scritta</b>, <b>separazione dei poteri</b> e <b>governo federale presidenziale</b>. In un'Europa dominata dalla monarchia, gli USA appaiono ai contemporanei come una <b>«società modello»</b>, e diventano il precedente diretto della <b>Rivoluzione francese</b>. Un percorso: <b>colonie → «no taxation without representation» → indipendenza (1776) → repubblica federale (1787)</b>.</p>
+  </header>
+
+  <!-- 2. LINEA DEL TEMPO -->
+  <section class="card">
+    <h2><span class="num">2</span> Linea del tempo</h2>
+    <p class="lead">Gli avvenimenti principali in ordine cronologico. I pallini pieni segnano le svolte decisive.</p>
+
+    <div class="era-label">Il mondo coloniale nord-americano (cap. 25)</div>
+    <div class="timeline">
+      <div class="tl"><span class="yr">'600</span><span class="ev">Le basi commerciali inglesi sulle coste <span class="pill p-economia">colonie</span></span><span class="ds">L'interesse inglese in Nord America è anzitutto <b>commerciale</b>: basi sulle coste e scambi con le popolazioni indigene dell'entroterra. La popolazione dei primi insediamenti è fatta di <b>mercanti, artigiani, cercatori di fortuna</b>, ma anche di <b>deportati e gente indesiderata</b> allontanata dalla madrepatria.</span></div>
+      <div class="tl"><span class="yr">'600</span><span class="ev">La comunità puritana: la «nuova Gerusalemme» <span class="pill p-religione">religione</span></span><span class="ds">La società coloniale è tenuta insieme dal <b>credo riformato calvinista</b>. Vi giungono quanti giudicano la <b>Chiesa anglicana</b> troppo vicina a Roma: per loro il Nuovo Mondo è la «<b>terra promessa</b>», il luogo dove fondare una comunità di eletti. Nasce il <b>New England</b>; più a sud, colonie agricole fondate sulla <b>schiavitù</b> di africani deportati.</span></div>
+      <div class="tl"><span class="yr">età moderna</span><span class="ev">Autonomia e assemblee elettive</span><span class="ds">Le colonie godono di <b>ampia autonomia</b>: hanno <b>assemblee rappresentative elettive</b> e il controllo di Londra è <b>indiretto</b>, guidato da interessi economici. Vincolo di fondo: le colonie devono <b>commerciare esclusivamente con la madrepatria</b> (patto del <b>mercantilismo</b>). Nel Settecento questo equilibrio si spezza.</span></div>
+
+      <div class="era-label">«Niente tasse senza rappresentanza»: verso il conflitto (cap. 24–25)</div>
+      <div class="tl big"><span class="yr">1763</span><span class="ev">Trattato di Parigi: la Gran Bretagna si allarga <span class="pill p-trattato">trattato</span></span><span class="ds">La <b>guerra dei Sette anni (1756–63)</b>, primo conflitto planetario, oppone Francia e Gran Bretagna anche per i domini in America. Vinta la guerra, Londra ottiene <b>Canada, Florida e i territori a est del Mississippi</b>: più potere, ma <b>enormi debiti</b> e i costi della presenza militare nelle colonie.</span></div>
+      <div class="tl big"><span class="yr">1765</span><span class="ev">Stamp Act: la tassa senza consenso <span class="pill p-rivolta">tassazione</span></span><span class="ds">Per finanziare l'amministrazione, il governo impone lo <b>Stamp Act</b>, una nuova tassa che grava sui coloni. Ai loro occhi è imposta <b>senza il loro consenso</b>: esplode la protesta «<b>No taxation without representation</b>». La ragione di fondo non è solo fiscale ma <b>politica</b>: i coloni reclamano <b>rappresentanza parlamentare</b>.</span></div>
+      <div class="tl"><span class="yr">1766</span><span class="ev">Abrogazione dello Stamp Act</span><span class="ds">Sostenuti da influenti esponenti <b>whig</b> a Londra, i coloni ottengono l'<b>abrogazione</b> della tassa. Ma tra il <b>1767 e il 1770</b> nuove imposizioni fiscali riaccendono le tensioni.</span></div>
+      <div class="tl big"><span class="yr">1773</span><span class="ev">Boston Tea Party <span class="pill p-rivolta">rivolta</span></span><span class="ds">Una legge assegna alla <b>Compagnia inglese delle Indie orientali</b> il monopolio del commercio del tè nelle colonie. Un gruppo di coloni <b>travestiti da indiani</b> getta in mare il carico di tè di una nave inglese nel porto di <b>Boston</b>: primo passo di un'agitazione antifiscale che diventa <b>rivoluzione</b>.</span></div>
+
+      <div class="era-label">La guerra d'indipendenza (cap. 25)</div>
+      <div class="tl"><span class="yr">1774</span><span class="ev">Quebec Act e primo Congresso continentale <span class="pill p-guerra">crisi</span></span><span class="ds">Londra reagisce col <b>Quebec Act</b>: un governo <b>senza rappresentanza locale</b> che concede libertà di culto ai cattolici del Quebec (per sottrarli alle colonie puritane). Percepito come rottura del patto, spinge i rappresentanti delle <b>tredici colonie</b> a riunirsi in un <b>congresso continentale</b> a Philadelphia, dove prevale però la linea di <b>conciliazione</b>.</span></div>
+      <div class="tl big"><span class="yr">1775</span><span class="ev">Scoppia la guerra · secondo Congresso · Washington al comando <span class="pill p-guerra">guerra</span></span><span class="ds"><b>Giorgio III</b> considera il congresso un'aperta ribellione e reagisce con la forza: i primi scontri aprono la <b>guerra d'indipendenza</b>. Il <b>secondo Congresso continentale</b> organizza un <b>esercito comune</b> affidato a <b>George Washington</b> (futuro primo Presidente).</span></div>
+      <div class="tl big"><span class="yr">4 luglio 1776</span><span class="ev">Dichiarazione d'indipendenza <span class="pill p-idea">atto fondativo</span></span><span class="ds">Il Congresso approva la <b>Dichiarazione d'indipendenza</b> redatta da <b>Thomas Jefferson</b> (futuro terzo Presidente): mette per iscritto le ragioni della ribellione e proclama i <b>diritti inalienabili dell'uomo</b> — <b>vita, libertà, ricerca della felicità</b> — e il <b>diritto di abbattere ogni governo che li violi</b>.</span></div>
+      <div class="tl big"><span class="yr">1783</span><span class="ev">Trattato di Versailles: l'indipendenza riconosciuta <span class="pill p-trattato">trattato</span></span><span class="ds">Dopo circa tre anni di guerra i ribelli — sostenuti dalla <b>Francia</b> — sconfiggono l'esercito britannico. Con il <b>trattato di Versailles</b> la Gran Bretagna <b>riconosce l'indipendenza</b> delle ex colonie, che assumono il nome di <b>Stati Uniti d'America</b>.</span></div>
+
+      <div class="era-label">La fondazione della repubblica (cap. 25)</div>
+      <div class="tl"><span class="yr">1781–87</span><span class="ev">Articoli di confederazione <span class="pill p-riforma">1ª costituzione</span></span><span class="ds">La prima carta è debole: gli <b>Articoli di confederazione</b> danno vita a una semplice <b>autorità confederale</b> dei tredici Stati, senza un vero potere centrale.</span></div>
+      <div class="tl big"><span class="yr">1787</span><span class="ev">Convenzione di Philadelphia: la Costituzione <span class="pill p-riforma">riforma</span></span><span class="ds">Una convenzione redige a Philadelphia una <b>costituzione scritta di soli sette articoli</b>: <b>repubblica federale</b> (potere centrale forte, ma Stati membri autonomi e sovrani), <b>Congresso bicamerale</b> (Camera dei rappresentanti + Senato), <b>presidente</b> a capo dell'esecutivo, potere giudiziario su due livelli con una <b>Corte Suprema</b> a tutela della costituzione.</span></div>
+      <div class="tl big"><span class="yr">1789</span><span class="ev">Entra in vigore la Costituzione <span class="pill p-idea">repubblica federale</span></span><span class="ds">La <b>Costituzione degli Stati Uniti</b> entra in vigore: seppur modificata nei secoli, è <b>ancora oggi in vigore</b> ed è la <b>più antica costituzione scritta del mondo</b>. Nello stesso anno esplode in Europa la <b>Rivoluzione francese</b>.</span></div>
+      <div class="tl"><span class="yr">1791</span><span class="ev">Bill of Rights <span class="pill p-idea">diritti</span></span><span class="ds">A completamento della carta è approvato il <b>Bill of Rights</b>, che sancisce i <b>diritti individuali e inviolabili</b> dell'uomo — <b>esclusi però schiavi africani, indigeni e donne</b>.</span></div>
+    </div>
+  </section>
+
+  <!-- 3. PROTAGONISTI E ISTITUZIONI FONDATRICI (sostituisce "Sovrani e dinastie") -->
+  <section class="card">
+    <h2><span class="num">3</span> Protagonisti e istituzioni fondatrici</h2>
+    <p class="lead">Una repubblica non ha dinastie: al posto dei sovrani, i «padri fondatori» e gli organismi che diedero forma al nuovo Stato. (Sul fronte britannico regna <b>Giorgio III</b>, ultimo sovrano delle colonie.)</p>
+    <div class="tbl-wrap">
+      <table>
+        <thead>
+          <tr><th>Protagonista / istituzione</th><th>Ruolo</th><th>Che cosa lo caratterizza</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><b>George Washington</b><br><span class="role">comandante · 1° Presidente</span></td>
+            <td>Capo dell'esercito continentale (1775), poi primo Presidente USA</td>
+            <td>Guida militare della guerra d'indipendenza e prima incarnazione del <b>potere esecutivo presidenziale</b> della nuova repubblica.</td>
+          </tr>
+          <tr>
+            <td><b>Thomas Jefferson</b><br><span class="role">3° Presidente</span></td>
+            <td>Estensore della Dichiarazione d'indipendenza (1776)</td>
+            <td>Traduce i princìpi illuministici in atto politico: <b>diritti inalienabili</b> (vita, libertà, ricerca della felicità) e diritto di <b>resistenza</b> al governo che li viola.</td>
+          </tr>
+          <tr>
+            <td><b>Giorgio III</b> di Gran Bretagna<br><span class="role">re · dinastia Hannover</span></td>
+            <td>Sovrano della madrepatria</td>
+            <td>Considera «aperta ribellione» il Congresso del 1774 e sceglie la <b>repressione armata</b>: la sua intransigenza innesca la guerra.</td>
+          </tr>
+          <tr>
+            <td><b>Congresso continentale</b><br><span class="role">1774 · 1775</span></td>
+            <td>Assemblea dei delegati delle tredici colonie</td>
+            <td>Da organo di protesta a <b>governo rivoluzionario</b>: organizza l'esercito e approva la Dichiarazione d'indipendenza.</td>
+          </tr>
+          <tr>
+            <td><b>Convenzione di Philadelphia</b><br><span class="role">1787</span></td>
+            <td>Assemblea costituente</td>
+            <td>Redige la <b>Costituzione federale</b> in sette articoli, disegnando il nuovo assetto dei poteri.</td>
+          </tr>
+          <tr>
+            <td><b>Presidente / Congresso / Corte Suprema</b><br><span class="role">dal 1789</span></td>
+            <td>I tre poteri federali</td>
+            <td><b>Esecutivo</b> (presidente), <b>legislativo</b> (Camera + Senato), <b>giudiziario</b> (Corte Suprema, custode della costituzione): la separazione dei poteri in atto.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- 4. FORMA DI GOVERNO E ISTITUZIONI -->
+  <section class="card">
+    <h2><span class="num">4</span> Forma di governo e istituzioni</h2>
+    <p>La grande novità storica è il <b>tipo di Stato</b> stesso: non una monarchia riformata, ma una <b>repubblica federale a base costituzionale</b>, opposta al modello monarchico dominante nell'Europa del Settecento.</p>
+
+    <div class="evo">
+      <div class="step"><b>Colonie</b>autonome, con assemblee elettive, sotto la corona britannica</div>
+      <div class="arrow">→</div>
+      <div class="step"><b>Confederazione</b>Articoli di confederazione (1781): unione debole di 13 Stati sovrani</div>
+      <div class="arrow">→</div>
+      <div class="step"><b>Repubblica federale</b>Costituzione 1787: potere centrale forte + autonomia degli Stati</div>
+    </div>
+
+    <h3>Le istituzioni chiave della Costituzione (1787/89)</h3>
+    <ul>
+      <li><b>Federalismo</b> — forma di Stato con un <b>potere centrale</b>, ma in cui gli <b>Stati membri conservano autonomia e sovranità</b>: né Stato unitario né semplice confederazione.</li>
+      <li><b>Potere legislativo</b> — un <b>Congresso bicamerale</b>: la <b>Camera dei rappresentanti</b> e il <b>Senato</b>.</li>
+      <li><b>Potere esecutivo</b> — incentrato sulla figura del <b>Presidente degli Stati Uniti</b>: nasce il modello di <b>repubblica presidenziale</b>.</li>
+      <li><b>Potere giudiziario</b> — articolato su <b>due ambiti</b>, quello <b>federale</b> e quello dei <b>singoli Stati</b>; al vertice la <b>Corte Suprema</b>, custode della costituzione e arbitro dei conflitti tra istituzioni.</li>
+      <li><b>Costituzione scritta e rigida</b> — regola la <b>divisione dei poteri</b>; completata dal <b>Bill of Rights (1791)</b> a garanzia dei diritti individuali.</li>
+    </ul>
+    <div class="callout"><b>Rapporto potere–cittadini:</b> la sovranità risiede nel <b>popolo-nazione</b> («We, the people/nation»); il governo è legittimato dal consenso e vincolato dalla legge. Il riconoscimento dei <b>diritti dell'uomo</b> e dell'<b>uguaglianza di fronte alla legge</b> resta però limitato ai <b>maschi bianchi</b>: esclusi schiavi, indigeni e donne.</div>
+  </section>
+
+  <!-- 5. POLITICA INTERNA -->
+  <section class="card">
+    <h2><span class="num">5</span> Politica interna</h2>
+    <h3>La questione fiscale e la rappresentanza</h3>
+    <p>Il nodo interno che accende tutto è <b>fiscale e politico insieme</b>: Londra impone tasse (<b>Stamp Act</b>, dazi 1767–70, monopolio del tè) per far pagare ai coloni i costi dell'impero, ma i coloni non hanno <b>rappresentanza parlamentare</b>. Da qui la parola d'ordine «<b>No taxation without representation</b>»: la richiesta non è solo di meno tasse, ma di <b>partecipazione politica</b> e di <b>limitazione dei poteri del sovrano</b>.</p>
+
+    <h3>La questione religiosa</h3>
+    <p>Le colonie del <b>New England</b> nascono da comunità <b>calviniste/puritane</b> in fuga dall'anglicanesimo: la religione è collante sociale e identità («nuova Gerusalemme»). Il <b>Quebec Act (1774)</b>, che tutela i <b>cattolici</b> del Quebec, è vissuto come una provocazione dalle colonie puritane.</p>
+
+    <h3>Rivolte e conflitti</h3>
+    <ul>
+      <li><b>Boston Tea Party (1773)</b> — atto di disobbedienza antifiscale che innesca la rottura.</li>
+      <li><b>Ribellione dichiarata (1775)</b> — Giorgio III sceglie la forza; la protesta diventa guerra.</li>
+      <li><b>Nodo interno irrisolto</b> — la <b>schiavitù</b>: la repubblica dei «diritti dell'uomo» esclude gli africani deportati (oltre a indigeni e donne), contraddizione destinata a pesare sul futuro.</li>
+    </ul>
+  </section>
+
+  <!-- 6. POLITICA ESTERA E GUERRE -->
+  <section class="card">
+    <h2><span class="num">6</span> Politica estera e guerre</h2>
+    <div class="tbl-wrap">
+      <table>
+        <thead>
+          <tr><th>Evento</th><th>Con chi / contro chi</th><th>Esito</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><b>Guerra dei Sette anni</b> (1756–63) <span class="pill p-guerra">guerra</span></td>
+            <td>Gran Bretagna <b>vs</b> Francia (in America e India)</td>
+            <td>Vittoria britannica: col <b>trattato di Parigi (1763)</b> Londra ottiene Canada, Florida e i territori a est del Mississippi — ma si carica di debiti che scaricherà sulle colonie.</td>
+          </tr>
+          <tr>
+            <td><b>Guerra d'indipendenza</b> (1775–83) <span class="pill p-guerra">guerra</span></td>
+            <td>Tredici colonie <b>vs</b> Gran Bretagna, con l'<b>appoggio decisivo della Francia</b></td>
+            <td>Vittoria dei ribelli: nasce la nuova nazione.</td>
+          </tr>
+          <tr>
+            <td><b>Trattato di Versailles</b> (1783) <span class="pill p-trattato">trattato</span></td>
+            <td>Stati Uniti · Gran Bretagna · Francia</td>
+            <td>La Gran Bretagna <b>riconosce l'indipendenza</b> degli Stati Uniti d'America.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout"><b>La chiave geopolitica:</b> l'indipendenza americana è anche una <b>vittoria della Francia</b> contro la rivale <b>Gran Bretagna</b>, rivincita della sconfitta del 1763. Ma il costo di quell'appoggio fa impennare il <b>debito pubblico francese</b>: uno dei detonatori della <b>Rivoluzione francese</b> del 1789.</div>
+  </section>
+
+  <!-- 7. ECONOMIA E SOCIETÀ -->
+  <section class="card">
+    <h2><span class="num">7</span> Economia e società</h2>
+    <h3>Struttura economica</h3>
+    <ul>
+      <li><b>Economia coloniale mercantilistica</b> — le colonie devono <b>commerciare solo con la madrepatria</b>: Londra vincola il loro sviluppo per privilegiare le imprese inglesi. La Gran Bretagna è la <b>prima potenza navale e coloniale</b>, e il continente americano il suo grande <b>mercato di sbocco</b>.</li>
+      <li><b>Tre modelli coloniali</b> — a nord il <b>New England</b> (comunità puritane); al centro i grandi <b>centri commerciali e portuali</b> (con migranti olandesi e tedeschi); a sud le <b>colonie agricole</b> fondate sulla <b>schiavitù</b> di africani deportati.</li>
+    </ul>
+    <h3>Ceti e società</h3>
+    <ul>
+      <li>Popolazione di <b>mercanti, artigiani e cercatori di fortuna</b>, ma anche <b>deportati</b>; forte peso delle <b>comunità religiose</b>.</li>
+      <li>Società <b>senza aristocrazia di sangue né antico regime</b>: ai contemporanei europei appare come una «<b>società modello</b>», con più libertà e una giustizia meglio distribuita.</li>
+      <li><b>Contraddizione di fondo:</b> l'uguaglianza proclamata convive con la <b>schiavitù</b> e l'esclusione di indigeni e donne.</li>
+    </ul>
+    <div class="callout"><b>Ascesa:</b> da periferia coloniale a repubblica indipendente, gli USA nascono come <b>protagonista nuovo</b> della scena atlantica e come <b>modello politico</b> esportabile.</div>
+  </section>
+
+  <!-- 8. COLLEGAMENTI -->
+  <section class="card">
+    <h2><span class="num">8</span> Collegamenti</h2>
+    <div class="grid">
+      <div class="box link"><b>↔ Inghilterra / Gran Bretagna (cap. 18, 24, 29)</b> — madrepatria e avversaria: le colonie ereditano tradizione di <b>assemblee elettive</b> e cultura <b>whig</b>; ma la fiscalità imperiale (post-1763) spezza il patto. La Gran Bretagna resta però il <b>modello di riferimento dei liberali</b> europei.</div>
+      <div class="box link"><b>↔ Illuminismo (cap. 23)</b> — la Dichiarazione e la Costituzione mettono in atto idee illuministiche: <b>diritti naturali</b>, <b>separazione dei poteri</b> alla <b>Montesquieu</b>, <b>sovranità popolare</b>. L'America diventa la prova che quelle idee possono <b>fondare uno Stato</b>.</div>
+      <div class="box link"><b>↔ Rivoluzione francese (cap. 26)</b> — doppio legame: l'<b>appoggio francese</b> ai ribelli dissesta le finanze di Luigi XVI (→ Stati generali 1789); e la repubblica americana è il <b>modello</b> di costituzione, diritti e sovranità popolare per i rivoluzionari francesi.</div>
+      <div class="box link"><b>↔ Province Unite (cap. 9)</b> — precedente storico: la rivolta olandese contro la Spagna è la <b>prima</b> guerra vincente di autodeterminazione; l'America è la <b>seconda</b>, ma su basi <b>repubblicane e dei diritti</b>.</div>
+      <div class="box link"><b>↔ Popolo-nazione e rivoluzioni atlantiche (cap. 29–30)</b> — è con la rivoluzione americana («<b>We, the nation</b>») che il concetto di <b>popolo-nazione</b> si afferma con chiarezza: la nazione diventa soggetto che si identifica con lo Stato, matrice delle rivendicazioni d'indipendenza dell'Ottocento (fino all'<b>America Latina</b>).</div>
+      <div class="box link"><b>↔ Grandi temi del corso</b> — controcanto all'<b>assolutismo</b>: dove l'Europa continentale rafforza il re, l'America fonda una <b>repubblica costituzionale</b>, aprendo l'<b>età delle rivoluzioni</b>.</div>
+    </div>
+  </section>
+
+  <!-- 9. CONCETTI-CHIAVE PER L'ORALE -->
+  <section class="card">
+    <h2><span class="num">9</span> Concetti-chiave per l'orale</h2>
+    <div class="grid">
+      <div class="box"><b>No taxation without representation</b> — parola d'ordine dei coloni: nessuna tassa senza rappresentanza parlamentare. Sposta il conflitto dal piano fiscale a quello <b>politico</b>.</div>
+      <div class="box"><b>Rivoluzione americana</b> — evento centrale della storia mondiale: seconda guerra vincente d'autodeterminazione (dopo i Paesi Bassi), su princìpi <b>repubblicani</b>.</div>
+      <div class="box"><b>Dichiarazione d'indipendenza (1776)</b> — testo di Jefferson: diritti inalienabili (<b>vita, libertà, ricerca della felicità</b>) e diritto di abbattere il governo che li viola.</div>
+      <div class="box"><b>Costituzione del 1787</b> — carta scritta di 7 articoli; disegna una <b>repubblica federale presidenziale</b>. In vigore dal 1789, la <b>più antica del mondo</b>.</div>
+      <div class="box"><b>Federalismo</b> — potere centrale forte + Stati membri che conservano autonomia e sovranità (via di mezzo tra Stato unitario e confederazione).</div>
+      <div class="box"><b>Separazione dei poteri</b> — legislativo (Congresso bicamerale), esecutivo (Presidente), giudiziario (Corte Suprema): garanzia della libertà, di ascendenza <b>montesquieuiana</b>.</div>
+      <div class="box"><b>Bill of Rights (1791)</b> — carta dei diritti individuali e inviolabili; esclude però schiavi, indigeni e donne.</div>
+      <div class="box"><b>Boston Tea Party (1773)</b> — coloni travestiti da indiani gettano il tè in mare a Boston: scintilla della rivoluzione.</div>
+      <div class="box"><b>Popolo-nazione («We, the nation»)</b> — la nazione come soggetto sovrano che si identifica con lo Stato: eredità che passa alla Rivoluzione francese.</div>
+      <div class="box"><b>Società modello</b> — l'immagine con cui l'Europa illuminista guarda agli USA: più libertà, più uguaglianza, giustizia meglio distribuita.</div>
+    </div>
+  </section>
+
+  <footer>Fonte: F. Benigno, <i>L'età moderna</i> — mappa di ripasso</footer>
+
+</div>
+</body>
+</html>

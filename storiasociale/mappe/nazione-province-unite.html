@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mappa Nazione — Province Unite / Repubblica olandese (età moderna)</title>
+<style>
+  :root{
+    --bg:#f4f1ea; --paper:#fffdf8; --ink:#2b2620; --muted:#7a7165;
+    --line:#e2dccf; --accent:#5a7a4b; --accent2:#3b6b8a; --accent3:#8a5a3b;
+    --shadow:0 1px 3px rgba(0,0,0,.08),0 8px 24px rgba(0,0,0,.06);
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--bg); color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    line-height:1.55; font-size:16px;
+    padding:28px 16px 60px;
+  }
+  .wrap{max-width:1000px; margin:0 auto;}
+
+  /* Header */
+  header.hero{
+    background:var(--paper); border:1px solid var(--line); border-radius:14px;
+    padding:28px 26px; box-shadow:var(--shadow); margin-bottom:22px;
+    border-top:6px solid var(--accent);
+  }
+  header.hero h1{
+    margin:0 0 6px; font-size:2.05rem; letter-spacing:-.5px; line-height:1.15;
+  }
+  header.hero .flag{color:var(--accent); font-weight:800;}
+  header.hero .arc{color:var(--muted); font-size:1.02rem; font-weight:600; margin:0 0 14px;}
+  header.hero .filo{
+    background:#f0f4ec; border-left:4px solid var(--accent);
+    padding:12px 16px; border-radius:0 10px 10px 0; margin:14px 0 0; font-size:1rem;
+  }
+  header.hero .filo b{color:var(--accent);}
+  .dyn-row{display:flex; flex-wrap:wrap; gap:8px; margin:16px 0 0;}
+
+  /* Cards */
+  section.card{
+    background:var(--paper); border:1px solid var(--line); border-radius:14px;
+    padding:24px; box-shadow:var(--shadow); margin-bottom:20px;
+  }
+  section.card > h2{
+    background:var(--accent); color:#fff; margin:-24px -24px 18px;
+    padding:14px 24px; border-radius:14px 14px 0 0;
+    font-size:1.2rem; letter-spacing:.3px; display:flex; align-items:center; gap:10px;
+  }
+  section.card > h2 .num{
+    background:rgba(255,255,255,.22); border-radius:8px; padding:1px 9px;
+    font-size:.95rem; font-weight:700;
+  }
+  h3{color:var(--accent3); font-size:1.05rem; margin:22px 0 8px; border-bottom:1px dashed var(--line); padding-bottom:4px;}
+  p{margin:8px 0;}
+  ul{margin:8px 0; padding-left:22px;}
+  li{margin:5px 0;}
+  .lead{color:var(--muted); font-size:.97rem;}
+
+  /* Badges / pills */
+  .pill{
+    display:inline-block; font-size:.72rem; font-weight:700; letter-spacing:.3px;
+    padding:2px 9px; border-radius:999px; text-transform:uppercase; white-space:nowrap;
+    vertical-align:middle;
+  }
+  .p-guerra{background:#f6e4dc; color:#8a3b2b;}
+  .p-riforma{background:#e2ecdc; color:#3f6a33;}
+  .p-dinastia{background:#e4e9f1; color:#345a7c;}
+  .p-religione{background:#efe6d3; color:#8a6a2b;}
+  .p-rivolta{background:#f1e0ea; color:#8a3b6a;}
+  .p-trattato{background:#dceaea; color:#2b6a6a;}
+  .p-economia{background:#e0ece4; color:#2b6a4b;}
+
+  /* Timeline */
+  .timeline{position:relative; margin:8px 0 0; padding:0 0 0 30px;}
+  .timeline::before{
+    content:""; position:absolute; left:9px; top:6px; bottom:6px; width:3px;
+    background:linear-gradient(var(--accent),#b7c9ac); border-radius:3px;
+  }
+  .tl{position:relative; margin:0 0 16px;}
+  .tl::before{
+    content:""; position:absolute; left:-27px; top:4px; width:13px; height:13px;
+    background:var(--paper); border:3px solid var(--accent); border-radius:50%;
+  }
+  .tl.big::before{background:var(--accent); box-shadow:0 0 0 4px #dfe8d6;}
+  .tl .yr{font-weight:800; color:var(--accent2); margin-right:8px;}
+  .tl .ev{font-weight:700;}
+  .tl .ds{display:block; color:var(--muted); font-size:.93rem; margin-top:2px;}
+  .era-label{
+    margin:22px 0 12px; font-weight:800; color:var(--accent3); font-size:.85rem;
+    letter-spacing:1px; text-transform:uppercase;
+  }
+
+  /* Table */
+  .tbl-wrap{overflow-x:auto; -webkit-overflow-scrolling:touch; margin:6px 0; border-radius:10px; border:1px solid var(--line);}
+  table{border-collapse:collapse; width:100%; min-width:560px; font-size:.93rem;}
+  th,td{padding:9px 12px; text-align:left; vertical-align:top; border-bottom:1px solid var(--line);}
+  thead th{background:#efe9dc; color:var(--ink); font-weight:700; position:sticky; top:0;}
+  tbody tr:nth-child(even){background:#faf7f0;}
+  td .role{color:var(--muted); font-size:.85rem;}
+
+  /* Evolution flow */
+  .evo{display:flex; flex-wrap:wrap; align-items:stretch; gap:8px; margin:12px 0 6px;}
+  .evo .step{
+    flex:1 1 130px; background:#f0f4ec; border:1px solid var(--line); border-radius:10px;
+    padding:10px 12px; font-size:.88rem; position:relative;
+  }
+  .evo .step b{display:block; color:var(--accent); font-size:.95rem; margin-bottom:2px;}
+  .evo .arrow{align-self:center; color:var(--accent); font-weight:800; font-size:1.2rem;}
+
+  /* Two-col grid for concepts / links */
+  .grid{display:grid; grid-template-columns:1fr; gap:12px; margin-top:6px;}
+  @media(min-width:640px){.grid{grid-template-columns:1fr 1fr;}}
+  .box{background:#faf7f0; border:1px solid var(--line); border-radius:10px; padding:12px 14px;}
+  .box b{color:var(--accent3);}
+  .box.link b{color:var(--accent2);}
+
+  .callout{background:#f0f4ec; border-left:4px solid var(--accent); padding:10px 14px; border-radius:0 8px 8px 0; margin:12px 0; font-size:.95rem;}
+
+  footer{color:var(--muted); font-size:.82rem; text-align:center; margin-top:26px; padding-top:14px; border-top:1px solid var(--line);}
+
+  @media(max-width:520px){
+    header.hero h1{font-size:1.6rem;}
+    section.card{padding:20px 16px;}
+    section.card > h2{margin:-20px -16px 16px; padding:12px 16px;}
+  }
+  @media print{
+    body{background:#fff; padding:0; font-size:12px;}
+    section.card,header.hero{box-shadow:none; break-inside:avoid;}
+    section.card > h2{-webkit-print-color-adjust:exact; print-color-adjust:exact;}
+  }
+
+/* barra di navigazione (aggiunta per il sito) */
+.map-top{position:sticky;top:0;z-index:50;display:flex;align-items:center;gap:10px;
+  background:#2b2620;color:#fff;padding:10px 14px;box-shadow:0 2px 8px rgba(0,0,0,.18);
+  margin:-28px -16px 24px;}
+.map-top a{color:#fff;text-decoration:none;font-weight:600;font-size:13.5px;
+  background:rgba(255,255,255,.16);padding:8px 12px;border-radius:9px;white-space:nowrap;}
+.map-top a:active{background:rgba(255,255,255,.32);}
+.map-top .loc{flex:1;text-align:center;font-size:13px;font-weight:600;opacity:.95;}
+@media print{.map-top{display:none}}
+</style>
+</head>
+<body>
+<header class="map-top">
+  <a class="back" href="../index.html#mappe">← Mappe</a>
+  <span class="loc">Mappe per nazione · Province Unite</span>
+</header>
+
+<div class="wrap">
+
+  <!-- 1. INTESTAZIONE -->
+  <header class="hero">
+    <h1><span class="flag">PROVINCE UNITE</span> — la repubblica mercantile, modello alternativo all'assolutismo</h1>
+    <p class="arc">Repubblica delle Province Unite dei Paesi Bassi · dalla rivolta contro Filippo II (anni 1560) al declino settecentesco · retta dagli <b>Stati generali</b> e dallo <b>statolder d'Orange-Nassau</b></p>
+    <div class="dyn-row">
+      <span class="pill p-rivolta">Repubblica federale</span>
+      <span class="pill p-dinastia">Statolder Orange-Nassau</span>
+      <span class="pill p-economia">Secolo d'oro</span>
+    </div>
+    <p class="filo"><b>Il filo rosso:</b> una piccola confederazione di province, <b>nata da una rivolta</b> contro la monarchia cattolica di <b>Filippo II</b>, si trasforma nella <b>prima potenza commerciale e finanziaria d'Europa</b>. Repubblica mercantile, tollerante e federale, incarna un <b>modello di Stato opposto all'assolutismo</b> continentale: al posto del re assoluto, un'oligarchia di reggenti-mercanti negli <b>Stati generali</b> affiancata dallo <b>statolder</b> (un «monarca non ufficiale» di casa Orange). Attraverso <b>Amsterdam</b>, la sua <b>Borsa</b> e la <b>Compagnia delle Indie orientali (VOC)</b> vive il suo «secolo d'oro», finché la concorrenza mercantilistica di <b>Inghilterra e Francia</b> ne avvia il declino. Un percorso: <b>rivolta → indipendenza (Westfalia 1648) → egemonia commerciale → declino</b>.</p>
+  </header>
+
+  <!-- 2. LINEA DEL TEMPO -->
+  <section class="card">
+    <h2><span class="num">2</span> Linea del tempo</h2>
+    <p class="lead">Gli avvenimenti principali in ordine cronologico. I pallini pieni segnano le svolte decisive.</p>
+
+    <div class="era-label">La rivolta dei Paesi Bassi contro la Spagna (cap. 9)</div>
+    <div class="timeline">
+      <div class="tl"><span class="yr">1531</span><span class="ev">La Borsa di Anversa <span class="pill p-economia">economia</span></span><span class="ds">Sotto <b>Carlo V</b> i Paesi Bassi (17 province, comprese le odierne Belgio e Lussemburgo) sono, dopo l'Italia, il cuore economico e culturale d'Europa: agricoltura e artigianato fiorenti, la pittura fiamminga, <b>Erasmo da Rotterdam</b>. <b>Anversa</b>, con la sua Borsa, è la principale piazza commerciale e finanziaria del continente.</span></div>
+      <div class="tl"><span class="yr">metà '500</span><span class="ev">Arresto della prosperità</span><span class="ds">La crescita si blocca: concorrenza dei <b>panni-lana inglesi</b>, calo dell'argento tedesco contro l'<b>argento americano</b>, concorrenza interna Nord–Sud. Al Nord le bonifiche creano i <em>polders</em> (terre strappate al mare).</span></div>
+      <div class="tl"><span class="yr">dal 1559</span><span class="ev">Filippo II lascia Bruxelles</span><span class="ds">Il nuovo re di Spagna abbandona i Paesi Bassi per la Castiglia e vi lascia governatrice la sorellastra <b>Margherita di Parma</b>: gli Stati generali e l'aristocrazia, potenti sotto Carlo V, si sentono esclusi.</span></div>
+      <div class="tl"><span class="yr">anni 1560</span><span class="ev">Penetrazione del calvinismo <span class="pill p-religione">religione</span></span><span class="ds">Il calvinismo, portato dalle guerre di religione francesi, dilaga nei Paesi Bassi trovando adepti in tutti i gruppi sociali. Vi si sommano blocco economico (guerra commerciale con l'Inghilterra, crisi baltica) e la riforma delle circoscrizioni ecclesiastiche (<b>18 nuovi vescovati</b>).</span></div>
+      <div class="tl"><span class="yr">1565–66</span><span class="ev">Rivolta contro l'Inquisizione</span><span class="ds">Il <b>duca d'Alba</b> diventa consigliere di Filippo II, che inasprisce la repressione dell'eresia. La piccola nobiltà chiede l'espulsione dell'Inquisizione; Margherita concede un editto «di moderazione», ma i protestanti ne approfittano per manifestazioni pubbliche.</span></div>
+      <div class="tl big"><span class="yr">1567</span><span class="ev">Il duca d'Alba governatore: il terrore <span class="pill p-rivolta">repressione</span></span><span class="ds">Filippo II invia un esercito guidato dal <b>duca d'Alba</b>, che governa da tiranno con una violenta repressione (dimissioni di Margherita): i Paesi Bassi diventano di fatto una <b>provincia della monarchia cattolica</b>. La sua tassa provoca il rifiuto degli ambienti commerciali; <b>Olanda e Zelanda</b> si legano in unione. Punto di riferimento della rivolta: <b>Guglielmo d'Orange «il Taciturno»</b>.</span></div>
+      <div class="tl"><span class="yr">1573–76</span><span class="ev">Requesens e la bancarotta spagnola</span><span class="ds">Il nuovo governatore <b>Requesens</b> tenta accordi con le province ribelli, ma i costi della guerra portano Filippo II alla <b>bancarotta</b>. Gli succede il fratellastro <b>Giovanni d'Austria</b>, che chiede il ritiro delle truppe ma ripristina il cattolicesimo: Olanda e Zelanda, ormai calviniste, riprendono la guerra.</span></div>
+      <div class="tl big"><span class="yr">1579</span><span class="ev">Unione di Utrecht vs Unione di Arras <span class="pill p-rivolta">scissione</span></span><span class="ds">Il paese si spacca. Le <b>otto province settentrionali</b> firmano l'<b>Unione di Utrecht</b> per coordinare politica estera e militare e dichiarano <b>Filippo II decaduto</b>. Le province meridionali firmano l'<b>Unione di Arras</b> e si riconciliano con la Spagna grazie ad <b>Alessandro Farnese</b>, duca di Parma.</span></div>
+      <div class="tl big"><span class="yr">1589</span><span class="ev">Nascono le Province Unite (repubblica) <span class="pill p-dinastia">nuovo Stato</span></span><span class="ds">Falliti i tentativi di darsi un sovrano (il <b>duca d'Angiò</b>, fratello del re di Francia; poi il conte di <b>Leicester</b>, fiduciario di <b>Elisabetta I</b>), le province ribelli si proclamano nuova entità statale. Prende forma un <b>regime repubblicano</b>: gli Stati generali diventano un comitato ristretto, si afferma l'egemonia dell'<b>Olanda</b>, statolder è <b>Maurizio di Nassau</b>, figlio di Guglielmo.</span></div>
+
+      <div class="era-label">Consolidamento, secolo d'oro e indipendenza (cap. 10 e 16)</div>
+      <div class="tl big"><span class="yr">1602</span><span class="ev">Nasce la VOC, Compagnia delle Indie orientali <span class="pill p-economia">colonie</span></span><span class="ds">Il governo promuove la <b>Compagnia unita delle Indie orientali (VOC)</b> per i commerci con l'Estremo Oriente, con il <b>monopolio</b> dei traffici tra Africa e Asia. Stabilisce i suoi insediamenti nell'arcipelago indonesiano, sfruttando le popolazioni indigene per arricchire gli azionisti.</span></div>
+      <div class="tl"><span class="yr">inizi '600</span><span class="ev">Crisi religiosa e stabilizzazione <span class="pill p-religione">religione</span></span><span class="ds">Scoppia una polemica tra calvinisti <b>tolleranti e razionalisti</b> e intransigenti seguaci di Ginevra: una grave crisi politica, superata la quale la repubblica trova la sua stabilità.</span></div>
+      <div class="tl"><span class="yr">1609–1621</span><span class="ev">La tregua dei dodici anni con la Spagna</span><span class="ds">La tregua d'armi apre una fase di <b>forte crescita economica</b>: a metà Seicento le Province Unite sono la <b>maggiore potenza marittima e commerciale d'Europa</b>. Al suo scadere riprende la guerra, che si salda con la <b>Guerra dei Trent'anni</b>: gli olandesi colpiscono i possedimenti coloniali e i commerci della monarchia cattolica.</span></div>
+      <div class="tl big"><span class="yr">1648</span><span class="ev">Pace di Westfalia (trattato di Münster): l'indipendenza <span class="pill p-trattato">trattato</span></span><span class="ds">Con il <b>trattato di Münster</b>, parte della pace di Westfalia, la corona spagnola <b>rinuncia definitivamente</b> a ogni pretesa di sovranità sulle <b>sette Province Unite</b>: la repubblica è riconosciuta come Stato indipendente.</span></div>
+
+      <div class="era-label">Rivalità, guerre e declino (cap. 16–18)</div>
+      <div class="tl"><span class="yr">dal 1652</span><span class="ev">Guerre anglo-olandesi <span class="pill p-guerra">guerra</span></span><span class="ds">Il <b>Navigation Act</b> inglese (1651) colpisce l'egemonia commerciale olandese e innesca ripetuti conflitti navali con l'<b>Inghilterra</b>, benché la marina inglese sia ancora meno potente di quella olandese.</span></div>
+      <div class="tl"><span class="yr">1668</span><span class="ev">Pace di Aquisgrana</span><span class="ds">Alleate con <b>Inghilterra e Svezia</b>, le Province Unite costringono <b>Luigi XIV</b> alla pace, che rinuncia (per ora) alle pretese sui Paesi Bassi spagnoli e la Franca Contea.</span></div>
+      <div class="tl big"><span class="yr">1672</span><span class="ev">Luigi XIV invade le Province Unite <span class="pill p-guerra">guerra</span></span><span class="ds">Spinto da contrasti commerciali (vuole soppiantare la concorrente Olanda), il <b>Re Sole</b> fa invadere la repubblica. Con la <b>pace di Nimega (1678)</b> le Province Unite salvano indipendenza e integrità territoriale. Il declino delle industrie urbane accompagna la crescente pressione francese e inglese.</span></div>
+      <div class="tl"><span class="yr">1674</span><span class="ev">Scioglimento della Compagnia delle Indie occidentali</span><span class="ds">Nata dopo la fine della tregua per colpire Spagna e Portogallo (aveva conquistato buona parte del <b>Brasile</b> portoghese), la compagnia entra in declino dopo che il Portogallo — staccatosi dalla Spagna nel 1640 — riconquista le colonie: viene sciolta.</span></div>
+      <div class="tl big"><span class="yr">1688–89</span><span class="ev">Lo statolder d'Olanda diventa re d'Inghilterra <span class="pill p-dinastia">unione con Londra</span></span><span class="ds">Chiamato dai parlamentari inglesi, lo statolder <b>Guglielmo III d'Orange</b> (marito di <b>Maria Stuart</b>) sbarca in Inghilterra: è la <b>Gloriosa Rivoluzione</b>. Nel 1689 Guglielmo e Maria sono proclamati sovrani inglesi. Le due potenze marittime protestanti si saldano nella grande <b>coalizione anti-francese</b>.</span></div>
+      <div class="tl"><span class="yr">1713</span><span class="ev">Pace di Utrecht <span class="pill p-trattato">trattato</span></span><span class="ds">Le Province Unite, che avevano aderito alla <b>grande coalizione dell'Aia</b> nella Guerra di successione spagnola, sono tra i firmatari della pace: ma il primato commerciale è ormai passato all'<b>Inghilterra</b>.</span></div>
+    </div>
+  </section>
+
+  <!-- 3. SOVRANI E DINASTIE -->
+  <section class="card">
+    <h2><span class="num">3</span> Statolder e capi della Repubblica</h2>
+    <p class="lead">Le Province Unite sono una repubblica: non hanno re. Il potere è condiviso tra gli <b>Stati generali</b> (l'assemblea delle province) e lo <b>statolder</b> (<em>stadhouder</em>), carica militare-esecutiva quasi ereditaria nella casa di <b>Orange-Nassau</b>, che agisce come «monarca non ufficiale».</p>
+    <div class="tbl-wrap">
+      <table>
+        <thead>
+          <tr><th>Figura</th><th>Periodo</th><th>Ruolo / casato</th><th>Cosa lo caratterizza</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><b>Guglielmo d'Orange «il Taciturno»</b></td><td>anni 1560–1584</td><td>Orange-Nassau</td><td><b>Capo e simbolo della rivolta</b> contro Filippo II; punto di unione tra ugonotti francesi e calvinisti olandesi.</td></tr>
+          <tr><td><b>Maurizio di Nassau</b></td><td>dagli anni 1580</td><td>Orange-Nassau · statolder</td><td>Figlio di Guglielmo; sotto di lui il regime repubblicano si consolida e si stabilizza dopo la crisi religiosa dei primi del Seicento.</td></tr>
+          <tr><td><b>Guglielmo III d'Orange</b></td><td>fino al 1702</td><td>Orange-Nassau · statolder</td><td><b>Statolder d'Olanda</b> che, marito di Maria Stuart, con la <b>Gloriosa Rivoluzione (1688)</b> diventa anche <b>re d'Inghilterra</b>: guida la coalizione anti-francese contro Luigi XIV.</td></tr>
+          <tr><td colspan="4" class="role"><b>Sul fronte avverso</b> — governatori spagnoli dei Paesi Bassi: Margherita di Parma, il duca d'Alba (terrore, 1567), Requesens, Giovanni d'Austria, Alessandro Farnese duca di Parma (recupera il Sud).</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout"><b>Perché una tabella «anomala»:</b> a differenza di Francia, Spagna o Inghilterra, qui non c'è una successione di sovrani ma una <b>diarchia repubblicana</b> Stati generali ↔ statolder. La tensione tra i due poli — oligarchia mercantile «repubblicana» vs statolder «monarchico» d'Orange — è il vero motore della politica interna olandese.</div>
+  </section>
+
+  <!-- 4. FORMA DI GOVERNO E ISTITUZIONI -->
+  <section class="card">
+    <h2><span class="num">4</span> Forma di governo e istituzioni · l'evoluzione</h2>
+    <div class="evo">
+      <div class="step"><b>Provincia asburgica</b>17 province dei Paesi Bassi sotto Carlo V, poi Filippo II: Stati provinciali e generali, forte aristocrazia</div>
+      <div class="arrow">→</div>
+      <div class="step"><b>Rivolta / scissione</b>1579: Unione di Utrecht (Nord ribelle) contro Unione di Arras (Sud lealista)</div>
+      <div class="arrow">→</div>
+      <div class="step"><b>Repubblica federale</b>1589: le Province Unite si proclamano Stato; Stati generali come comitato ristretto, egemonia dell'Olanda</div>
+      <div class="arrow">→</div>
+      <div class="step"><b>Diarchia repubblicana</b>Stati generali (istanza rappresentativa) + statolder d'Orange (potere esecutivo-militare, «monarca non ufficiale»)</div>
+      <div class="arrow">→</div>
+      <div class="step"><b>Stato indipendente riconosciuto</b>1648 Westfalia: repubblica mercantile pienamente sovrana, modello alternativo all'assolutismo</div>
+    </div>
+
+    <h3>Istituzioni-chiave e rapporto tra i poteri</h3>
+    <ul>
+      <li><b>Stati provinciali:</b> le assemblee di ceto di ciascuna delle sette province; base federale dello Stato. Ogni provincia conserva ampia autonomia.</li>
+      <li><b>Stati generali:</b> l'assemblea confederale che diventa un <b>comitato ristretto</b> con potere di decisione su politica estera e guerra. È l'<b>istanza rappresentativa</b> della repubblica (l'equivalente del Parlamento inglese).</li>
+      <li><b>Statolder (<em>stadhouder</em>):</b> carica di casa <b>Orange-Nassau</b>, fondata sulla forza militare; assume il ruolo di una «sorta di monarca non ufficiale» e tende a rafforzarsi <b>a scapito</b> degli Stati generali. Segno che il modello monarchico sopravvive anche in un contesto repubblicano.</li>
+      <li><b>Egemonia dell'Olanda:</b> la provincia più ricca e popolosa domina la confederazione; i suoi interessi mercantili orientano la politica di tutta la repubblica.</li>
+      <li><b>Classe dirigente dei reggenti:</b> amministratori e delegati provenienti dalle <b>comunità cittadine di mercanti</b> — la politica è nelle mani della borghesia commerciale, non dell'aristocrazia di sangue.</li>
+    </ul>
+    <div class="callout"><b>Il modello alternativo:</b> mentre il continente marcia verso l'<b>assolutismo</b> (Spagna, poi la Francia di Luigi XIV), le Province Unite costruiscono — sull'esempio delle repubbliche cittadine tedesche e italiane (<b>Genova, Venezia</b>) e di <b>Ginevra</b> — un nuovo tipo di <b>sovranità repubblicana</b>, antidispotica, fondata su partecipazione alla cosa pubblica e tolleranza religiosa. È il grande «altro» rispetto al re assoluto.</div>
+  </section>
+
+  <!-- 5. POLITICA INTERNA -->
+  <section class="card">
+    <h2><span class="num">5</span> Politica interna · religione, rivolte, tolleranza</h2>
+
+    <h3>La questione religiosa <span class="pill p-religione">religione</span></h3>
+    <ul>
+      <li><b>Il calvinismo motore della rivolta:</b> assente fino agli anni Cinquanta, dilaga negli anni Sessanta trovando terreno fertile; è l'elemento di maggiore rilievo nella rottura con la Spagna cattolica. In Olanda e Zelanda diventa maggioritario.</li>
+      <li><b>Repressione spagnola:</b> Carlo V già intollerante (roghi di libri e uomini); Filippo II inasprisce l'Inquisizione e la riforma dei <b>18 vescovati</b> è vista come strumento di controllo. Da qui la rivolta.</li>
+      <li><b>Polemica interna al calvinismo (inizi '600):</b> scontro tra una versione <b>tollerante e razionalista</b> del credo e i <b>sostenitori intransigenti</b> delle dottrine di Ginevra: sfocia in una grave crisi politica, poi superata.</li>
+      <li><b>Tolleranza e pluralismo:</b> segno distintivo della repubblica è il clima di <b>relativa tolleranza</b>, testimoniato dalla presenza di una numerosa e attiva <b>comunità ebraica</b> partecipe dello sviluppo economico.</li>
+    </ul>
+
+    <h3>Conflitti interni e tensione istituzionale <span class="pill p-rivolta">tensioni</span></h3>
+    <ul>
+      <li><b>Reggenti mercanti vs statolder:</b> la compresenza di due poteri con tendenze ideologiche e religiose differenti (oligarchia «repubblicana» e casa d'Orange «monarchica») è la faglia permanente della vita politica.</li>
+      <li><b>Rifiuto fiscale:</b> già la tassa del duca d'Alba fu respinta dagli ambienti commerciali — il potere di dire no all'imposizione fiscale è alla radice dell'identità politica olandese.</li>
+    </ul>
+
+    <h3>Cultura e diritto <span class="pill p-riforma">idee</span></h3>
+    <ul>
+      <li><b>Capitale dell'informazione:</b> una fiorente <b>industria della stampa</b> fa delle Province Unite il più importante mercato librario europeo e il centro di diffusione di cultura e notizie su scala continentale e mondiale.</li>
+      <li><b>Culla del giusnaturalismo:</b> la repubblica è il luogo d'origine del <b>giusnaturalismo seicentesco</b>, che offre una nuova visione della natura come «natura-ragione».</li>
+      <li><b>Apertura internazionale:</b> l'immigrazione di protestanti, puritani inglesi e ugonotti francesi porta manodopera qualificata, competenze tecniche, finanziarie e mercantili.</li>
+    </ul>
+  </section>
+
+  <!-- 6. POLITICA ESTERA E GUERRE -->
+  <section class="card">
+    <h2><span class="num">6</span> Politica estera e guerre · con chi, e come finisce</h2>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>Conflitto</th><th>Contro chi / con chi</th><th>Esito · trattato</th></tr></thead>
+        <tbody>
+          <tr><td><b>Guerra d'indipendenza</b> (dagli anni 1560)</td><td>Contro la <b>Spagna</b> di Filippo II (monarchia cattolica); appoggio dall'Inghilterra di Elisabetta I</td><td>Nascita delle Province Unite (1589); si salda con la <b>Guerra dei Trent'anni</b></td></tr>
+          <tr><td><b>Trattato di Münster</b> (1648)</td><td>Con la <b>Spagna</b> (parte della pace di <b>Westfalia</b>)</td><td>La Spagna riconosce l'<b>indipendenza</b> delle sette Province Unite</td></tr>
+          <tr><td><b>Guerre anglo-olandesi</b> (dal 1652)</td><td>Contro l'<b>Inghilterra</b> (rivalità commerciale, <em>Navigation Act</em> 1651)</td><td>Serie di conflitti navali; erosione progressiva del primato marittimo olandese</td></tr>
+          <tr><td><b>Guerra di devoluzione</b> (fine 1667–68)</td><td>Con <b>Inghilterra e Svezia</b> contro la <b>Francia</b> di Luigi XIV</td><td><b>Pace di Aquisgrana (1668)</b>: Luigi XIV rinuncia (per ora) a Paesi Bassi spagnoli e Franca Contea</td></tr>
+          <tr><td><b>Invasione francese</b> (1672)</td><td>Contro la <b>Francia</b> di Luigi XIV (contrasti commerciali)</td><td><b>Pace di Nimega (1678)</b>: le Province Unite salvano indipendenza e integrità</td></tr>
+          <tr><td><b>Coalizione anti-francese</b> (dal 1689)</td><td>Con l'<b>Inghilterra</b> (unita dallo statolder Guglielmo III) contro la <b>Francia</b></td><td>Contenimento dell'egemonia di Luigi XIV</td></tr>
+          <tr><td><b>Successione spagnola</b> (1701–14)</td><td>Nella <b>grande coalizione dell'Aia</b> (con Inghilterra e Impero) contro Francia e Spagna</td><td><b>Pace di Utrecht (1713)</b>: ma il primato passa ormai all'Inghilterra</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout"><b>Il ribaltamento delle alleanze:</b> nate contro la <b>Spagna</b>, le Province Unite hanno a lungo un orientamento <b>filofrancese</b>. Ma il mercantilismo e l'espansionismo di <b>Luigi XIV</b> verso i Paesi Bassi spagnoli le spingono a rovesciare fronte: abbandonano la Francia per allearsi con <b>Svezia e Inghilterra</b>, fino alla saldatura anglo-olandese del 1688. Il grande rivale non è più Madrid, ma <b>Parigi — e insieme Londra</b>, che ne raccoglierà l'eredità marittima.</div>
+  </section>
+
+  <!-- 7. ECONOMIA E SOCIETÀ -->
+  <section class="card">
+    <h2><span class="num">7</span> Economia e società · il «secolo d'oro»</h2>
+
+    <h3>Il passaggio d'egemonia: da Anversa e dai genovesi agli olandesi <span class="pill p-economia">finanza</span></h3>
+    <ul>
+      <li><b>Anversa (fino agli anni 1560):</b> con la sua Borsa (1531) era la principale piazza finanziaria e commerciale del continente. Ma la rivolta e il suo <b>saccheggio</b> la rovinano definitivamente: il baricentro si sposta a Nord, verso <b>Amsterdam</b>.</li>
+      <li><b>Dal «secolo dei genovesi» agli olandesi:</b> il primato della finanza europea era stato dei <b>banchieri genovesi</b>, legati alla corona castigliana; il loro <b>ridimensionamento a metà Seicento</b> (per l'indebitamento della Spagna) apre la strada al primato finanziario olandese.</li>
+      <li><b>La Borsa di Amsterdam:</b> inaugura un mercato di contrattazioni che raggiunge per primo una posizione di <b>preminenza internazionale</b> — Benigno la paragona all'odierna Borsa di New York.</li>
+    </ul>
+
+    <h3>I punti di forza dell'economia <span class="pill p-economia">commercio</span></h3>
+    <ul>
+      <li><b>Primato navale:</b> il territorio comprende i delta di <b>tre grandi fiumi</b>, antiche arterie di traffico tra Germania, Francia, Fiandre, Mare del Nord e Baltico. Da qui una potente <b>cantieristica</b> e una grande flotta commerciale.</li>
+      <li><b>Sistema finanziario e creditizio:</b> insieme alla Borsa, è il vero pilastro del primato economico.</li>
+      <li><b>Manifatture:</b> progressi nella lana e nella <b>seta</b> (materia prima importata dall'Italia); forte sviluppo demografico delle città del Nord, alimentato dall'immigrazione qualificata.</li>
+    </ul>
+
+    <h3>Commercio a lungo raggio e colonie <span class="pill p-guerra">imperialismo commerciale</span></h3>
+    <ul>
+      <li><b>Levante e Mediterraneo:</b> dagli anni Novanta del '500 le navi olandesi penetrano nel Mediterraneo e <b>soppiantano l'egemonia italiana</b> nei commerci del Levante.</li>
+      <li><b>VOC (1602):</b> la <b>Compagnia delle Indie orientali</b>, con il monopolio dei traffici tra Africa e Asia, è la vera svolta: colonie nell'arcipelago indonesiano, specializzazione delle colture e <b>sfruttamento delle popolazioni indigene</b> a vantaggio degli azionisti.</li>
+      <li><b>Compagnia delle Indie occidentali:</b> aggressiva contro Spagna e Portogallo, conquista buona parte del <b>Brasile</b> portoghese; ma dopo il distacco del Portogallo (1640) le colonie sono riperse e la compagnia è sciolta nel <b>1674</b>.</li>
+    </ul>
+
+    <h3>Una società diversa: «l'orgoglio dei pezzenti» <span class="pill p-riforma">società</span></h3>
+    <ul>
+      <li><b>Non l'aristocrazia, ma i mercanti:</b> la nobiltà conta, ma non è il fulcro sociale; predominano <b>accordi tra soggetti pari e autonomi</b>. La classe dirigente (reggenti) viene dalle comunità cittadine di mercanti.</li>
+      <li><b>Austerità e lusso:</b> la repubblica si distingue per <b>austera semplicità</b> e non ostentazione del potere, ma esiste un'ampia fascia sociale capace di <b>consumi di lusso</b>.</li>
+      <li><b>Il declino:</b> nella seconda metà del Seicento il mercantilismo di Inghilterra e Francia contrae le industrie urbane olandesi; l'espansionismo francese e la concorrenza inglese avviano il tramonto del primato.</li>
+    </ul>
+  </section>
+
+  <!-- 8. COLLEGAMENTI -->
+  <section class="card">
+    <h2><span class="num">8</span> Collegamenti · le Province Unite e i grandi temi del corso</h2>
+    <div class="grid">
+      <div class="box link"><b>Assolutismo &amp; modello alternativo.</b> Sono l'<b>anti-modello</b> dell'assolutismo: una repubblica federale e mercantile dove il potere è diviso tra Stati generali e statolder. Il grande «altro» rispetto alla Spagna di Filippo II e alla Francia di Luigi XIV.</div>
+      <div class="box link"><b>Confessionalizzazione.</b> Il <b>calvinismo</b> è il motore della rivolta contro la monarchia cattolica; ma la repubblica sviluppa una <b>tolleranza</b> anomala per l'epoca (comunità ebraica, rifugiati protestanti), rovesciando la logica «un principe, una religione».</div>
+      <div class="box link"><b>Crisi del Seicento.</b> Mentre gran parte d'Europa vive la crisi, le Province Unite conoscono il loro <b>«secolo d'oro»</b>: sono il polo nord-occidentale (con Inghilterra e Scandinavia) che cresce mentre il Mediterraneo declina.</div>
+      <div class="box link"><b>Modello olandese e inglese.</b> Con l'<b>Inghilterra</b> del Commonwealth e della Gloriosa condividono la divisione dei poteri, la ricchezza commerciale e la libertà; gli inglesi le guardano con «gelosa ammirazione» — invidia che genera guerre e, infine, la fusione dinastica del 1688.</div>
+      <div class="box link"><b>Nuove gerarchie economiche.</b> Incarnano il <b>passaggio d'egemonia</b> commerciale e finanziaria: da Anversa e dai <b>genovesi</b> agli <b>olandesi</b>, e poi dagli olandesi agli <b>inglesi</b> — il baricentro dell'economia europea si sposta verso l'Atlantico.</div>
+      <div class="box link"><b>Illuminismo.</b> Culla del <b>giusnaturalismo</b> e capitale europea della <b>stampa</b> e delle idee, la repubblica prepara il terreno alla cultura dei Lumi e alla circolazione libera del pensiero.</div>
+    </div>
+  </section>
+
+  <!-- 9. CONCETTI-CHIAVE -->
+  <section class="card">
+    <h2><span class="num">9</span> Concetti-chiave per l'orale</h2>
+    <div class="grid">
+      <div class="box"><b>Unione di Utrecht (1579).</b> Patto delle otto province settentrionali ribelli che coordinano politica estera e militare e dichiarano decaduto Filippo II: atto di nascita delle Province Unite.</div>
+      <div class="box"><b>Unione di Arras (1579).</b> Patto opposto delle province meridionali lealiste, riconciliate con la Spagna da Alessandro Farnese: la frattura Nord–Sud dei Paesi Bassi.</div>
+      <div class="box"><b>Guglielmo d'Orange «il Taciturno».</b> Capo e simbolo della rivolta, punto di unione tra ugonotti francesi e calvinisti olandesi; capostipite della casa Orange-Nassau.</div>
+      <div class="box"><b>Statolder (<em>stadhouder</em>).</b> Carica militare-esecutiva d'Orange, «monarca non ufficiale» accanto agli Stati generali: il residuo monarchico dentro la repubblica.</div>
+      <div class="box"><b>Stati generali.</b> L'assemblea confederale (comitato ristretto) che decide politica estera e guerra: l'istanza rappresentativa della repubblica.</div>
+      <div class="box"><b>Repubblica federale.</b> Sette province autonome unite in confederazione, con l'egemonia dell'Olanda, provincia più ricca e popolosa.</div>
+      <div class="box"><b>Pace di Westfalia / trattato di Münster (1648).</b> La Spagna riconosce l'indipendenza delle sette Province Unite: fine formale della guerra d'indipendenza.</div>
+      <div class="box"><b>VOC — Compagnia delle Indie orientali (1602).</b> Compagnia per azioni con monopolio dei traffici Africa-Asia; colonie in Indonesia, sfruttamento indigeno per gli azionisti.</div>
+      <div class="box"><b>Borsa di Amsterdam.</b> Primo mercato di contrattazioni a raggiungere una preminenza internazionale: cuore del sistema finanziario olandese.</div>
+      <div class="box"><b>Secolo d'oro.</b> Il periodo (dalla tregua del 1609 al primo '700) in cui la repubblica è la maggiore potenza marittima e commerciale d'Europa.</div>
+      <div class="box"><b>Polders.</b> Terre paludose strappate al mare con le bonifiche nelle province settentrionali: base dell'agricoltura intensiva del Nord.</div>
+      <div class="box"><b>Reggenti.</b> La classe dirigente di mercanti cittadini che governa la repubblica: gli interessi commerciali al centro delle scelte politiche.</div>
+      <div class="box"><b>Giusnaturalismo.</b> La dottrina del diritto naturale (natura-ragione) di cui la repubblica è la culla nel Seicento.</div>
+      <div class="box"><b>Passaggio d'egemonia.</b> Il primato commerciale-finanziario passa da Anversa e dai genovesi agli olandesi, e poi agli inglesi (Navigation Act, guerre anglo-olandesi).</div>
+    </div>
+  </section>
+
+  <footer>Fonte: F. Benigno, <em>L'età moderna</em> — mappa di ripasso</footer>
+
+</div>
+</body>
+</html>
