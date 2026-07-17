@@ -143,6 +143,24 @@
     margin-top: 18px; font-size: .82rem; color: var(--muted); line-height: 1.5;
     background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 12px 16px;
   }
+
+  /* ── Dialog login Supabase ── */
+  dialog {
+    margin: auto; /* il reset * { margin: 0 } toglierebbe il centramento del <dialog> */
+    border: none; border-radius: 14px; padding: 22px 24px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, .25);
+  }
+  dialog::backdrop { background: rgba(15, 23, 42, .45); }
+  .login-form { display: flex; flex-direction: column; gap: 10px; min-width: 300px; }
+  .login-form h3 { font-size: 1rem; }
+  .login-form .field { display: flex; flex-direction: column; gap: 3px; }
+  .login-form .field span { font-size: .75rem; color: var(--muted); }
+  .login-form input {
+    padding: 8px 10px; border: 1px solid var(--border); border-radius: 8px;
+    font-size: .9rem; background: #fff;
+  }
+  .login-err { color: var(--red); font-size: .82rem; min-height: 1em; }
+  .login-btns { display: flex; gap: 8px; justify-content: flex-end; }
   @media (max-width: 640px) {
     .hide-sm { display: none; }
     .addform input[name="nome"] { width: 100%; }
@@ -153,7 +171,7 @@
 <div class="wrap">
   <h1>📒 Libretto — Simulatore Medie</h1>
   <p class="sub">Libretto ufficiale: <span id="fonte" class="src">caricamento…</span> ·
-    Simulazioni e modifiche restano in questo browser finché non aggiorni <code>voti.json</code>.</p>
+    Simulazioni e modifiche restano in questo browser finché non premi <em>💾 Salva su DB</em>.</p>
 
   <div class="stats" id="stats"></div>
 
@@ -161,7 +179,8 @@
     <label><input type="checkbox" id="chkAdint"> Includi AD_INT nelle medie</label>
     <label><input type="checkbox" id="chkLodeBonus"> 30L vale 31 (ipotesi)</label>
     <span class="spacer"></span>
-    <button class="export" id="btnExport">⬇ Esporta voti.json</button>
+    <button class="export" id="btnSave">💾 Salva su DB</button>
+    <button class="ghost" id="btnExport">⬇ Esporta voti.json</button>
     <button class="ghost" id="btnReset">Scarta simulazioni</button>
   </div>
 
@@ -211,20 +230,95 @@
     <strong>Voto di partenza (Art. 4 Regolamento):</strong> media aritmetica × 11 ÷ 3, troncata a due cifre decimali;
     il voto di <em>presentazione</em> si arrotonda all'unità se la parte decimale è ≥ 0,50 (es. 101,49 → 101; 101,51 → 102).
     La media ponderata è riportata come informazione aggiuntiva ma <em>non</em> entra nel calcolo ufficiale.<br>
-    <strong>Nota UNIBA:</strong> i valori ufficiali del portale corrispondono al calcolo <em>senza</em> le AD_INT —
-    per questo l'interruttore parte spento.<br>
+    <strong>Nota UNIBA (verificata sul libretto Esse3 il 17/07/2026):</strong> i valori ufficiali del portale
+    corrispondono al calcolo <em>senza</em> le AD_INT — per questo l'interruttore parte spento.
+    Tutti i voti e i CFU di <code>voti.json</code> coincidono con il libretto Esse3.
+    La <em>media aritmetica</em> coincide: Esse3 mostra 28.2 perché arrotonda alla prima cifra decimale (28,15 → 28,2).
+    La <em>media ponderata</em> "secondo la regolamentazione Uniba" di Esse3 (27.99) è invece più bassa della ponderata
+    pura (28.03): Esse3 applica una regola interna non ricavabile dai dati visibili del libretto (numericamente equivale
+    a non pesare ~5 CFU con voto 29). La differenza è solo informativa: il voto di laurea usa la sola media aritmetica.<br>
     <strong>Punti aggiuntivi (magistrale a ciclo unico SFP, art. 4 regola 7):</strong>
     fino a 6 pt per il lavoro di tesi + fino a 4 pt per la relazione finale del tirocinio.
     Proposta di lode quando il voto di partenza è ≥ 104 e il voto finale raggiunge 110.<br>
-    <strong>Dove vivono i dati:</strong> il libretto ufficiale è <code>libretto/voti.json</code> nel repository (uguale su ogni
-    PC). Esami aggiunti, modifiche ed esclusioni sono simulazioni salvate solo in questo browser. Quando un voto diventa
-    definitivo: sistema la tabella, premi <em>⬇ Esporta voti.json</em> e sostituisci il file su GitHub (anche dall'editor
-    web di github.com). <em>Scarta simulazioni</em> riporta l'app al contenuto di <code>voti.json</code>.
+    <strong>Dove vivono i dati:</strong> il libretto ufficiale è su Supabase (tabella <code>esami</code>, uguale su ogni
+    PC); <code>voti.json</code> resta come copia di riserva usata solo se il database non è raggiungibile.
+    Esami aggiunti, modifiche ed esclusioni sono simulazioni salvate solo in questo browser. Quando un voto diventa
+    definitivo: sistema la tabella e premi <em>💾 Salva su DB</em> (serve il login: la scrittura è riservata all'account
+    Supabase; la lettura è libera). <em>⬇ Esporta voti.json</em> scarica una copia di backup da tenere nel repository.
+    <em>Scarta simulazioni</em> riporta l'app al libretto ufficiale.
   </div>
 </div>
 
+<dialog id="dlgLogin">
+  <form id="frmLogin" class="login-form">
+    <h3>🔐 Accesso Supabase</h3>
+    <div class="field"><span>Email</span>
+      <input type="email" id="inEmail" required autocomplete="username"></div>
+    <div class="field"><span>Password</span>
+      <input type="password" id="inPassword" required autocomplete="current-password"></div>
+    <div class="login-err" id="loginErr"></div>
+    <div class="login-btns">
+      <button type="button" class="ghost" id="btnLoginCancel">Annulla</button>
+      <button type="submit">Accedi e salva</button>
+    </div>
+  </form>
+</dialog>
+
 <script>
 const SIM_KEY = 'libretto-sim-v2';
+
+// ── Supabase ────────────────────────────────────────────────────────────────
+const SUPABASE_URL = 'https://tnslphoubwajzwxjfeti.supabase.co';
+// Chiave publishable: con le RLS attive permette solo la lettura.
+const SUPABASE_KEY = 'sb_publishable_Ow9UVZC_L2LkgC6HFsGOkw_RQbgGuxj';
+const AUTH_KEY = 'libretto-auth-v1';
+
+async function fetchLibrettoDb() {
+  const res = await fetch(
+    `${SUPABASE_URL}/rest/v1/esami?select=id,nome,anno,voto,lode,cfu,adint&order=anno,nome`,
+    { headers: { apikey: SUPABASE_KEY, Authorization: 'Bearer ' + SUPABASE_KEY } });
+  if (!res.ok) throw new Error('HTTP ' + res.status);
+  const rows = await res.json();
+  if (!Array.isArray(rows) || rows.length === 0) throw new Error('tabella esami vuota');
+  return rows;
+}
+
+// Sessione auth (serve solo per scrivere): token in localStorage, refresh automatico.
+function loadAuth() {
+  try { return JSON.parse(localStorage.getItem(AUTH_KEY)); } catch (e) { return null; }
+}
+function saveAuth(a) {
+  if (a) localStorage.setItem(AUTH_KEY, JSON.stringify(a));
+  else localStorage.removeItem(AUTH_KEY);
+}
+
+async function authRequest(grant, body) {
+  const res = await fetch(`${SUPABASE_URL}/auth/v1/token?grant_type=${grant}`, {
+    method: 'POST',
+    headers: { apikey: SUPABASE_KEY, 'Content-Type': 'application/json' },
+    body: JSON.stringify(body),
+  });
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok) throw new Error(data.error_description || data.msg || ('HTTP ' + res.status));
+  saveAuth({
+    access_token: data.access_token,
+    refresh_token: data.refresh_token,
+    expires_at: data.expires_at,
+  });
+  return data.access_token;
+}
+
+async function getAccessToken() {
+  const a = loadAuth();
+  if (!a) return null;
+  if (a.expires_at * 1000 - Date.now() > 60000) return a.access_token;
+  try {
+    return await authRequest('refresh_token', { refresh_token: a.refresh_token });
+  } catch (e) {
+    saveAuth(null);
+    return null;
+  }
+}
 
 // Fallback se fetch fallisce (es. pagina aperta da file://): tenere allineato a voti.json.
 const FALLBACK_VOTI = [
@@ -257,7 +351,8 @@ const FALLBACK_VOTI = [
   { id: "elementi-geometria",            nome: "Elementi di Geometria",                             anno: 3, voto: 30, lode: true,  cfu: 6,  adint: false },
 ];
 
-let baseline = [];          // libretto ufficiale (voti.json)
+let baseline = [];          // libretto ufficiale (Supabase, o voti.json come riserva)
+let fonteDb = false;        // true se baseline arriva davvero dal database
 let sim = loadSim();        // { aggiunti: [esame...], override: { id: {voto,lode,cfu,escluso} } }
 let includiAdint = false;
 let lodeBonus = false;
@@ -295,6 +390,12 @@ function medie(list) {
   return { n, cfu, arit: somma / n, pond: pond / cfu };
 }
 
+// Arrotondamento come lo espone Esse3: prima cifra decimale, metà verso l'alto
+// (28,15 → 28,2). Il toFixed(6) intermedio neutralizza gli artefatti float.
+function arrotondaEsse3(x) {
+  return (Math.round(Number((x * 10).toFixed(6))) / 10).toFixed(1);
+}
+
 // ── Calcolo voto di laurea (Art. 4 Regolamento For.Psi.Com.) ────────────────
 // Troncamento a 2 cifre decimali, poi arrotondamento se parte dec. ≥ 0,50.
 function votoPartenza(arit) {
@@ -314,7 +415,7 @@ function render() {
     const d = now - before;
     const cls = Math.abs(d) < 0.005 ? 'flat' : d > 0 ? 'up' : 'down';
     const sign = d > 0 ? '+' : '';
-    return `<div class="delta ${cls}">${sign}${d.toFixed(2)} rispetto a voti.json</div>`;
+    return `<div class="delta ${cls}">${sign}${d.toFixed(2)} rispetto al libretto ufficiale</div>`;
   };
 
   const partenzaCur  = votoPartenza(cur.arit);
@@ -323,9 +424,11 @@ function render() {
 
   document.getElementById('stats').innerHTML = `
     <div class="stat"><div class="label">Media Aritmetica</div>
-      <div class="value">${cur.arit.toFixed(2)}</div>${deltaHtml(cur.arit, base.arit)}</div>
+      <div class="value">${cur.arit.toFixed(2)}</div>${deltaHtml(cur.arit, base.arit)}
+      <div class="delta flat">su Esse3: <strong>${arrotondaEsse3(cur.arit)}</strong> (1 decimale)</div></div>
     <div class="stat"><div class="label">Media Ponderata</div>
-      <div class="value">${cur.pond.toFixed(2)}</div>${deltaHtml(cur.pond, base.pond)}</div>
+      <div class="value">${cur.pond.toFixed(2)}</div>${deltaHtml(cur.pond, base.pond)}
+      <div class="delta flat">Esse3 "regola Uniba": 27.99 — v. note</div></div>
     <div class="stat"><div class="label">Voto di partenza (art. 4, ×11/3)</div>
       <div class="value">${partenzaCur.toFixed(2)}</div>
       ${deltaHtml(partenzaCur, partenzaBase)}
@@ -465,15 +568,18 @@ document.getElementById('btnAdd').addEventListener('click', () => {
   saveSim(); render();
 });
 
-document.getElementById('btnExport').addEventListener('click', () => {
-  // Esporta tutta la tabella come nuovo libretto ufficiale (id stabili per i simulati).
+// Tutta la tabella come nuovo libretto ufficiale (id stabili per i simulati).
+function librettoCorrente() {
   const slug = s => s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '')
     .replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 50) || 'esame';
-  const out = working().map(e => ({
+  return working().map(e => ({
     id: e.sim ? slug(e.nome) : e.id,
     nome: e.nome, anno: e.anno, voto: e.voto, lode: !!e.lode, cfu: e.cfu, adint: !!e.adint,
   }));
-  const json = JSON.stringify(out, null, 2) + '\n';
+}
+
+document.getElementById('btnExport').addEventListener('click', () => {
+  const json = JSON.stringify(librettoCorrente(), null, 2) + '\n';
   const blob = new Blob([json], { type: 'application/json' });
   const a = document.createElement('a');
   a.href = URL.createObjectURL(blob);
@@ -481,13 +587,101 @@ document.getElementById('btnExport').addEventListener('click', () => {
   a.click();
   URL.revokeObjectURL(a.href);
   if (navigator.clipboard) navigator.clipboard.writeText(json).catch(() => {});
-  alert('Scaricato voti.json (e copiato negli appunti).\nSostituisci libretto/voti.json nel repository per renderlo ufficiale.');
+  alert('Scaricato voti.json (e copiato negli appunti).\nÈ la copia di riserva: il libretto ufficiale si salva con 💾 Salva su DB.');
+});
+
+// ── Salvataggio complessivo su Supabase ─────────────────────────────────────
+function chiediLogin() {
+  return new Promise(resolve => {
+    const dlg  = document.getElementById('dlgLogin');
+    const form = document.getElementById('frmLogin');
+    const err  = document.getElementById('loginErr');
+    err.textContent = '';
+    const done = tok => { dlg.onclose = null; form.onsubmit = null; dlg.close(); resolve(tok); };
+    dlg.onclose = () => { form.onsubmit = null; resolve(null); };   // Esc o Annulla
+    document.getElementById('btnLoginCancel').onclick = () => dlg.close();
+    form.onsubmit = async ev => {
+      ev.preventDefault();
+      err.textContent = '';
+      try {
+        const tok = await authRequest('password', {
+          email: document.getElementById('inEmail').value.trim(),
+          password: document.getElementById('inPassword').value,
+        });
+        document.getElementById('inPassword').value = '';
+        done(tok);
+      } catch (e) {
+        err.textContent = 'Accesso negato: ' + e.message;
+      }
+    };
+    dlg.showModal();
+  });
+}
+
+function rpcSalvaLibretto(token, esami) {
+  return fetch(`${SUPABASE_URL}/rest/v1/rpc/salva_libretto`, {
+    method: 'POST',
+    headers: {
+      apikey: SUPABASE_KEY,
+      Authorization: 'Bearer ' + token,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ nuovi: esami }),
+  });
+}
+
+document.getElementById('btnSave').addEventListener('click', async () => {
+  const btn = document.getElementById('btnSave');
+  if (!fonteDb && !confirm(
+    'Attenzione: il libretto NON è stato caricato dal database (fonte: copia locale).\n' +
+    'Salvando sovrascriverai il DB con i dati visualizzati ora. Continuare?')) return;
+  const esami = librettoCorrente();
+  let token = await getAccessToken();
+  if (!token) token = await chiediLogin();
+  if (!token) return;
+  btn.disabled = true;
+  btn.textContent = 'Salvataggio…';
+  try {
+    let res = await rpcSalvaLibretto(token, esami);
+    if (res.status === 401 || res.status === 403) {   // sessione scaduta o non valida
+      saveAuth(null);
+      token = await chiediLogin();
+      if (!token) return;
+      res = await rpcSalvaLibretto(token, esami);
+    }
+    if (!res.ok) {
+      const data = await res.json().catch(() => ({}));
+      throw new Error(data.message || ('HTTP ' + res.status));
+    }
+    const rows = await res.json();
+    baseline = rows.map(r => ({
+      id: r.id, nome: r.nome, anno: r.anno, voto: r.voto, lode: r.lode, cfu: r.cfu, adint: r.adint,
+    }));
+    // Le simulazioni sono diventate ufficiali: restano solo le esclusioni.
+    const override = {};
+    for (const [id, ov] of Object.entries(sim.override)) {
+      if (ov.escluso) override[id] = { escluso: true };
+    }
+    sim = { aggiunti: [], override };
+    saveSim();
+    fonteDb = true;
+    const fonte = document.getElementById('fonte');
+    fonte.textContent = 'Supabase (database)';
+    fonte.className = 'src remote';
+    render();
+    alert('Libretto salvato su Supabase: la tabella attuale è ora il libretto ufficiale.');
+  } catch (e) {
+    alert('Errore nel salvataggio: ' + e.message);
+  } finally {
+    btn.disabled = false;
+    btn.textContent = '💾 Salva su DB';
+  }
 });
 
 document.getElementById('chkAdint').addEventListener('change', ev => { includiAdint = ev.target.checked; render(); });
 document.getElementById('chkLodeBonus').addEventListener('change', ev => { lodeBonus = ev.target.checked; render(); });
 document.getElementById('btnReset').addEventListener('click', () => {
-  if (confirm('Scartare tutte le simulazioni e le modifiche locali? L\'app tornerà al contenuto di voti.json.')) {
+  if (confirm('Scartare tutte le simulazioni e le modifiche locali? L\'app tornerà al libretto ufficiale.')) {
     sim = { aggiunti: [], override: {} }; saveSim(); render();
   }
 });
@@ -503,15 +697,22 @@ document.getElementById('inPuntiTirocinio').addEventListener('input', ev => {
 async function init() {
   const fonte = document.getElementById('fonte');
   try {
-    const res = await fetch('voti.json', { cache: 'no-cache' });
-    if (!res.ok) throw new Error(res.status);
-    baseline = await res.json();
-    fonte.textContent = 'voti.json (repository)';
+    baseline = await fetchLibrettoDb();
+    fonteDb = true;
+    fonte.textContent = 'Supabase (database)';
     fonte.className = 'src remote';
-  } catch (e) {
-    baseline = FALLBACK_VOTI;
-    fonte.textContent = 'copia integrata (voti.json non raggiungibile)';
-    fonte.className = 'src local';
+  } catch (eDb) {
+    try {
+      const res = await fetch('voti.json', { cache: 'no-cache' });
+      if (!res.ok) throw new Error(res.status);
+      baseline = await res.json();
+      fonte.textContent = 'voti.json (database non raggiungibile)';
+      fonte.className = 'src local';
+    } catch (e) {
+      baseline = FALLBACK_VOTI;
+      fonte.textContent = 'copia integrata (database e voti.json non raggiungibili)';
+      fonte.className = 'src local';
+    }
   }
   render();
 }
