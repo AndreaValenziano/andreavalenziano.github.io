@@ -1,0 +1,77 @@
+@import 'tailwindcss';
+@import '@fontsource-variable/figtree';
+@import '@fontsource-variable/fraunces';
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --font-sans: 'Figtree Variable', system-ui, sans-serif;
+  --font-display: 'Fraunces Variable', Georgia, serif;
+
+  --color-pietra-50: #faf6ee;
+  --color-pietra-100: #f6f0e6;
+  --color-pietra-200: #ece2d0;
+  --color-pietra-300: #dccdb3;
+  --color-pietra-400: #c3ab87;
+  --color-pietra-500: #a98d66;
+  --color-pietra-600: #8a6f4e;
+  --color-pietra-700: #6b553c;
+  --color-pietra-800: #4a3b2b;
+  --color-pietra-900: #33291f;
+  --color-pietra-950: #211b14;
+
+  --color-terracotta-50: #fdf1ec;
+  --color-terracotta-100: #f9ded2;
+  --color-terracotta-200: #f2bda6;
+  --color-terracotta-300: #e79573;
+  --color-terracotta-400: #d9714a;
+  --color-terracotta-500: #c65a32;
+  --color-terracotta-600: #b4512e;
+  --color-terracotta-700: #93401f;
+  --color-terracotta-800: #77351c;
+  --color-terracotta-900: #5f2c1a;
+
+  --color-salvia-50: #f3f5ef;
+  --color-salvia-100: #e4e9db;
+  --color-salvia-200: #cbd4bb;
+  --color-salvia-300: #aab896;
+  --color-salvia-400: #8a9b73;
+  --color-salvia-500: #6d7f5c;
+  --color-salvia-600: #566546;
+  --color-salvia-700: #45503a;
+  --color-salvia-800: #383f30;
+  --color-salvia-900: #2f342a;
+
+  --color-oro-50: #fbf6e9;
+  --color-oro-100: #f5eacc;
+  --color-oro-200: #ead39a;
+  --color-oro-300: #ddb65f;
+  --color-oro-400: #cf9c38;
+  --color-oro-500: #b98a2f;
+  --color-oro-600: #9c6d26;
+  --color-oro-700: #7d5322;
+  --color-oro-800: #684322;
+  --color-oro-900: #593921;
+}
+
+@layer base {
+  html {
+    -webkit-tap-highlight-color: transparent;
+  }
+  body {
+    @apply bg-pietra-100 font-sans text-pietra-900 antialiased dark:bg-pietra-950 dark:text-pietra-100;
+  }
+  input,
+  textarea,
+  select,
+  button {
+    font: inherit;
+  }
+}
+
+@utility no-scrollbar {
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}

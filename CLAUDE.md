@@ -35,6 +35,10 @@ Study materials for the didattica exam. Contains PDF files, `paniere.json` (ques
 
 No HTML quiz app yet.
 
+### viaggiocascia/
+
+Offline-first PWA (React + Vite + TypeScript — the only sub-project with a build step) for an Umbria trip, 9–12 August 2026. Source in `viaggiocascia/app/`, build output committed at `viaggiocascia/` root (deploy via `npm run deploy`, no GitHub Actions). See `viaggiocascia/CLAUDE.md`.
+
 ### esame/
 
 Python CLI tool that solves multiple-choice exam questions: local OCR (Tesseract, Italian) + LLM answers grounded strictly in the supplied study material. 4-stage pipeline: knowledge base → parallel OCR → answers → save results.
