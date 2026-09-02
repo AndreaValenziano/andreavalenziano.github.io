@@ -69,6 +69,21 @@ Ti servono solo due cose gratuite:
    > Questi sono i dati che userai per **accedere all'app**. Ricordateli bene.
    > (Se preferisci, spunta l'opzione per considerare l'email già confermata, così eviti passaggi di verifica.)
 
+---
+
+## 4-bis. Dire a Supabase qual è l'indirizzo dell'app
+
+Questo passaggio serve **solo** se userai il recupero password (o se il login da email ti porta su una pagina che non esiste). Va fatto **dopo** aver pubblicato l'app (punto 5), quando conosci il suo indirizzo.
+
+1. In Supabase, apri a sinistra **Authentication** → **URL Configuration**.
+2. In **Site URL** cancella `http://localhost:3000` e scrivi l'indirizzo della tua app, per esempio
+   `https://tuonome.github.io/scheda-palestra/`.
+3. In **Redirect URLs** premi **Add URL** e aggiungi lo stesso indirizzo con `**` in fondo, per esempio
+   `https://tuonome.github.io/scheda-palestra/**`.
+4. Premi **Save**.
+
+> Senza questo passaggio, il link che ricevi per email ti porta su `http://localhost:3000`, che è il computer su cui stai navigando: la pagina non esiste e l'accesso non va a buon fine.
+
 Con questo, la parte Supabase è completa.
 
 ---
@@ -101,6 +116,14 @@ Dopo il primo accesso la sessione resta salvata: non dovrai rifare il login a og
 
 **Vedo il messaggio "App non ancora configurata".**
 Le chiavi non sono state inserite. Ricontrolla il **punto 2**: i valori devono stare tra gli apici e il file va **salvato** e **ricaricato** su GitHub.
+
+**Il link ricevuto per email apre `localhost:3000` e dà "Email link is invalid or has expired".**
+Sono due cose insieme. L'indirizzo `localhost:3000` significa che manca il **punto 4-bis**: sistemalo prima di tutto.
+Il messaggio di scadenza significa invece che quel link non è più utilizzabile: i link valgono **una sola volta** e per circa un'ora, e a volte vengono consumati dal programma di posta che li apre in anticipo per controllarli. Dopo aver sistemato gli indirizzi, chiedine uno nuovo dall'app con **"Password dimenticata?"** e aprilo subito, dallo stesso telefono da cui l'hai richiesto.
+
+**Ho dimenticato la password.**
+Nella schermata di accesso scrivi la tua email, poi premi **"Password dimenticata?"**. Ricevi una email con un link: aprendolo, l'app ti fa scegliere una password nuova ed entri. Richiede il **punto 4-bis** già fatto.
+In alternativa, dalla console Supabase puoi cancellare l'utente in **Authentication** → **Users** e ricrearlo con **Add user**, scegliendo tu la password e spuntando **Auto Confirm User**.
 
 **Al login dice "Email o password non corretti".**
 Verifica di usare l'email e la password create al **punto 4** (Authentication → Users), non la password del database. Le maiuscole/minuscole contano.

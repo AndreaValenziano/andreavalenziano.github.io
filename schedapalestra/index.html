@@ -250,6 +250,15 @@
     padding: 10px 12px; font-size: 14px; margin-top: 16px; font-weight: 600;
   }
   @media (prefers-color-scheme: dark) { .login-error { background: #3b1414; color: #fca5a5; } }
+  .login-ok {
+    background: #dcfce7; color: #166534; border-radius: 10px;
+    padding: 10px 12px; font-size: 14px; margin-top: 16px; font-weight: 600; line-height: 1.45;
+  }
+  @media (prefers-color-scheme: dark) { .login-ok { background: #10241a; color: #86efac; } }
+  .linkbtn {
+    display: block; margin: 16px auto 0; font-size: 14px; color: var(--accent);
+    font-weight: 600; text-decoration: underline; padding: 6px;
+  }
   .config-warn {
     background: var(--warm); border: 1px solid var(--warm-border);
     border-radius: 12px; padding: 14px; font-size: 13.5px; margin-top: 20px; line-height: 1.5;
@@ -274,11 +283,30 @@
       <button type="submit" class="btn-primary" style="margin-top:22px">Accedi</button>
       <div id="loginError" class="login-error hidden"></div>
     </form>
+    <button type="button" id="forgotBtn" class="linkbtn">Password dimenticata?</button>
+    <div id="loginInfo" class="login-ok hidden"></div>
     <div id="configWarn" class="config-warn hidden">
       ⚠️ <strong>App non ancora configurata.</strong><br>
       Apri <code>index.html</code> e inserisci <code>SUPABASE_URL</code> e <code>SUPABASE_ANON_KEY</code>.
       Segui la <strong>GUIDA.md</strong> per i passaggi.
     </div>
+  </div>
+</div>
+
+<!-- RECOVERY VIEW -->
+<div id="recoveryView" class="login-wrap hidden">
+  <div class="login-card">
+    <div class="logo">🔑</div>
+    <h1>Nuova password</h1>
+    <p class="sub">Scegli la password che userai d'ora in poi per accedere</p>
+    <form id="recoveryForm">
+      <label for="newPassword">Nuova password</label>
+      <input id="newPassword" type="password" autocomplete="new-password" placeholder="almeno 6 caratteri" minlength="6" required>
+      <label for="newPassword2">Ripeti la password</label>
+      <input id="newPassword2" type="password" autocomplete="new-password" placeholder="••••••••" minlength="6" required>
+      <button type="submit" class="btn-primary" style="margin-top:22px">Salva e accedi</button>
+      <div id="recoveryError" class="login-error hidden"></div>
+    </form>
   </div>
 </div>
 
@@ -370,6 +398,7 @@ const DEFAULT_STATE = {
 /* ===== Stato runtime ===== */
 let supabase = null;
 let userId = null;
+let recoveryMode = false;
 let state = null;
 let currentView = 'A';
 let saveTimer = null;
@@ -670,9 +699,12 @@ async function loadState(){
 }
 
 async function enterApp(session){
+  recoveryMode = false;
+  pulisciUrl();
   userId = session.user.id;
   await loadState();
   $('#loginView').classList.add('hidden');
+  $('#recoveryView').classList.add('hidden');
   $('#appView').classList.remove('hidden');
   setSync('saved');
   render();
@@ -680,7 +712,31 @@ async function enterApp(session){
 
 function showLogin(){
   $('#appView').classList.add('hidden');
+  $('#recoveryView').classList.add('hidden');
   $('#loginView').classList.remove('hidden');
+}
+
+function showRecovery(){
+  pulisciUrl();
+  $('#appView').classList.add('hidden');
+  $('#loginView').classList.add('hidden');
+  $('#recoveryView').classList.remove('hidden');
+}
+
+/* Mostra un messaggio di errore leggibile sulla schermata di login. */
+function loginErrore(msg){
+  const err = $('#loginError');
+  err.textContent = msg;
+  err.classList.remove('hidden');
+}
+
+/* Traduce i codici di errore che Supabase mette nel frammento dell'URL. */
+function messaggioErroreLink(code, descr){
+  if (code === 'otp_expired')
+    return 'Il link della email è scaduto o è già stato usato. I link valgono una sola volta: richiedine uno nuovo qui sotto con "Password dimenticata?".';
+  if (code === 'access_denied')
+    return 'Link non valido. Richiedine uno nuovo con "Password dimenticata?".';
+  return descr || 'Il link della email non è valido.';
 }
 
 /* ============================================================
@@ -727,6 +783,58 @@ function wireUI(){
       err.classList.remove('hidden');
     }
   });
+
+  // password dimenticata → invia email di recupero verso QUESTA pagina
+  $('#forgotBtn').addEventListener('click', async () => {
+    const info = $('#loginInfo');
+    const email = $('#email').value.trim();
+    $('#loginError').classList.add('hidden');
+    info.classList.add('hidden');
+    if (!email) {
+      loginErrore('Scrivi prima la tua email qui sopra, poi premi di nuovo.');
+      return;
+    }
+    const btn = $('#forgotBtn');
+    btn.disabled = true; btn.textContent = 'Invio…';
+    const { error } = await supabase.auth.resetPasswordForEmail(email, {
+      redirectTo: location.origin + location.pathname
+    });
+    btn.disabled = false; btn.textContent = 'Password dimenticata?';
+    if (error) { loginErrore(error.message); return; }
+    info.textContent = 'Email inviata a ' + email + '. Apri il link entro un\'ora, da questo stesso telefono, e potrai scegliere una nuova password.';
+    info.classList.remove('hidden');
+  });
+
+  // form nuova password (dopo il link di recupero)
+  $('#recoveryForm').addEventListener('submit', async e => {
+    e.preventDefault();
+    const err = $('#recoveryError');
+    err.classList.add('hidden');
+    const p1 = $('#newPassword').value, p2 = $('#newPassword2').value;
+    if (p1 !== p2) {
+      err.textContent = 'Le due password non coincidono.';
+      err.classList.remove('hidden');
+      return;
+    }
+    const btn = e.target.querySelector('button[type=submit]');
+    btn.disabled = true; btn.textContent = 'Salvataggio…';
+    const { error } = await supabase.auth.updateUser({ password: p1 });
+    btn.disabled = false; btn.textContent = 'Salva e accedi';
+    if (error) {
+      err.textContent = error.message;
+      err.classList.remove('hidden');
+      return;
+    }
+    recoveryMode = false;
+    const { data: { session } } = await supabase.auth.getSession();
+    if (session) await enterApp(session);
+    else showLogin();
+  });
+}
+
+/* Rimuove token ed errori dal frammento dell'URL, così un refresh non li rilegge. */
+function pulisciUrl(){
+  if (location.hash) history.replaceState(null, '', location.pathname + location.search);
 }
 
 async function boot(){
@@ -738,15 +846,32 @@ async function boot(){
     return;
   }
 
+  // Il link ricevuto per email torna qui con i suoi parametri nel frammento dell'URL.
+  const hash = new URLSearchParams(location.hash.replace(/^#/, ''));
+  const errCode = hash.get('error_code');
+  const errDescr = hash.get('error_description');
+  recoveryMode = hash.get('type') === 'recovery';
+
   supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-  supabase.auth.onAuthStateChange((_event, session) => {
+  // Link scaduto o non valido: resta sul login, con il motivo scritto in chiaro.
+  if (errCode || hash.get('error')) {
+    pulisciUrl();
+    showLogin();
+    loginErrore(messaggioErroreLink(errCode || hash.get('error'), errDescr && errDescr.replace(/\+/g, ' ')));
+    return;
+  }
+
+  supabase.auth.onAuthStateChange((event, session) => {
+    if (event === 'PASSWORD_RECOVERY') { recoveryMode = true; showRecovery(); return; }
+    if (recoveryMode) return;
     if (session) enterApp(session);
     else showLogin();
   });
 
   const { data: { session } } = await supabase.auth.getSession();
-  if (session) enterApp(session);
+  if (session && recoveryMode) showRecovery();
+  else if (session) enterApp(session);
   else showLogin();
 }
 

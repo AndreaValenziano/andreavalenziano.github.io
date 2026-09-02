@@ -29,9 +29,25 @@ Funzionalità principali:
 
 ## 3. Da fare / verificare lato utente
 
-- [ ] **Creare l'utente dell'app**: console Supabase → Authentication → Users → Add user → `valenzianoa@gmail.com` + password (con "Auto Confirm User"). È diverso dall'accesso GitHub alla console Supabase.
-- [ ] **Eseguire lo script SQL** del punto 3 della GUIDA (crea tabella `app_state` + abilita RLS + policy "own state"), altrimenti il login riesce ma il salvataggio dà "Errore".
+- [x] **Script SQL** del punto 3 della GUIDA — verificato: la tabella `app_state` esiste e risponde con RLS attiva.
+- [x] **Utente dell'app** — l'utente esiste (confermato dall'utente).
+- [ ] **URL Configuration su Supabase** (Authentication → URL Configuration): Site URL è ancora `http://localhost:3000`, quindi i link di recupero password aprono un indirizzo inesistente. Va messo `https://andreavalenziano.github.io/schedapalestra/` e lo stesso indirizzo con `/**` fra i Redirect URLs. Vedi punto 4-bis della GUIDA.
 - [ ] **Test login end-to-end** con le credenziali dell'utente app.
+
+### Diagnosi del 2 settembre 2026
+
+Endpoint verificati con curl: `/auth/v1/health` risponde (GoTrue v2.196.0), la chiave `sb_publishable_…`
+è accettata, `email: true` e `mailer_autoconfirm: false` nei settings, `/rest/v1/app_state` risponde `[]`
+(tabella + RLS ok). Il login con password restituisce `invalid_credentials`: password sbagliata,
+non utente inesistente né email non confermata (quest'ultima darebbe `email_not_confirmed`).
+
+Il link di recupero password arrivava a `http://localhost:3000/#error=access_denied&error_code=otp_expired`:
+Site URL mai configurato + link già consumato o scaduto.
+
+Aggiunto quindi in `index.html`: pulsante "Password dimenticata?" (`resetPasswordForEmail` con
+`redirectTo` alla pagina stessa), vista `#recoveryView` per impostare la nuova password
+(`updateUser`), gestione dell'evento `PASSWORD_RECOVERY`, traduzione in italiano degli errori che
+Supabase passa nel frammento dell'URL, e pulizia del frammento dopo la lettura.
 
 ## 4. Prossimi passi tecnici possibili
 
