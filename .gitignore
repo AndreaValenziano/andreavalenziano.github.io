@@ -22,3 +22,11 @@ esame/risultati_*.md
 esame2/.venv/
 **/esame2_domande_*
 **/esame2_risposte_*
+
+# piazzagrande — sorgente fotografico (254 MB) e derivati rigenerabili
+piazzagrande/PIAZZA GRANDE.pdf
+piazzagrande/singole.pdf
+piazzagrande/pagine/
+piazzagrande/rendered/
+piazzagrande/.venv/
+piazzagrande/ocr/
