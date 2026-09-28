@@ -23,19 +23,12 @@ esame2/.venv/
 **/esame2_domande_*
 **/esame2_risposte_*
 
-# piazzagrande — sorgente fotografico (254 MB) e derivati rigenerabili
-piazzagrande/PIAZZA GRANDE.pdf
-piazzagrande/singole.pdf
-piazzagrande/pagine/
-piazzagrande/rendered/
-piazzagrande/.venv/
-piazzagrande/ocr/
-
-# piazzagrande/guida ac — scansioni originali (~385 MB), derivati rigenerabili e PDF
-# da condividere (opera protetta da copyright: il sito e' pubblico)
-piazzagrande/guida ac/scansione originali/
-piazzagrande/guida ac/singole.pdf
-piazzagrande/guida ac/pagine/
-piazzagrande/guida ac/ocr/
-piazzagrande/guida ac/*.pdf
-piazzagrande/guida ac/anteprima_tagli.jpg
+# guideac — sussidi AC digitalizzati (opere protette da copyright: il sito e' pubblico).
+# Sorgenti fotografici/scansioni, derivati rigenerabili e PDF da condividere.
+guideac/.venv/
+guideac/*/*.pdf
+guideac/*/pagine/
+guideac/*/rendered/
+guideac/*/ocr/
+guideac/*/scansione originali/
+guideac/*/anteprima_tagli.jpg

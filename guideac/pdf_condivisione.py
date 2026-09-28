@@ -7,7 +7,7 @@ Le pagine assenti dalle scansioni diventano un segnaposto "pagina N non disponib
 Input: la cartella pagine/ (p-NNN.png) e pagine_stampate.tsv (file <TAB> pagina <TAB> nota;
 pagina '-' = escludere). Richiede tesseract (ita) e pdfunite (poppler).
 
-Uso: python3 pdf_condivisione.py "guida ac" "guida ac/Wow che tratto 2 - guida educatore.pdf"
+Uso: python3 pdf_condivisione.py 9-11 "9-11/Wow che tratto 2 - guida educatore.pdf"
      opzioni: --lato 1800 (lato lungo in px)  --qualita 75  --senza-ocr
 """
 import argparse, os, subprocess, tempfile

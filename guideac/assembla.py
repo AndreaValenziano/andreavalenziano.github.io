@@ -6,7 +6,7 @@ quello del libro). Le note a piè di pagina [^n] vengono rinumerate per pagina
 ([^p35-1]) per evitare collisioni tra capitoli.
 
 Uso: python3 assembla.py                       (piazza grande, valori predefiniti)
-     cd "guida ac" && python3 ../assembla.py --titolo "..." --out wow_che_tratto_2.md
+     cd 9-11 && python3 ../assembla.py --titolo "..." --out wow_che_tratto_2.md
 Lavora sempre su md/blocco_*.md della cartella corrente.
 """
 import argparse, glob, re, sys

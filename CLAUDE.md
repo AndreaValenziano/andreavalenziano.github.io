@@ -39,6 +39,14 @@ No HTML quiz app yet.
 
 Offline-first PWA (React + Vite + TypeScript — the only sub-project with a build step) for an Umbria trip, 9–12 August 2026. Source in `viaggiocascia/app/`, build output committed at `viaggiocascia/` root (deploy via `npm run deploy`, no GitHub Actions). See `viaggiocascia/CLAUDE.md`.
 
+### guideac/
+
+Book-digitization workspace for Azione Cattolica guides (not served on the site; copyrighted material). Photographed/scanned books → single-page images, searchable shareable PDF, structured Markdown. See `guideac/CLAUDE.md` and the `digitalizza-libro` skill.
+
+- Root: shared Python scripts (`split_libro.py`, `normalizza_scansioni.py`, `ocr_marker.py`, `spezza_ocr.py`, `pdf_condivisione.py`, `assembla.py`), `.venv/` (Marker OCR)
+- One subfolder per book, where commands are run from (`../.venv/bin/python ../script.py`): `piazza grande/`, `9-11/` (*Wow, che tratto! 2*)
+- Source PDFs, page images, OCR output and shareable PDFs are git-ignored
+
 ### esame/
 
 Python CLI tool that solves multiple-choice exam questions: local OCR (Tesseract, Italian) + LLM answers grounded strictly in the supplied study material. 4-stage pipeline: knowledge base → parallel OCR → answers → save results.

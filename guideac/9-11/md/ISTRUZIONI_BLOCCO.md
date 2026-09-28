@@ -1,6 +1,6 @@
 # Istruzioni per la strutturazione di un blocco (Stadio 3)
 
-Cartella di lavoro: /Users/AndreaValenziano/IdeaProjects/andreavalenziano.github.io/piazzagrande/guida ac
+Cartella di lavoro: /Users/AndreaValenziano/IdeaProjects/andreavalenziano.github.io/guideac/9-11
 
 Stai trascrivendo in Markdown strutturato un blocco di pagine del libro
 *Wow, che tratto! – 2* (guida per l'educatore Acr 9-11 anni, Azione Cattolica dei Ragazzi, 2026).

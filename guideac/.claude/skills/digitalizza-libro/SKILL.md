@@ -1,23 +1,23 @@
 ---
 name: digitalizza-libro
-description: Digitalizza un libro fotografato o scansionato (PDF senza testo, anche misti tra scanner piano, foto di pagine singole e foto di doppie pagine) in pagine singole, un PDF ricercabile da condividere con una pagina per pagina e un Markdown strutturato. Usare quando l'utente chiede di "fare lo stesso lavoro di piazza grande", "digitalizzare/trascrivere un libro/guida/sussidio", "tagliare le doppie pagine", "fare l'OCR delle scansioni", "preparare il PDF delle pagine da condividere" o porta una nuova cartella di scansioni in piazzagrande/.
+description: Digitalizza un libro fotografato o scansionato (PDF senza testo, anche misti tra scanner piano, foto di pagine singole e foto di doppie pagine) in pagine singole, un PDF ricercabile da condividere con una pagina per pagina e un Markdown strutturato. Usare quando l'utente chiede di "fare lo stesso lavoro di piazza grande", "digitalizzare/trascrivere un libro/guida/sussidio", "tagliare le doppie pagine", "fare l'OCR delle scansioni", "preparare il PDF delle pagine da condividere" o porta una nuova cartella di scansioni in guideac/.
 ---
 
-# Digitalizzazione di un libro (pipeline piazzagrande)
+# Digitalizzazione di un libro (pipeline guideac)
 
-Tutti gli script stanno in `piazzagrande/` (questa cartella) e si lanciano **dalla cartella del
-libro** (es. `piazzagrande/guida ac/`) con `../.venv/bin/python ../script.py`. Il venv ha
+Tutti gli script stanno in `guideac/` (questa cartella) e si lanciano **dalla cartella del
+libro** (es. `guideac/9-11/`, una sottocartella per libro) con `../.venv/bin/python ../script.py`. Il venv ha
 Pillow, numpy e Marker; servono anche `tesseract` (con `ita`), `pdftoppm`/`pdfunite` (poppler)
 e `llama-server` (brew `llama.cpp`, usato da Marker).
-Esempi completi già fatti: `piazzagrande/` (piazza grande, solo doppie pagine) e
-`piazzagrande/guida ac/` (Wow che tratto 2: scanner piano + foto singole + doppie pagine).
-Leggi `RUNBOOK_digitalizzazione.md` per il contesto tecnico.
+Esempi completi già fatti: `guideac/piazza grande/` (solo doppie pagine) e
+`guideac/9-11/` (Wow che tratto 2: scanner piano + foto singole + doppie pagine).
+Leggi `piazza grande/RUNBOOK_digitalizzazione.md` per il contesto tecnico.
 
 Regole d'oro:
 - **Mai** leggere o `cat` i PDF sorgente interi (centinaia di MB): lavorare su miniature
   (`pdftoppm -jpeg -scale-to 400`) e su singole pagine.
 - Opere protette da copyright e sito pubblico: sorgenti, pagine, OCR e PDF vanno in
-  `.gitignore` (vedi le righe già presenti per `guida ac`).
+  `.gitignore` (le regole `guideac/*/…` coprono già ogni sottocartella).
 - Dire all'utente in poche parole a che punto si è: il lavoro dura 1-2 ore.
 
 ## 0. Ricognizione (sempre)
@@ -72,10 +72,10 @@ pagine (`--lato 1500 --qualita 65` per alleggerire). Verificare con `pdfinfo` e 
   È rilanciabile: salta i blocchi già fatti.
 
 ## 5. Strutturazione in Markdown (Stadio 3)
-1. Scrivere `CONTESTO.md` nella cartella del libro (modello: `guida ac/CONTESTO.md`): struttura
+1. Scrivere `CONTESTO.md` nella cartella del libro (modello: `9-11/CONTESTO.md`): struttura
    del volume dall'indice, convenzioni Markdown (gerarchia H1-H5, box, note, commenti di pagina),
    glossario con la grafia canonica, stato. Guardare 4-6 pagine tipo prima di fissare le convenzioni.
-2. Copiare e adattare `guida ac/md/ISTRUZIONI_BLOCCO.md`.
+2. Copiare e adattare `9-11/md/ISTRUZIONI_BLOCCO.md`.
 3. Dividere le pagine (esclusi i duplicati) in ~8 blocchi di ~16 pagine, tagliando se possibile
    all'inizio di una sezione, e lanciare **in parallelo** un agente per blocco (Agent tool, in un
    unico messaggio) con: cartella, lettera del blocco, elenco `p-NNN → p. N`, e il rimando a
@@ -94,7 +94,7 @@ pagine (`--lato 1500 --qualita 65` per alleggerire). Verificare con `pdfinfo` e 
    ```
    Verifica: nessuna pagina mancante inattesa nell'output di assembla, `grep -c "<!-- p\."`,
    nessun `<sup>` residuo, note `[^pN-k]` con definizione.
-6. Aggiornare `CONTESTO.md` › Stato (pagine mancanti, dubbi) e il `CLAUDE.md` di piazzagrande
+6. Aggiornare `CONTESTO.md` › Stato (pagine mancanti, dubbi) e il `CLAUDE.md` di guideac
    se è cambiato qualcosa nella pipeline.
 
 ## Risultati da consegnare

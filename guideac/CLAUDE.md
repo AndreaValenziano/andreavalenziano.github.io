@@ -4,41 +4,39 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## What this is
 
-`piazzagrande/` is a **book-digitization workspace**, not a web app: it turns the photographed book *piazza grande 2026|2027* (Azione Cattolica Italiana, Ave, 2026) into a structured Markdown file. Nothing here is served on the GitHub Pages site. The full plan, diagnostics and conventions live in `RUNBOOK_digitalizzazione.md` — read it before doing any pipeline work; this file only summarizes what you need to operate.
+`guideac/` is a **book-digitization workspace** for Azione Cattolica guides, not a web app: it turns photographed/scanned books into single-page images, a searchable shareable PDF and a structured Markdown file. Nothing here is served on the GitHub Pages site. The books are copyrighted: digitization is for personal/service use, the resulting files must not be redistributed.
 
-The book is copyrighted: digitization is for personal/service use, the resulting Markdown must not be redistributed.
+Layout: shared scripts, `.venv/` and the `digitalizza-libro` skill at the root; one subfolder per book, where every command is run from (`../.venv/bin/python ../script.py`).
+
+- `piazza grande/` — *piazza grande 2026|2027* (Ave, 2026), photos of double-page spreads. The full plan, diagnostics and conventions live in `piazza grande/RUNBOOK_digitalizzazione.md` — read it before doing any pipeline work.
+- `9-11/` — *Wow, che tratto! 2* (guida educatore Acr 9-11, 2026), from mixed sources (flatbed scans, single-page photos, double-page photos): see `9-11/CONTESTO.md`. Deliverables: `wow_che_tratto_2.md` and the shareable searchable PDF `Wow che tratto 2 - guida per l'educatore.pdf`.
 
 ## Files
 
-- `PIAZZA GRANDE.pdf` — the source: 68 pages of iPhone photos (54 landscape double-page spreads + 14 portrait single pages ≈ 122 book pages), **~250 MB, no text layer** (OCR is mandatory). **Never read, render or `cat` this file wholesale** — it will blow the context. Extract single pages with `pdftoppm -f N -l N` or `pdftotext` on the OCR'd derivative instead. Not yet committed and should stay out of git (add it to the root `.gitignore`).
-- `split_libro.py` — Stage 1 script: renders the PDF with `pdftoppm`, optionally rotates, splits each landscape spread into left/right single pages, keeps portrait pages as they are (`--skip auto`), re-saves as one PDF via Pillow.
-- `RUNBOOK_digitalizzazione.md` — the operational briefing (Italian): material characteristics, OCR test results, the three-stage pipeline, and the `CONTESTO.md` template for cross-session state.
-
-- `CONTESTO.md` — cross-session state: Markdown conventions, canonical glossary, progress. Read at the start and update at the end of every Stage 3 session.
-- `mappa_pagine.txt` — original PDF page → `pagine/p-NNN.png` mapping.
-- `spezza_ocr.py` — splits Marker's paginated output into `ocr/marker/pages/p-NNN.md`.
-- `md/ISTRUZIONI_BLOCCO.md` — the Stage 3 brief given to each block agent; `md/blocco_A..H.md` — structured Markdown per block of ~15 photos (photo order).
-- `assembla.py` — merges the blocks into **`piazza_grande_2026-2027.md`** (the deliverable) in printed-page order, inserting "page missing" comments and renaming footnotes to `[^pN-k]`. Re-run it after editing any block file; never edit the final file by hand.
-- Generated, git-ignored: `rendered/` (raw 144 DPI renders of the 68 PDF pages), `pagine/` (122 split book pages), `singole.pdf`, `ocr/`, `.venv/`.
-
-## Other books and reusable scripts
-
-`guida ac/` holds a second book, *Wow, che tratto! 2* (guida educatore Acr 9-11, 2026), digitized with the same pipeline from mixed sources (flatbed scans, single-page photos, double-page photos): see `guida ac/CONTESTO.md`. Deliverables there: `wow_che_tratto_2.md` and the shareable searchable PDF `Wow che tratto 2 - guida per l'educatore.pdf` (git-ignored, like the scans and derivatives).
-
-Book-agnostic scripts in this folder, run from the book's folder with `../.venv/bin/python ../script.py`:
+Shared, book-agnostic scripts (root):
+- `split_libro.py` — Stage 1 for spread-only PDFs: renders with `pdftoppm`, optionally rotates, splits each landscape spread into left/right pages, keeps portrait pages (`--skip auto`), re-saves as one PDF via Pillow.
 - `normalizza_scansioni.py` — Stage 1 for mixed PDFs (`file.pdf:piana|singola|doppia`), gutter detection, manual overrides `--tagli`, `--anteprima` control sheet.
 - `ocr_marker.py` — Marker in 20-page chunks with timeout/retry (the Surya llama-server sometimes hangs at 0% CPU).
+- `spezza_ocr.py` — splits Marker's paginated output into `ocr/marker/pages/p-NNN.md`.
 - `pdf_condivisione.py` — one-page-per-page PDF in printed order from `pagine_stampate.tsv`, with OCR text layer and placeholders for missing pages.
-- `assembla.py --titolo … --descrizione … --out …` (defaults = piazza grande).
+- `assembla.py --titolo … --descrizione … --out …` — merges `md/blocco_*.md` into the deliverable in printed-page order, inserting "page missing" comments and renaming footnotes to `[^pN-k]` (defaults = piazza grande). Re-run it after editing any block file; never edit the final file by hand.
 
-The project skill `digitalizza-libro` (`.claude/skills/`) describes the whole procedure for a new book.
+Per book folder:
+- the source PDF(s) — **hundreds of MB, no text layer**. **Never read, render or `cat` them wholesale**: extract single pages with `pdftoppm -f N -l N`. In `piazza grande/`: `piazza grande.pdf` (68 iPhone photos: 54 spreads + 14 portrait singles ≈ 122 book pages).
+- `CONTESTO.md` — cross-session state: Markdown conventions, canonical glossary, progress. Read at the start and update at the end of every Stage 3 session.
+- `mappa_pagine.txt` — source PDF page → `pagine/p-NNN.png` mapping.
+- `md/ISTRUZIONI_BLOCCO.md` — the Stage 3 brief given to each block agent; `md/blocco_A..H.md` — structured Markdown per block.
+- the Markdown deliverable (`piazza_grande_2026-2027.md`, `wow_che_tratto_2.md`).
+- Generated, git-ignored (see root `.gitignore`, `guideac/*/…`): all PDFs, `rendered/`, `pagine/`, `ocr/`, `scansione originali/`, `anteprima_tagli.jpg`; plus `guideac/.venv/`.
+
+The project skill `digitalizza-libro` (`.claude/skills/`) describes the whole procedure for a new book: create a new subfolder here.
 
 ## Pipeline
 
-**Stage 1 — geometric normalization** (`split_libro.py`):
+**Stage 1 — geometric normalization** (`split_libro.py`, piazza grande):
 
 ```bash
-python3 split_libro.py "PIAZZA GRANDE.pdf" singole.pdf --skip auto --rot 0 --dpi 144
+cd "piazza grande" && python3 ../split_libro.py "piazza grande.pdf" singole.pdf --skip auto --rot 0 --dpi 144
 ```
 
 - `--skip` — `auto` (portrait = single page) or a 1-based list. In this PDF the singles are 1, 2, 14, 19, 21, 22, 27, 28, 32, 35, 42, 43, 44, 53.
@@ -46,7 +44,7 @@ python3 split_libro.py "PIAZZA GRANDE.pdf" singole.pdf --skip auto --rot 0 --dpi
 - `--offset` — shifts the cut line by % of width (-20..20) when the binding is off-centre; if it drifts across the volume, run in 2–3 blocks with different offsets.
 - Always eyeball 4–5 pages (start / middle / end) before moving on: the cut must fall on the binding and no text line may be clipped.
 
-Needs `pdftoppm` (poppler, installed) and Pillow (available system-wide and in `../esame/.venv`). ScanTailor Advanced between Stage 1 and 2 is optional but recommended for deskew/dewarp.
+Needs `pdftoppm` (poppler, installed) and Pillow (available system-wide and in `../../esame/.venv`). ScanTailor Advanced between Stage 1 and 2 is optional but recommended for deskew/dewarp.
 
 **Stage 2 — OCR to Markdown.** Two options, to be benchmarked on a 10-page mixed sample before running the whole volume:
 
