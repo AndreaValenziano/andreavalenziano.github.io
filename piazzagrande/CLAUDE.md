@@ -21,6 +21,18 @@ The book is copyrighted: digitization is for personal/service use, the resulting
 - `assembla.py` — merges the blocks into **`piazza_grande_2026-2027.md`** (the deliverable) in printed-page order, inserting "page missing" comments and renaming footnotes to `[^pN-k]`. Re-run it after editing any block file; never edit the final file by hand.
 - Generated, git-ignored: `rendered/` (raw 144 DPI renders of the 68 PDF pages), `pagine/` (122 split book pages), `singole.pdf`, `ocr/`, `.venv/`.
 
+## Other books and reusable scripts
+
+`guida ac/` holds a second book, *Wow, che tratto! 2* (guida educatore Acr 9-11, 2026), digitized with the same pipeline from mixed sources (flatbed scans, single-page photos, double-page photos): see `guida ac/CONTESTO.md`. Deliverables there: `wow_che_tratto_2.md` and the shareable searchable PDF `Wow che tratto 2 - guida per l'educatore.pdf` (git-ignored, like the scans and derivatives).
+
+Book-agnostic scripts in this folder, run from the book's folder with `../.venv/bin/python ../script.py`:
+- `normalizza_scansioni.py` — Stage 1 for mixed PDFs (`file.pdf:piana|singola|doppia`), gutter detection, manual overrides `--tagli`, `--anteprima` control sheet.
+- `ocr_marker.py` — Marker in 20-page chunks with timeout/retry (the Surya llama-server sometimes hangs at 0% CPU).
+- `pdf_condivisione.py` — one-page-per-page PDF in printed order from `pagine_stampate.tsv`, with OCR text layer and placeholders for missing pages.
+- `assembla.py --titolo … --descrizione … --out …` (defaults = piazza grande).
+
+The project skill `digitalizza-libro` (`.claude/skills/`) describes the whole procedure for a new book.
+
 ## Pipeline
 
 **Stage 1 — geometric normalization** (`split_libro.py`):

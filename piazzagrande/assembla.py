@@ -4,8 +4,19 @@ Assembla md/blocco_*.md nel file finale piazza_grande_2026-2027.md seguendo l'or
 delle pagine STAMPATE (i blocchi seguono l'ordine delle foto, che non coincide con
 quello del libro). Le note a piè di pagina [^n] vengono rinumerate per pagina
 ([^p35-1]) per evitare collisioni tra capitoli.
+
+Uso: python3 assembla.py                       (piazza grande, valori predefiniti)
+     cd "guida ac" && python3 ../assembla.py --titolo "..." --out wow_che_tratto_2.md
+Lavora sempre su md/blocco_*.md della cartella corrente.
 """
-import glob, re, sys
+import argparse, glob, re, sys
+
+ap = argparse.ArgumentParser()
+ap.add_argument("--titolo", default="piazza grande 2026|2027 — Guida educatori giovani")
+ap.add_argument("--descrizione", default="Trascrizione in Markdown della guida (Azione Cattolica "
+                "Italiana – Settore giovani, Ave 2026).")
+ap.add_argument("--out", default="piazza_grande_2026-2027.md")
+args = ap.parse_args()
 
 PAGE_RE = re.compile(r"^<!-- p\. ([0-9]+)(\?)?[^\n]*?-->", re.M)
 
@@ -26,10 +37,10 @@ for f in sorted(glob.glob("md/blocco_*.md")):
         chunks.append((n, order, body)); order += 1
 
 chunks.sort(key=lambda c: (c[0], c[1]))
-out = ["# piazza grande 2026|2027 — Guida educatori giovani",
+out = [f"# {args.titolo}",
        "",
-       "<!-- Trascrizione in Markdown della guida (Azione Cattolica Italiana – Settore giovani, Ave 2026). "
-       "Ordine = pagine stampate del libro. Ogni pagina inizia con <!-- p. N -->. -->",
+       f"<!-- {args.descrizione} "
+       "Ordine = pagine stampate del libro; ogni pagina inizia con il commento p. N. -->",
        ""]
 prev = None
 for n, _, body in chunks:
@@ -38,7 +49,7 @@ for n, _, body in chunks:
         out.append(f"<!-- {lab}: non fotografata / assente dal PDF -->\n")
     out.append(body + "\n")
     prev = max(prev or 0, n)
-open("piazza_grande_2026-2027.md", "w", encoding="utf-8").write("\n".join(out))
+open(args.out, "w", encoding="utf-8").write("\n".join(out))
 pages = sorted({c[0] for c in chunks if c[0]})
 print(f"{len(chunks)} blocchi di pagina, pagine {pages[0]}-{pages[-1]}, mancanti:",
       [p for p in range(pages[0], pages[-1] + 1) if p not in pages])

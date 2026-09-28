@@ -30,3 +30,12 @@ piazzagrande/pagine/
 piazzagrande/rendered/
 piazzagrande/.venv/
 piazzagrande/ocr/
+
+# piazzagrande/guida ac — scansioni originali (~385 MB), derivati rigenerabili e PDF
+# da condividere (opera protetta da copyright: il sito e' pubblico)
+piazzagrande/guida ac/scansione originali/
+piazzagrande/guida ac/singole.pdf
+piazzagrande/guida ac/pagine/
+piazzagrande/guida ac/ocr/
+piazzagrande/guida ac/*.pdf
+piazzagrande/guida ac/anteprima_tagli.jpg
