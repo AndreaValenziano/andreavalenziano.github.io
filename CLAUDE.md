@@ -39,6 +39,10 @@ No HTML quiz app yet.
 
 Offline-first PWA (React + Vite + TypeScript — the only sub-project with a build step) for an Umbria trip, 9–12 August 2026. Source in `viaggiocascia/app/`, build output committed at `viaggiocascia/` root (deploy via `npm run deploy`, no GitHub Actions). See `viaggiocascia/CLAUDE.md`.
 
+### wowchetratto911/
+
+Webapp (vanilla JS, PWA offline) per consultare le attività della guida Acr 9-11 *Wow, che tratto! 2*. I contenuti sono pubblicati solo cifrati (`dati.enc`, generato da `tools/build.py` a partire da `fonte/`, git-ignorata) e si aprono con una password. See `wowchetratto911/CLAUDE.md`.
+
 ### guideac/
 
 Book-digitization workspace for Azione Cattolica guides (not served on the site; copyrighted material). Photographed/scanned books → single-page images, searchable shareable PDF, structured Markdown. See `guideac/CLAUDE.md` and the `digitalizza-libro` skill.

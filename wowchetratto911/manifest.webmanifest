@@ -1,0 +1,15 @@
+{
+  "name": "Wow, che tratto! – Acr 9-11",
+  "short_name": "Wow 9-11",
+  "description": "Le attività della guida Acr 9-11 2026-2027, consultabili anche offline",
+  "lang": "it",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#fbe8dd",
+  "theme_color": "#fbe8dd",
+  "icons": [
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ]
+}

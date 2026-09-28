@@ -32,3 +32,6 @@ guideac/*/rendered/
 guideac/*/ocr/
 guideac/*/scansione originali/
 guideac/*/anteprima_tagli.jpg
+
+# wowchetratto911 — sorgente della guida e JSON in chiaro (si pubblica solo dati.enc cifrato)
+wowchetratto911/fonte/
