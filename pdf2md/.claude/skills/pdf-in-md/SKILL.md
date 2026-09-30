@@ -71,6 +71,12 @@ serve anche `brew install llama.cpp tesseract tesseract-lang`), perché `ocr_mar
 `marker_single` nel venv accanto allo script.
 Le immagini di contenuto (schemi, tabelle) si descrivono con lo stesso passo 3 della strada digitale.
 
+## Istruzioni per il Progetto claude.ai
+Scrivere nella cartella del documento `ISTRUZIONI_PROGETTO.md` (modello: `chimica/ISTRUZIONI_PROGETTO.md`):
+cos'è la fonte, come leggere `<!-- p. N -->`, titoli e blocchi «Immagine:», e come recuperare
+un'immagine — nel Progetto si carica solo il `.md`, quindi i percorsi `img/…` vanno tradotti in
+URL GitHub Pages (`https://andreavalenziano.github.io/<cartella>/img/pNNN-k.jpg`, validi dopo il push).
+
 ## Git
 Chiedere se il materiale va su git (il sito è pubblico). Se sì: PDF sorgente, `nome.md`, `img/`,
 `titoli.tsv`, `descrizioni/lotto_*.tsv` (costano token: vanno conservati). Mai: `nome.raw.md`,
