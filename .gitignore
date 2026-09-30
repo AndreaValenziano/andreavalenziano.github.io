@@ -35,3 +35,10 @@ guideac/*/anteprima_tagli.jpg
 
 # wowchetratto911 — sorgente della guida e JSON in chiaro (si pubblica solo dati.enc cifrato)
 wowchetratto911/fonte/
+
+# pdf2md — strumenti PDF -> Markdown. Derivati rigenerabili dei documenti convertiti
+# (le descrizioni descrizioni/lotto_*.tsv costano token: quelle si committano).
+pdf2md/.venv/
+**/*.raw.md
+**/immagini.tsv
+**/descrizioni/lotto_*.md

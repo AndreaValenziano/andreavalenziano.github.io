@@ -51,6 +51,17 @@ Book-digitization workspace for Azione Cattolica guides (not served on the site;
 - One subfolder per book, where commands are run from (`../.venv/bin/python ../script.py`): `piazza grande/`, `9-11/` (*Wow, che tratto! 2*)
 - Source PDFs, page images, OCR output and shareable PDFs are git-ignored
 
+### pdf2md/
+
+Tools that turn a PDF into structured Markdown used as Claude context (not served on the site). See `pdf2md/CLAUDE.md` and the `pdf-in-md` skill (`pdf2md/.claude/skills/`, symlinked locally in `.claude/skills/`).
+
+- Born-digital PDFs: `digitale.py` (pymupdf4llm, no LLM) → `descrizioni.py` + parallel agents describing images per `ISTRUZIONI_IMMAGINI.md` → `rifinisci.py` (heading fixes from the document's `titoli.tsv`, descriptions inserted). Scripts run from the document folder: `../pdf2md/.venv/bin/python ../pdf2md/<script>.py`.
+- Scanned PDFs: copies of the `guideac/` scripts (Marker/Tesseract pipeline); `guideac/` itself is unchanged.
+
+### chimica/
+
+*Elementi di didattica della chimica* lecture notes (sbobine): `Sbobine 2.pdf` → `sbobine_2.md` (~39k words, `<!-- p. N -->` page comments, 207 images in `img/` with `> **Immagine:**` descriptions). Regenerate with `pdf2md/rifinisci.py`; never edit `sbobine_2.md` by hand.
+
 ### esame/
 
 Python CLI tool that solves multiple-choice exam questions: local OCR (Tesseract, Italian) + LLM answers grounded strictly in the supplied study material. 4-stage pipeline: knowledge base → parallel OCR → answers → save results.
