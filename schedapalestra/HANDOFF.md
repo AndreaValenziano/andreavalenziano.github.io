@@ -15,7 +15,9 @@ Web app **"Scheda Palestra"** per uso personale da telefono, pubblicabile su Git
 Funzionalità principali:
 - **Login** email/password (Supabase Auth), sessione persistente.
 - **Persistenza cloud**: tabella unica `app_state` (`user_id` PK, `data` jsonb, `updated_at`); tutto lo stato in un solo oggetto JSON; **upsert con debounce 800 ms**; indicatore "Salvo…/Salvato/Errore".
-- **Tab Scheda A / Scheda B / Storico**. Ogni scheda ha blocco **riscaldamento** evidenziato in alto.
+- **Tab Scheda A / B / C / Storico** (scheda in vigore fino al 9 febbraio 2027). Ogni scheda ha blocco **riscaldamento** in alto e in fondo gli esercizi **"Ogni fine allenamento"** (`fine` nello stato, comuni a tutte le schede).
+- **Dettaglio esercizio** ("Come si esegue"): schermata con foto inizio/fine (free-exercise-db, pubblico dominio, caricate da raw.githubusercontent.com), muscoli, passi, errori, link a ricerche YouTube. Contenuti in `DETTAGLI` (chiave = id esercizio). La descrizione breve è modificabile: la versione dell'utente si salva in `descrizione_utente`.
+- Al cambio scheda gli id degli esercizi rimasti uguali sono stati riutilizzati, così pesi e storico proseguono; `normalize()` cerca gli esercizi per id in tutte le schede.
 - **Card esercizio**: peso in evidenza (accento arancione) con pulsanti `−`/`+` a step per-esercizio + input modificabile, nota di riferimento (posizione/tecnica), note personali libere, campi opzionali serie/ripetizioni, etichetta "per braccio" dove serve; esercizi a corpo libero senza controlli peso.
 - **Salva sessione** → snapshot data+pesi nello storico; **Storico** per esercizio con elenco data → peso e barre di andamento.
 - **Esporta / Importa JSON** (menu ⋯) come backup aggiuntivo.

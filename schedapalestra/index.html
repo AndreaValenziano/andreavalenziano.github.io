@@ -21,6 +21,7 @@
     --warm: #fff8e6;
     --warm-border: #ffe3a3;
     --ok: #16a34a;
+    --danger: #dc2626;
     --shadow: 0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.04);
     --radius: 16px;
     --safe-bottom: env(safe-area-inset-bottom, 0px);
@@ -37,6 +38,7 @@
       --accent-dark: #ff8a65;
       --warm: #241f12;
       --warm-border: #4a3d1a;
+      --danger: #f87171;
       --shadow: 0 1px 3px rgba(0,0,0,.4);
     }
   }
@@ -126,6 +128,16 @@
     position: relative; top: 2px;
   }
   .card-name { font-weight: 700; font-size: 18px; flex: 1; }
+  .prescr {
+    flex: none; font-weight: 700; font-size: 13.5px; color: var(--accent-dark);
+    background: var(--accent-soft); border-radius: 8px; padding: 3px 8px;
+    white-space: nowrap;
+  }
+  .scadenza { color: var(--muted); font-size: 13px; margin: 0 0 10px; }
+  .section-title {
+    font-size: 14px; text-transform: uppercase; letter-spacing: .5px;
+    color: var(--muted); margin: 22px 0 10px;
+  }
   .ref {
     color: var(--muted); font-size: 13.5px; margin: 8px 0 0;
     line-height: 1.4;
@@ -265,6 +277,116 @@
   }
   .config-warn code { background: rgba(0,0,0,.08); padding: 1px 5px; border-radius: 5px; font-size: 12.5px; }
   @media (prefers-color-scheme: dark) { .config-warn code { background: rgba(255,255,255,.12); } }
+
+  ::selection { background: var(--accent-soft); color: var(--accent-dark); }
+
+  /* descrizione breve + link al dettaglio */
+  .desc { margin: 8px 0 0; font-size: 14.5px; line-height: 1.45; }
+  .howto {
+    display: inline-flex; align-items: center; gap: 2px;
+    margin-top: 6px; min-height: 36px; padding: 0;
+    font-weight: 700; font-size: 14px; color: var(--accent-dark);
+  }
+  .howto svg { width: 18px; height: 18px; }
+  .howto:active { opacity: .6; }
+  .howto:focus-visible, .detail button:focus-visible, .detail a:focus-visible {
+    outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 8px;
+  }
+
+  /* ===== Dettaglio esercizio ===== */
+  body.detail-open { overflow: hidden; }
+  .detail {
+    position: fixed; inset: 0; z-index: 50; background: var(--bg);
+    display: none; flex-direction: column;
+  }
+  .detail.open { display: flex; animation: entra .34s cubic-bezier(.16, 1, .3, 1); }
+  @keyframes entra { from { transform: translateX(36px); } }
+  @media (prefers-reduced-motion: reduce) { .detail.open { animation: none; } }
+  .detail-bar {
+    flex: none; display: flex; align-items: center; gap: 10px;
+    background: var(--card); border-bottom: 1px solid var(--border);
+    padding: calc(env(safe-area-inset-top, 0px) + 10px) 16px 10px;
+  }
+  .detail-bar .iconbtn svg { width: 22px; height: 22px; }
+  .detail-bar h2 {
+    flex: 1; min-width: 0; margin: 0; font-size: 17px; font-weight: 800;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    opacity: 0; transition: opacity .2s ease-out;
+  }
+  .detail-bar.titolata h2 { opacity: 1; }
+  .detail-scroll { flex: 1; overflow-y: auto; -webkit-overflow-scrolling: touch; }
+  .detail-body {
+    max-width: 640px; margin: 0 auto;
+    padding: 16px 16px calc(40px + var(--safe-bottom));
+  }
+  .d-head { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 14px; }
+  .d-head h1 { flex: 1; margin: 0; font-size: 24px; line-height: 1.2; letter-spacing: -.02em; text-wrap: balance; }
+  .d-head .prescr { margin-top: 3px; }
+
+  .gallery { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .gallery figure {
+    margin: 0; position: relative; aspect-ratio: 3 / 2;
+    border-radius: 12px; overflow: hidden; background: var(--border);
+  }
+  .gallery img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .gallery figcaption {
+    position: absolute; left: 8px; bottom: 8px;
+    background: rgba(0,0,0,.62); color: #fff;
+    font-size: 12px; font-weight: 700; padding: 3px 8px; border-radius: 6px;
+  }
+  .credit { font-size: 12px; color: var(--muted); margin: 8px 0 0; }
+  .d-nota {
+    margin: 12px 0 0; padding: 10px 12px; font-size: 13.5px; line-height: 1.45;
+    background: var(--warm); border: 1px solid var(--warm-border); border-radius: 12px;
+  }
+  .d-sec { margin-top: 28px; }
+  .d-sec h3 {
+    margin: 0 0 10px; font-size: 13px; text-transform: uppercase;
+    letter-spacing: .5px; color: var(--muted);
+  }
+  .d-edit textarea {
+    width: 100%; min-height: 64px; padding: 12px; line-height: 1.45;
+    border: 1px solid var(--border); border-radius: 12px; background: var(--card); resize: none; overflow: hidden;
+  }
+  .d-edit-foot {
+    display: flex; align-items: center; justify-content: space-between; gap: 12px;
+    margin-top: 6px; font-size: 12.5px; color: var(--muted);
+  }
+  .d-edit-foot button { color: var(--accent-dark); font-weight: 700; font-size: 13px; padding: 6px 0; }
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; }
+  .chip {
+    padding: 5px 11px; border-radius: 999px; font-size: 13.5px; font-weight: 600;
+    background: var(--card); border: 1px solid var(--border);
+  }
+  .chip.primario { background: var(--accent-soft); color: var(--accent-dark); border-color: transparent; }
+  .passi { list-style: none; counter-reset: passo; margin: 0; padding: 0; }
+  .passi li {
+    counter-increment: passo; position: relative;
+    padding-left: 38px; margin-bottom: 14px; line-height: 1.5;
+  }
+  .passi li::before {
+    content: counter(passo); position: absolute; left: 0; top: 0;
+    width: 26px; height: 26px; border-radius: 8px;
+    background: var(--accent-soft); color: var(--accent-dark);
+    font-weight: 800; font-size: 13px; display: grid; place-items: center;
+  }
+  .errori { list-style: none; margin: 0; padding: 0; }
+  .errori li { position: relative; padding-left: 26px; margin-bottom: 10px; line-height: 1.5; }
+  .errori li svg { position: absolute; left: 2px; top: 3px; width: 16px; height: 16px; color: var(--danger); }
+  .video-links { display: grid; gap: 8px; }
+  .video-links a {
+    display: flex; align-items: center; gap: 12px; padding: 12px 14px;
+    background: var(--card); border: 1px solid var(--border); border-radius: 14px;
+    color: var(--text); text-decoration: none;
+  }
+  .video-links a:active { background: var(--border); }
+  .video-links .play {
+    flex: none; width: 36px; height: 36px; border-radius: 10px;
+    background: var(--accent-soft); color: var(--accent-dark); display: grid; place-items: center;
+  }
+  .video-links .play svg { width: 16px; height: 16px; }
+  .video-links strong { display: block; font-size: 15px; }
+  .video-links small { display: block; font-size: 12.5px; color: var(--muted); }
 </style>
 </head>
 <body>
@@ -329,11 +451,23 @@
     <div class="tabs">
       <div class="tab active" data-view="A">Scheda A</div>
       <div class="tab" data-view="B">Scheda B</div>
+      <div class="tab" data-view="C">Scheda C</div>
       <div class="tab" data-view="storico">Storico</div>
     </div>
   </header>
   <main id="content"></main>
 </div>
+
+<!-- DETTAGLIO ESERCIZIO -->
+<section id="detail" class="detail" aria-labelledby="detailTitle">
+  <header class="detail-bar">
+    <button class="iconbtn" id="detailBack" aria-label="Torna alla scheda">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+    </button>
+    <h2 id="detailTitle"></h2>
+  </header>
+  <div class="detail-scroll"><div class="detail-body" id="detailBody"></div></div>
+</section>
 
 <div id="toast" class="toast"></div>
 <input type="file" id="importFile" accept="application/json,.json" class="hidden">
@@ -351,49 +485,362 @@ const SUPABASE_ANON_KEY = 'sb_publishable_nyZ7pjV4dpTqWVpRldOdVQ_mKEIkJau';
 /* ===== Dati predefiniti ===== */
 const RISCALDAMENTO = 'Glidex (ellittica/cardio) — inclinazione max, velocità 3,5.';
 
+const SCADENZA = '9 febbraio 2027';
+
+/* Gli id già usati nella scheda precedente sono stati riutilizzati per gli
+   stessi esercizi, così pesi e storico continuano dalla vecchia scheda. */
 const DEFAULT_STATE = {
   schede: {
     A: {
-      titolo: 'Scheda A — Parte alta',
+      titolo: 'Scheda A — Petto e dorso',
       riscaldamento: RISCALDAMENTO,
       esercizi: [
-        { id:'a1', nome:'Incline press', gruppo:'pettorali', peso:6.25, step:1.25, perBraccio:true,
+        { id:'a1', nome:'Distensioni panca inclinata', prescrizione:'3 × 12', peso:6.25, step:1.25, perBraccio:true,
           note_riferimento:'Manubri "braccia rosse", zona pesi davanti alla finestra.' },
-        { id:'a2', nome:'Pectoral fly', peso:28, step:1,
-          note_riferimento:'Macchina dietro il tapis roulant.' },
-        { id:'a3', nome:'Lat pulldown', peso:35, step:5,
-          note_riferimento:'Macchina dietro il tapis; scendendo, gomiti avanti e giù.' },
-        { id:'a4', nome:'Pulley basso / low row', peso:26, step:1,
-          note_riferimento:'Ai cavi, da seduto, impugnatura a triangolo.' },
-        { id:'a5', nome:'Alzate laterali con manubri', peso:2.5, step:0.5, perBraccio:true,
+        { id:'a8', nome:'Row', prescrizione:'3 × 10', peso:0, step:1,
+          note_riferimento:'Presa larga.' },
+        { id:'a9', nome:'Croci panca orizzontale', prescrizione:'3 × 10', peso:0, step:0.5, perBraccio:true,
           note_riferimento:'' },
-        { id:'a6', nome:'Alzate frontali con disco', peso:5, step:1.25,
-          note_riferimento:'Disco all’altezza degli occhi, tenere qualche secondo.' },
-        { id:'a7', nome:'Crunch alla panca', corpoLibero:true,
-          note_riferimento:'A corpo libero.' },
+        { id:'a3', nome:'Lat machine 2 maniglie', prescrizione:'3 × 12', peso:35, step:5,
+          note_riferimento:'Macchina dietro il tapis; scendendo, gomiti avanti e giù.' },
+        { id:'a10', nome:'Pullover', prescrizione:'3 × 10', peso:0, step:1,
+          note_riferimento:'' },
+        { id:'a4', nome:'Pulley 2 maniglie', prescrizione:'3 × 12', peso:26, step:1,
+          note_riferimento:'Ai cavi, da seduto, con 2 maniglie.' },
+        { id:'b7', nome:'Crunch in sospensione', prescrizione:'3 × 12', corpoLibero:true,
+          note_riferimento:'Porta le gambe/addome al petto.' },
       ]
     },
     B: {
-      titolo: 'Scheda B — Parte bassa e braccia',
+      titolo: 'Scheda B — Gambe e tricipiti',
       riscaldamento: RISCALDAMENTO,
       esercizi: [
-        { id:'b1', nome:'Squat con manubrio', peso:10, step:1,
-          note_riferimento:'Un manubrio tenuto tra le mani, esegui lo squat.' },
-        { id:'b2', nome:'Leg curl', peso:21, step:1, note_riferimento:'' },
-        { id:'b3', nome:'Leg extension', peso:28, step:1, note_riferimento:'' },
-        { id:'b4', nome:'Curl bicipiti con manubri', peso:5, step:1, perBraccio:true,
+        { id:'b8', nome:'Pressa orizzontale', prescrizione:'3 × 12', peso:0, step:5,
           note_riferimento:'' },
-        { id:'b5', nome:'Push down tricipiti alla colonna (cavo)', peso:13, step:1,
-          note_riferimento:'Da aumentare, tieni i gomiti fermi.' },
-        { id:'b6', nome:'Calf all’hack squat', peso:23, step:1,
-          note_riferimento:'Macchina calf squat vicino allo specchio, ingresso zona libera.' },
-        { id:'b7', nome:'Crunch in sospensione', corpoLibero:true,
-          note_riferimento:'Porta le gambe/addome al petto.' },
+        { id:'b9', nome:'Affondi avanti', prescrizione:'3 × 10', peso:0, step:1,
+          note_riferimento:'' },
+        { id:'b3', nome:'Leg extension', prescrizione:'3 × 12 · ISO 2″', peso:28, step:1,
+          note_riferimento:'Tieni 2 secondi in contrazione (isometria).' },
+        { id:'b2', nome:'Leg curl', prescrizione:'3 × 12 · ISO 2″', peso:21, step:1,
+          note_riferimento:'Tieni 2 secondi in contrazione (isometria).' },
+        { id:'b10', nome:'French press 2 manubri', prescrizione:'3 × 12', peso:0, step:1, perBraccio:true,
+          note_riferimento:'' },
+        { id:'b5', nome:'Tricipiti con fune', prescrizione:'3 × 10', peso:13, step:1,
+          note_riferimento:'Alla colonna con la fune, tieni i gomiti fermi.' },
+        { id:'b12', nome:'Plank', prescrizione:'3 × 1′', corpoLibero:true,
+          note_riferimento:'' },
+      ]
+    },
+    C: {
+      titolo: 'Scheda C — Bicipiti e spalle',
+      riscaldamento: RISCALDAMENTO,
+      esercizi: [
+        { id:'c1', nome:'Bicipiti bilanciere', prescrizione:'3 × 8', peso:0, step:1,
+          note_riferimento:'' },
+        { id:'c2', nome:'Hammer curl manubri alternati', prescrizione:'3 × 12', peso:0, step:1, perBraccio:true,
+          note_riferimento:'' },
+        { id:'c3', nome:'Bicipiti concentrato', prescrizione:'3 × 8', peso:0, step:1, perBraccio:true,
+          note_riferimento:'' },
+        { id:'c4', nome:'Lento avanti', prescrizione:'3 × 10', peso:0, step:1,
+          note_riferimento:'' },
+        { id:'c5', nome:'Shoulder press', prescrizione:'3 × 12', peso:0, step:1,
+          note_riferimento:'Impugnatura neutra.' },
+        { id:'c6', nome:'Tirate al mento bilanciere', prescrizione:'3 × 10', peso:0, step:1,
+          note_riferimento:'' },
+        { id:'c7', nome:'Crunch obliqui', prescrizione:'3 × 12', corpoLibero:true,
+          note_riferimento:'' },
       ]
     }
   },
+  // Esercizi da fare alla fine di ogni allenamento, qualunque sia la scheda
+  fine: [
+    { id:'b6', nome:'Calf all’hack squat', prescrizione:'3 × 12', peso:23, step:1,
+      note_riferimento:'Macchina calf squat vicino allo specchio, ingresso zona libera.' },
+  ],
   storico: []   // [{ data:ISO, scheda:'A', pesi:{ id:peso, ... } }]
 };
+
+const SCHEDE = Object.keys(DEFAULT_STATE.schede);
+
+/* ===== Schede di dettaglio degli esercizi =====
+   Foto: free-exercise-db (github.com/yuhonas/free-exercise-db), pubblico dominio.
+   `breve` è la descrizione predefinita: quella modificata dall'utente si salva
+   in `descrizione_utente` sull'esercizio. */
+const IMG_BASE = 'https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/';
+
+const DETTAGLI = {
+  a1: {
+    breve: 'Su panca inclinata (30–45°), spingi i manubri dal petto verso l’alto. Lavora soprattutto la parte alta del petto.',
+    img: 'Incline_Dumbbell_Press', video: 'distensioni panca inclinata manubri esecuzione', videoEn: 'incline dumbbell press form',
+    primari: ['Petto (parte alta)'], secondari: ['Deltoide anteriore', 'Tricipiti'],
+    passi: [
+      'Regola lo schienale a 30–45° e siediti con i manubri appoggiati sulle cosce.',
+      'Sdraiati portando i manubri ai lati del petto, gomiti a circa 45° dal busto.',
+      'Spingi verso l’alto espirando, fino a braccia quasi tese: i manubri si avvicinano senza toccarsi.',
+      'Scendi lentamente, in 2–3 secondi, fino a sentire allungare il petto.',
+    ],
+    errori: ['Staccare i glutei dalla panca o inarcare molto la schiena.', 'Aprire i gomiti a 90°: affatica le spalle.', 'Far rimbalzare i manubri in basso.'],
+  },
+  a8: {
+    breve: 'Seduto alla macchina col petto appoggiato, tira le maniglie larghe verso di te stringendo le scapole. Lavora la parte alta della schiena.',
+    img: 'Leverage_Iso_Row', video: 'rematore alla macchina presa larga esecuzione', videoEn: 'wide grip machine row form',
+    primari: ['Dorsali', 'Romboidi e trapezio medio'], secondari: ['Deltoide posteriore', 'Bicipiti'],
+    passi: [
+      'Regola il sedile in modo che le maniglie siano all’altezza del petto e appoggia il petto al cuscinetto.',
+      'Afferra le maniglie nella presa larga, palmi verso il basso, braccia tese.',
+      'Tira portando i gomiti indietro e verso l’esterno, stringendo le scapole; espira.',
+      'Torna avanti lentamente lasciando allungare la schiena.',
+    ],
+    errori: ['Staccare il petto dal cuscinetto e dondolare col busto.', 'Tirare solo con le braccia, senza muovere le scapole.', 'Alzare le spalle verso le orecchie.'],
+    nota: 'La macchina della tua palestra può essere diversa da quella in foto: il movimento è lo stesso.',
+  },
+  a9: {
+    breve: 'Sdraiato su panca piana, apri e chiudi le braccia con i manubri come in un abbraccio, gomiti appena piegati. Isola il petto.',
+    img: 'Dumbbell_Flyes', video: 'croci panca piana manubri esecuzione', videoEn: 'dumbbell fly form',
+    primari: ['Petto'], secondari: ['Deltoide anteriore'],
+    passi: [
+      'Sdraiati sulla panca piana con i manubri sopra il petto, palmi che si guardano.',
+      'Piega leggermente i gomiti e tienili così per tutto il movimento.',
+      'Apri le braccia di lato scendendo lentamente, finché senti allungare il petto (gomiti circa all’altezza della panca).',
+      'Richiudi con un movimento ad arco, come per abbracciare un albero; espira.',
+    ],
+    errori: ['Piegare e distendere i gomiti: diventa una distensione.', 'Scendere troppo in basso: stressa le spalle.', 'Usare un peso che non controlli in discesa.'],
+  },
+  a3: {
+    breve: 'Seduto, tira le due maniglie dall’alto verso il petto portando i gomiti giù, verso i fianchi. Lavora i dorsali.',
+    img: 'Wide-Grip_Lat_Pulldown', video: 'lat machine esecuzione corretta', videoEn: 'lat pulldown form',
+    primari: ['Dorsali'], secondari: ['Bicipiti', 'Romboidi', 'Deltoide posteriore'],
+    passi: [
+      'Blocca le cosce sotto i cuscinetti e afferra le due maniglie a braccia tese.',
+      'Inclina appena il busto indietro, petto in fuori.',
+      'Tira le maniglie verso la parte alta del petto, gomiti avanti e giù verso i fianchi; espira.',
+      'Risali lentamente fino a braccia quasi tese, senza far sbattere i pesi.',
+    ],
+    errori: ['Tirare dietro la nuca.', 'Dondolare all’indietro per aiutarti.', 'Risalire di colpo lasciando cadere il peso.'],
+    nota: 'In foto c’è la barra lunga; con le due maniglie separate il movimento è lo stesso.',
+  },
+  a10: {
+    breve: 'Sdraiato sulla panca, porta un manubrio da sopra il petto a dietro la testa e ritorno, braccia quasi tese. Lavora dorsali e petto.',
+    img: 'Bent-Arm_Dumbbell_Pullover', video: 'pullover manubrio panca esecuzione', videoEn: 'dumbbell pullover form',
+    primari: ['Dorsali', 'Petto'], secondari: ['Tricipiti', 'Dentato anteriore'],
+    passi: [
+      'Sdraiati sulla panca (anche di traverso, con le sole spalle appoggiate) e tieni un manubrio con due mani sopra il petto.',
+      'Gomiti leggermente piegati e fermi per tutta la serie.',
+      'Inspira e porta lentamente il manubrio indietro oltre la testa, finché senti allungare dorsali e petto.',
+      'Riporta il manubrio sopra il petto con un arco; espira.',
+    ],
+    errori: ['Piegare e distendere i gomiti durante il movimento.', 'Scendere più di quanto la spalla ti permetta.', 'Inarcare molto la schiena.'],
+  },
+  a4: {
+    breve: 'Seduto al cavo basso, tira le due maniglie verso l’addome con la schiena dritta, stringendo le scapole. Lavora la schiena.',
+    img: 'Seated_Cable_Rows', video: 'pulley basso seduto esecuzione', videoEn: 'seated cable row form',
+    primari: ['Dorsali', 'Romboidi e trapezio medio'], secondari: ['Bicipiti', 'Deltoide posteriore', 'Lombari'],
+    passi: [
+      'Siediti con i piedi sulla pedana e le ginocchia leggermente piegate, poi afferra le maniglie.',
+      'Schiena dritta e busto verticale, braccia tese avanti.',
+      'Tira le maniglie verso l’ombelico portando i gomiti indietro, vicini ai fianchi; espira e stringi le scapole.',
+      'Torna avanti lentamente fino a braccia tese, senza curvare la schiena.',
+    ],
+    errori: ['Dondolare col busto avanti e indietro.', 'Curvare la schiena nella fase di ritorno.', 'Alzare le spalle.'],
+  },
+  b7: {
+    breve: 'In sospensione alle parallele (avambracci appoggiati, schiena allo schienale), porta le ginocchia al petto arrotolando il bacino. Lavora gli addominali.',
+    img: 'Knee_Hip_Raise_On_Parallel_Bars', video: 'crunch inverso alle parallele esecuzione', videoEn: 'captains chair knee raise form',
+    primari: ['Addominali'], secondari: ['Flessori dell’anca', 'Obliqui'],
+    passi: [
+      'Sali sulla stazione: avambracci sui cuscinetti, schiena appoggiata, gambe a penzoloni.',
+      'Spalle basse e stabili, addome contratto.',
+      'Porta le ginocchia verso il petto e solleva un poco il bacino, arrotolandolo verso l’alto; espira.',
+      'Scendi lentamente senza far oscillare le gambe.',
+    ],
+    errori: ['Dondolare e usare lo slancio.', 'Alzare solo le gambe senza arrotolare il bacino: lavorano quasi solo i flessori dell’anca.', 'Incassare la testa tra le spalle.'],
+  },
+  b8: {
+    breve: 'Seduto alla macchina, spingi la pedana con i piedi distendendo le gambe, senza bloccare le ginocchia. Lavora cosce e glutei.',
+    img: 'Leg_Press', video: 'pressa orizzontale gambe esecuzione', videoEn: 'seated leg press form',
+    primari: ['Quadricipiti', 'Glutei'], secondari: ['Femorali', 'Adduttori'],
+    passi: [
+      'Siediti con la schiena ben appoggiata e i piedi sulla pedana, alla larghezza delle spalle.',
+      'Afferra le maniglie laterali.',
+      'Piega le ginocchia lentamente fino a circa 90°, senza staccare il bacino dal sedile.',
+      'Spingi con tutta la pianta del piede fino a gambe quasi tese; espira.',
+    ],
+    errori: ['Bloccare le ginocchia in estensione.', 'Lasciare che le ginocchia cadano verso l’interno.', 'Scendere tanto da staccare il bacino e arrotondare la zona lombare.'],
+    nota: 'In foto c’è una pressa inclinata; nella pressa orizzontale sei seduto, ma il movimento è lo stesso.',
+  },
+  b9: {
+    breve: 'Fai un passo lungo in avanti e scendi piegando entrambe le ginocchia, poi torna su. Lavora cosce e glutei; si fa a corpo libero o con i manubri.',
+    img: 'Dumbbell_Lunges', video: 'affondi avanti esecuzione corretta', videoEn: 'forward lunge form',
+    primari: ['Quadricipiti', 'Glutei'], secondari: ['Femorali', 'Polpacci', 'Core'],
+    passi: [
+      'In piedi, piedi alla larghezza dei fianchi (manubri lungo i fianchi, se li usi).',
+      'Fai un passo lungo in avanti con una gamba.',
+      'Scendi in verticale finché il ginocchio dietro arriva quasi a terra; il ginocchio davanti resta sopra la caviglia.',
+      'Spingi col tallone della gamba avanti per tornare su, poi cambia gamba.',
+    ],
+    errori: ['Passo troppo corto: il ginocchio davanti supera la punta del piede.', 'Ginocchio davanti che cade verso l’interno.', 'Busto piegato in avanti.'],
+  },
+  b3: {
+    breve: 'Seduto alla macchina, distendi le gambe sollevando il rullo; in alto tieni 2 secondi. Isola i quadricipiti.',
+    img: 'Leg_Extensions', video: 'leg extension esecuzione corretta', videoEn: 'leg extension form',
+    primari: ['Quadricipiti'], secondari: [],
+    passi: [
+      'Regola lo schienale in modo che le ginocchia siano allineate al perno della macchina e il rullo stia sopra le caviglie.',
+      'Afferra le maniglie laterali, schiena appoggiata.',
+      'Distendi le gambe fino in alto e tieni la contrazione 2 secondi (ISO 2″); espira.',
+      'Scendi lentamente, in 2–3 secondi, senza far toccare i pesi.',
+    ],
+    errori: ['Salire con un colpo di slancio.', 'Staccare il bacino dal sedile.', 'Ginocchia non allineate al perno della macchina.'],
+  },
+  b2: {
+    breve: 'Alla macchina, piega le ginocchia portando il rullo verso i glutei; in fondo tieni 2 secondi. Isola i femorali, dietro la coscia.',
+    img: 'Lying_Leg_Curls', video: 'leg curl esecuzione corretta', videoEn: 'leg curl machine form',
+    primari: ['Femorali'], secondari: ['Polpacci'],
+    passi: [
+      'Sdraiati a pancia in giù (o siediti, se la macchina è da seduto) con le ginocchia appena oltre il bordo e il rullo sopra i talloni.',
+      'Afferra le maniglie e tieni il bacino appoggiato.',
+      'Piega le ginocchia portando i talloni verso i glutei e tieni 2 secondi (ISO 2″); espira.',
+      'Torna giù lentamente, senza distendere di scatto.',
+    ],
+    errori: ['Sollevare il bacino dalla panca.', 'Usare lo slancio.', 'Scendere di colpo.'],
+  },
+  b10: {
+    breve: 'Sdraiato su panca piana, piega i gomiti portando i manubri ai lati della testa, poi distendi le braccia. Isola i tricipiti.',
+    img: 'Lying_Dumbbell_Tricep_Extension', video: 'french press manubri panca piana esecuzione', videoEn: 'lying dumbbell triceps extension form',
+    primari: ['Tricipiti'], secondari: [],
+    passi: [
+      'Sdraiati sulla panca con un manubrio per mano, braccia tese sopra il petto, palmi che si guardano.',
+      'Tieni i gomiti fermi e puntati verso il soffitto.',
+      'Piega solo i gomiti abbassando lentamente i manubri ai lati della testa.',
+      'Distendi le braccia tornando su; espira.',
+    ],
+    errori: ['Aprire i gomiti verso l’esterno.', 'Muovere le spalle: il lavoro passa al petto.', 'Scendere troppo velocemente vicino alla testa.'],
+  },
+  b5: {
+    breve: 'In piedi al cavo alto, spingi la fune verso il basso distendendo i gomiti e aprendola in fondo. Isola i tricipiti.',
+    img: 'Triceps_Pushdown_-_Rope_Attachment', video: 'push down tricipiti fune esecuzione', videoEn: 'rope triceps pushdown form',
+    primari: ['Tricipiti'], secondari: [],
+    passi: [
+      'Aggancia la fune al cavo alto e afferrala con i palmi che si guardano.',
+      'In piedi, busto appena in avanti, gomiti attaccati ai fianchi.',
+      'Spingi giù fino a braccia tese, aprendo le estremità della fune verso l’esterno; espira.',
+      'Risali lentamente fino a gomiti a circa 90°, senza spostare i gomiti.',
+    ],
+    errori: ['Gomiti che si staccano dai fianchi.', 'Usare il peso del corpo per spingere.', 'Risalire oltre i 90°.'],
+  },
+  b12: {
+    breve: 'In appoggio su avambracci e punte dei piedi, tieni il corpo dritto come una tavola per 1 minuto. Lavora tutto il core.',
+    img: 'Plank', video: 'plank esecuzione corretta', videoEn: 'plank form',
+    primari: ['Addominali'], secondari: ['Obliqui', 'Glutei', 'Spalle'],
+    passi: [
+      'A terra a pancia in giù, appoggia gli avambracci con i gomiti sotto le spalle.',
+      'Solleva il corpo sulle punte dei piedi.',
+      'Allinea testa, schiena e talloni; contrai addome e glutei.',
+      'Tieni la posizione respirando normalmente per 1 minuto.',
+    ],
+    errori: ['Bacino troppo alto o che cade verso il basso.', 'Trattenere il respiro.', 'Testa abbassata o sollevata.'],
+  },
+  c1: {
+    breve: 'In piedi, piega i gomiti portando il bilanciere dalle cosce al petto, gomiti fermi ai fianchi. Lavora i bicipiti.',
+    img: 'Barbell_Curl', video: 'curl bicipiti bilanciere esecuzione', videoEn: 'barbell curl form',
+    primari: ['Bicipiti'], secondari: ['Avambracci'],
+    passi: [
+      'In piedi, afferra il bilanciere con i palmi in avanti, mani alla larghezza delle spalle.',
+      'Gomiti vicini ai fianchi, spalle ferme.',
+      'Piega i gomiti portando il bilanciere verso il petto; espira.',
+      'Scendi lentamente fino a braccia quasi tese.',
+    ],
+    errori: ['Dondolare col busto per tirare su il peso.', 'Portare i gomiti in avanti.', 'Scendere di colpo.'],
+  },
+  c2: {
+    breve: 'In piedi con un manubrio per mano e i palmi verso il corpo (presa a martello), piega un braccio alla volta. Lavora bicipiti e avambracci.',
+    img: 'Alternate_Hammer_Curl', video: 'hammer curl alternato manubri esecuzione', videoEn: 'alternating hammer curl form',
+    primari: ['Brachiale', 'Bicipiti'], secondari: ['Avambracci'],
+    passi: [
+      'In piedi, manubri lungo i fianchi, palmi rivolti verso le cosce.',
+      'Gomiti fermi vicino al busto.',
+      'Piega un braccio portando il manubrio verso la spalla, senza ruotare il polso; espira.',
+      'Scendi lentamente e ripeti con l’altro braccio.',
+    ],
+    errori: ['Dondolare col busto.', 'Ruotare il polso: diventa un curl classico.', 'Portare il gomito in avanti.'],
+  },
+  c3: {
+    breve: 'Seduto sulla panca, col gomito appoggiato all’interno della coscia, piega il braccio portando il manubrio verso la spalla. Isola il bicipite.',
+    img: 'Concentration_Curls', video: 'curl concentrato manubrio esecuzione', videoEn: 'concentration curl form',
+    primari: ['Bicipiti'], secondari: [],
+    passi: [
+      'Siediti sulla panca a gambe divaricate, manubrio in una mano.',
+      'Appoggia il retro del braccio all’interno della coscia, braccio teso.',
+      'Piega il gomito portando il manubrio verso la spalla e stringi in alto; espira.',
+      'Scendi lentamente fino a braccio quasi teso; a fine serie cambia braccio.',
+    ],
+    errori: ['Aiutarti col busto.', 'Staccare il braccio dalla coscia.', 'Non distendere il braccio in basso.'],
+  },
+  c4: {
+    breve: 'Seduto con la schiena appoggiata, spingi il bilanciere dalla parte alta del petto fin sopra la testa. Lavora le spalle.',
+    img: 'Seated_Barbell_Military_Press', video: 'lento avanti bilanciere seduto esecuzione', videoEn: 'seated barbell overhead press form',
+    primari: ['Spalle'], secondari: ['Tricipiti', 'Trapezio'],
+    passi: [
+      'Siediti sulla panca con lo schienale quasi verticale, schiena e glutei appoggiati.',
+      'Afferra il bilanciere poco più largo delle spalle e portalo davanti, all’altezza della parte alta del petto.',
+      'Spingi in alto fino a braccia quasi tese sopra la testa; espira.',
+      'Scendi lentamente davanti al viso fino al petto alto.',
+    ],
+    errori: ['Inarcare la schiena staccandola dallo schienale.', 'Portare il bilanciere dietro la nuca.', 'Piegare il collo all’indietro.'],
+    nota: 'Si può fare anche con i manubri o al multipower: chiedi all’istruttore quale usare.',
+  },
+  c5: {
+    breve: 'Seduto alla macchina, spingi le maniglie sopra la testa con i palmi che si guardano (presa neutra), più delicata per le spalle.',
+    img: 'Leverage_Shoulder_Press', video: 'shoulder press presa neutra esecuzione', videoEn: 'neutral grip shoulder press form',
+    primari: ['Spalle'], secondari: ['Tricipiti'],
+    passi: [
+      'Regola il sedile in modo che le maniglie partano all’altezza delle spalle.',
+      'Afferra le maniglie con i palmi che si guardano, schiena appoggiata.',
+      'Spingi in alto fino a braccia quasi tese; espira.',
+      'Scendi lentamente fino all’altezza delle spalle.',
+    ],
+    errori: ['Bloccare i gomiti in alto.', 'Staccare la schiena dallo schienale.', 'Alzare le spalle verso le orecchie.'],
+    nota: 'Se non c’è la macchina, si fa con i manubri tenuti a palmi affiancati.',
+  },
+  c6: {
+    breve: 'In piedi, tira il bilanciere lungo il corpo fino al petto, con i gomiti che salgono più in alto delle mani. Lavora spalle e trapezio.',
+    img: 'Upright_Barbell_Row', video: 'tirate al mento bilanciere esecuzione', videoEn: 'barbell upright row form',
+    primari: ['Deltoide laterale', 'Trapezio'], secondari: ['Bicipiti'],
+    passi: [
+      'In piedi, bilanciere davanti alle cosce, presa poco più larga delle spalle.',
+      'Schiena dritta, addome contratto.',
+      'Tira il bilanciere verso l’alto vicino al corpo, guidando con i gomiti, fino a metà petto; espira.',
+      'Scendi lentamente.',
+    ],
+    errori: ['Presa troppo stretta e salita fino al mento: può irritare le spalle.', 'Dondolare col busto.', 'Polsi più alti dei gomiti.'],
+  },
+  c7: {
+    breve: 'Sdraiato a terra, porta una spalla verso il ginocchio opposto ruotando leggermente il busto. Lavora gli obliqui.',
+    img: 'Oblique_Crunches_-_On_The_Floor', video: 'crunch obliqui a terra esecuzione', videoEn: 'oblique crunch form',
+    primari: ['Obliqui'], secondari: ['Addominali'],
+    passi: [
+      'Sdraiati a terra con le ginocchia piegate, oppure con una caviglia appoggiata sul ginocchio opposto.',
+      'Mani dietro la testa, senza tirare il collo.',
+      'Solleva le spalle ruotando il busto e porta il gomito verso il ginocchio opposto; espira.',
+      'Torna giù lentamente; fai le ripetizioni da un lato, poi dall’altro.',
+    ],
+    errori: ['Tirare la testa con le mani.', 'Usare lo slancio.', 'Staccare la zona lombare da terra.'],
+  },
+  b6: {
+    breve: 'Nella macchina hack squat, con solo le punte dei piedi sul bordo della pedana, sali sulle punte e scendi lentamente. Lavora i polpacci.',
+    img: 'Standing_Calf_Raises', video: 'calf raise hack squat esecuzione', videoEn: 'hack squat calf raise form',
+    primari: ['Polpacci'], secondari: [],
+    passi: [
+      'Mettiti nella hack squat con le spalle sotto i cuscinetti e solo l’avampiede sul bordo basso della pedana, talloni fuori.',
+      'Ginocchia distese ma non bloccate.',
+      'Sali sulle punte il più in alto possibile e tieni un attimo; espira.',
+      'Scendi lentamente sotto il livello della pedana per allungare il polpaccio.',
+    ],
+    errori: ['Movimento troppo corto o a rimbalzo.', 'Piegare le ginocchia per aiutarti.', 'Scendere di colpo.'],
+    nota: 'In foto c’è una calf machine in piedi: il movimento è lo stesso.',
+  },
+};
+
 
 /* ===== Stato runtime ===== */
 let supabase = null;
@@ -419,20 +866,30 @@ function normalize(loaded){
   const base = clone(DEFAULT_STATE);
   if (!loaded || typeof loaded !== 'object') return base;
   base.storico = Array.isArray(loaded.storico) ? loaded.storico : [];
-  for (const sk of ['A','B']) {
+  // Gli esercizi si cercano per id in tutte le schede: un esercizio spostato
+  // in un'altra scheda (o fra quelli di fine allenamento) mantiene i suoi valori.
+  const caricati = [
+    ...Object.values(loaded.schede ?? {}).flatMap(s => s?.esercizi ?? []),
+    ...(Array.isArray(loaded.fine) ? loaded.fine : []),
+  ];
+  for (const sk of SCHEDE) {
     const ls = loaded.schede?.[sk];
-    if (!ls) continue;
-    if (typeof ls.riscaldamento === 'string') base.schede[sk].riscaldamento = ls.riscaldamento;
-    for (const ex of base.schede[sk].esercizi) {
-      const le = ls.esercizi?.find(e => e.id === ex.id);
-      if (!le) continue;
-      if (le.peso != null && !ex.corpoLibero) ex.peso = le.peso;
-      if (le.note_personali != null) ex.note_personali = le.note_personali;
-      if (le.serie != null) ex.serie = le.serie;
-      if (le.ripetizioni != null) ex.ripetizioni = le.ripetizioni;
-    }
+    if (typeof ls?.riscaldamento === 'string') base.schede[sk].riscaldamento = ls.riscaldamento;
+  }
+  for (const ex of tuttiEsercizi(base)) {
+    const le = caricati.find(e => e?.id === ex.id);
+    if (!le) continue;
+    if (le.peso != null && !ex.corpoLibero) ex.peso = le.peso;
+    if (le.note_personali != null) ex.note_personali = le.note_personali;
+    if (le.descrizione_utente != null) ex.descrizione_utente = le.descrizione_utente;
+    if (le.serie != null) ex.serie = le.serie;
+    if (le.ripetizioni != null) ex.ripetizioni = le.ripetizioni;
   }
   return base;
+}
+
+function tuttiEsercizi(st){
+  return [...SCHEDE.flatMap(sk => st.schede[sk].esercizi), ...st.fine];
 }
 
 /* ===== Salvataggio su Supabase (con debounce) ===== */
@@ -486,6 +943,11 @@ function renderScheda(c, sk){
   const sch = state.schede[sk];
   c.innerHTML = '';
 
+  const sc = document.createElement('p');
+  sc.className = 'scadenza';
+  sc.textContent = `${sch.titolo} · valida fino al ${SCADENZA}`;
+  c.appendChild(sc);
+
   // Riscaldamento
   const w = document.createElement('div');
   w.className = 'warmup';
@@ -501,6 +963,13 @@ function renderScheda(c, sk){
 
   // Esercizi
   sch.esercizi.forEach((ex, i) => c.appendChild(cardEsercizio(ex, i + 1)));
+
+  // Ogni fine allenamento
+  const fh = document.createElement('h2');
+  fh.className = 'section-title';
+  fh.textContent = 'Ogni fine allenamento';
+  c.appendChild(fh);
+  state.fine.forEach((ex, i) => c.appendChild(cardEsercizio(ex, sch.esercizi.length + i + 1)));
 
   // Salva sessione
   const btn = document.createElement('button');
@@ -521,9 +990,13 @@ function cardEsercizio(ex, num){
     <div class="card-head">
       <span class="card-num">${num}</span>
       <span class="card-name">${esc(ex.nome)}${ex.gruppo ? ` <span style="font-weight:500;color:var(--muted);font-size:14px">(${esc(ex.gruppo)})</span>` : ''}</span>
+      ${ex.prescrizione ? `<span class="prescr">${esc(ex.prescrizione)}</span>` : ''}
     </div>
+    ${descrizione(ex) ? `<p class="desc">${esc(descrizione(ex))}</p>` : ''}
     ${ref}
+    ${DETTAGLI[ex.id] ? `<button class="howto">Come si esegue ${ICONA_AVANTI}</button>` : ''}
   `;
+  card.querySelector('.howto')?.addEventListener('click', () => apriDettaglio(ex));
 
   if (ex.corpoLibero) {
     const cl = document.createElement('div');
@@ -599,11 +1072,121 @@ function weightBox(ex){
   return box;
 }
 
+/* ===== Dettaglio esercizio ===== */
+const ICONA_AVANTI = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>';
+const ICONA_NO = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>';
+const ICONA_PLAY = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5.5v13a1 1 0 0 0 1.5.86l10.5-6.5a1 1 0 0 0 0-1.72L9.5 4.64A1 1 0 0 0 8 5.5z"/></svg>';
+
+function descrizione(ex){
+  return ex.descrizione_utente ?? DETTAGLI[ex.id]?.breve ?? '';
+}
+
+const youtube = q => 'https://www.youtube.com/results?search_query=' + encodeURIComponent(q);
+
+let scrollPrimaDettaglio = 0;
+
+function apriDettaglio(ex){
+  const d = DETTAGLI[ex.id];
+  if (!d) return;
+  $('#detailTitle').textContent = ex.nome;
+  const body = $('#detailBody');
+  const chips = (arr, cls) => arr.map(m => `<span class="chip ${cls}">${esc(m)}</span>`).join('');
+  body.innerHTML = `
+    <div class="d-head">
+      <h1>${esc(ex.nome)}</h1>
+      ${ex.prescrizione ? `<span class="prescr">${esc(ex.prescrizione)}</span>` : ''}
+    </div>
+    <div class="gallery">
+      <figure><img src="${IMG_BASE}${d.img}/0.jpg" alt="${esc(ex.nome)}: posizione iniziale" loading="lazy"><figcaption>Inizio</figcaption></figure>
+      <figure><img src="${IMG_BASE}${d.img}/1.jpg" alt="${esc(ex.nome)}: posizione finale" loading="lazy"><figcaption>Fine</figcaption></figure>
+    </div>
+    <p class="credit">Foto: free-exercise-db, pubblico dominio.</p>
+    ${d.nota ? `<p class="d-nota">${esc(d.nota)}</p>` : ''}
+    ${ex.note_riferimento ? `<p class="d-nota">In palestra: ${esc(ex.note_riferimento)}</p>` : ''}
+
+    <section class="d-sec d-edit">
+      <h3>In breve</h3>
+      <textarea rows="3" aria-label="Descrizione breve">${esc(descrizione(ex))}</textarea>
+      <div class="d-edit-foot">
+        <span>Modificala dopo averlo provato: compare sulla scheda.</span>
+        <button type="button" class="reset">Ripristina</button>
+      </div>
+    </section>
+
+    <section class="d-sec">
+      <h3>Muscoli coinvolti</h3>
+      <div class="chips">${chips(d.primari, 'primario')}${chips(d.secondari, '')}</div>
+    </section>
+
+    <section class="d-sec">
+      <h3>Come si esegue</h3>
+      <ol class="passi">${d.passi.map(p => `<li>${esc(p)}</li>`).join('')}</ol>
+    </section>
+
+    <section class="d-sec">
+      <h3>Errori da evitare</h3>
+      <ul class="errori">${d.errori.map(e => `<li>${ICONA_NO}${esc(e)}</li>`).join('')}</ul>
+    </section>
+
+    <section class="d-sec">
+      <h3>Video</h3>
+      <div class="video-links">
+        <a href="${youtube(d.video)}" target="_blank" rel="noopener">
+          <span class="play">${ICONA_PLAY}</span>
+          <span><strong>Video in italiano</strong><small>Ricerca su YouTube</small></span>
+        </a>
+        <a href="${youtube(d.videoEn)}" target="_blank" rel="noopener">
+          <span class="play">${ICONA_PLAY}</span>
+          <span><strong>Video in inglese</strong><small>Più risultati, ricerca su YouTube</small></span>
+        </a>
+      </div>
+    </section>`;
+
+  // Se una foto non si carica (es. offline) la si toglie; senza foto sparisce la galleria
+  body.querySelectorAll('.gallery img').forEach(img => img.addEventListener('error', () => {
+    img.closest('figure').remove();
+    if (!body.querySelector('.gallery figure')) {
+      body.querySelector('.gallery').remove();
+      body.querySelector('.credit').remove();
+    }
+  }));
+
+  const ta = $('.d-edit textarea', body), reset = $('.reset', body);
+  const aggiornaReset = () => { reset.hidden = ex.descrizione_utente == null; };
+  ta.addEventListener('input', () => {
+    if (ta.value === d.breve) delete ex.descrizione_utente;
+    else ex.descrizione_utente = ta.value;
+    aggiornaReset(); scheduleSave();
+  });
+  reset.addEventListener('click', () => {
+    ta.value = d.breve;
+    ta.dispatchEvent(new Event('input'));
+  });
+  aggiornaReset();
+  autogrow(ta);
+
+  scrollPrimaDettaglio = window.scrollY;
+  $('.detail-scroll').scrollTop = 0;
+  $('.detail-bar').classList.remove('titolata');
+  $('#detail').classList.add('open');
+  document.body.classList.add('detail-open');
+  history.pushState({ dettaglio: ex.id }, '');
+  $('#detailBack').focus();
+}
+
+// Chiusura col tasto indietro (anche quello del telefono): passa da popstate
+function chiudiDettaglio(){
+  if (!$('#detail').classList.contains('open')) return;
+  $('#detail').classList.remove('open');
+  document.body.classList.remove('detail-open');
+  if (state) render();   // aggiorna la descrizione breve sulla card
+  window.scrollTo(0, scrollPrimaDettaglio);
+}
+
 /* ===== Storico ===== */
 function renderStorico(c){
   c.innerHTML = '';
-  const all = [...state.schede.A.esercizi, ...state.schede.B.esercizi]
-    .filter(e => !e.corpoLibero);
+  const all = tuttiEsercizi(state).filter(e => !e.corpoLibero);
 
   const sel = document.createElement('select');
   sel.className = 'storico-select';
@@ -638,7 +1221,7 @@ function renderStorico(c){
 function salvaSessione(sk){
   const sch = state.schede[sk];
   const pesi = {};
-  sch.esercizi.forEach(e => { if (!e.corpoLibero) pesi[e.id] = Number(e.peso) || 0; });
+  [...sch.esercizi, ...state.fine].forEach(e => { if (!e.corpoLibero) pesi[e.id] = Number(e.peso) || 0; });
   state.storico.push({ data: new Date().toISOString(), scheda: sk, pesi });
   scheduleSave();
   toast('✅ Sessione salvata nello storico');
@@ -743,6 +1326,15 @@ function messaggioErroreLink(code, descr){
    BOOT
    ============================================================ */
 function wireUI(){
+  // dettaglio esercizio
+  $('#detailBack').addEventListener('click', () => history.back());
+  window.addEventListener('popstate', chiudiDettaglio);
+  // il nome compare nella barra solo quando il titolo grande è uscito dallo schermo
+  $('.detail-scroll').addEventListener('scroll', e => {
+    const h1 = $('.d-head h1');
+    if (h1) $('.detail-bar').classList.toggle('titolata', e.target.scrollTop > h1.offsetTop + h1.offsetHeight);
+  }, { passive: true });
+
   // tabs
   document.querySelectorAll('.tab').forEach(t =>
     t.addEventListener('click', () => { currentView = t.dataset.view; render(); }));
